@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}NAO{% endblock %}</title>
 
         <!-- Bootstrap core CSS -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
@@ -29,7 +29,7 @@
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+                <a class="navbar-brand js-scroll-trigger" href="{{ path("homepage") }}">Nos Amis les Oiseaux</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fa fa-bars"></i>
@@ -37,16 +37,19 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#">Services</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ path("homepage") }}">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#">Portfolio</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ path("dashboard") }}">Connexion</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#">About</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ path("indexBlog") }}">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#">Team</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ path("rechercheObservations") }}">Observations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{{ path("avanceeRecherche") }}">La recherche</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger" href="#">Contact</a>
@@ -60,9 +63,9 @@
         <header class="masthead">
             <div class="container">
                 <div class="intro-text">
-                    <div class="intro-lead-in">Welcome To Our Studio!</div>
-                    <div class="intro-heading">It's Nice To Meet You</div>
-                    <a class="btn btn-xl js-scroll-trigger" href="#">Tell Me More</a>
+                    <div class="intro-lead-in">Programme de recherche scientifique</div>
+                    <div class="intro-heading">Devenez un scientifique citoyen en participant à l'observation des oiseaux</div>
+                    <a class="btn btn-xl js-scroll-trigger" href="{{ path("saisieObservation") }}">Participer</a>
                 </div>
             </div>
         </header>
