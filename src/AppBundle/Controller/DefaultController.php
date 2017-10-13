@@ -24,9 +24,12 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboardAction()
+    public function dashboardAction(BlogManager $blogManager)
     {
-        return $this->render("default/dashboard.html.twig");
+        // Récupération du formulaire de rédaction d'un article
+        $form = $blogManager->getFormCreatePost();
+
+        return $this->render("default/dashboard.html.twig", array('form' => $form->createView()));
     }
 
     /**
@@ -69,12 +72,9 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/blog", name="indexBlog")
      */
-    public function indexBlogAction(BlogManager $blogManager)
+    public function indexBlogAction()
     {
-        // Récupération du formulaire de rédaction d'un article
-        $form = $blogManager->getFormCreatePost();
-
-        return $this->render("default/blog/indexBlog.html.twig", array('form' => $form->createView()));
+        return $this->render("default/blog/indexBlog.html.twig");
     }
 
     /**
