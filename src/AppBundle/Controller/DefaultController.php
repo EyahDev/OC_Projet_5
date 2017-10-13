@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Services\BlogManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -68,9 +69,12 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/blog", name="indexBlog")
      */
-    public function indexBlogAction()
+    public function indexBlogAction(BlogManager $blogManager)
     {
-        return $this->render("default/blog/indexBlog.html.twig");
+        // Récupération du formulaire de rédaction d'un article
+        $form = $blogManager->getFormCreatePost();
+
+        return $this->render("default/blog/indexBlog.html.twig", array('form' => $form->createView()));
     }
 
     /**

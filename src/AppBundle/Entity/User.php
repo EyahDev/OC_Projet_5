@@ -13,6 +13,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Observation", mappedBy="observer", cascade={"persist"})
+     */
+    private $observations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Observation", mappedBy="validator", cascade={"persist"})
+     */
+    private $observationsValidated;
+
     /**
      * @var int
      *
@@ -345,5 +356,80 @@ class User implements UserInterface
     {
         return $this->roles;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->observations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->observationsValidated = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add observation
+     *
+     * @param \AppBundle\Entity\Observation $observation
+     *
+     * @return User
+     */
+    public function addObservation(\AppBundle\Entity\Observation $observation)
+    {
+        $this->observations[] = $observation;
+
+        return $this;
+    }
+
+    /**
+     * Remove observation
+     *
+     * @param \AppBundle\Entity\Observation $observation
+     */
+    public function removeObservation(\AppBundle\Entity\Observation $observation)
+    {
+        $this->observations->removeElement($observation);
+    }
+
+    /**
+     * Get observations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getObservations()
+    {
+        return $this->observations;
+    }
+
+    /**
+     * Add observationsValidated
+     *
+     * @param \AppBundle\Entity\Observation $observationsValidated
+     *
+     * @return User
+     */
+    public function addObservationsValidated(\AppBundle\Entity\Observation $observationsValidated)
+    {
+        $this->observationsValidated[] = $observationsValidated;
+
+        return $this;
+    }
+
+    /**
+     * Remove observationsValidated
+     *
+     * @param \AppBundle\Entity\Observation $observationsValidated
+     */
+    public function removeObservationsValidated(\AppBundle\Entity\Observation $observationsValidated)
+    {
+        $this->observationsValidated->removeElement($observationsValidated);
+    }
+
+    /**
+     * Get observationsValidated
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getObservationsValidated()
+    {
+        return $this->observationsValidated;
+    }
+}

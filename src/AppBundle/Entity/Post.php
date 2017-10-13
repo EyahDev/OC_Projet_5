@@ -13,6 +13,23 @@ use Doctrine\ORM\Mapping as ORM;
 class Post
 {
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Comment", inversedBy="post")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $comments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     */
+    private $author;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category", inversedBy="posts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -27,13 +44,6 @@ class Post
      * @ORM\Column(name="title", type="string", length=255, unique=true)
      */
     private $title;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="author", type="string", length=255)
-     */
-    private $author;
 
     /**
      * @var string
@@ -217,5 +227,52 @@ class Post
     {
         return $this->publishedDate;
     }
-}
 
+    /**
+     * Set comments
+     *
+     * @param \AppBundle\Entity\Comment $comments
+     *
+     * @return Post
+     */
+    public function setComments(\AppBundle\Entity\Comment $comments = null)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \AppBundle\Entity\Comment
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Post
+     */
+    public function setCategory(\AppBundle\Entity\Category $category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+}

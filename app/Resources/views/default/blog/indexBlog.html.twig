@@ -2,4 +2,19 @@
 
 {% block contentBlog %}
     <h3>accueil</h3>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_label(form.title) }}<br/>
+    {{ form_widget(form.title) }}<br/>
+
+    {{ form_label(form.imagePath) }}<br/>
+    {{ form_widget(form.imagePath) }}<br/>
+
+    {{ form_label(form.content) }}<br/>
+    {{ form_widget(form.content) }}<br/>
+
+    {{ form_end(form) }}
+
 {% endblock %}

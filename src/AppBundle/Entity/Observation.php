@@ -13,6 +13,24 @@ use Doctrine\ORM\Mapping as ORM;
 class Observation
 {
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Species", inversedBy="observations")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $species;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="observations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $observer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="observationsValidated")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $validator;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -341,5 +359,76 @@ class Observation
     {
         return $this->validateDate;
     }
-}
 
+    /**
+     * Set species
+     *
+     * @param \AppBundle\Entity\Species $species
+     *
+     * @return Observation
+     */
+    public function setSpecies(\AppBundle\Entity\Species $species = null)
+    {
+        $this->species = $species;
+
+        return $this;
+    }
+
+    /**
+     * Get species
+     *
+     * @return \AppBundle\Entity\Species
+     */
+    public function getSpecies()
+    {
+        return $this->species;
+    }
+
+    /**
+     * Set observer
+     *
+     * @param \AppBundle\Entity\User $observer
+     *
+     * @return Observation
+     */
+    public function setObserver(\AppBundle\Entity\User $observer)
+    {
+        $this->observer = $observer;
+
+        return $this;
+    }
+
+    /**
+     * Get observer
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getObserver()
+    {
+        return $this->observer;
+    }
+
+    /**
+     * Set validator
+     *
+     * @param \AppBundle\Entity\User $validator
+     *
+     * @return Observation
+     */
+    public function setValidator(\AppBundle\Entity\User $validator = null)
+    {
+        $this->validator = $validator;
+
+        return $this;
+    }
+
+    /**
+     * Get validator
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getValidator()
+    {
+        return $this->validator;
+    }
+}

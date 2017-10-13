@@ -13,6 +13,27 @@ use Doctrine\ORM\Mapping as ORM;
 class Comment
 {
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Post", mappedBy="comments", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $post;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     */
+    private $author;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="parent")
+     */
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Comment", inversedBy="children")
+     */
+    private $parent;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -36,32 +57,18 @@ class Comment
     private $date;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="author", type="string", length=255)
+     * @ORM\Column(name="flagged", type="integer")
      */
-    private $author;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="responses", type="string", length=255, nullable=true)
-     */
-    private $responses;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="parent", type="string", length=255)
-     */
-    private $parent;
+    private $flagged;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="flagged", type="boolean")
+     * @ORM\Column(name="approuved", type="boolean")
      */
-    private $flagged;
+    private $approuved;
 
 
     /**
@@ -217,5 +224,104 @@ class Comment
     {
         return $this->flagged;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->post = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add post
+     *
+     * @param \AppBundle\Entity\Post $post
+     *
+     * @return Comment
+     */
+    public function addPost(\AppBundle\Entity\Post $post)
+    {
+        $this->post[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \AppBundle\Entity\Post $post
+     */
+    public function removePost(\AppBundle\Entity\Post $post)
+    {
+        $this->post->removeElement($post);
+    }
+
+    /**
+     * Get post
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \AppBundle\Entity\Comment $child
+     *
+     * @return Comment
+     */
+    public function addChild(\AppBundle\Entity\Comment $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \AppBundle\Entity\Comment $child
+     */
+    public function removeChild(\AppBundle\Entity\Comment $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set approuved
+     *
+     * @param boolean $approuved
+     *
+     * @return Comment
+     */
+    public function setApprouved($approuved)
+    {
+        $this->approuved = $approuved;
+
+        return $this;
+    }
+
+    /**
+     * Get approuved
+     *
+     * @return boolean
+     */
+    public function getApprouved()
+    {
+        return $this->approuved;
+    }
+}
