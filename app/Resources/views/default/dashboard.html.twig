@@ -2,4 +2,192 @@
 
 {% block body %}
     <h2>Tableau de bord</h2>
+    <div id="quickAccess" class="text-center">
+        <h3>Accès rapide</h3>
+        <p><a class="btn btn-primary" href="#" role="button">Saisie d'une observation</a></p>
+    </div>
+    {# accordéon particulier et professionnel #}
+    <div id="commonFeatures" class="text-center">
+        <div id="accordionUserAndPro" role="tablist">
+            {# collapse mes informations #}
+            <div class="card">
+                <div class="card-header" role="tab" id="headingMyAccount">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseMyAccount" aria-expanded="false" aria-controls="collapseMyAccount">
+                            Mes informations
+                        </a>
+                    </h5>
+                </div>
+
+                <div id="collapseMyAccount" class="collapse" role="tabpanel" aria-labelledby="headingMyAccount" data-parent="#accordionUserAndPro">
+                    <div class="card-body">
+                        {% include 'default/dashboard/commonFeatures/myAccount.html.twig' %}
+                    </div>
+                </div>
+            </div>
+            {# collapse mes observations #}
+            <div class="card">
+                <div class="card-header" role="tab" id="headingMyObservations">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseMyObservations" aria-expanded="false" aria-controls="collapseMyObservations">
+                            Mes observations
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseMyObservations" class="collapse" role="tabpanel" aria-labelledby="headingMyObservations" data-parent="#accordionUserAndPro">
+                    <div class="card-body">
+                        {% include 'default/dashboard/commonFeatures/myObservations.html.twig' %}
+                    </div>
+                </div>
+            </div>
+            {# collapse validation d'observations (profil pro et admin) #}
+            <div class="card">
+                <div class="card-header" role="tab" id="headingValidation">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseValidation" aria-expanded="false" aria-controls="collapseValidation">
+                            Validation d'observations
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseValidation" class="collapse" role="tabpanel" aria-labelledby="headingValidation" data-parent="#accordionUserAndPro">
+                    <div class="card-body">
+                        {% include 'default/dashboard/commonFeatures/observationsValidation.html.twig' %}
+                    </div>
+                </div>
+            </div>
+            {# collapse mes statistiques #}
+            <div class="card">
+                <div class="card-header" role="tab" id="headingMyStatistics">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseMyStatistics" aria-expanded="false" aria-controls="collapseMyStatistics">
+                            Mes statistiques
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseMyStatistics" class="collapse" role="tabpanel" aria-labelledby="headingMyStatistics" data-parent="#accordionUserAndPro">
+                    <div class="card-body">
+                        {% include 'default/dashboard/commonFeatures/myStatistics.html.twig' %}
+                    </div>
+                </div>
+            </div>
+            {# collapse nous écrire (profil user et pro) #}
+            <div class="card">
+                <div class="card-header" role="tab" id="headingContactUs">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseContactUs" aria-expanded="false" aria-controls="collapseContactUs">
+                            Nous écrire
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseContactUs" class="collapse" role="tabpanel" aria-labelledby="headingContactUs" data-parent="#accordionUserAndPro">
+                    <div class="card-body">
+                        {% include 'default/dashboard/commonFeatures/contactUs.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# accordéon gestion du blog #}
+    <div id="blogManagement" class="text-center">
+        <h3>Gestion du blog</h3>
+        <div id="accordionBlogManagement" role="tablist">
+            {# collapse Rédiger un article #}
+            <div class="card">
+                <div class="card-header" role="tab" id="headingWritePost">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseWritePost" aria-expanded="false" aria-controls="collapseWritePost">
+                            Rédiger un article
+                        </a>
+                    </h5>
+                </div>
+
+                <div id="collapseWritePost" class="collapse" role="tabpanel" aria-labelledby="headingWritePost" data-parent="#accordionBlogManagement">
+                    <div class="card-body">
+                        {% include 'default/dashboard/blogManagement/writePost.html.twig' %}
+                    </div>
+                </div>
+            </div>
+            {# collapse Gérer les articles #}
+            <div class="card">
+                <div class="card-header" role="tab" id="headingManagePosts">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseManagePosts" aria-expanded="false" aria-controls="collapseManagePosts">
+                            Gérer les articles
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseManagePosts" class="collapse" role="tabpanel" aria-labelledby="headingManagePosts" data-parent="#accordionBlogManagement">
+                    <div class="card-body">
+                        {% include 'default/dashboard/blogManagement/managePosts.html.twig' %}
+                    </div>
+                </div>
+            </div>
+            {# collapse Gérer les catégories #}
+            <div class="card">
+                <div class="card-header" role="tab" id="headingManageCategories">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseManageCategories" aria-expanded="false" aria-controls="collapseManageCategories">
+                            Gérer les catégories
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseManageCategories" class="collapse" role="tabpanel" aria-labelledby="headingManageCategories" data-parent="#accordionBlogManagement">
+                    <div class="card-body">
+                        {% include 'default/dashboard//blogManagement/manageCategories.html.twig' %}
+                    </div>
+                </div>
+            </div>
+            {# collapse Modération des commentaires #}
+            <div class="card">
+                <div class="card-header" role="tab" id="headingCommentsModeration">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseCommentsModeration" aria-expanded="false" aria-controls="collapseCommentsModeration">
+                            Modération des commentaires
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseCommentsModeration" class="collapse" role="tabpanel" aria-labelledby="headingCommentsModeration" data-parent="#accordionBlogManagement">
+                    <div class="card-body">
+                        {% include 'default/dashboard/blogManagement/commentsModeration.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# accordéon administration du site #}
+    <div id="websiteAdministration" class="text-center">
+        <h3>Administration du site</h3>
+        <div id="accordionWebsiteAdministration" role="tablist">
+            {# collapse Gestion des utilsateurs #}
+            <div class="card">
+                <div class="card-header" role="tab" id="headingUsersManagement">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseUsersManagement" aria-expanded="false" aria-controls="collapseUsersManagement">
+                            Gestion des utilsateurs
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseUsersManagement" class="collapse" role="tabpanel" aria-labelledby="headingUsersManagement" data-parent="#accordionWebsiteAdministration">
+                    <div class="card-body">
+                        {% include 'default/dashboard/websiteAdministration/usersManagement.html.twig' %}
+                    </div>
+                </div>
+            </div>
+            {# collapse Gestion de la FAQ #}
+            <div class="card">
+                <div class="card-header" role="tab" id="headingFaqManagement">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseFaqManagement" aria-expanded="false" aria-controls="collapseFaqManagement">
+                            Gestion de la FAQ
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseFaqManagement" class="collapse" role="tabpanel" aria-labelledby="headingFaqManagement" data-parent="#accordionWebsiteAdministration">
+                    <div class="card-body">
+                        {% include 'default/dashboard/websiteAdministration/faqManagement.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
