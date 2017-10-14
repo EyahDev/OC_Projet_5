@@ -20,17 +20,6 @@ class DefaultController extends Controller
         ]);
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/dashboard", name="dashboard")
-     */
-    public function dashboardAction(BlogManager $blogManager)
-    {
-        // Récupération du formulaire de rédaction d'un article
-        $form = $blogManager->getFormCreatePost();
-
-        return $this->render("default/dashboard.html.twig", array('form' => $form->createView()));
-    }
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response

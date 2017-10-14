@@ -1,1 +1,7 @@
-<p>Gérer les articles</p>
+{% if postsList|length == 0 %}
+    Aucun articles n'a été publié pour l'instant
+{% endif %}
+
+{% for post in postsList %}
+    titre : {{ post.title }} posté le : {{ post.publishedDate|date("d/m/Y h:m") }}<br/>
+{% endfor %}
