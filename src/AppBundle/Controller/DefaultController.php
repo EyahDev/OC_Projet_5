@@ -23,14 +23,6 @@ class DefaultController extends Controller
         ]);
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/dashboard", name="dashboard")
-     */
-    public function dashboardAction()
-    {
-        return $this->render("default/dashboard.html.twig");
-    }
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
