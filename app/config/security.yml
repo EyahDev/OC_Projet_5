@@ -35,6 +35,9 @@ security:
                 default_target_path: dashboard
                 always_use_default_target_path: true
             provider: appbundle_user
+            logout:
+                path: /logout
+                target: /
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
