@@ -2,8 +2,10 @@
 
 namespace AppBundle\Form\Security;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,14 +22,10 @@ class ChangeRoleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('role', ChoiceType::class, array(
-                "choices" => array(
-                    "particulier" => "ROLE_USER",
-                    "professionnel" => "ROLE_PROFESIONAL",
-                    "administrateur" => "ROLE_ADMIN"
-                )
-            ))
+        $builder->add('roles', EntityType::class, array(
+            "class" => "AppBundle:Role",
+            "choice_label" => "name"
+        ))
             ->add('save', SubmitType::class);
     }
     

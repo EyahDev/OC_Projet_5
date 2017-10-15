@@ -99,9 +99,9 @@ class User implements UserInterface, \Serializable
     /**
      * @var array
      *
-     * @ORM\Column(name="role", type="array")
+     * @ORM\Column(name="roles", type="array")
      */
-    private $role;
+    private $roles = array();
 
     public function eraseCredentials()
     {
@@ -340,9 +340,9 @@ class User implements UserInterface, \Serializable
      *
      * @return User
      */
-    public function setRole($role)
+    public function setRoles(Role $roles)
     {
-        $this->role = $role;
+        $this->roles = array($roles->getName());
 
         return $this;
     }
@@ -352,9 +352,9 @@ class User implements UserInterface, \Serializable
      *
      * @return array
      */
-    public function getRole()
+    public function getRoles()
     {
-        return $this->role;
+        return $this->roles;
     }
     /**
      * Constructor
@@ -468,24 +468,4 @@ class User implements UserInterface, \Serializable
             ) = unserialize($serialized);
     }
 
-    /**
-     * Returns the roles granted to the user.
-     *
-     * <code>
-     * public function getRoles()
-     * {
-     *     return array('ROLE_USER');
-     * }
-     * </code>
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
-     *
-     * @return (Role|string)[] The user roles
-     */
-    public function getRoles()
-    {
-        return array('ROLE_USER', 'ROLE_PROFESSIONAL', 'ROLE_ADMIN', 'ROLE_SUPER_ADMIN');
-    }
 }

@@ -8,25 +8,13 @@ security:
 
     role_hierarchy:
         # Un professionnel hérite des droits du particulier
-        ROLE_PROFESSIONAL: [ROLE_USER]
+        ROLE_PROFESSIONAL: ROLE_USER
         # Un admin hérite des droits du particuler et du professionnel
-        ROLE_ADMIN:        [ROLE_USER, ROLE_PROFESSIONAL]
+        ROLE_ADMIN: [ROLE_USER, ROLE_PROFESSIONAL]
         # On garde ce rôle superadmin, il nous resservira par la suite
-        ROLE_SUPER_ADMIN:  [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory:
-                users:
-                    user:
-                        password: userpass
-                        roles:  'ROLE_USER'
-                    pro:
-                        password: propass
-                        roles:  'ROLE_PROFESSIONAL'
-                    admin:
-                        password: adminpass
-                        roles:  'ROLE_ADMIN'
         appbundle_user:
             entity:
                 class:    AppBundle:User
@@ -57,3 +45,5 @@ security:
     access_control:
         #require le role user pour dashboard
         - { path: ^/dashboard, roles: ROLE_USER }
+        - { path: ^/saisie-observation, roles: ROLE_USER }
+        - { path: ^/saisie-observation, roles: ROLE_USER }

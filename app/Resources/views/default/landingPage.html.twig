@@ -33,7 +33,7 @@
             {{ form_row(form.password) }}
             {{ form_row(form.proPermission) }}
             {{ form_row(form.newsletter) }}
-            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+            {{ form_widget(form.save, {'label': 'S\'inscrire', 'attr': {'class': 'btn btn-primary'}}) }}
         </div>
         {# Génération automatique des champs pas encore écrits.
            Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)

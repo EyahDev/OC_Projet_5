@@ -13,7 +13,11 @@
     <tr>
         <th>{{ user.id }}</th>
         <td>{{ user.username }}</td>
-        <td>{{ user.role }}</td>
+        <td>
+            {% for role in user.roles %}
+                {{ role }}
+            {% endfor %}
+        </td>
         <td><a class="btn btn-primary" href="{{ path('changeRole', {'id': user.id}) }}">Changer role</a></td>
     </tr>
     {% endfor %}

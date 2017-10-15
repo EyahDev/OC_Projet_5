@@ -32,7 +32,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = new User();
-        $role = 'ROLE_USER';
+        $role = $em->getRepository('AppBundle:Role')->findOneBy(array('name' => "ROLE_USER"));
         $userForm = $this->get('form.factory')->create(SignupType::class, $user);
         $userForm->handleRequest($request);
         if ($userForm->isSubmitted() && $userForm->isValid()) {
@@ -43,7 +43,7 @@ class DefaultController extends Controller
             $password = $encoder->encodePassword($user, $plainPassword);
             $user->setPassword($password);
             // select default user role
-            $user->setRole($role);
+            $user->setRoles($role);
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('dashboard');
