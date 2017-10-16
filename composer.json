@@ -34,6 +34,7 @@
         "stof/doctrine-extensions-bundle": "^1.2.2"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^2.4",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
     },

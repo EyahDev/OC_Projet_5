@@ -1,11 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Adrien
- * Date: 14/10/2017
- * Time: 16:12
- */
-
+  
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
@@ -15,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+
 class DashboardController extends Controller
 {
     /**
@@ -23,10 +18,8 @@ class DashboardController extends Controller
      */
     public function dashboardAction(Request $request, BlogManager $blogManager, SessionInterface $session)
     {
-        // Pour simulation d'un user création d'un user en session
-        $user = $blogManager->getUser(2);
-
-        $session->set('UserTest', $user);
+        /* Utilisateurs */
+        $users = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
 
         /* Catégories */
 
@@ -78,7 +71,8 @@ class DashboardController extends Controller
             'createCategoryForm' => $createCategory->createView(),
             'categoriesList' => $categoriesList,
             'createPostForm' => $createPost->createView(),
-            'postsList' => $postsList
+            'postsList' => $postsList,
+            'users' => $users
         ));
     }
 }
