@@ -49,9 +49,9 @@ class BlogManager
         return $categories;
     }
 
-    public function getCategory($id) {
+    public function getCategory($slug) {
         // Récupération de la catégorie par son id depuis le repository
-        $category = $this->em->getRepository('AppBundle:Category')->find($id);
+        $category = $this->em->getRepository('AppBundle:Category')->findOneBy(array('slug' => $slug));
 
         // Retourne la catégorie
         return $category;
@@ -68,9 +68,9 @@ class BlogManager
         return $form;
     }
 
-    public function getFormUpdateCategory($id) {
+    public function getFormUpdateCategory($slug) {
         // Récupération de la catégorie par son id
-        $category = $this->getCategory($id);
+        $category = $this->getCategory($slug);
 
         $form = $this->formBuilder->create(UpdateCategoryType::class, $category);
 
@@ -85,9 +85,9 @@ class BlogManager
         $this->em->flush();
     }
 
-    public function deleteCategory($id) {
+    public function deleteCategory($slug) {
         // Récupération de la catégorie par son id
-        $category = $this->getCategory($id);
+        $category = $this->getCategory($slug);
 
         // Supression de la catégorie
         $this->em->remove($category);
@@ -97,12 +97,20 @@ class BlogManager
 
     /* Gestion des articles */
 
-    public function getPost($id) {
+    public function getPost($slug) {
         // Récupération d'un article par son id
-        $post = $this->em->getRepository('AppBundle:Post')->find($id);
+        $post = $this->em->getRepository('AppBundle:Post')->findOneBy(array('slug' => $slug));
 
         // Retourne l'article récupéré
         return $post;
+    }
+
+    public function getPostsByCategory($category) {
+        // Récupération des articles par sa catégorie
+        $posts = $this->getCategory($category)->getPosts();
+
+        // Retourne les articles associés à la catégorie
+        return $posts;
     }
 
     public function getPosts() {
@@ -111,6 +119,16 @@ class BlogManager
 
         // Retourne l'article récupéré
         return $post;
+    }
+
+    public function getThreeLastPosts() {
+        $threeLastPosts = $this->em->getRepository('AppBundle:Post')
+            ->findBy(
+                array('published' => '1'),
+                array('publishedDate' => 'desc'),
+                3);
+
+        return $threeLastPosts;
     }
 
     public function getFormCreatePost() {
@@ -124,7 +142,17 @@ class BlogManager
         return $form;
     }
 
-    public function setPost($post) {
+    public function getUpdatePostForm($slug) {
+        // Récupération de l'article à modifier
+        $post = $this->getPost($slug);
+
+        // Création du formulaire
+        $form = $this->formBuilder->create(CreatePostType::class, $post);
+
+        return $form;
+    }
+
+    public function setPost(Post $post) {
         // Récupération de l'user en session
         $user = $this->session->get('UserTest');
 
@@ -140,6 +168,23 @@ class BlogManager
         $this->em->persist($post);
 
         // Enregistrement du nouvel article
+        $this->em->flush();
+    }
+
+    public function updatePost(Post $post) {
+        // Sauvegarde de la modification de l'article
+        $this->em->persist($post);
+
+        // Enregistrement de la modification de l'article
+        $this->em->flush();
+    }
+
+    public function deletePost($slug) {
+        // Récupération de la catégorie par son id
+        $post = $this->getPost($slug);
+
+        // Supression de la catégorie
+        $this->em->remove($post);
         $this->em->flush();
     }
 }

@@ -25,7 +25,6 @@ class DashboardController extends Controller
     {
         // Pour simulation d'un user création d'un user en session
         $user = $blogManager->getUser(2);
-        dump($user);
 
         $session->set('UserTest', $user);
 

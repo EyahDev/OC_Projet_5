@@ -2,7 +2,6 @@
 
 {% block body %}
     <h2>Edition de la catégorie : {{ updateCategoryForm.vars.value.name }}</h2>
-
     {{ form_start(updateCategoryForm) }}
     {{ form_errors(updateCategoryForm) }}
 
@@ -10,7 +9,7 @@
     {{ form_widget(updateCategoryForm.name) }}<br/>
 
     {{ form_widget(updateCategoryForm.save) }}<br/>
-    <a href="{{ path('category_delete', {'id' : updateCategoryForm.vars.value.id }) }}"><button type="button" class="btn btn-primary">Supprimer la catégorie</button></a>
+    <a href="{{ path('category_delete', {'slug' : updateCategoryForm.vars.value.slug }) }}"><button type="button" class="btn btn-primary">Supprimer la catégorie</button></a>
     {{ form_end(updateCategoryForm) }}
 
 {% endblock %}

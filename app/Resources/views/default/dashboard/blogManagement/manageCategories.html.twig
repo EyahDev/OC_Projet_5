@@ -12,8 +12,8 @@
 <div>
     {% for category in categoriesList %}
         {{ category.name }} -- Articles associés  -- {{ category.posts|length }} --
-        <a href="{{path('edit_category', {'id' : category.id }) }}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        <a href="{{path('edit_category', {'slug' : category.slug }) }}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
         /
-        <a href="{{path('advice_delete', {'id' : category.id }) }}"><i class="fa fa-times" aria-hidden="true"></i><br/></a>
+        <a href="{{path('advice_delete_category', {'slug' : category.slug }) }}"><i class="fa fa-times" aria-hidden="true"></i><br/></a>
     {% endfor %}
 </div>

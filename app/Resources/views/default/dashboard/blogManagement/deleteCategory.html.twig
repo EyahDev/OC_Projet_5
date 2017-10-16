@@ -4,7 +4,7 @@
     <h2>Supression de la catégorie : {{ infoCategory.name }}</h2>
 
     <a href="{{ path('dashboard') }}"><button type="button" class="btn btn-primary">Non</button></a>
-    <a href="{{ path('category_delete', {'id' : infoCategory.id }) }}"><button type="button" class="btn btn-primary">Oui</button></a>
+    <a href="{{ path('category_delete', {'slug' : infoCategory.slug }) }}"><button type="button" class="btn btn-primary">Oui</button></a>
 
 {% endblock %}
 

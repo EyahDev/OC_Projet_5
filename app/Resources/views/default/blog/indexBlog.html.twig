@@ -2,4 +2,36 @@
 
 {% block contentBlog %}
     <h3>accueil</h3>
+    <br/><br/>
+    {% for post in posts %}
+        <h4>{{ post.title }}</h4><br/>
+        <i class="fa fa-calendar-o" aria-hidden="true"></i> {{ post.publishedDate|date("d/m/Y à h:i", "Europe/Paris") }}
+        <i class="fa fa-user" aria-hidden="true"></i> {{ post.author.username }}
+        <i class="fa fa-tag" aria-hidden="true"></i> {{ post.category.name}}
+        <i class="fa fa-comments" aria-hidden="true"></i> {{ post.comments|length }}<br/><br/>
+
+        {{ post.content|slice(0, 140) }} <br/><br/>
+
+        <a href="{{ path('view-post', {'slugCat' : post.category.slug ,'slugPost' : post.slug }) }}"><button type="button" class="btn btn-primary">Lire la suite</button></a> <br/><br/>
+    {% endfor %}
+
+    {% if categories|length != 0 %}
+        <hr>
+        Catégories <br/>
+        <hr>
+        {% for category in categories %}
+            {% if category|length != 0 %}
+                <a href="{{ path('view-posts-by-category', {'category' : category.slug }) }}">{{ category.name }} ({{ category.posts|length }})</a><br/>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if threeLastPost|length != 0 %}
+        <hr>
+        Derniers articles publiés<br/>
+        <hr>
+        {% for lastPost in threeLastPost %}
+            {{ lastPost.title }} -- <a href="{{ path('view-post', {'slugCat' : lastPost.category.slug ,'slugPost' : lastPost.slug }) }}">Lire</a> --
+        {% endfor %}
+    {% endif %}
 {% endblock %}
