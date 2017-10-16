@@ -44,6 +44,7 @@ class DefaultController extends Controller
             $user->setPassword($password);
             // select default user role
             $user->setRoles($role);
+            $user->setSignupDate(new \DateTime());
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('dashboard');

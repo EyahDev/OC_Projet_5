@@ -31,7 +31,8 @@ class UserFixtures extends Fixture
             ->setRoles($manager->getRepository('AppBundle:Role')->findOneBy(array('name' => "ROLE_ADMIN")))
             ->setSalt(substr(md5(time()), 0, 23))
             ->setProPermission(false)
-            ->setNewsletter(false);
+            ->setNewsletter(false)
+            ->setSignupDate(new \DateTime());
         $manager->persist($admin);
 
         // creation d'un user avec role professionnel
@@ -45,7 +46,8 @@ class UserFixtures extends Fixture
             ->setRoles($manager->getRepository('AppBundle:Role')->findOneBy(array('name' => "ROLE_PROFESSIONAL")))
             ->setSalt(substr(md5(time()), 0, 23))
             ->setProPermission(false)
-            ->setNewsletter(false);
+            ->setNewsletter(false)
+            ->setSignupDate(new \DateTime());
         $manager->persist($pro);
 
         // creation d'un user avec role particulier
@@ -56,10 +58,11 @@ class UserFixtures extends Fixture
             ->setEmail('user@nao.fr')
             ->setUsername('user')
             ->setPassword($passwordUser)
-            ->setRoles($manager->getRepository('AppBundle:Role')->findOneBy(array('name' => "ROLE_USER")))
             ->setSalt(substr(md5(time()), 0, 23))
             ->setProPermission(false)
-            ->setNewsletter(false);
+            ->setNewsletter(false)
+            ->setSignupDate(new \DateTime());
+
         $manager->persist($user);
 
         //enregistre les utilisateurs
