@@ -148,7 +148,7 @@ class User implements UserInterface, \Serializable
      *
      * @return User
      */
-    public function setfirstname($firstname)
+    public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
 
@@ -160,7 +160,7 @@ class User implements UserInterface, \Serializable
      *
      * @return string
      */
-    public function getfirstname()
+    public function getFirstname()
     {
         return $this->firstname;
     }
@@ -172,7 +172,7 @@ class User implements UserInterface, \Serializable
      *
      * @return User
      */
-    public function setusername($username)
+    public function setUsername($username)
     {
         $this->username = $username;
 
@@ -184,7 +184,7 @@ class User implements UserInterface, \Serializable
      *
      * @return string
      */
-    public function getusername()
+    public function getUsername()
     {
         return $this->username;
     }
