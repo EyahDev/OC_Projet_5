@@ -83,27 +83,6 @@ class DefaultController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/blog", name="indexBlog")
-     */
-    public function indexBlogAction(BlogManager $blogManager)
-    {
-        // Récupération du formulaire de rédaction d'un article
-        $form = $blogManager->getFormCreatePost();
-
-        return $this->render("default/blog/indexBlog.html.twig", array('form' => $form->createView()));
-    }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/blog/{post}", name="postBlog")
-     */
-    public function postBlogAction($post)
-    {
-        return $this->render("default/blog/postBlog.html.twig", array('post' => $post));
-    }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/blog/categorie/{category}", name="categoryBlog")
      */
     public function categoryBlogAction($category)
