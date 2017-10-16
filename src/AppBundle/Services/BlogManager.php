@@ -27,18 +27,6 @@ class BlogManager
         $this->session = $session;
     }
 
-    /* Gestion de l'auteur */
-
-    // Récupération de l'auteur
-    public function getUser($id) {
-        // Récupération de la liste de toutes les catégories depuis le repository
-        $user = $this->em->getRepository('AppBundle:User')->find($id);
-
-        // Retourne l'auteur du post
-        return $user;
-    }
-
-
     /* Gestion des catégories */
 
     public function getCategories() {
@@ -89,9 +77,17 @@ class BlogManager
         // Récupération de la catégorie par son id
         $category = $this->getCategory($slug);
 
-        // Supression de la catégorie
-        $this->em->remove($category);
-        $this->em->flush();
+        // Vérification si il y a des articles dans cette catégorie
+        if (count($category->getPosts()) != 0) {
+            $this->session->getFlashBag()->add('notice', 'Vous ne pouvez pas supprimer une catégorie qui possède des articles.');
+
+            return false;
+
+        } else {
+            // Supression de la catégorie
+            $this->em->remove($category);
+            $this->em->flush();
+        }
     }
 
 
@@ -152,12 +148,9 @@ class BlogManager
         return $form;
     }
 
-    public function setPost(Post $post) {
+    public function setPost(Post $post, $user) {
         // Récupération de l'user en session
         $user = $this->session->get('UserTest');
-
-        // Sauvegarde de l'utilisateur
-        $this->em->persist($user);
 
         // Ajout de l'auteur dans le Post
         $post->setAuthor($user);

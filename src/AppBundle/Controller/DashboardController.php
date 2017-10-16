@@ -19,7 +19,7 @@ class DashboardController extends Controller
     public function dashboardAction(Request $request, BlogManager $blogManager, SessionInterface $session)
     {
         /* Utilisateurs */
-        $users = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
+        $usersList = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
 
         /* Catégories */
 
@@ -35,7 +35,7 @@ class DashboardController extends Controller
         // Soumission du formulaire
         if ($createCategory->isSubmitted() && $createCategory->isValid()) {
 
-            // Récupération de l'entitée Catégory avec les valeurs hydratées
+            // Récupération de l'entitée Category avec les valeurs hydratées
             $category = $createCategory->getData();
 
             // Enregistrement de la nouvelle catégorie
@@ -58,10 +58,15 @@ class DashboardController extends Controller
 
         // Soumission du formulaire
         if ($createPost->isSubmitted() && $createPost->isValid()) {
+
+            // Récupération de l'entitée Post avec les valeurs hydratées
             $post = $createPost->getData();
 
+            // Récupération de l'utilisateur
+            $user = $this->getUser();
+
             // Enregistrement du nouvel article
-            $blogManager->setPost($post);
+            $blogManager->setPost($post, $user);
 
             // Rédirection vers le dashboard
             return $this->redirectToRoute('dashboard');
@@ -72,7 +77,7 @@ class DashboardController extends Controller
             'categoriesList' => $categoriesList,
             'createPostForm' => $createPost->createView(),
             'postsList' => $postsList,
-            'users' => $users
+            'usersList' => $usersList
         ));
     }
 }
