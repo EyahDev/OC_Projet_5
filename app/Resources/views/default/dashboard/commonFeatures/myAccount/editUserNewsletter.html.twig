@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="well">
+        {{ form_start(updateNewsletterForm, {'attr': {'class': 'form-horizontal'}}) }}
+
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(updateNewsletterForm) }}
+
+        {# Génération du label + error + widget pour un champ. #}
+        <div class="form-group">
+            {{ form_row(updateNewsletterForm.newsletter) }}
+            {{ form_widget(updateNewsletterForm.save, {'label': 'Modifier', 'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+        {# Génération automatique des champs pas encore écrits.
+           Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+           et tous les champs cachés (type « hidden »). #}
+        {{ form_rest(updateNewsletterForm) }}
+        {# Fermeture de la balise <form> du formulaire HTML #}
+        {{ form_end(updateNewsletterForm) }}
+    </div>
+{% endblock %}
