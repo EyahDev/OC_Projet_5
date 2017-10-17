@@ -3,15 +3,19 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @UniqueEntity(fields="email", message="Cette adresse email est déjà utilisé")
+ * @UniqueEntity(fields="username", message="Ce nom d'utilisateur est déjà utilisé")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
 
     /**
@@ -37,27 +41,48 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Votre nom doit contenir au moins {{ limit }} caractères")
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="firstName", type="string", length=255)
+     * @ORM\Column(name="firstname", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Votre prénom doit contenir au moins {{ limit }} caractères")
      */
-    private $firstName;
+    private $firstname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="userName", type="string", length=255, unique=true)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Votre nom d'utilisateur doit contenir au moins {{ limit }} caractères")
      */
-    private $userName;
+    private $username;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *     message = "L'adresse email '{{ value }}' n'est pas une adresse email valide.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
@@ -65,6 +90,16 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 6,
+     *      minMessage = "Votre mot de passe doit contenir au moins {{ limit }} caractères")
+     *  @Assert\Regex(
+     *     pattern="/^(?=.*[a-zA-Z])(?=.*[0-9])/",
+     *     match=true,
+     *     message="Votre mot de passe doit contenir au moins une lettre et un chiffre."
+     * )
      */
     private $password;
 
@@ -101,7 +136,21 @@ class User implements UserInterface
      *
      * @ORM\Column(name="roles", type="array")
      */
-    private $roles;
+    private $roles = array("ROLE_USER");
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="signupDate", type="datetime")
+     */
+    private $signupDate;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="enable", type="boolean")
+     */
+    private $enabled = true;
 
     public function eraseCredentials()
     {
@@ -142,51 +191,51 @@ class User implements UserInterface
     }
 
     /**
-     * Set firstName
+     * Set firstname
      *
-     * @param string $firstName
+     * @param string $firstname
      *
      * @return User
      */
-    public function setFirstName($firstName)
+    public function setFirstname($firstname)
     {
-        $this->firstName = $firstName;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
     /**
-     * Get firstName
+     * Get firstname
      *
      * @return string
      */
-    public function getFirstName()
+    public function getFirstname()
     {
-        return $this->firstName;
+        return $this->firstname;
     }
 
     /**
-     * Set userName
+     * Set username
      *
-     * @param string $userName
+     * @param string $username
      *
      * @return User
      */
-    public function setUserName($userName)
+    public function setUsername($username)
     {
-        $this->userName = $userName;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get userName
+     * Get username
      *
      * @return string
      */
-    public function getUserName()
+    public function getUsername()
     {
-        return $this->userName;
+        return $this->username;
     }
 
     /**
@@ -334,21 +383,21 @@ class User implements UserInterface
     }
 
     /**
-     * Set roles
+     * Set role
      *
-     * @param array $roles
+     * @param array $role
      *
      * @return User
      */
-    public function setRoles($roles)
+    public function setRoles(Role $roles)
     {
-        $this->roles = $roles;
+        $this->roles = array($roles->getName());
 
         return $this;
     }
 
     /**
-     * Get roles
+     * Get role
      *
      * @return array
      */
@@ -431,5 +480,89 @@ class User implements UserInterface
     public function getObservationsValidated()
     {
         return $this->observationsValidated;
+    }
+
+    /**
+     * String representation of object
+     * @link http://php.net/manual/en/serializable.serialize.php
+     * @return string the string representation of the object or null
+     * @since 5.1.0
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->salt
+        ));
+    }
+
+    /**
+     * Constructs the object
+     * @link http://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized <p>
+     * The string representation of the object.
+     * </p>
+     * @return void
+     * @since 5.1.0
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->salt
+            ) = unserialize($serialized);
+    }
+
+
+    /**
+     * Set signupDate
+     *
+     * @param \DateTime $signupDate
+     *
+     * @return User
+     */
+    public function setSignupDate($signupDate)
+    {
+        $this->signupDate = $signupDate;
+
+        return $this;
+    }
+
+    /**
+     * Get signupDate
+     *
+     * @return \DateTime
+     */
+    public function getSignupDate()
+    {
+        return $this->signupDate;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     *
+     * @return User
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
     }
 }

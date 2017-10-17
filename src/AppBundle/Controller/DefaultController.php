@@ -6,6 +6,9 @@ use AppBundle\Services\BlogManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use AppBundle\Form\Signup\SignupType;
+use AppBundle\Entity\User;
 
 class DefaultController extends Controller
 {
@@ -20,22 +23,35 @@ class DefaultController extends Controller
         ]);
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/dashboard", name="dashboard")
-     */
-    public function dashboardAction()
-    {
-        return $this->render("default/dashboard.html.twig");
-    }
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/landing-page", name="landingPage")
      */
-    public function landingPageAction()
+    public function landingPageAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
-        return $this->render("default/landingPage.html.twig");
+        $em = $this->getDoctrine()->getManager();
+        $user = new User();
+        $role = $em->getRepository('AppBundle:Role')->findOneBy(array('name' => "ROLE_USER"));
+        $userForm = $this->get('form.factory')->create(SignupType::class, $user);
+        $userForm->handleRequest($request);
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+            // generate a random salt value
+            $salt = substr(md5(time()), 0, 23);
+            $user->setSalt($salt);
+            $plainPassword = $user->getPassword();
+            $password = $encoder->encodePassword($user, $plainPassword);
+            $user->setPassword($password);
+            // select default user role
+            $user->setRoles($role);
+            $user->setSignupDate(new \DateTime());
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('dashboard');
+        }
+        return $this->render("default/landingPage.html.twig", array(
+            'title' => 'Nouvel utilisateur',
+            'form' => $userForm->createView()));
     }
 
     /**
@@ -63,27 +79,6 @@ class DefaultController extends Controller
     public function speciesAction($species)
     {
         return $this->render("default/species.html.twig", array('species' => $species));
-    }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/blog", name="indexBlog")
-     */
-    public function indexBlogAction(BlogManager $blogManager)
-    {
-        // Récupération du formulaire de rédaction d'un article
-        $form = $blogManager->getFormCreatePost();
-
-        return $this->render("default/blog/indexBlog.html.twig", array('form' => $form->createView()));
-    }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/blog/{post}", name="postBlog")
-     */
-    public function postBlogAction($post)
-    {
-        return $this->render("default/blog/postBlog.html.twig", array('post' => $post));
     }
 
     /**

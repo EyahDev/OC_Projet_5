@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Supression de l'article : {{ infoPost.title }}</h2>
+
+    les {{  infoPost.comments|length }} commentaires associés à l'article seront également supprimés.
+
+    <a href="{{ path('dashboard') }}"><button type="button" class="btn btn-primary">Non</button></a>
+    <a href="{{ path('post_delete', {'slug' : infoPost.slug }) }}"><button type="button" class="btn btn-primary">Oui</button></a>
+
+{% endblock %}
