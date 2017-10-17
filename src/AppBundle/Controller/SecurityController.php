@@ -58,7 +58,8 @@ class SecurityController extends Controller
             return $this->redirectToRoute('dashboard');
         }
         return $this->render('default/security/changeRole.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ));
     }
 }

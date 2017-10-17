@@ -3,6 +3,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\User;
 use AppBundle\Form\Blog\CreateCategoryType;
@@ -149,12 +150,13 @@ class BlogManager
     }
 
     public function setPost(Post $post, $user) {
-        // Récupération de l'user en session
-        $user = $this->session->get('UserTest');
-
         // Ajout de l'auteur dans le Post
         $post->setAuthor($user);
+
+        // Publication automatique de l'article
         $post->setPublished(1);
+
+        // Ajout de la date de publication
         $post->setPublishedDate(new \DateTime());
 
         // Sauvegarde du nouvel article
@@ -178,6 +180,28 @@ class BlogManager
 
         // Supression de la catégorie
         $this->em->remove($post);
+        $this->em->flush();
+    }
+
+    /* Gestion des commentaires */
+
+    public function getCommentForm() {
+        $comment = new Comment();
+
+        $form = $this->formBuilder->create('AppBundle\Form\Blog\NewCommentType', $comment);
+
+        return $form;
+    }
+
+    public function setComment(Comment $comment, Post $post, $user) {
+
+        $comment->setAuthor($user);
+        $comment->setDate(new \DateTime());
+        $comment->setApprouved(0);
+        $post->addComment($comment);
+
+        // Supression de la catégorie
+        $this->em->persist($post);
         $this->em->flush();
     }
 }

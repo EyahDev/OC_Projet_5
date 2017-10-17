@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Comment
 {
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Post", mappedBy="comments", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Post", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $post;
@@ -59,7 +59,7 @@ class Comment
     /**
      * @var integer
      *
-     * @ORM\Column(name="flagged", type="integer")
+     * @ORM\Column(name="flagged", type="integer", nullable=true)
      */
     private $flagged;
 
@@ -323,5 +323,19 @@ class Comment
     public function getApprouved()
     {
         return $this->approuved;
+    }
+
+    /**
+     * Set post
+     *
+     * @param \AppBundle\Entity\Post $post
+     *
+     * @return Comment
+     */
+    public function setPost(\AppBundle\Entity\Post $post)
+    {
+        $this->post = $post;
+
+        return $this;
     }
 }

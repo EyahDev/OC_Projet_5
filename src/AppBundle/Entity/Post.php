@@ -4,17 +4,21 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Post
  *
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
+ * @UniqueEntity(fields="title", message="Ce titre existe déjà.")
  */
 class Post
 {
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Comment", inversedBy="post")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="post", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $comments;
@@ -43,6 +47,14 @@ class Post
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="Veuillez saisir un titre d'article valide.")
+     * @Assert\NotNull()
+     * @Assert\Length(
+     *     min="2",
+     *     max="150",
+     *     minMessage="Un titre doit contenir au moins {{ limit }} caractères.",
+     *     maxMessage="Un titre ne peut contenir plus de {{ limit }} caractères."
+     * )
      */
     private $title;
 
@@ -305,5 +317,36 @@ class Post
     public function getSlug()
     {
         return $this->slug;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     *
+     * @return Post
+     */
+    public function addComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+        $comment->setPost($this);
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
     }
 }

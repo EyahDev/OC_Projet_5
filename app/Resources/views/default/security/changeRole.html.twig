@@ -4,7 +4,7 @@
         <p>Utilisateur : {{ user.username }}</p>
         <p>
             Role actuel :
-            {% for roles in user.roles %}
+            {% for role in user.roles %}
                 {{ role }}
             {% endfor %}
         </p>
@@ -36,4 +36,5 @@
             {# Fermeture de la balise <form> du formulaire HTML #}
             {{ form_end(form) }}
         </div>
+    </div>
 {% endblock %}
