@@ -1,1 +1,32 @@
-<p>Mes observations</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Modification</th>
+        <th>Espèces observées</th>
+        <th>Date d'observation</th>
+        <th>Statut</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for observation in observations %}
+        <tr>
+            <td><a href="#">Modifier</a></td>
+            <td>
+                {{ observation.species.referenceName }}
+            </td>
+            <td>
+                {{ observation.observationDate|date('d/m/Y') }}
+            </td>
+            <td>
+                {% if (observation.validate == true) %}
+                    Validée
+                {% else %}
+                    En attente
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    {{ dump(observations) }}
+</table>

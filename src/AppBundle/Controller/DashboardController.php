@@ -2,8 +2,8 @@
   
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
 use AppBundle\Services\BlogManager;
+use AppBundle\Services\ObservationManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,10 +16,16 @@ class DashboardController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboardAction(Request $request, BlogManager $blogManager, SessionInterface $session)
+    public function dashboardAction(Request $request, BlogManager $blogManager, ObservationManager $observationManager, SessionInterface $session)
     {
+        /*Utilisateur*/
+        $user = $this->getUser();
+        
         /* Utilisateurs */
         $usersList = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
+
+        /* Observations */
+        $observations = $observationManager->getObservations();
 
         /* Catégories */
 
@@ -78,6 +84,9 @@ class DashboardController extends Controller
             'createPostForm' => $createPost->createView(),
             'postsList' => $postsList,
             'usersList' => $usersList
+            'observations' => $observations,
+            'user' => $user,
+            'users' => $users
         ));
     }
 }
