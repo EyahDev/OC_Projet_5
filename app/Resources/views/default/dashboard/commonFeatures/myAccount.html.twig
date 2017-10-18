@@ -1,1 +1,22 @@
-<p>Mes informations</p>
+<h6>Vos informations personnelles :</h6>
+
+<p>Nom : {{ app.user.name }} <a class="btn btn-primary" href="{{ path('edit_user_name', {'id': user.id}) }}">Modifier</a></p>
+<p>Prénom : {{ app.user.firstName }} <a class="btn btn-primary" href="{{ path('edit_user_firstname', {'id': user.id}) }}">Modifier</a></p>
+<p>Adresse : {{ app.user.location }} <a class="btn btn-primary" href="{{ path('edit_user_location', {'id': user.id}) }}">Modifier</a></p>
+<p>Newsletter :
+{% if (app.user.newsletter == true) %}
+    Oui
+{% else %}
+    Non
+{% endif %}
+ <a class="btn btn-primary" href="{{ path('edit_user_newsletter', {'id': user.id}) }}">Modifier</a>
+</p>
+
+<h6>Votre mot de passe</h6>
+
+
+
+
+
+
+

@@ -34,6 +34,7 @@ class UserFixtures extends Fixture
             ->setNewsletter(false)
             ->setSignupDate(new \DateTime());
         $manager->persist($admin);
+        $this->addReference('admin', $admin);
 
         // creation d'un user avec role professionnel
         $pro = new User();
@@ -49,6 +50,7 @@ class UserFixtures extends Fixture
             ->setNewsletter(false)
             ->setSignupDate(new \DateTime());
         $manager->persist($pro);
+        $this->addReference('pro', $pro);
 
         // creation d'un user avec role particulier
         $user = new User();
@@ -67,6 +69,7 @@ class UserFixtures extends Fixture
 
         //enregistre les utilisateurs
         $manager->flush();
+        $this->addReference('user', $user);
     }
     // permet de générer les roles avant les users
     public function getDependencies()
