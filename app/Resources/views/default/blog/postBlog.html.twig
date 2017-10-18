@@ -1,0 +1,107 @@
+{% extends 'default/blog.html.twig' %}
+
+{% block contentBlog %}
+    <h4>{{ post.title }}</h4><br/>
+
+    <i class="fa fa-calendar-o" aria-hidden="true"></i> {{ post.publishedDate|date("d/m/Y à h:i", "Europe/Paris") }}
+    <i class="fa fa-user" aria-hidden="true"></i> {{ post.author.username }}
+    <i class="fa fa-tag" aria-hidden="true"></i> {{ post.category.name}}
+    <i class="fa fa-comments" aria-hidden="true"></i> {{ post.comments|length }}<br/><br/>
+
+    {{ post.content}} <br/><br/>
+
+    {% if categories|length != 0 %}
+        <hr>
+        Catégories <br/>
+        <hr>
+        {% for category in categories %}
+            {% if category|length != 0 %}
+                <a href="{{ path('view-posts-by-category', {'category' : category.slug }) }}">{{ category.name }} ({{ category.posts|length }})</a><br/>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if threeLastPost|length != 0 %}
+        <hr>
+        Derniers articles publiés<br/>
+        <hr>
+        {% for lastPost in threeLastPost %}
+            {{ lastPost.title }} -- <a href="{{ path('view-post', {'slugCat' : post.category.slug ,'slugPost' : post.slug }) }}">Lire</a> --
+        {% endfor %}
+    {% endif %}
+
+    <hr>
+    Commentaires <br/>
+    <hr>
+
+    {#{% if is_granted('ROLE_USER') %}#}
+    {#Vous êtes connecté en tant que : {{ app.user.username }}#}
+    {#{{ form_start(commentForm) }}#}
+    {#{{ form_errors(commentForm) }}#}
+
+    {#{{ form_errors(commentForm.message) }}#}
+    {#{{ form_label(commentForm.message) }}<br/>#}
+    {#{{ form_widget(commentForm.message) }}<br/>#}
+
+    {#{{ form_widget(commentForm.save) }}<br/>#}
+    {#{{ form_end(commentForm) }}#}
+
+    {#{% else %}#}
+    {#Pour rédiger un message, veuillez vous <a href="{{ path('login') }}">connectez </a>#}
+    {#{% endif %}#}
+    <div id="comment">
+        {% for comment in post.comments %}
+            {{ comment.author.username }} -- {{ comment.date|date("d/m/Y à H:i", "Europe/Paris") }} -- <br>
+            {{ comment.message }}<br/><br/>
+        {% endfor %}
+    </div>
+    <div id="formComm">
+        <a id="createComm" href="{{ path('create-comm') }}" class="btn- btn-primary">commenter</a>
+    </div>
+{% endblock %}
+{% block javascripts %}
+
+    <script>
+        $(document).ready(function() {
+            $("#createComm").on('click', function (e) {
+                e.preventDefault();
+                var $event = $(this);
+                var url = $event.attr('href');
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (data) {
+                        $('#formComm').prepend(data);
+                        $('form').on('submit', function (e) {
+                            e.preventDefault();
+                            var $form = $(this);
+                            var url = $event.attr('href');
+                            $.ajax({
+                                type: 'POST',
+                                url: url,
+                                data: $form.serialize(),
+                                success: function (data, text, jqxhr) {
+                                    console.log(jqxhr);
+                                    console.log('cest ok');
+                                    $('#comment').prepend(jqxhr.responseText);
+                                }
+                            });
+
+                        })
+
+                    },
+                    error: function (jqxhr) {
+                        alert(jqxhr.responseText);
+                    }
+                });
+
+
+
+                $("#createComm").toggleClass("btn").toggleClass("btn-danger");
+            });
+        });
+
+    </script>
+
+{% endblock %}
+

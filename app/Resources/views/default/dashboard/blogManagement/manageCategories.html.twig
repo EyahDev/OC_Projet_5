@@ -1,0 +1,20 @@
+{{ form_start(createCategoryForm) }}
+{{ form_errors(createCategoryForm) }}
+
+{{ form_errors(createCategoryForm.name) }}
+{{ form_label(createCategoryForm.name) }}<br/>
+{{ form_widget(createCategoryForm.name) }}<br/>
+
+{{ form_widget(createCategoryForm.save) }}<br/>
+{{ form_end(createCategoryForm) }}
+
+<br/>
+
+<div>
+    {% for category in categoriesList %}
+        {{ category.name }} -- Articles associés  -- {{ category.posts|length }} --
+        <a href="{{path('edit_category', {'slug' : category.slug }) }}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        /
+        <a href="{{path('advice_delete_category', {'slug' : category.slug }) }}"><i class="fa fa-times" aria-hidden="true"></i><br/></a>
+    {% endfor %}
+</div>

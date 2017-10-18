@@ -1,0 +1,16 @@
+{{ form_start(createPostForm) }}
+{{ form_errors(createPostForm) }}
+
+{{ form_label(createPostForm.title) }}<br/>
+{{ form_widget(createPostForm.title) }}<br/>
+
+{{ form_label(createPostForm.category) }}<br/>
+{{ form_widget(createPostForm.category) }}<br/>
+
+{{ form_label(createPostForm.imagePath) }}<br/>
+{{ form_widget(createPostForm.imagePath) }}<br/>
+
+{{ form_label(createPostForm.content) }}<br/>
+{{ form_widget(createPostForm.content) }}<br/>
+
+{{ form_end(createPostForm) }}
