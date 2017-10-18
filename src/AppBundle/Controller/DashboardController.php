@@ -2,9 +2,8 @@
   
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
-use AppBundle\Entity\Observation;
 use AppBundle\Services\BlogManager;
+use AppBundle\Services\ObservationManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,16 +16,13 @@ class DashboardController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboardAction(Request $request, BlogManager $blogManager, SessionInterface $session)
+    public function dashboardAction(Request $request, BlogManager $blogManager, ObservationManager $observationManager, SessionInterface $session)
     {
         /* Utilisateurs */
-        $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
+        $users = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
 
         /* Observations */
-        $observations = $this->getDoctrine()->getRepository(Observation::class)->findAll();
-
-        /* Espèces */
-        $species = $this->getDoctrine()->getManager()->getRepository('AppBundle:Species')->findAll();
+        $observations = $observationManager->getObservations();
 
         /* Catégories */
 
@@ -81,7 +77,6 @@ class DashboardController extends Controller
             'postsList' => $postsList,
             'users' => $users,
             'observations' => $observations,
-            'species' => $species
         ));
     }
 }

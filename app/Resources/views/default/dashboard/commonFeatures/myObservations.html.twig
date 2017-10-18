@@ -9,15 +9,15 @@
     </tr>
     </thead>
     <tbody>
-    {% for observation in user.observations %}
+    {% for observation in observations %}
         <tr>
             <td><a href="#">Modifier</a></td>
             <td>
-                {% for specie in observation.species %}
-                    {{ specie.referenceName }}
-                {% endfor %}
+                {{ observation.species.referenceName }}
             </td>
-            <td></td>
+            <td>
+                {{ observation.observationDate|date('d/m/Y') }}
+            </td>
             <td>
                 {% if (observation.validate == true) %}
                     Validée
@@ -28,4 +28,5 @@
         </tr>
     {% endfor %}
     </tbody>
+    {{ dump(observations) }}
 </table>

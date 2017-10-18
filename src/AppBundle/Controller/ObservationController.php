@@ -10,22 +10,17 @@ use Symfony\Component\HttpFoundation\Request;
 class ObservationController extends Controller
 {
     /**
-     * @Route("dashboard/{id}", name="view-observations-by-user")
+     * @Route("dashboard", name="view-observations-by-user")
      */
-    public function viewObservationsByUserAction($id, $observation, ObservationManager $observationManager) {
-        
-        $user = $observationManager->getUser($id);
+    public function viewObservationsByUserAction($observation, ObservationManager $observationManager) {
+
+        $user = $this->getUser();
             
         // Récupération des observations par utilisateurs
         $observations = $observationManager->getObservationsByUser($user);
-
-        // Récupération des epèces liées à une observation
-        $specie = $observationManager->getSpecieByObservation($observation);
-
+        
         return $this->render("default/commonFeatures/myObservations.html.twig", array(
-            'user' => $user,
             'observations' => $observations,
-            'specie' => $specie,
         ));
     }
 }

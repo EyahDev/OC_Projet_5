@@ -23,18 +23,10 @@ class ObservationManager
         $this->request = $request;
         $this->session = $session;
     }
-    
-    public function getUser($id) {
-        // Récupération de la liste de toutes les catégories depuis le repository
-        $user = $this->em->getRepository('AppBundle:User')->find($id);
-
-        // Retourne l'utlisateur courant
-        return $user;
-    }
 
     public function getSpecie($id) {
         // Récupération de l'espèce par son id depuis le repository
-        $specie = $this->em->getRepository('AppBundle:Specie')->findOneBy(array('id' => $id));
+        $specie = $this->em->getRepository('AppBundle:Specie')->find($id);
 
         // Retourne l'espèce
         return $specie;
@@ -50,7 +42,7 @@ class ObservationManager
 
     public function getObservation($id) {
         // Récupération d'une observation par son id
-        $observation = $this->em->getRepository('AppBundle:Observation')->findOneBy(array('id' => $id));
+        $observation = $this->em->getRepository('AppBundle:Observation')->find($id);
 
         // Retourne l'observation récupérée
         return $observation;
@@ -58,17 +50,9 @@ class ObservationManager
 
     public function getObservationsByUser($user) {
         // Récupération des observation par utilisateur
-        $observations = $this->getUser($user)->getObservations();
+        $observations = $this->em->getRepository('AppBundle:Observation')->findBy(array('observer' => $user));
 
         // Retourne les articles associés à la catégorie
         return $observations;
-    }
-
-    public function getSpecieByObservation($observation) {
-        // Récupération des espèces par observation
-        $specie = $this->getObservation($observation)->getSpecie();
-
-        // Retourne les articles associés à la catégorie
-        return $specie;
     }
 }
