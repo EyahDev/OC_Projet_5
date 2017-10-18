@@ -83,10 +83,9 @@ class DashboardController extends Controller
             'categoriesList' => $categoriesList,
             'createPostForm' => $createPost->createView(),
             'postsList' => $postsList,
-            'usersList' => $usersList
+            'usersList' => $usersList,
             'observations' => $observations,
-            'user' => $user,
-            'users' => $users
+            'user' => $user
         ));
     }
 }
