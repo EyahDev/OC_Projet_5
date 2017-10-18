@@ -51,30 +51,39 @@ class BlogController extends Controller
         // Hydration de l'entitée avec les valeurs du formulaire
         $commentForm->handleRequest($request);
 
-        // Soumission du formulaire
-        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-            // Récupération de l'auteur du message
-            $user = $this->getUser();
-
-            // Récupération de l'entitée Catégory avec les valeurs hydratées
+        if ($request->isXmlHttpRequest()) {
             $comment = $commentForm->getData();
+            dump($comment);
 
-            // Enregistrement de la nouvelle catégorie
-            $blogManager->setComment($comment, $post, $user);
 
-            // Rédirection vers le dashboard
-            return $this->redirectToRoute('view-post', array(
-                'slugCat' => $slugCat,
-                'slugPost' =>$slugPost
+            return $this->redirectToRoute('homepage');
+        } else {
+            dump("pas ajax");
+            // Soumission du formulaire
+            if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+                // Récupération de l'auteur du message
+                $user = $this->getUser();
+
+                // Récupération de l'entitée Catégory avec les valeurs hydratées
+                $comment = $commentForm->getData();
+
+                // Enregistrement de la nouvelle catégorie
+                $blogManager->setComment($comment, $post, $user);
+
+                // Rédirection vers le dashboard
+                return $this->redirectToRoute('view-post', array(
+                    'slugCat' => $slugCat,
+                    'slugPost' => $slugPost
+                ));
+            }
+
+            return $this->render("default/blog/postBlog.html.twig", array(
+                'post' => $post,
+                'categories' => $categories,
+                'threeLastPost' => $threeLastPost,
+                'commentForm' => $commentForm->createView()
             ));
         }
-
-        return $this->render("default/blog/postBlog.html.twig", array(
-            'post' => $post,
-            'categories' => $categories,
-            'threeLastPost' => $threeLastPost,
-            'commentForm' => $commentForm->createView()
-        ));
     }
 
     /**
@@ -207,5 +216,46 @@ class BlogController extends Controller
 
         // Rédirection vers le dashboard
         return $this->redirectToRoute('dashboard');
+    }
+
+    // Test commentaire avec ajax
+    /**
+     * @Route("/create-comm/", name="create-comm")
+     */
+    public function createCommentAction( BlogManager $blogManager, Request $request) {
+        // Récupération de l'article via son slug
+        $post = $blogManager->getPost("test-titre");
+//        dump($post);
+        // Récupération du formulaire de rédaction d'un nouveau commentaire
+        $commentForm = $blogManager->getCommentForm();
+
+        // Hydration de l'entitée avec les valeurs du formulaire
+        $commentForm->handleRequest($request);
+
+        if ($request->isXmlHttpRequest()) {
+            $comment = $commentForm->getData();
+            dump($comment);
+            dump('create comm pas ajax');
+            // Soumission du formulaire
+            if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+                // Récupération de l'auteur du message
+                $user = $this->getUser();
+
+                // Récupération de l'entitée Catégory avec les valeurs hydratées
+                $comment = $commentForm->getData();
+
+                // Enregistrement de la nouvelle catégorie
+                $blogManager->setComment($comment, $post, $user);
+
+                return $this->render("default/blog/commentOnly.html.twig", array(
+                    'comment' => $comment
+                ));
+            }
+        }
+
+        return $this->render("default/blog/createComments.html.twig", array(
+            'post' => $post,
+            'commentForm' => $commentForm->createView()
+        ));
     }
 }
