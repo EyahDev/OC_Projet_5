@@ -18,6 +18,9 @@ class DashboardController extends Controller
      */
     public function dashboardAction(Request $request, BlogManager $blogManager, ObservationManager $observationManager, SessionInterface $session)
     {
+        /*Utilisateur*/
+        $user = $this->getUser();
+        
         /* Utilisateurs */
         $users = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
 
@@ -75,8 +78,9 @@ class DashboardController extends Controller
             'categoriesList' => $categoriesList,
             'createPostForm' => $createPost->createView(),
             'postsList' => $postsList,
-            'users' => $users,
             'observations' => $observations,
+            'user' => $user,
+            'users' => $users
         ));
     }
 }
