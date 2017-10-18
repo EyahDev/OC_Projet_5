@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Contact;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,7 +17,7 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('subject', TextType::class, array('attr' => array('placeholder' => 'Sujet'),
+            ->add('Mamere', TextType::class, array('attr' => array('placeholder' => 'Sujet'),
                 'constraints' => array(
                     new NotBlank(array("message" => "Ecrivez un sujet s'il vous plait")),
                 )
@@ -32,6 +33,7 @@ class ContactType extends AbstractType
                     new NotBlank(array("message" => "Please provide a message here")),
                 )
             ))
+            ->add('save', SubmitType::class)
         ;
     }
 

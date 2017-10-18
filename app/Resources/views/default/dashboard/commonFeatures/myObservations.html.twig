@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for observation in observations %}
+    {% for observation in app.user.observations %}
         <tr>
             <td><a href="#">Modifier</a></td>
             <td>
@@ -28,5 +28,4 @@
         </tr>
     {% endfor %}
     </tbody>
-    {{ dump(observations) }}
 </table>

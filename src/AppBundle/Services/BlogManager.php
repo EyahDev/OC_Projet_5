@@ -80,9 +80,9 @@ class BlogManager
 
         // Vérification si il y a des articles dans cette catégorie
         if (count($category->getPosts()) != 0) {
-            $this->session->getFlashBag()->add('notice', 'Vous ne pouvez pas supprimer une catégorie qui possède des articles.');
 
-            return false;
+            // Création du message flash d'erreur
+            $this->session->getFlashBag()->add('notice', 'Vous ne pouvez pas supprimer une catégorie qui possède des articles.');
 
         } else {
             // Supression de la catégorie
@@ -186,21 +186,30 @@ class BlogManager
     /* Gestion des commentaires */
 
     public function getCommentForm() {
+        // Création d'un nouveau commentaire
         $comment = new Comment();
 
+        // Récupération du formulaire de création d'un commentaire
         $form = $this->formBuilder->create('AppBundle\Form\Blog\NewCommentType', $comment);
 
+        // Retourne le formulaire
         return $form;
     }
 
     public function setComment(Comment $comment, Post $post, $user) {
-
+        // Récupération de l'utilisateur courant
         $comment->setAuthor($user);
+
+        // Création de la date du jour pour
         $comment->setDate(new \DateTime());
+
+        // Passage de l'approbation false
         $comment->setApprouved(0);
+
+        // Ajout du commentaire dans le Post
         $post->addComment($comment);
 
-        // Supression de la catégorie
+        // Enregistrement de la catégorie
         $this->em->persist($post);
         $this->em->flush();
     }

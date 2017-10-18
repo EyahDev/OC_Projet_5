@@ -2,8 +2,6 @@
 
 namespace AppBundle\Services;
 
-
-use AppBundle\Entity\User;
 use AppBundle\Form\Signup\UpdateNameType;
 use AppBundle\Form\Signup\UpdateFirstNameType;
 use AppBundle\Form\Signup\AddLocationType;

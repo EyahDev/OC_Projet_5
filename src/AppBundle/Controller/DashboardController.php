@@ -16,12 +16,13 @@ class DashboardController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboardAction(Request $request, BlogManager $blogManager, ObservationManager $observationManager, SessionInterface $session)
+    public function dashboardAction(Request $request, BlogManager $blogManager, ObservationManager $observationManager)
     {
-        /*Utilisateur*/
-        $user = $this->getUser();
-        
+        /* Nous écrire */
+
+
         /* Utilisateurs */
+        $user = $this->getUser();
         $usersList = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
 
         /* Observations */
@@ -68,9 +69,6 @@ class DashboardController extends Controller
             // Récupération de l'entitée Post avec les valeurs hydratées
             $post = $createPost->getData();
 
-            // Récupération de l'utilisateur
-            $user = $this->getUser();
-
             // Enregistrement du nouvel article
             $blogManager->setPost($post, $user);
 
@@ -84,8 +82,7 @@ class DashboardController extends Controller
             'createPostForm' => $createPost->createView(),
             'postsList' => $postsList,
             'usersList' => $usersList,
-            'observations' => $observations,
-            'user' => $user
+            'observations' => $observations
         ));
     }
 }

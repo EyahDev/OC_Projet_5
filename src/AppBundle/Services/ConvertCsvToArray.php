@@ -6,10 +6,6 @@ namespace AppBundle\Services;
 
 class ConvertCsvToArray
 {
-    public function __construct()
-    {
-    }
-
     public function convert($filename, $delimiter = ',')
     {
         if(!file_exists($filename) || !is_readable($filename)) {

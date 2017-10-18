@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
 use AppBundle\Services\AccountManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,11 +13,12 @@ class AccountController extends Controller
     /* Gestion du profil utilisateur */
 
     /**
- * @Route("/dasboard/user/{id}/edition/name", name="edit_user_name")
- */
+     * @Route("/dasboard/user/{id}/edition/name", name="edit_user_name")
+     */
     public function editNameAction($id, AccountManager $accountManager, Request $request) {
-
+        // Récupération de l'EntityManager
         $em = $this->getDoctrine()->getManager();
+
         // Récupération du formulaire
         $updateNameForm = $accountManager->getFormUpdateName($id);
 

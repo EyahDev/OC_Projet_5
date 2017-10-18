@@ -2,9 +2,6 @@
 
 namespace AppBundle\Services;
 
-use AppBundle\Entity\Observation;
-use AppBundle\Entity\Species;
-use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -26,7 +23,7 @@ class ObservationManager
 
     public function getSpecie($id) {
         // Récupération de l'espèce par son id depuis le repository
-        $specie = $this->em->getRepository('AppBundle:Specie')->find($id);
+        $specie = $this->em->getRepository('AppBundle:Species')->find($id);
 
         // Retourne l'espèce
         return $specie;
