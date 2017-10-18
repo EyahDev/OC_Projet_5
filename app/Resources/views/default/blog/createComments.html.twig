@@ -1,0 +1,15 @@
+    {% if is_granted('ROLE_USER') %}
+        Vous êtes connecté en tant que : {{ app.user.username }}
+        {{ form_start(commentForm) }}
+        {{ form_errors(commentForm) }}
+
+        {{ form_errors(commentForm.message) }}
+        {{ form_label(commentForm.message) }}<br/>
+        {{ form_widget(commentForm.message) }}<br/>
+
+        {{ form_widget(commentForm.save) }}<br/>
+        {{ form_end(commentForm) }}
+
+    {% else %}
+        Pour rédiger un message, veuillez vous <a href="{{ path('login') }}">connecter </a>
+    {% endif %}
