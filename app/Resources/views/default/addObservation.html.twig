@@ -2,30 +2,4 @@
 
 {% block body %}
     <h2>Saisie des observations</h2>
-    <p>Gestion des utilisateurs</p>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Modification</th>
-            <th>Espèces observées</th>
-            <th>Date d'observation</th>
-            <th>Statut</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <th>{{ user.id }}</th>
-                <td>{{ user.username }}</td>
-                <td>
-                    {% for role in user.roles %}
-                        {{ role }}
-                    {% endfor %}
-                </td>
-                <td><a class="btn btn-primary" href="{{ path('changeRole', {'id': user.id}) }}">Changer role</a></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 {% endblock %}
