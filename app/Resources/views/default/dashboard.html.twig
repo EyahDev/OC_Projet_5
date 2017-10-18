@@ -2,6 +2,11 @@
 
 {% block body %}
     <h2>Tableau de bord</h2>
+    {% for message in app.session.flashbag.get('notice') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div id="quickAccess" class="text-center">
         <h3>Accès rapide</h3>
         <p><a class="btn btn-primary" href="{{ path('saisieObservation') }}" role="button">Saisie d'une observation</a></p>

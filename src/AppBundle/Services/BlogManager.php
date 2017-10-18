@@ -3,6 +3,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\User;
 use AppBundle\Form\Blog\CreateCategoryType;
@@ -26,18 +27,6 @@ class BlogManager
         $this->request = $request;
         $this->session = $session;
     }
-
-    /* Gestion de l'auteur */
-
-    // Récupération de l'auteur
-    public function getUser($id) {
-        // Récupération de la liste de toutes les catégories depuis le repository
-        $user = $this->em->getRepository('AppBundle:User')->find($id);
-
-        // Retourne l'auteur du post
-        return $user;
-    }
-
 
     /* Gestion des catégories */
 
@@ -89,9 +78,17 @@ class BlogManager
         // Récupération de la catégorie par son id
         $category = $this->getCategory($slug);
 
-        // Supression de la catégorie
-        $this->em->remove($category);
-        $this->em->flush();
+        // Vérification si il y a des articles dans cette catégorie
+        if (count($category->getPosts()) != 0) {
+            $this->session->getFlashBag()->add('notice', 'Vous ne pouvez pas supprimer une catégorie qui possède des articles.');
+
+            return false;
+
+        } else {
+            // Supression de la catégorie
+            $this->em->remove($category);
+            $this->em->flush();
+        }
     }
 
 
@@ -152,16 +149,14 @@ class BlogManager
         return $form;
     }
 
-    public function setPost(Post $post) {
-        // Récupération de l'user en session
-        $user = $this->session->get('UserTest');
-
-        // Sauvegarde de l'utilisateur
-        $this->em->persist($user);
-
+    public function setPost(Post $post, $user) {
         // Ajout de l'auteur dans le Post
         $post->setAuthor($user);
+
+        // Publication automatique de l'article
         $post->setPublished(1);
+
+        // Ajout de la date de publication
         $post->setPublishedDate(new \DateTime());
 
         // Sauvegarde du nouvel article
@@ -185,6 +180,28 @@ class BlogManager
 
         // Supression de la catégorie
         $this->em->remove($post);
+        $this->em->flush();
+    }
+
+    /* Gestion des commentaires */
+
+    public function getCommentForm() {
+        $comment = new Comment();
+
+        $form = $this->formBuilder->create('AppBundle\Form\Blog\NewCommentType', $comment);
+
+        return $form;
+    }
+
+    public function setComment(Comment $comment, Post $post, $user) {
+
+        $comment->setAuthor($user);
+        $comment->setDate(new \DateTime());
+        $comment->setApprouved(0);
+        $post->addComment($comment);
+
+        // Supression de la catégorie
+        $this->em->persist($post);
         $this->em->flush();
     }
 }

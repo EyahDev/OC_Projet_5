@@ -29,4 +29,29 @@
             {{ lastPost.title }} -- <a href="{{ path('view-post', {'slugCat' : post.category.slug ,'slugPost' : post.slug }) }}">Lire</a> --
         {% endfor %}
     {% endif %}
+
+    <hr>
+    Commentaires <br/>
+    <hr>
+
+    {% if is_granted('ROLE_USER') %}
+    Vous êtes connecté en tant que : {{ app.user.username }}
+    {{ form_start(commentForm) }}
+    {{ form_errors(commentForm) }}
+
+    {{ form_errors(commentForm.message) }}
+    {{ form_label(commentForm.message) }}<br/>
+    {{ form_widget(commentForm.message) }}<br/>
+
+    {{ form_widget(commentForm.save) }}<br/>
+    {{ form_end(commentForm) }}
+
+    {% else %}
+        Pour rédiger un message, veuillez vous <a href="{{ path('login') }}">connectez </a>
+    {% endif %}
+
+    {% for comment in post.comments %}
+        {{ comment.author.username }} -- {{ comment.date|date("d/m/Y à H:i", "Europe/Paris") }} -- <br>
+        {{ comment.message }}<br/><br/>
+    {% endfor %}
 {% endblock %}

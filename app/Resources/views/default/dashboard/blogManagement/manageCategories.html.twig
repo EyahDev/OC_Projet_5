@@ -1,6 +1,7 @@
 {{ form_start(createCategoryForm) }}
 {{ form_errors(createCategoryForm) }}
 
+{{ form_errors(createCategoryForm.name) }}
 {{ form_label(createCategoryForm.name) }}<br/>
 {{ form_widget(createCategoryForm.name) }}<br/>
 

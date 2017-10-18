@@ -35,7 +35,7 @@ class BlogController extends Controller
     /**
      * @Route("/blog/{slugCat}/{slugPost}", name="view-post")
      */
-    public function viewPostAction($slugPost, BlogManager $blogManager) {
+    public function viewPostAction($slugPost, $slugCat, BlogManager $blogManager, Request $request) {
         // Récupération de l'article via son slug
         $post = $blogManager->getPost($slugPost);
 
@@ -45,10 +45,35 @@ class BlogController extends Controller
         // Récupération des 3 derniers articles rédigés
         $threeLastPost = $blogManager->getThreeLastPosts();
 
+        // Récupération du formulaire de rédaction d'un nouveau commentaire
+        $commentForm = $blogManager->getCommentForm();
+
+        // Hydration de l'entitée avec les valeurs du formulaire
+        $commentForm->handleRequest($request);
+
+        // Soumission du formulaire
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            // Récupération de l'auteur du message
+            $user = $this->getUser();
+
+            // Récupération de l'entitée Catégory avec les valeurs hydratées
+            $comment = $commentForm->getData();
+
+            // Enregistrement de la nouvelle catégorie
+            $blogManager->setComment($comment, $post, $user);
+
+            // Rédirection vers le dashboard
+            return $this->redirectToRoute('view-post', array(
+                'slugCat' => $slugCat,
+                'slugPost' =>$slugPost
+            ));
+        }
+
         return $this->render("default/blog/postBlog.html.twig", array(
             'post' => $post,
             'categories' => $categories,
-            'threeLastPost' => $threeLastPost
+            'threeLastPost' => $threeLastPost,
+            'commentForm' => $commentForm->createView()
         ));
     }
 

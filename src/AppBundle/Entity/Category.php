@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -11,6 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
+ * @UniqueEntity(fields="name", message="Cette catégorie existe déjà.")
  */
 class Category
 {
@@ -32,6 +35,14 @@ class Category
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="Veuillez saisir un nom de catégorie valide.")*
+     * @Assert\NotNull()
+     * @Assert\Length(
+     *     min="2",
+     *     max="35",
+     *     minMessage="Une catégorie doit contenir au moins {{ limit }} caractères.",
+     *     maxMessage="Une catégorie ne peut contenir plus de {{ limit }} caractères."
+     * )
      */
     private $name;
 
@@ -75,6 +86,7 @@ class Category
     {
         return $this->name;
     }
+
     /**
      * Constructor
      */
