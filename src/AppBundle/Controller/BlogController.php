@@ -321,7 +321,7 @@ class BlogController extends Controller
         if ($request->isXmlHttpRequest()) {
             // Récupération de l'article via son slug
             $post = $blogManager->getPost($slugPost);
-
+            // récupère le commentaire parent
             $commentParent = $blogManager->getComment($parentId);
 
             // Récupération du formulaire de rédaction d'un nouveau commentaire
@@ -349,6 +349,29 @@ class BlogController extends Controller
             return $this->render("default/blog/comments/replyComment.html.twig", array(
                 'post' => $post,
                 'replyForm' => $replyForm->createView()
+            ));
+        }
+        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+    }
+
+    /**
+     * @param Request $request
+     * @param BlogManager $blogManager
+     * @param $commentId
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     *
+     * @Route("/flag-comm/{commentId}", name="flag-comm")
+     */
+    public function addflagAction(Request $request, BlogManager $blogManager, $commentId)
+    {
+        // Verification de la provenance de la requete, est-ce de l'ajax?
+        if ($request->isXmlHttpRequest()) {
+            // Ajout un signalement au commentaire et récupère le message pour le message flash JS
+            $message = $blogManager->setCommentFlag($commentId);
+            // Envoi le message flash pour l'affichage en JS
+            return $this->render("default/blog/comments/returnFlagged.html.twig", array(
+                'message' => $message
             ));
         }
         throw new \Exception("Vous ne pouvez pas accéder à cette page");

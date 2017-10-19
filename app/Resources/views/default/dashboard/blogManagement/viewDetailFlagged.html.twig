@@ -7,5 +7,5 @@
     {% if commentFlagged.parent != null %}
         En réponse à  : {{ commentFlagged.parent.message }}<br/><br/>
     {% endif %}
-    <a href="{{ path('comment_approuved', {'id': commentFlagged.id }) }}">Approuver</a> / <a href="{{ path('dashboard') }}"> Supprimer le commentaire</a>
+    <a href="{{ path('comment_approuved', {'id': commentFlagged.id }) }}">Approuver</a> / <a href="{{ path('comment_delete', {'id': commentFlagged.id}) }}"> Supprimer le commentaire</a>
 {% endblock %}
