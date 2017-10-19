@@ -1,1 +1,18 @@
-<p>Nous écrire</p>
+<div>
+    {{ form_start(contactForm) }}
+
+    {{ form_widget(contactForm.sujet) }}<br/>
+    {{ form_errors(contactForm.sujet) }}
+
+    {{ form_widget(contactForm.email) }}<br/>
+    {{ form_errors(contactForm.email) }}
+
+    {{ form_widget(contactForm.message) }}<br/>
+    {{ form_errors(contactForm.message) }}
+
+    {{ form_widget(contactForm.save) }}
+
+    {{ form_rest(contactForm) }}
+
+    {{ form_end(contactForm) }}
+</div>
