@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * ObservationRepository
  *
@@ -10,4 +13,23 @@ namespace AppBundle\Repository;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getUserValidatedObservations()
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->where('o.validate = :validate')
+            ->setParameter('validate', 1);
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getUserRefusedObservations()
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->where('o.validate = :validate')
+            ->setParameter('validate', 0);
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
 }

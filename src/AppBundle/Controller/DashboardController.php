@@ -18,8 +18,14 @@ class DashboardController extends Controller
      */
     public function dashboardAction(Request $request, BlogManager $blogManager, ObservationManager $observationManager)
     {
-        /* Nous écrire */
+        /* Observations validées par l'utilisateur classique */
+        $userValidatedObservations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getUserValidatedObservations();
 
+        /* Observations refusées par l'utilisateur classique */
+        $userRefusedObservations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getUserRefusedObservations();
+
+        /* Observations refusées par l'utilisateur pro */
+        $refusedObservations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->findBy(array('validate' => '0'));
 
         /* Utilisateurs */
         $user = $this->getUser();
@@ -82,7 +88,10 @@ class DashboardController extends Controller
             'createPostForm' => $createPost->createView(),
             'postsList' => $postsList,
             'usersList' => $usersList,
-            'observations' => $observations
+            'observations' => $observations,
+            'userValidatedObservations' => $userValidatedObservations,
+            'userRefusedObservations' => $userRefusedObservations,
+            'refusedObservations' => $refusedObservations,
         ));
     }
 }
