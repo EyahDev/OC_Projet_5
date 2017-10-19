@@ -18,18 +18,22 @@ class DashboardController extends Controller
      */
     public function dashboardAction(Request $request, BlogManager $blogManager, ObservationManager $observationManager)
     {
-        /* Observations validées par l'utilisateur classique */
-        $userValidatedObservations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getUserValidatedObservations();
-
-        /* Observations refusées par l'utilisateur classique */
-        $userRefusedObservations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getUserRefusedObservations();
-
-        /* Observations refusées par l'utilisateur pro */
-        $refusedObservations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->findBy(array('validate' => '0'));
-
         /* Utilisateurs */
         $user = $this->getUser();
         $usersList = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
+
+        
+        /* Observations validées pour l'utilisateur classique */
+        $validatedObservationsByUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getValidatedObservationsByUser($user);
+
+        /* Observations refusées pour l'utilisateur classique */
+        $refusedObservationsByUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getRefusedObservationsByUser($user);
+
+        /* Observations refusées par l'utilisateur pro */
+        $refusedObservationsByValidator = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getRefusedObservationsByValidator($user);
+
+        /* Observations refusées par l'utilisateur pro */
+        $validatedObservationsByValidator = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getValidatedObservationsByValidator($user);
 
         /* Observations */
         $observations = $observationManager->getObservations();
@@ -89,9 +93,11 @@ class DashboardController extends Controller
             'postsList' => $postsList,
             'usersList' => $usersList,
             'observations' => $observations,
-            'userValidatedObservations' => $userValidatedObservations,
-            'userRefusedObservations' => $userRefusedObservations,
-            'refusedObservations' => $refusedObservations,
+            'validatedObservationsByUser' => $validatedObservationsByUser,
+            'refusedObservationsByUser' => $refusedObservationsByUser,
+            'refusedObservationsByValidator' => $refusedObservationsByValidator,
+            'validatedObservationsByValidator' => $validatedObservationsByValidator
+            
         ));
     }
 }

@@ -13,23 +13,60 @@ use Doctrine\ORM\QueryBuilder;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getUserValidatedObservations()
+    public function getValidatedObservationsByUser($user)
     {
         $qb = $this->createQueryBuilder('o')
             ->where('o.validate = :validate')
-            ->setParameter('validate', 1);
-        return $qb
-            ->getQuery()
-            ->getResult();
-    }
+            ->andWhere('o.observer = :user')
+            ->setParameters(array(
+                'validate' => 1,
+                'user' => $user));
 
-    public function getUserRefusedObservations()
-    {
-        $qb = $this->createQueryBuilder('o')
-            ->where('o.validate = :validate')
-            ->setParameter('validate', 0);
         return $qb
             ->getQuery()
             ->getResult();
     }
+    
+
+    public function getRefusedObservationsByUser($user)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->where('o.validate = :validate')
+            ->andWhere('o.observer = :user')
+            ->setParameters(array(
+                'validate' => 0,
+                'user' => $user));
+        
+        return $qb
+            ->getQuery()
+            ->getResult();
+        
+    } public function getValidatedObservationsByValidator($user)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->where('o.validate = :validate')
+            ->andWhere('o.validator = :user')
+            ->setParameters(array(
+                'validate' => 1,
+                'user' => $user));
+        
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+    
+     public function getRefusedObservationsByValidator($user)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->where('o.validate = :validate')
+            ->andWhere('o.validator = :user')
+            ->setParameters(array(
+                'validate' => 0,
+                'user' => $user));
+        
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+    
 }

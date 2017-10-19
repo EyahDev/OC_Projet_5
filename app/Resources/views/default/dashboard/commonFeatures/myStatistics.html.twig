@@ -1,17 +1,12 @@
 <h6>Total observations<p>{{ app.user.observations|length }}</p></h6>
 
 {% if not is_granted('ROLE_PROFESSIONAL') %}
-    <h6>Observations validées<p>{{ userValidatedObservations|length  }}</p></h6>
-    <h6>Observations refusées<p>{{ userRefusedObservations|length }}</p></h6>
+    <h6>Observations validées user<p>{{ validatedObservationsByUser|length  }}</p></h6>
+    <h6>Observations refusées user<p>{{ refusedObservationsByUser|length }}</p></h6>
 {% endif %}
 
 {% if is_granted('ROLE_PROFESSIONAL') %}
-    <h6>Observations validées<p>{{ app.user.observationsValidated|length }}</p></h6>
-    <h6>Observations refusées<p>Pro</p></h6>
-    {{ refusedObservations|length }}
+    <h6>Observations validées pro<p>{{ validatedObservationsByValidator|length }}</p></h6>
+    <h6>Observations refusées pro<p>{{ refusedObservationsByValidator|length }}</p></h6>
+
 {% endif %}
-{{ dump(app.user) }}
-
-    {#{% for value in app.user.observations %}#}
-
-    {#{% endfor %}#}
