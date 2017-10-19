@@ -52,14 +52,6 @@ class DefaultController extends Controller
             'form' => $userForm->createView()));
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/saisie-observation", name="saisieObservation")
-     */
-    public function addObservationAction()
-    {
-        return $this->render("default/addObservation.html.twig");
-    }
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
