@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    Etes vous sur de vouloir supprimer ce commentaire ?
+    {% if infoComment.children|length == 0 %}
+        En supprimant ce commentaire vous supprimerez également toutes les réponses associées
+    {% endif %}
+    <a href="{{ path('comment_delete', {'id': infoComment.id }) }}">Oui</a> / <a href="{{ path('dashboard') }}">Non</a>
+{% endblock %}

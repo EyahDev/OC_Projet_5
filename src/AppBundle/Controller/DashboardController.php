@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Services\BlogManager;
+use AppBundle\Services\CommentManager;
 use AppBundle\Services\ObservationManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,7 +17,7 @@ class DashboardController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboardAction(Request $request, BlogManager $blogManager, ObservationManager $observationManager)
+    public function dashboardAction(Request $request, BlogManager $blogManager, ObservationManager $observationManager, CommentManager $commentManager)
     {
         /* Nous écrire */
 
@@ -76,13 +77,19 @@ class DashboardController extends Controller
             return $this->redirectToRoute('dashboard');
         }
 
+        /* Commentaires */
+
+        // Récupération des commentaires signalés
+        $commentsFlagged = $commentManager->getCommentsFlagged();
+
         return $this->render("default/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),
             'categoriesList' => $categoriesList,
             'createPostForm' => $createPost->createView(),
             'postsList' => $postsList,
             'usersList' => $usersList,
-            'observations' => $observations
+            'observations' => $observations,
+            'commentsFlagged' => $commentsFlagged
         ));
     }
 }

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Services\BlogManager;
+use AppBundle\Services\CommentManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -209,6 +210,53 @@ class BlogController extends Controller
         return $this->redirectToRoute('dashboard');
     }
 
+    /* Commentaires */
+
+    /**
+     * @Route("/dashboard/signalement/{id}/detail", name="view-detail-flagged")
+     */
+    public function viewDetailsFlagged(CommentManager $commentManager, $id) {
+        // Récupération du commentaire ciblé
+        $commentflagged = $commentManager->getCommentFlagged($id);
+
+        return $this->render('default/dashboard/blogManagement/viewDetailFlagged.html.twig', array(
+            'commentFlagged' => $commentflagged
+        ));
+    }
+
+    /**
+     * @Route("/dashboard/signalement/{id}/confirmation-suppression", name="advice_delete_comment")
+     */
+    public function deleteConfirmationCommentAction($id, CommentManager $commentManager) {
+        // Récupération des informations lié au post
+        $comment = $commentManager->getCommentFlagged($id);
+
+        return $this->render(":default/dashboard/blogManagement:deleteConfirmationFlagged.html.twig", array(
+            'infoComment' => $comment
+        ));
+    }
+
+    /**
+     * @Route("/dashboard/signalement/{id}/approbation", name="comment_approuved")
+     */
+    public function approuvedCommentAction($id, CommentManager $commentManager) {
+        // Supression de l'article
+        $commentManager->approuvedComment($id);
+
+        // Rédirection vers le dashboard
+        return $this->redirectToRoute('dashboard');
+    }
+
+    /**
+     * @Route("/dashboard/signalement/{id}/suppression", name="comment_delete")
+     */
+    public function deleteCommentAction($id, CommentManager $commentManager) {
+        // Supression de l'article
+        $commentManager->deleteComment($id);
+
+        // Rédirection vers le dashboard
+        return $this->redirectToRoute('dashboard');
+    }
 
     /**
      * Ajoute un commentaire dynamiquement (AJAX)

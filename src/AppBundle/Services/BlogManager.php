@@ -5,7 +5,6 @@ namespace AppBundle\Services;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
-use AppBundle\Entity\User;
 use AppBundle\Form\Blog\CreateCategoryType;
 use AppBundle\Form\Blog\CreatePostType;
 use AppBundle\Form\Blog\UpdateCategoryType;

@@ -1,1 +1,10 @@
 <p>Modération des commentaires</p>
+
+{% for commentflagged in commentsFlagged %}
+    utilisateur : {{ commentflagged.author.username }}
+    -- commentaire : {{ commentflagged.message }}
+    -- Nb signalement : {{ commentflagged.flagged }}
+    -- date du com : {{ commentflagged.date|date('d/m/Y') }}
+    <a href="{{ path('view-detail-flagged', {'id' : commentflagged.id }) }}"><i class="fa fa-eye" aria-hidden="true"></i></a> /
+    <a href="{{ path('advice_delete_comment', {'id' : commentflagged.id }) }}"><i class="fa fa-times" aria-hidden="true"></i></a><br/>
+{% endfor %}
