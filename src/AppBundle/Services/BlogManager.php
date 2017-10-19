@@ -213,4 +213,30 @@ class BlogManager
         $this->em->persist($post);
         $this->em->flush();
     }
+
+    /**
+     * Renvoie le commentaire demandé avec une recherche par id
+     * @param $id
+     * @return null|object
+     */
+    public function getComment($id)
+    {
+        // Récupération du commentaire grace à son id
+        return $this->em->getRepository("AppBundle:Comment")->find($id);
+    }
+
+    /**
+     * Renvoie le formulaire créé pour répondre à un commentaire
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function getReplyForm() {
+        // Création d'un nouveau commentaire
+        $comment = new Comment();
+
+        // Récupération du formulaire de réponse à un commentaire
+        $form = $this->formBuilder->create('AppBundle\Form\Blog\ReplyCommentType', $comment);
+
+        // Retourne le formulaire
+        return $form;
+    }
 }

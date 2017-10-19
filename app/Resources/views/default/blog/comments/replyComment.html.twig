@@ -1,0 +1,10 @@
+{# formulaire pour les réponses à un commentaire #}
+{{ form_start(replyForm) }}
+{{ form_errors(replyForm) }}
+
+{{ form_errors(replyForm.message) }}
+{{ form_label(replyForm.message) }}<br/>
+{{ form_widget(replyForm.message) }}<br/>
+
+{{ form_widget(replyForm.save) }}<br/>
+{{ form_end(replyForm) }}

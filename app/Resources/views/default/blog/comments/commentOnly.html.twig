@@ -1,0 +1,6 @@
+{# structure pour un commentaire isolé (ajouté en js) #}
+<div>
+    <p>{{ comment.author.username }} -- {{ comment.date|date("d/m/Y à H:i", "Europe/Paris") }}</p>
+    <p>{{ comment.message }}</p>
+</div>
+<hr>
