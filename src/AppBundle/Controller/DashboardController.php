@@ -76,13 +76,35 @@ class DashboardController extends Controller
             return $this->redirectToRoute('dashboard');
         }
 
+        /* Accès rapide */
+
+        // Récupération du formulaire de saisie d'observation
+        $createObservation = $observationManager->getObservationForm();
+
+        // Hydratation de l'entitée avec les valeurs du formulaire
+        $createObservation->handleRequest($request);
+
+        // Soumission du formulaire
+        if ($createObservation->isSubmitted() && $createObservation->isValid()) {
+
+            // Récupération de l'entitée Observation avec les valeurs hydratées
+            $observation = $createObservation->getData();
+
+            // Enregistrement de la nouvelle observation
+            $observationManager->setNewObservation($observation, $user);
+
+            // Rédirection vers le dashboard
+            return $this->redirectToRoute('dashboard');
+        }
+
         return $this->render("default/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),
             'categoriesList' => $categoriesList,
             'createPostForm' => $createPost->createView(),
             'postsList' => $postsList,
             'usersList' => $usersList,
-            'observations' => $observations
+            'observations' => $observations,
+            'createObservationForm' => $createObservation->createView()
         ));
     }
 }

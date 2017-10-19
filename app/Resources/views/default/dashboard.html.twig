@@ -9,8 +9,27 @@
     {% endfor %}
     <div id="quickAccess" class="text-center">
         <h3>Accès rapide</h3>
-        <p><a class="btn btn-primary" href="{{ path('saisieObservation') }}" role="button">Saisie d'une observation</a></p>
+
+        <p><a class="btn btn-primary" id="buttonSaisieRapide" href="{{ path('saisieObservation') }}" role="button" data-toggle="modal" data-target="#saisieObservation" >Saisie d'une observation</a></p>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="saisieObservation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Saisie rapide d'une observation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modalSaisieRapide">
+                        {{ include(':default/dashboard/quickAcces:addObservationForm.html.twig')}}
+                </div>
+            </div>
+        </div>
     </div>
+
     {# accordéon particulier et professionnel #}
     <div id="commonFeatures" class="text-center">
         <div id="accordionUserAndPro" role="tablist">
@@ -207,4 +226,8 @@
         </div>
     </div>
     {% endif %}
+{% endblock %}
+{% block javascripts %}
+<script>
+</script>
 {% endblock %}
