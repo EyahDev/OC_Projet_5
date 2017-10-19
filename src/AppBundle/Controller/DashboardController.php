@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Services\BlogManager;
+use AppBundle\Services\CommentManager;
 use AppBundle\Services\ContactManager;
 use AppBundle\Services\ObservationManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -17,7 +18,8 @@ class DashboardController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboardAction(Request $request,ContactManager $contactManager, BlogManager $blogManager, ObservationManager $observationManager)
+
+    public function dashboardAction(Request $request, ContactManager $contactManager, BlogManager $blogManager, ObservationManager $observationManager, CommentManager $commentManager)
     {
         /* Nous écrire */
 
@@ -104,6 +106,12 @@ class DashboardController extends Controller
             return $this->redirectToRoute('dashboard');
         }
 
+
+        /* Commentaires */
+
+        // Récupération des commentaires signalés
+        $commentsFlagged = $commentManager->getCommentsFlagged();
+
         /* Accès rapide */
 
         // Récupération du formulaire de saisie d'observation
@@ -132,6 +140,7 @@ class DashboardController extends Controller
             'postsList' => $postsList,
             'usersList' => $usersList,
             'observations' => $observations,
+            'commentsFlagged' => $commentsFlagged,
             'validatedObservationsByUser' => $validatedObservationsByUser,
             'refusedObservationsByUser' => $refusedObservationsByUser,
             'refusedObservationsByValidator' => $refusedObservationsByValidator,

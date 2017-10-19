@@ -154,30 +154,6 @@ class Comment
     }
 
     /**
-     * Set responses
-     *
-     * @param string $responses
-     *
-     * @return Comment
-     */
-    public function setResponses($responses)
-    {
-        $this->responses = $responses;
-
-        return $this;
-    }
-
-    /**
-     * Get responses
-     *
-     * @return string
-     */
-    public function getResponses()
-    {
-        return $this->responses;
-    }
-
-    /**
      * Set parent
      *
      * @param string $parent
@@ -187,6 +163,7 @@ class Comment
     public function setParent($parent)
     {
         $this->parent = $parent;
+        $parent->addChild($this);
 
         return $this;
     }

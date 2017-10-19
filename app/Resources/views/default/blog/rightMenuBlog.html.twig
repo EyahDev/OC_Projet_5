@@ -1,0 +1,23 @@
+{% if categories|length != 0 %}
+    <hr>
+    Catégories <br/>
+    <hr>
+    {% for category in categories %}
+        {% if category|length != 0 %}
+            <div>
+                <a href="{{ path('view-posts-by-category', {'category' : category.slug }) }}">{{ category.name }} ({{ category.posts|length }})</a>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if threeLastPost|length != 0 %}
+    <hr>
+    Derniers articles publiés<br/>
+    <hr>
+    {% for lastPost in threeLastPost %}
+        <div>
+            {{ lastPost.title }} -- <a href="{{ path('view-post', {'slugCat' : lastPost.category.slug ,'slugPost' : lastPost.slug }) }}">Lire</a>
+        </div>
+    {% endfor %}
+{% endif %}

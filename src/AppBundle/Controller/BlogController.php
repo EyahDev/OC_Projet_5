@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Services\BlogManager;
+use AppBundle\Services\CommentManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,39 +52,30 @@ class BlogController extends Controller
         // Hydration de l'entitée avec les valeurs du formulaire
         $commentForm->handleRequest($request);
 
-        if ($request->isXmlHttpRequest()) {
+        // Soumission du formulaire
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            // Récupération de l'auteur du message
+            $user = $this->getUser();
+
+            // Récupération de l'entitée Catégory avec les valeurs hydratées
             $comment = $commentForm->getData();
-            dump($comment);
 
+            // Enregistrement de la nouvelle catégorie
+            $blogManager->setComment($comment, $post, $user);
 
-            return $this->redirectToRoute('homepage');
-        } else {
-            dump("pas ajax");
-            // Soumission du formulaire
-            if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-                // Récupération de l'auteur du message
-                $user = $this->getUser();
-
-                // Récupération de l'entitée Catégory avec les valeurs hydratées
-                $comment = $commentForm->getData();
-
-                // Enregistrement de la nouvelle catégorie
-                $blogManager->setComment($comment, $post, $user);
-
-                // Rédirection vers le dashboard
-                return $this->redirectToRoute('view-post', array(
-                    'slugCat' => $slugCat,
-                    'slugPost' => $slugPost
-                ));
-            }
-
-            return $this->render("default/blog/postBlog.html.twig", array(
-                'post' => $post,
-                'categories' => $categories,
-                'threeLastPost' => $threeLastPost,
-                'commentForm' => $commentForm->createView()
+            // Rédirection vers le dashboard
+            return $this->redirectToRoute('view-post', array(
+                'slugCat' => $slugCat,
+                'slugPost' => $slugPost
             ));
         }
+
+        return $this->render("default/blog/postBlog.html.twig", array(
+            'post' => $post,
+            'categories' => $categories,
+            'threeLastPost' => $threeLastPost,
+            'commentForm' => $commentForm->createView()
+        ));
     }
 
     /**
@@ -218,44 +210,147 @@ class BlogController extends Controller
         return $this->redirectToRoute('dashboard');
     }
 
-    // Test commentaire avec ajax
+    /* Commentaires */
+
     /**
-     * @Route("/create-comm/", name="create-comm")
+     * @Route("/dashboard/signalement/{id}/detail", name="view-detail-flagged")
      */
-    public function createCommentAction( BlogManager $blogManager, Request $request) {
-        // Récupération de l'article via son slug
-        $post = $blogManager->getPost("test-titre");
-//        dump($post);
-        // Récupération du formulaire de rédaction d'un nouveau commentaire
-        $commentForm = $blogManager->getCommentForm();
+    public function viewDetailsFlagged(CommentManager $commentManager, $id) {
+        // Récupération du commentaire ciblé
+        $commentflagged = $commentManager->getCommentFlagged($id);
 
-        // Hydration de l'entitée avec les valeurs du formulaire
-        $commentForm->handleRequest($request);
+        return $this->render('default/dashboard/blogManagement/viewDetailFlagged.html.twig', array(
+            'commentFlagged' => $commentflagged
+        ));
+    }
 
+    /**
+     * @Route("/dashboard/signalement/{id}/confirmation-suppression", name="advice_delete_comment")
+     */
+    public function deleteConfirmationCommentAction($id, CommentManager $commentManager) {
+        // Récupération des informations lié au post
+        $comment = $commentManager->getCommentFlagged($id);
+
+        return $this->render(":default/dashboard/blogManagement:deleteConfirmationFlagged.html.twig", array(
+            'infoComment' => $comment
+        ));
+    }
+
+    /**
+     * @Route("/dashboard/signalement/{id}/approbation", name="comment_approuved")
+     */
+    public function approuvedCommentAction($id, CommentManager $commentManager) {
+        // Supression de l'article
+        $commentManager->approuvedComment($id);
+
+        // Rédirection vers le dashboard
+        return $this->redirectToRoute('dashboard');
+    }
+
+    /**
+     * @Route("/dashboard/signalement/{id}/suppression", name="comment_delete")
+     */
+    public function deleteCommentAction($id, CommentManager $commentManager) {
+        // Supression de l'article
+        $commentManager->deleteComment($id);
+
+        // Rédirection vers le dashboard
+        return $this->redirectToRoute('dashboard');
+    }
+
+    /**
+     * Ajoute un commentaire dynamiquement (AJAX)
+     *
+     * @param BlogManager $blogManager
+     * @param Request $request
+     * @param $slugPost
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     *
+     * @Route("/create-comm/{slugPost}", name="create-comm")
+     */
+    public function createCommentAction( BlogManager $blogManager, Request $request, $slugPost) {
         if ($request->isXmlHttpRequest()) {
-            $comment = $commentForm->getData();
-            dump($comment);
-            dump('create comm pas ajax');
+            // Récupération de l'article via son slug
+            $post = $blogManager->getPost($slugPost);
+
+            // Récupération du formulaire de rédaction d'un nouveau commentaire
+            $commentForm = $blogManager->getCommentForm();
+
+            // Hydration de l'entitée avec les valeurs du formulaire
+            $commentForm->handleRequest($request);
+
             // Soumission du formulaire
             if ($commentForm->isSubmitted() && $commentForm->isValid()) {
                 // Récupération de l'auteur du message
                 $user = $this->getUser();
-
                 // Récupération de l'entitée Catégory avec les valeurs hydratées
                 $comment = $commentForm->getData();
 
                 // Enregistrement de la nouvelle catégorie
                 $blogManager->setComment($comment, $post, $user);
 
-                return $this->render("default/blog/commentOnly.html.twig", array(
+                // Envoi du commentaire seul pour l'affichage en js
+                return $this->render("default/blog/comments/commentOnly.html.twig", array(
                     'comment' => $comment
                 ));
             }
+            // Envoi de le formulaire de commentaire pour l'affichage en js
+            return $this->render("default/blog/comments/createComments.html.twig", array(
+                'post' => $post,
+                'commentForm' => $commentForm->createView()
+            ));
         }
+        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+    }
 
-        return $this->render("default/blog/createComments.html.twig", array(
-            'post' => $post,
-            'commentForm' => $commentForm->createView()
-        ));
+    /**
+     * Ajoute une réponse dynamiquement (AJAX)
+     *
+     * @param BlogManager $blogManager
+     * @param Request $request
+     * @param $slugPost
+     * @param $parentId
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     *
+     * @Route("/reply-com/{slugPost}/{parentId}", name="reply-com")
+     */
+    public function createReplyAction( BlogManager $blogManager, Request $request, $slugPost, $parentId) {
+        // Verification de la provenance de la requete, est-ce de l'ajax?
+        if ($request->isXmlHttpRequest()) {
+            // Récupération de l'article via son slug
+            $post = $blogManager->getPost($slugPost);
+
+            $commentParent = $blogManager->getComment($parentId);
+
+            // Récupération du formulaire de rédaction d'un nouveau commentaire
+            $replyForm = $blogManager->getReplyForm();
+
+            // Hydration de l'entitée avec les valeurs du formulaire
+            $replyForm->handleRequest($request);
+
+            // Soumission du formulaire
+            if ($replyForm->isSubmitted() && $replyForm->isValid()) {
+                // Récupération de l'auteur du message
+                $user = $this->getUser();
+                // Récupération de l'entitée Catégory avec les valeurs hydratées
+                $comment = $replyForm->getData();
+                // Ajout du commentaire parent
+                $comment->setParent($commentParent);
+                // Enregistrement de la nouvelle catégorie
+                $blogManager->setComment($comment, $post, $user);
+                // Envoi de la réponse seule pour l'affichage en js
+                return $this->render("default/blog/comments/replyOnly.html.twig", array(
+                    'comment' => $comment
+                ));
+            }
+            // Envoi de le formulaire de réponse  pour l'affichage en js
+            return $this->render("default/blog/comments/replyComment.html.twig", array(
+                'post' => $post,
+                'replyForm' => $replyForm->createView()
+            ));
+        }
+        throw new \Exception("Vous ne pouvez pas accéder à cette page");
     }
 }

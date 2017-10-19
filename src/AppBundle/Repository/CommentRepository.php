@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getCommentsFlagged() {
+        // Création de l'alias
+        $qb = $this->createQueryBuilder('c');
+
+        // Récupération des commentaires qui ont un flag égal ou supérieur à 1
+        $qb->where('c.flagged >= 1')->andWhere('c.approuved = false');
+
+        // Récupération du résultat
+        $results = $qb->getQuery()->getResult();
+
+        // Retourne le résultat
+        return $results;
+    }
 }
