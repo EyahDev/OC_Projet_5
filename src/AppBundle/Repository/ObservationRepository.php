@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * ObservationRepository
  *
@@ -10,4 +13,60 @@ namespace AppBundle\Repository;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getValidatedObservationsByUser($user)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->where('o.validate = :validate')
+            ->andWhere('o.observer = :user')
+            ->setParameters(array(
+                'validate' => 1,
+                'user' => $user));
+
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+    
+
+    public function getRefusedObservationsByUser($user)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->where('o.validate = :validate')
+            ->andWhere('o.observer = :user')
+            ->setParameters(array(
+                'validate' => 0,
+                'user' => $user));
+        
+        return $qb
+            ->getQuery()
+            ->getResult();
+        
+    } public function getValidatedObservationsByValidator($user)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->where('o.validate = :validate')
+            ->andWhere('o.validator = :user')
+            ->setParameters(array(
+                'validate' => 1,
+                'user' => $user));
+        
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+    
+     public function getRefusedObservationsByValidator($user)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->where('o.validate = :validate')
+            ->andWhere('o.validator = :user')
+            ->setParameters(array(
+                'validate' => 0,
+                'user' => $user));
+        
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+    
 }
