@@ -40,6 +40,19 @@ class DashboardController extends Controller
         $user = $this->getUser();
         $usersList = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
 
+        
+        /* Observations validées pour l'utilisateur classique */
+        $validatedObservationsByUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getValidatedObservationsByUser($user);
+
+        /* Observations refusées pour l'utilisateur classique */
+        $refusedObservationsByUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getRefusedObservationsByUser($user);
+
+        /* Observations refusées par l'utilisateur pro */
+        $refusedObservationsByValidator = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getRefusedObservationsByValidator($user);
+
+        /* Observations refusées par l'utilisateur pro */
+        $validatedObservationsByValidator = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getValidatedObservationsByValidator($user);
+
         /* Observations */
         $observations = $observationManager->getObservations();
 
@@ -119,6 +132,10 @@ class DashboardController extends Controller
             'postsList' => $postsList,
             'usersList' => $usersList,
             'observations' => $observations,
+            'validatedObservationsByUser' => $validatedObservationsByUser,
+            'refusedObservationsByUser' => $refusedObservationsByUser,
+            'refusedObservationsByValidator' => $refusedObservationsByValidator,
+            'validatedObservationsByValidator' => $validatedObservationsByValidator,            
             'createObservationForm' => $createObservation->createView(),
             'contactForm' => $createContact->createView()
         ));
