@@ -20,7 +20,10 @@ Commentaires <br/>
         {% if  comment.parent == null %}
 
             <div>
-                <p>{{ comment.author.username }} -- {{ comment.date|date("d/m/Y à H:i", "Europe/Paris") }}</p>
+                <p>
+                    {{ comment.author.username }}  {{ comment.date|date("d/m/Y à H:i", "Europe/Paris") }}
+                    <a class="btn-flag float-right" href="{{ path("flag-comm", {'commentId': comment.id}) }}"><i class="fa fa-flag" aria-hidden="true"></i></a>
+                </p>
                 <p>{{ comment.message }}</p>
             </div>
             <hr>
@@ -28,7 +31,10 @@ Commentaires <br/>
                 {# on parcourt les commentaires enfant pour les afficher #}
                 {% for child in comment.children %}
                     <div class="child-div" style="padding-left: 20px;">
-                        <p>{{ child.author.username }} -- {{ child.date|date("d/m/Y à H:i", "Europe/Paris") }}</p>
+                        <p>
+                            {{ child.author.username }}  {{ child.date|date("d/m/Y à H:i", "Europe/Paris") }}
+                            <a class="btn-flag float-right" href="{{ path("flag-comm", {'commentId': child.id}) }}"><i class="fa fa-flag" aria-hidden="true"></i></a>
+                        </p>
                         <p>{{ child.message }}</p>
                         <hr>
                     </div>

@@ -238,4 +238,36 @@ class BlogManager
         // Retourne le formulaire
         return $form;
     }
+
+    public function setCommentFlag($commentId)
+    {
+        if($this->session->has('flaggedComments')) {
+            $flaggedComments = $this->session->get('flaggedComments');
+            if(in_array($commentId, $flaggedComments)) {
+                return "Vous avez déjà signalé ce commentaire.";
+            }
+            array_push($flaggedComments, $commentId);
+
+        } else {
+            $flaggedComments[] = $commentId;
+        }
+        $this->session->set('flaggedComments', $flaggedComments);
+        // récupère le commentaire
+        $comment = $this->getComment($commentId);
+        // récupère ét incremente le compteur de signalement
+        $flaggedNb = $comment->getFlagged()+1;
+        // teste si le commentaire a été approuvé
+        if ($comment->getApprouved()) {
+            // message indiquant que le commentaire a déjà été approuvé
+            $message = "Ce commentaire a déjà été approuvé par le modérateur. Aucun signalement supplémentaire ne sera transmis.";
+        } else {
+            // enregistre la modification du commentaire
+            $comment->setFlagged($flaggedNb);
+            $this->em->persist($comment);
+            $this->em->flush();
+            // message de prise en compte du signalement
+            $message = "Votre signalement a bien été pris en compte. La modération sera faite dans les plus brefs délais.";
+        }
+        return $message;
+    }
 }
