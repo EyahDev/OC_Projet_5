@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Services\BlogManager;
+use AppBundle\Services\ContactManager;
 use AppBundle\Services\ObservationManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,10 +17,24 @@ class DashboardController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboardAction(Request $request, BlogManager $blogManager, ObservationManager $observationManager)
+    public function dashboardAction(Request $request,ContactManager $contactManager, BlogManager $blogManager, ObservationManager $observationManager)
     {
         /* Nous écrire */
 
+        // Récupération du formulaire de contact
+        $createContact = $contactManager->getFormCreateContact();
+        // Hydration de l'entitée avec les valeurs du formulaire
+        $createContact->handleRequest($request);
+        // Soumission du formulaire
+        if ($createContact->isSubmitted() && $createContact->isValid()) {
+            // Si le formulaire est valide le mail est envoyé
+            if($this->sendEmail($createContact->getData())){
+                // Rédirection vers le dashboard
+                return $this->redirectToRoute('dashboard');
+            }else{
+                var_dump("Une erreure s'est produite");
+            }
+        }
 
         /* Utilisateurs */
         $user = $this->getUser();
@@ -104,7 +119,28 @@ class DashboardController extends Controller
             'postsList' => $postsList,
             'usersList' => $usersList,
             'observations' => $observations,
-            'createObservationForm' => $createObservation->createView()
+            'createObservationForm' => $createObservation->createView(),
+            'contactForm' => $createContact->createView()
         ));
+    }
+
+    private function sendEmail($data){
+        $ContactMail = 'nao-p5@laposte.net';
+        $ContactPassword = '123456aA';
+
+        $transport = \Swift_SmtpTransport::newInstance('smtp.laposte.net', 465,'ssl')
+            ->setUsername($ContactMail)
+            ->setPassword($ContactPassword);
+
+        $mailer = \Swift_Mailer::newInstance($transport);
+
+        $message = \Swift_Message::newInstance($data["sujet"])
+            ->setFrom($ContactMail)
+            ->setTo(array(
+                $ContactMail => $ContactMail
+            ))
+            ->setBody(($data["message"]."<br>ContactMail :".$data["email"]),'text/html');
+
+        return $mailer->send($message);
     }
 }
