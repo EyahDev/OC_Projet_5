@@ -52,7 +52,7 @@ class ObservationController extends Controller
             $path = $this->getParameter('observations_directory');
 
             // Enregistrement
-            $observationManager->setNewObservation($observation, $user, $path);
+            $observationManager->setNewObservation($observation, $user);
 
             // Rédirection vers le dashboard
             return $this->redirectToRoute('saisieObservation');

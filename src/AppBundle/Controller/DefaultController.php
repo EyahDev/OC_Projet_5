@@ -2,6 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Services\MapsManager;
+use AppBundle\Services\ObservationManager;
+use function PHPSTORM_META\map;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,9 +60,29 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/recherche-observations", name="rechercheObservations")
      */
-    public function searchObservationsAction()
+    public function searchObservationsAction(Request $request, MapsManager $maps, ObservationManager $observationManager)
     {
-        return $this->render("default/searchObservations.html.twig");
+        $searchForm = $maps->searchObservationsForm();
+
+        // Hydration avec les valeurs du formulaire
+        $searchForm->handleRequest($request);
+
+        // Soumission
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+
+            $criteria = $searchForm->getData();
+
+            $result = $maps->searchObservations($criteria['NomScientifique']);
+
+            $maps->createMarkersXML($result);
+
+            return $this->redirectToRoute('rechercheObservations');
+        }
+
+        return $this->render("default/searchObservations.html.twig",
+            array(
+                'searchForm' => $searchForm->createView()
+            ));
     }
 
     /**

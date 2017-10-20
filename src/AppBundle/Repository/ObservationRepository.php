@@ -13,6 +13,19 @@ use Doctrine\ORM\QueryBuilder;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
+    /* Recherche Maps */
+
+    public function getObservationByCriteria($criteria){
+        // Création de l'alias
+        $qb = $this->createQueryBuilder('o');
+
+        $qb->where('o.species = :criteria')->setParameter('criteria', $criteria);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /* Statistiques du dashboard */
+
     public function getValidatedObservationsByUser($user)
     {
         $qb = $this->createQueryBuilder('o')
