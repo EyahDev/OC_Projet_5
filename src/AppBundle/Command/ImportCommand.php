@@ -4,6 +4,8 @@
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Species;
+use AppBundle\Entity\SpeciesFamily;
+use AppBundle\Entity\SpeciesType;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,100 +16,108 @@ class ImportCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
-        // Name and description for app/console command
+        // Nom et description pour la commande de bin/console
         $this
             ->setName('import:csv')
-            ->setDescription('Import species from CSV file');
+            ->setDescription('Importe les espèces depuis un fichier CSV');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        // Showing when the script is launched
+        // Montre quand le script est lancé
         $now = new \DateTime();
         $output->writeln('<comment>Start : ' . $now->format('d-m-Y G:i:s') . ' ---</comment>');
 
-        // Importing CSV on DB via Doctrine ORM
+        // Importe le csv on DB via Doctrine
         $this->import($input, $output);
 
-        // Showing when the script is over
+        // Montre quand le script est terminé
         $now = new \DateTime();
         $output->writeln('<comment>End : ' . $now->format('d-m-Y G:i:s') . ' ---</comment>');
     }
 
     protected function import(InputInterface $input, OutputInterface $output)
     {
-        // Getting php array of data from CSV
+        // Récupère un tableau de données depuis le csv
         $data = $this->get($input, $output);
 
-        // Getting doctrine manager
+        // Récupère l'entity manager
         $em = $this->getContainer()->get('doctrine')->getManager();
-        // Turning off doctrine default logs queries for saving memory
+
+        // Desactive l'enregistrement des logs de Doctrine pour economiser de la mémoire
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
 
-        // Define the size of record, the frequency for persisting the data and the current index of records
+        // Détermine la taille du tableau, la fréquence des flush et la position actuelle dans le tableau
         $size = count($data);
         $batchSize = 20;
         $i = 1;
 
-        // Starting progress
+        // Démarre la barre de progression
         $progress = new ProgressBar($output, $size);
         $progress->start();
 
-        // Processing on each row of data
+        // Parcourt chaque ligne du tableau
         foreach($data as $row) {
-
+            // récupère l'ordre dans la bdd en fonction de l'ordre renseigné sur la ligne
+            $type = $em->getRepository('AppBundle:SpeciesType')->findOneBy(array('name' => $row['type']));
+            // si l'ordre n'existe pas on le crée
+            if(!is_object($type)){
+                $type = new SpeciesType();
+                $type->setName($row['type']);
+            }
+            // récupère la famille dans la bdd en fonction de la famille renseignée sur la ligne
+            $family = $em->getRepository('AppBundle:SpeciesFamily')->findOneBy(array('name' => $row['family']));
+            // si la famille n'existe pas on le crée
+            if(!is_object($family)){
+                $family = new SpeciesFamily();
+                $family->setName($row['family']);
+            }
+            // récupère l'espece dans la bdd en fonction de l'espèce renseignée sur la ligne
             $species = $em->getRepository('AppBundle:Species')->findOneBy(array('referenceName' => $row['referenceName']));
-
-            // If the user doest not exist we create one
+            // si l'espèce n'existe pas on le crée
             if(!is_object($species)){
                 $species = new Species();
                 $species->setReferenceName($row['referenceName']);
             }
 
-            // Updating info
+            // mise a jour de l'espèce
             $species->setVernacularName($row['vernacularName']);
-            $species->setType($row['type']);
-            $species->setFamily($row['family']);
+            $species->setType($type);
+            $species->setFamily($family);
+
+            // mise à jour de la famille
+            $family->addSpecy($species);
+            $family->setType($type);
+
+            // mise à jour de l'ordre
+            $type->addSpecy($species);
+            $type->addFamily($family);
 
 
-            // Do stuff here !
 
-            // Persisting the current user
+            // persiste les objets
             $em->persist($species);
+            $em->persist($family);
+            $em->persist($type);
 
-            // Each 20 users persisted we flush everything
-            if (($i % $batchSize) === 0) {
-
-                $em->flush();
-                // Detaches all objects from Doctrine for memory save
-                $em->clear();
-
-                // Advancing for progress display on console
-                $progress->advance($batchSize);
-
-                $now = new \DateTime();
-                $output->writeln(' of users imported ... | ' . $now->format('d-m-Y G:i:s'));
-
-            }
-
-            $i++;
-
+            $em->flush();
+            // Détache tous les objets de doctrine pour économiser de la memoire
+            $em->clear();
         }
 
-        // Flushing and clear data on queue
         $em->flush();
         $em->clear();
 
-        // Ending the progress bar process
+        // Termine la progression
         $progress->finish();
     }
 
     protected function get(InputInterface $input, OutputInterface $output)
     {
-        // Getting the CSV from filesystem
+        // récupère le fichier à importer
         $fileName = 'web/uploads/import/species-taxref.csv';
 
-        // Using service for converting CSV to PHP Array
+        // Utilise un service pour convertir le csv en tableau php
         $converter = $this->getContainer()->get('import.csvtoarray');
         $data = $converter->convert($fileName, ';');
 

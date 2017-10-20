@@ -19,6 +19,18 @@ class Observation
     private $species;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SpeciesType", inversedBy="observations")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SpeciesFamily", inversedBy="observations")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $family;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="observations")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -492,5 +504,53 @@ class Observation
     public function getValidationComment()
     {
         return $this->validationComment;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \AppBundle\Entity\SpeciesType $type
+     *
+     * @return Observation
+     */
+    public function setType(\AppBundle\Entity\SpeciesType $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \AppBundle\Entity\SpeciesType
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set family
+     *
+     * @param \AppBundle\Entity\SpeciesFamily $family
+     *
+     * @return Observation
+     */
+    public function setFamily(\AppBundle\Entity\SpeciesFamily $family = null)
+    {
+        $this->family = $family;
+
+        return $this;
+    }
+
+    /**
+     * Get family
+     *
+     * @return \AppBundle\Entity\SpeciesFamily
+     */
+    public function getFamily()
+    {
+        return $this->family;
     }
 }
