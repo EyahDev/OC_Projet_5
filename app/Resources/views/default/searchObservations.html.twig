@@ -1,10 +1,52 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% for message in app.session.flashbag.get('notice') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     <div>
-        {{ form_start(searchForm) }}
-        {{ form_errors(searchForm) }}
-        {{ form_end(searchForm) }}
+        <div style="width: 48%; display: inline-block; margin-right: 25px;">
+            <hr>
+                Recherche par nom scientifique
+            <hr>
+
+            {{ form_start(searchReferenceNameForm) }}
+            {{ form_errors(searchReferenceNameForm) }}
+            {{ form_end(searchReferenceNameForm) }}
+        </div>
+
+        <div style="width: 48%; display: inline-block">
+            <hr>
+                Recherche par nom commun
+            <hr>
+
+            {{ form_start(searchVernacularNameForm) }}
+            {{ form_errors(searchVernacularNameForm) }}
+            {{ form_end(searchVernacularNameForm) }}
+        </div>
+
+        <div style="width: 48%; display: inline-block; margin-right: 25px;">
+            <hr>
+                Recherche par ordre
+            <hr>
+
+            {{ form_start(searchTypeForm) }}
+            {{ form_errors(searchTypeForm) }}
+            {{ form_end(searchTypeForm) }}
+        </div>
+
+        <div style="width: 48%; display: inline-block">
+            <hr>
+                Recherche par famille
+            <hr>
+
+            {{ form_start(searchFamilyForm) }}
+            {{ form_errors(searchFamilyForm) }}
+            {{ form_end(searchFamilyForm) }}
+        </div>
     </div>
     <div id="map" style="height: 500px; margin-top: 15px"></div>
 {% endblock %}
@@ -22,7 +64,7 @@
 
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 2,
+                zoom: 4,
                 center: new google.maps.LatLng(46.6, 1.9),
                 mapTypeId: 'roadmap'
             });
@@ -58,16 +100,31 @@
 
                     var icon = icons[type].icon || {};
                     console.log(icons[type].icon);
-                    var marker = new google.maps.Marker({
-                        map: map,
-                        position: point,
-                        icon: icon,
-                        label: icon.label
-                    });
-                    marker.addListener('click', function() {
-                        infoWindow.setContent(infowincontent);
-                        infoWindow.open(map, marker);
-                    });
+
+                    {% if not is_granted('ROLE_PROFESSIONAL') %}
+                        var marker = new google.maps.Circle({
+                            strokeColor: '#FF0000',
+                            strokeOpacity: 0.35,
+                            strokeWeight: 2,
+                            fillColor: '#FF0000',
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: point,
+                            radius: 10000
+                        });
+                    {% else %}
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: point,
+                            icon: icon,
+                            label: icon.label
+                        });
+
+                        marker.addListener('click', function() {
+                            infoWindow.setContent(infowincontent);
+                            infoWindow.open(map, marker);
+                        });
+                    {% endif %}
                 });
             });
         }

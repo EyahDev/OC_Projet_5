@@ -15,7 +15,7 @@ class SpeciesType
     /**
      * @var Species
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Species", mappedBy="type")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Species", mappedBy="type", cascade={"persist"})
      *
      */
     private $species;
@@ -23,7 +23,7 @@ class SpeciesType
     /**
      * @var SpeciesFamily
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SpeciesFamily", mappedBy="type")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SpeciesFamily", mappedBy="type", cascade={"persist"})
      *
      */
     private $families;

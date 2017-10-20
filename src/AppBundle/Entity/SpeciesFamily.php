@@ -15,7 +15,7 @@ class SpeciesFamily
     /**
      * @var Species
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Species", mappedBy="family")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Species", mappedBy="family", cascade={"persist"})
      *
      */
     private $species;

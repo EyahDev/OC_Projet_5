@@ -23,27 +23,91 @@ class MapsManager
         $this->formBuilder = $formFactory;
     }
 
-    public function searchObservationsForm() {
+    public function searchObservationsByReferenceNameForm() {
         // Récupération du formulaire de recherche
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\SearchObservationForm');
+        $form = $this->formBuilder->create('AppBundle\Form\Observations\SearchObservationByReferenceNameType');
 
         // Retourne le formulaire
         return $form;
     }
 
-    public function searchObservations($criteria) {
+    public function searchObservationsByVernacularForm() {
+        // Récupération du formulaire de recherche
+        $form = $this->formBuilder->create('AppBundle\Form\Observations\SearchObservationByVernacularNameType');
 
-        $result = $this->em->getRepository('AppBundle:Observation')->getObservationByCriteria($criteria);
+        // Retourne le formulaire
+        return $form;
+    }
 
-        dump($result);
+    public function searchObservationsByTypeForm() {
+        // Récupération du formulaire de recherche
+        $form = $this->formBuilder->create('AppBundle\Form\Observations\SearchObservationByTypeType');
+
+        // Retourne le formulaire
+        return $form;
+    }
+
+    public function searchObservationsByFamilyForm() {
+        // Récupération du formulaire de recherche
+        $form = $this->formBuilder->create('AppBundle\Form\Observations\SearchObservationByFamilyType');
+
+        // Retourne le formulaire
+        return $form;
+    }
+
+    public function searchObservationsBySpecies($criteria) {
+        // Récupération du résultat de la recherche
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationBySpecies($criteria);
+
+        // Retourne le résultat
         return $result;
+    }
 
+    public function searchObservationsByVernacular($criteria) {
+        // Récupération du résultat de la recherche
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationByVernacularName($criteria);
+
+        // Retourne le résultat
+        return $result;
+    }
+
+    public function searchObservationsByType($criteria) {
+        // Récupération du résultat de la recherche
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationByType($criteria);
+
+        // Retourne le résultat
+        return $result;
+    }
+
+    public function searchObservationsByFamily($criteria) {
+        // Récupération du résultat de la recherche
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationByFamily($criteria);
+
+        // Retourne le résultat
+        return $result;
+    }
+
+    public function resetMarkersXML() {
+        // Création du document XML
+        $mapsXMLDoc = new \DOMDocument('1.0', 'utf-8');
+
+        // Création du noeud <urlset>
+        $markersNode = $mapsXMLDoc->createElement( 'markers');
+
+        // Ecriture dans le fichier
+        $mapsXMLDoc->appendChild($markersNode);
+
+        $markerNode = $mapsXMLDoc->createElement('marker');
+
+        $markersNode->appendChild($markerNode);
+
+        // Ecriture du fichier XML du sitemap
+        $mapsXMLPath = 'markers/markers.xml';
+
+        file_put_contents($mapsXMLPath, $mapsXMLDoc->saveXml());
     }
 
     public function createMarkersXML($searchCriteria = array(Observation::class)) {
-
-        dump($searchCriteria);
-
         // Création du document XML
         $mapsXMLDoc = new \DOMDocument('1.0', 'utf-8');
 
@@ -51,6 +115,8 @@ class MapsManager
         $markersNode = $mapsXMLDoc->createElement( 'markers');
 
         $mapsXMLDoc->appendChild($markersNode);
+
+
 
         // Ajout des URLs dans le document XML
         foreach($searchCriteria as $marker){
