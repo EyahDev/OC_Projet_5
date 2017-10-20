@@ -1,7 +1,9 @@
 Projet_5
 ========
+Le projet n'est pas encore validé
+
 Contexe
-=======
+------
 Michel Dujardin est le fondateur de l’association NAO (Nos Amis les Oiseaux), regroupant les passionnés d’ornithologie. Il souhaite créer une application participative dans laquelle les particuliers pourraient indiquer où ils ont observé des oiseaux au cours de leurs promenades.‌
 
 Les participants prendront part à un programme de recherche visant à étudier les effets du climat, de l’urbanisation et de l’agriculture sur la biodiversité.
