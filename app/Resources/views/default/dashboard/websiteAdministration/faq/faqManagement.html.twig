@@ -1,0 +1,33 @@
+{# ajout d'une question/reponse #}
+<div class="row">
+    <div class="mx-auto">
+        <a class="btn btn-primary btn-add-faq" href="{{ path('new-faq') }}">Ajouter une question</a>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Question</td>
+            <td>Réponse</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+    {% for item in faq %}
+        <tr>
+            <td>
+                {{ item.question |slice(0, 50) }}
+            </td>
+            <td>
+                {{ item.answer |slice(0, 50)}}
+            </td>
+            <td>
+                <a href="#" class="btn-edit-faq"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                /
+                <a href="#" class="btn-rm-faq"><i class="fa fa-times" aria-hidden="true"></i><br/></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
