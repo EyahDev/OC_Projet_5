@@ -13,6 +13,20 @@ use Doctrine\ORM\Mapping as ORM;
 class Species
 {
     /**
+     * @var SpeciesType
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SpeciesType", inversedBy="species")
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SpeciesFamily", inversedBy="species")
+     */
+    private $family;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Observation", mappedBy="species", cascade={"persist"})
      */
     private $observations;
@@ -39,19 +53,6 @@ class Species
      */
     private $vernacularName;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255)
-     */
-    private $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="family", type="string", length=255)
-     */
-    private $family;
 
     /**
      * @var string
@@ -119,53 +120,6 @@ class Species
         return $this->vernacularName;
     }
 
-    /**
-     * Set type
-     *
-     * @param string $type
-     *
-     * @return Species
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set family
-     *
-     * @param string $family
-     *
-     * @return Species
-     */
-    public function setFamily($family)
-    {
-        $this->family = $family;
-
-        return $this;
-    }
-
-    /**
-     * Get family
-     *
-     * @return string
-     */
-    public function getFamily()
-    {
-        return $this->family;
-    }
 
     /**
      * Set description
@@ -230,5 +184,53 @@ class Species
     public function getObservations()
     {
         return $this->observations;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \AppBundle\Entity\SpeciesType $type
+     *
+     * @return Species
+     */
+    public function setType(\AppBundle\Entity\SpeciesType $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \AppBundle\Entity\SpeciesType
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set family
+     *
+     * @param \AppBundle\Entity\SpeciesFamily $family
+     *
+     * @return Species
+     */
+    public function setFamily(\AppBundle\Entity\SpeciesFamily $family = null)
+    {
+        $this->family = $family;
+
+        return $this;
+    }
+
+    /**
+     * Get family
+     *
+     * @return \AppBundle\Entity\SpeciesFamily
+     */
+    public function getFamily()
+    {
+        return $this->family;
     }
 }

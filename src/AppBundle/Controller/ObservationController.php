@@ -18,7 +18,7 @@ class ObservationController extends Controller
             
         // Récupération des observations par utilisateurs
         $observations = $observationManager->getObservationsByUser($user);
-        
+
         return $this->render("default/commonFeatures/myObservations.html.twig", array(
             'observations' => $observations,
         ));
@@ -52,7 +52,9 @@ class ObservationController extends Controller
             $path = $this->getParameter('observations_directory');
 
             // Enregistrement
-            $observationManager->setNewObservation($observation, $user, $path);
+            $observationManager->setNewObservation($observation, $user);
+
+            dump($observation->getType());
 
             // Rédirection vers le dashboard
             return $this->redirectToRoute('saisieObservation');

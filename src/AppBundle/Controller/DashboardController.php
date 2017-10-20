@@ -133,6 +133,8 @@ class DashboardController extends Controller
             return $this->redirectToRoute('dashboard');
         }
 
+        dump($observations[1]->getType()->getName());
+
         return $this->render("default/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),
             'categoriesList' => $categoriesList,
