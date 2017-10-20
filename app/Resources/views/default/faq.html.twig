@@ -1,5 +1,20 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}
+    FAQ - {{ parent() }}
+{% endblock %}
 {% block body %}
-    <h2>Tableau de bord</h2>
+    <h2>FAQ</h2>
+    {% for item in faq %}
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">
+                    {{ item.question }}
+                </h3>
+                <div class="card-text">
+                    {{ item.answer }}
+                </div>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
 {% endblock %}

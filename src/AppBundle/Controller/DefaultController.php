@@ -88,13 +88,4 @@ class DefaultController extends Controller
     {
         return $this->render("default/research.html.twig");
     }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/faq", name="faq")
-     */
-    public function faqAction()
-    {
-        return $this->render("default/faq.html.twig");
-    }
 }
