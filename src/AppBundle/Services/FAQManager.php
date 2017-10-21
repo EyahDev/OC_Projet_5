@@ -3,6 +3,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Faq;
+use AppBundle\Form\Faq\EditFaqType;
 use AppBundle\Form\Faq\NewFaqType;
 use AppBundle\Form\Signup\UpdateNameType;
 use AppBundle\Form\Signup\UpdateFirstNameType;
@@ -27,17 +28,39 @@ class FAQManager
         $this->session = $session;
     }
 
-    // Récupération de l'utilisateur courrant
-    public function getFaq($id) {
-        // Récupération de la liste de toutes les catégories depuis le repository
-        return $this->em->getRepository('AppBundle:Faq')->find($id);
-    }
 
-    // Informations personnelles
+    // Récupération du formulaire pour ajouter une nouvelle question/ réponse
     public function getFormNewFaq() {
         $faq = new Faq();
 
         return $this->formBuilder->create(NewFaqType::class, $faq);
+    }
+
+    public function setNewFaq($newFaq)
+    {
+        // Enregistrement de la nouvelle question/réponse
+        $this->em->persist($newFaq);
+        $this->em->flush();
+    }
+
+    public function removeFaq($faqId)
+    {
+        $faq = $this->em->getRepository('AppBundle:Faq')->find($faqId);
+        $this->em->remove($faq);
+        $this->em->flush();
+        return 'Question supprimée';
+    }
+
+    public function getFormEditFaq($faqId)
+    {
+        $faq = $this->em->getRepository('AppBundle:Faq')->find($faqId);
+        return $this->formBuilder->create(EditFaqType::class, $faq);
+    }
+
+    public function updateFaq($editedFaq)
+    {
+        $this->em->persist($editedFaq);
+        $this->em->flush();
     }
 
 

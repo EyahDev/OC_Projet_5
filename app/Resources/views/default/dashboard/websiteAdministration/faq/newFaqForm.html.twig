@@ -1,8 +1,28 @@
-{{ form_start(newFaqForm) }}
-{{ form_errors(newFaqForm) }}
 
-{{ form_row(newFaqForm.question) }}
-{{ form_row(newFaqForm.answer) }}
-{{ form_row(newFaqForm.save) }}
+<div class="well">
+    {{ form_start(newFaqForm, {'attr': {'class': 'form-horizontal'}}) }}
 
-{{ form_end(newFaqForm) }}
+    {{ form_errors(newFaqForm) }}
+
+    <div class="form-group">
+        {{ form_label(newFaqForm.question, "Question", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_errors(newFaqForm.question) }}
+        <div class="col-sm-12">
+            {{ form_widget(newFaqForm.question, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(newFaqForm.answer, "Réponse", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_errors(newFaqForm.answer) }}
+        <div class="col-sm-12">
+            {{ form_widget(newFaqForm.answer, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+
+    {{ form_widget(newFaqForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+
+    {# Fermeture de la balise <form> du formulaire HTML #}
+    {{ form_end(newFaqForm) }}
+</div>

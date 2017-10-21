@@ -133,8 +133,11 @@ class DashboardController extends Controller
             return $this->redirectToRoute('dashboard');
         }
 
-        // Gestion de la FAQ
-        $faq = $this->getDoctrine()->getManager()->getRepository('AppBundle:Faq')->findAll();
+        /* Gestion de la FAQ */
+
+        // récupère la liste des questions/réponses
+        $faqList = $this->getDoctrine()->getManager()->getRepository('AppBundle:Faq')->findAll();
+
 
         return $this->render("default/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),
@@ -150,7 +153,7 @@ class DashboardController extends Controller
             'validatedObservationsByValidator' => $validatedObservationsByValidator,            
             'createObservationForm' => $createObservation->createView(),
             'contactForm' => $createContact->createView(),
-            'faq' => $faq,
+            'faqList' => $faqList,
         ));
     }
 
