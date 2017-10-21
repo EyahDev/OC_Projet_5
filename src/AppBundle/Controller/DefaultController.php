@@ -130,7 +130,9 @@ class DefaultController extends Controller
             $criteria = $searchByType->getData();
 
             // Récupération du résultat
-            $result = $maps->searchObservationsBySpecies($criteria);
+            $result = $maps->searchObservationsByType($criteria);
+
+            dump($result);
 
             // Vérification si il y a un résultat
             if (empty($result)) {
@@ -151,7 +153,7 @@ class DefaultController extends Controller
 
             $criteria = $searchByFamily->getData();
 
-            $result = $maps->searchObservationsBySpecies($criteria);
+            $result = $maps->searchObservationsByFamily($criteria);
 
             // Vérification si il y a un résultat
             if (empty($result)) {

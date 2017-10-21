@@ -48,11 +48,15 @@
             {{ form_end(searchFamilyForm) }}
         </div>
     </div>
+    <button id="testGeo">Géolocalisation</button>
     <div id="map" style="height: 500px; margin-top: 15px"></div>
+
+
 {% endblock %}
 
 {% block javascripts %}
     <script>
+
         var customLabel = {
             restaurant: {
                 label: 'R'
@@ -80,6 +84,7 @@
             downloadUrl("{{ asset('markers/markers.xml') }}", function(data) {
                 var xml = data.responseXML;
                 var markers = xml.documentElement.getElementsByTagName('marker');
+                var markerArray = [];
                 Array.prototype.forEach.call(markers, function(markerElem) {
                     var name = markerElem.getAttribute('user');
                     var address = markerElem.getAttribute('address');
@@ -89,8 +94,10 @@
                         parseFloat(markerElem.getAttribute('lng')));
 
                     var infowincontent = document.createElement('div');
+                    infowincontent.innerHTML =
+                        '<img style="width: 100px;" src="{{ asset('uploads/observations_files/5d4a35502bd4887eab896433dbc88e26.png') }}"/><p>Ceci est un test</p>';
                     var strong = document.createElement('strong');
-                    strong.textContent = name
+                    strong.textContent = name;
                     infowincontent.appendChild(strong);
                     infowincontent.appendChild(document.createElement('br'));
 
@@ -99,7 +106,6 @@
                     infowincontent.appendChild(text);
 
                     var icon = icons[type].icon || {};
-                    console.log(icons[type].icon);
 
                     {% if not is_granted('ROLE_PROFESSIONAL') %}
                         var marker = new google.maps.Circle({
@@ -120,12 +126,23 @@
                             label: icon.label
                         });
 
+                        markerArray.push(marker);
+                        console.log(markerArray);
+
                         marker.addListener('click', function() {
                             infoWindow.setContent(infowincontent);
                             infoWindow.open(map, marker);
                         });
                     {% endif %}
+
+
                 });
+
+                var markerCluster = new MarkerClusterer(
+                    map,
+                    markerArray,
+                    {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'}
+                );
             });
         }
 
@@ -149,5 +166,6 @@
 
         function doNothing() {}
     </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNQR3Hw_y1urMSouzdoaVgUESayHjM90g&&callback=initMap" async defer></script>
 {% endblock %}
