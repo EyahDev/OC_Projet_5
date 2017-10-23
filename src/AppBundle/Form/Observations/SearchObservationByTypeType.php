@@ -9,8 +9,8 @@
 namespace AppBundle\Form\Observations;
 
 
-use AppBundle\Validator\ContainsPeriodBegin;
-use AppBundle\Validator\ContainsPeriodEnd;
+use AppBundle\Validator\SearchObservation\ContainsFileFormat;
+use AppBundle\Validator\SearchObservation\ContainsPeriodEnd;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -33,7 +33,7 @@ class SearchObservationByTypeType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'required' => false,
                 'constraints' => array(
-                    new ContainsPeriodBegin()
+                    new ContainsFileFormat()
                 )
             ))
             ->add('end', DateTimeType::class, array(

@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator as CustomAssert;
 
 /**
  * Observation
@@ -15,6 +17,7 @@ class Observation
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Species", inversedBy="observations")
      * @ORM\JoinColumn(nullable=true)
+     * @CustomAssert\AddObservation\ContainsSpecies()
      */
     private $species;
 
@@ -61,7 +64,7 @@ class Observation
     /**
      * @var int
      *
-     * @ORM\Column(name="eggsNumber", type="integer")
+     * @ORM\Column(name="eggsNumber", type="integer", nullable=true)
      */
     private $eggsNumber;
 
@@ -96,14 +99,15 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="altitude", type="string", length=255)
+     * @ORM\Column(name="altitude", type="string", length=255, nullable=true)
      */
     private $altitude;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="photoPath", type="string", length=255)
+     * @ORM\Column(name="photoPath", type="array")
+     * @
      */
     private $photoPath;
 
@@ -293,7 +297,7 @@ class Observation
     /**
      * Set photoPath
      *
-     * @param string $photoPath
+     * @param array $photoPath
      *
      * @return Observation
      */
@@ -307,7 +311,7 @@ class Observation
     /**
      * Get photoPath
      *
-     * @return string
+     * @return array
      */
     public function getPhotoPath()
     {

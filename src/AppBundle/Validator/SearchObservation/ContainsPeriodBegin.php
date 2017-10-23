@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Validator;
+namespace AppBundle\Validator\SearchObservation;
 
 use Symfony\Component\Validator\Constraint;
 
@@ -10,6 +10,6 @@ class ContainsPeriodBegin extends Constraint
 
     public function validatedBy()
     {
-        return ContainsPeriodBeginValidator::class;
+        return ContainsFileFormatValidator::class;
     }
 }
