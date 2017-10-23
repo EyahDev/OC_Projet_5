@@ -138,7 +138,6 @@ class DashboardController extends Controller
         // récupère la liste des questions/réponses
         $faqList = $this->getDoctrine()->getManager()->getRepository('AppBundle:Faq')->findAll();
 
-
         return $this->render("default/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),
             'categoriesList' => $categoriesList,

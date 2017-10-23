@@ -91,6 +91,12 @@ class ObservationManager
         // Ajout de l'image dans l'observation
         $observation->setPhotoPath("uploads/observations_files/".$fileName);
 
+        // Ajout du type dans l'observation
+        $observation->setType($observation->getSpecies()->getType());
+
+        // Ajout du type dans l'observation
+        $observation->setFamily($observation->getSpecies()->getFamily());
+
         // Ajout de l'observation à l'espece
         $observation->getSpecies()->addObservation($observation);
 
