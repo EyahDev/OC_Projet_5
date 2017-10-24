@@ -34,11 +34,11 @@ class ObservationManager
         return $specie;
     }
 
-    public function getObservations() {
-        // Récupération de tous les articles existant
-        $observation = $this->em->getRepository('AppBundle:Observation')->findAll();
+    public function getObservationsUnvalidated() {
+        // Récupération de toutes observations existantes
+        $observation = $this->em->getRepository('AppBundle:Observation')->findBy(array('validate' => null));
 
-        // Retourne l'article récupéré
+        // Retourne toutes les observations
         return $observation;
     }
 
@@ -54,7 +54,7 @@ class ObservationManager
         // Récupération des observation par utilisateur
         $observations = $this->em->getRepository('AppBundle:Observation')->findBy(array('observer' => $user));
 
-        // Retourne les articles associés à la catégorie
+        // Retourne les bbservations de l'utilisateur
         return $observations;
     }
 
@@ -64,6 +64,44 @@ class ObservationManager
 
         // Retourne le formulaire
         return $form;
+    }
+
+    public function getObservationForValidationForm($id) {
+        $observation = $this->getObservation($id);
+
+        // Récupération du formulaire de saisie d'observaition
+        $form = $this->formBuilder->create('AppBundle\Form\Observations\ModifObservationType', $observation);
+
+        // Retourne le formulaire
+        return $form;
+    }
+
+    public function setRefusedObservation(Observation $observation, User $user) {
+        // Hydratation des valeurs de refus
+        $observation->setValidateDate(new \DateTime());
+        $observation->setValidate(false);
+        $observation->setValidator($user);
+
+        // Enregistrement
+        $this->em->persist($observation);
+        $this->em->flush();
+    }
+
+    public function setAcceptedObservation(Observation $observation, User $user) {
+        // Hydratation des valeurs d'acceptation
+        $observation->setValidateDate(new \DateTime());
+        $observation->setValidate(true);
+        $observation->setValidator($user);
+
+        // Remplissage du ordre et de la famille si il est null
+        if ($observation->getType() == null && $observation->getFamily() == null) {
+            $observation->setType($observation->getSpecies()->getType());
+            $observation->setFamily($observation->getSpecies()->getFamily());
+        }
+
+        // Enregistrement
+        $this->em->persist($observation);
+        $this->em->flush();
     }
 
     public function setNewObservation($observation, User $user) {

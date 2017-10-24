@@ -10,21 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 class ObservationController extends Controller
 {
     /**
-     * @Route("dashboard", name="view-observations-by-user")
-     */
-    public function viewObservationsByUserAction(ObservationManager $observationManager) {
-        // Récupération de l'utisateur courant
-        $user = $this->getUser();
-            
-        // Récupération des observations par utilisateurs
-        $observations = $observationManager->getObservationsByUser($user);
-
-        return $this->render("default/commonFeatures/myObservations.html.twig", array(
-            'observations' => $observations,
-        ));
-    }
-
-    /**
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/saisie-observation", name="saisieObservation")
      */
@@ -57,6 +42,45 @@ class ObservationController extends Controller
 
         return $this->render(":default:addObservation.html.twig", array(
             'createObservationForm' => $createObservationForm->createView()
+        ));
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/dashboard/observation/{id}/detail", name="observation-detail")
+     */
+    public function observationDetailAction($id, ObservationManager $observationManager, Request $request) {
+        // Récupération de l'utilisateur courant
+        $user = $this->getUser();
+
+        // Récupération du formulaire pour la visibilité et modification du détail et la validation de l'observation
+        $observationDetailForm = $observationManager->getObservationForValidationForm($id);
+
+        // Hydratation de l'entitée avec les valeurs du formulaire
+        $observationDetailForm->handleRequest($request);
+
+        if ($observationDetailForm->isSubmitted() && $observationDetailForm->isValid()) {
+            // Récupération des valeurs du formulaire
+            $observation = $observationDetailForm->getData();
+
+            // Vérification du bouton de soumission
+            if ($observationDetailForm->get('Refuser')->isClicked()) {
+                // Refus de l'observation
+                $observationManager->setRefusedObservation($observation, $user);
+
+                // Redirection version le dashboard
+                return $this->redirectToRoute('dashboard');
+
+            } elseif ($observationDetailForm->get('Valider')->isClicked()) {
+                // Acceptation de l'observation
+                $observationManager->setAcceptedObservation($observation, $user);
+                // Redirection version le dashboard
+                return $this->redirectToRoute('dashboard');
+            }
+        }
+
+        return $this->render("default/dashboard/ObservationManagement/detailObservation.html.twig", array(
+            'observationDetailForm' => $observationDetailForm->createView()
         ));
     }
 }
