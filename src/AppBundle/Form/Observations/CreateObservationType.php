@@ -16,7 +16,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Valid;
@@ -30,12 +29,14 @@ class CreateObservationType extends AbstractType
                 'label' => 'Espèces *',
                 'class' => 'AppBundle\Entity\Species',
                 'choice_label' => 'referenceName',
+                'invalid_message' => 'Veuillez sélectionner une espèce valide.',
                 'required' => false
             ))
             ->add('vernacularName', EntityType::class, array(
                 'label' => 'Ou Nom commun *',
                 'class' => 'AppBundle\Entity\Species',
                 'choice_label' => 'vernacularName',
+                'invalid_message' => 'Veuillez sélectionner une espèce valide.',
                 'query_builder' => function(EntityRepository $repository){
                     return $repository->createQueryBuilder('s')
                         ->where('s.vernacularName != :empty')
@@ -51,28 +52,31 @@ class CreateObservationType extends AbstractType
             ->add('birdNumber', IntegerType::class, array(
                 'label' => 'Nombre d\'oiseaux observés *',
                 'attr' => array('min' => 1),
+                'invalid_message' => 'Veuillez saisir un nombre d\'oiseaux observés valide',
                 'constraints' => array(
                     new GreaterThanOrEqual(array(
                         'value' => 1,
-                        'message' => 'Veuillez sélectionner un nombre d\'oiseaux observés valide'
+                        'message' => 'Veuillez saisir un nombre d\'oiseaux observés valide'
                     )),
                     new NotBlank(array(
-                        'message' => 'Veuillez sélectionner un nombre d\'oiseaux observés valide'
+                        'message' => 'Veuillez saisir un nombre d\'oiseaux observés valide'
                     ))
                 )
             ))
             ->add('eggsNumber', IntegerType::class, array(
                 'label' => 'Nombres oeufs observés',
                 'attr' => array('min' => 1),
+                'invalid_message' => 'Veuillez saisir un nombre d\'oeufs observés valide',
                 'required' => false,
                 'constraints' => array(
                     new GreaterThanOrEqual(array(
                         'value' => 1,
-                        'message' => 'Veuillez sélectionner un nombre d\'oeufs observés valide'
+                        'message' => 'Veuillez saisir un nombre d\'oeufs observés valide'
                     ))
             )))
             ->add('eggsDescription', TextareaType::class, array(
                 'label' => 'Description des oeufs',
+                'invalid_message' => 'Veuillez saisir une description des oeufs valide.',
                 'required' => false,
                 'constraints' => array(
                     new Length(array(
@@ -83,12 +87,15 @@ class CreateObservationType extends AbstractType
             ))
             ->add('latitude', TextType::class, array(
                 'label' => 'Latitude *',
+                'invalid_message' => 'Veuillez saisir une latitude valide.'
             ))
             ->add('longitude', TextType::class, array(
-                'label' => 'Longitude *'
+                'label' => 'Longitude *',
+                'invalid_message' => 'Veuillez saisir une longitude valide.'
             ))
             ->add('altitude', TextType::class,array(
                 'label' => 'Altitude',
+                'invalid_message' => 'Veuillez saisir une altitude valide.',
                 'required' => false,
                 'constraints' => array(
                     new Regex(array(
@@ -99,6 +106,7 @@ class CreateObservationType extends AbstractType
             ))
             ->add('observationDescription', TextareaType::class, array(
                 'label' => 'Commentaire d\'observation',
+                'invalid_message' => 'Veuillez saisir une description de l\'observation valide.',
                 'required' => false,
                 'constraints' => array(
                     new Length(array(
@@ -108,6 +116,7 @@ class CreateObservationType extends AbstractType
             )))
             ->add('photoPath', FileType::class, array(
                 'label' => 'Photo(s)',
+                'invalid_message' => 'Veuillez sélectionner une fichier valide.',
                 'multiple' => true,
                 'constraints' => array(
                     new ContainsFileFormat(),
