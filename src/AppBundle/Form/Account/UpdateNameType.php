@@ -37,7 +37,7 @@ class UpdateNameType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_user';
+        return 'update_user_name';
     }
 
 

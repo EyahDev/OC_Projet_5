@@ -2,6 +2,7 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Entity\User;
 use AppBundle\Form\Account\UpdateNameType;
 use AppBundle\Form\Account\UpdateFirstNameType;
 use AppBundle\Form\Account\AddLocationType;
@@ -11,6 +12,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AccountManager
 {
@@ -18,25 +21,18 @@ class AccountManager
     private $em;
     private $request;
     private $session;
+    private $validator;
+    private $encoder;
 
-    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em, RequestStack $request, SessionInterface $session) {
+    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
+                                RequestStack $request, SessionInterface $session,
+                                ValidatorInterface $validator, UserPasswordEncoderInterface $encoder) {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
         $this->session = $session;
-    }
-
-    /**
-     * renvoie un utilisateur a partir de son id
-     * @param $id
-     * @return \AppBundle\Entity\User|null|object
-     */
-    public function getUser($id) {
-        // Récupération de la liste de toutes les catégories depuis le repository
-        $user = $this->em->getRepository('AppBundle:User')->find($id);
-
-        // Retourne l'utilisateur
-        return $user;
+        $this->validator = $validator;
+        $this->encoder = $encoder;
     }
 
     /**
@@ -106,9 +102,48 @@ class AccountManager
     /**
      * teste le mot de passe actuel
      */
-    public function updatePassword($user,$encodedPassword)
+    public function updatePassword(User $user,$plainPassword)
     {
+        $encodedPassword = $this->encoder->encodePassword($user, $plainPassword);
         $user->setPassword($encodedPassword);
         $this->updateUser($user);
+    }
+
+    public function validateUser (User $user)
+    {
+        $errors = $this->validator->validate($user);
+        if (count($errors) > 0) {
+            $errorsString = "";
+            foreach ($errors as $error) {
+                $errorsString .=$error->getmessage().'<br>';
+            }
+            return $errorsString;
+        }
+        return true;
+    }
+
+    public function validatePassword($data, $user)
+    {
+        if(isset($data['password'])) {
+            if ($this->encoder->isPasswordValid($user, $data["password"])) {
+                return 'Mot de passe actuel invalide';
+            }
+        } else {
+            return 'Le champs mot de passe actuel est vide';
+        }
+        if(isset($data['newPassword'])) {
+            $plainPassword = $data['newPassword'];
+        } else {
+            return 'Les deux champs du nouveau mot de passe ne sont pas identiques';
+        }
+        // si le nouveau mot de passe fait moins de 6 caractères
+        if(strlen($plainPassword) < 6) {
+            return 'Le nouveau mot de passe doit contenir au moins 6 caractères';
+        }
+        // si le nouveau mot de passe est ne contient pas au moins une lettre et 1 chiffre
+        if (!preg_match("/^(?=.*[a-zA-Z])(?=.*[0-9])/", $plainPassword)) {
+            return 'Le nouveau mot de passe doit contenir au moins une lettre et un chiffre';
+        }
+        return true;
     }
 }

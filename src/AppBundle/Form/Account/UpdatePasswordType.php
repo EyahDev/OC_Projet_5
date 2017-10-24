@@ -50,6 +50,6 @@ class UpdatePasswordType extends AbstractType
 
     public function getName()
     {
-        return 'update_password_form';
+        return 'update_password';
     }
 }

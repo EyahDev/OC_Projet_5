@@ -19,7 +19,9 @@ class AddLocationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('location', TextType::class)
+            ->add('location', TextType::class, array(
+                'required' => false
+            ))
             ->add('save', SubmitType::class);
     }
     
@@ -38,7 +40,7 @@ class AddLocationType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_user';
+        return 'update_user_location';
     }
 
 

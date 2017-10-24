@@ -140,7 +140,12 @@ class DashboardController extends Controller
         // récupère la liste des questions/réponses
         $faqList = $this->getDoctrine()->getManager()->getRepository('AppBundle:Faq')->findAll();
 
-
+        /* Mes informations */
+        $updateUserNameForm = $accountManager->getFormUpdateName($user);
+        $updateUserFirstNameForm = $accountManager->getFormUpdateFirstName($user);
+        $updateUserLocationForm = $accountManager->getFormAddLocation($user);
+        $updateUserNewsletterForm = $accountManager->getFormUpdateNewsletter($user);
+        $updateUserPasswordForm = $accountManager->getFormUpdatePassword();
 
         return $this->render("default/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),
@@ -157,6 +162,11 @@ class DashboardController extends Controller
             'createObservationForm' => $createObservation->createView(),
             'contactForm' => $createContact->createView(),
             'faqList' => $faqList,
+            'updateUserNameForm' => $updateUserNameForm->createView(),
+            'updateUserFirstNameForm' => $updateUserFirstNameForm->createView(),
+            'updateUserLocationForm' => $updateUserLocationForm->createView(),
+            'updateUserNewsletterForm' => $updateUserNewsletterForm->createView(),
+            'updateUserPasswordForm' => $updateUserPasswordForm->createView(),
         ));
     }
 
