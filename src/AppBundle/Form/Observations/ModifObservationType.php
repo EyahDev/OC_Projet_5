@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Valid;
 
-class CreateObservationType extends AbstractType
+class ModifObservationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -31,23 +31,6 @@ class CreateObservationType extends AbstractType
                 'choice_label' => 'referenceName',
                 'invalid_message' => 'Veuillez sélectionner une espèce valide.',
                 'required' => false
-            ))
-            ->add('vernacularName', EntityType::class, array(
-                'label' => 'Ou Nom commun *',
-                'class' => 'AppBundle\Entity\Species',
-                'choice_label' => 'vernacularName',
-                'invalid_message' => 'Veuillez sélectionner une espèce valide.',
-                'query_builder' => function(EntityRepository $repository){
-                    return $repository->createQueryBuilder('s')
-                        ->where('s.vernacularName != :empty')
-                        ->setParameter('empty', '')
-                        ->orderBy('s.vernacularName', 'ASC');
-                },
-                'required' => false,
-                'constraints' => array(
-                    new ContainsBothName(),
-                    new ContainsFileSize()
-                ),
             ))
             ->add('birdNumber', IntegerType::class, array(
                 'label' => 'Nombre d\'oiseaux observés *',
@@ -111,19 +94,19 @@ class CreateObservationType extends AbstractType
                 'constraints' => array(
                     new Length(array(
                         'max' => 255,
-                        'maxMessage' => 'Votre description des oeufs ne peut dépasser {{ limit }} caratères'
+                        'maxMessage' => 'Votre description de l\'observation ne peut dépasser {{ limit }} caratères'
                     )),
             )))
-            ->add('photoPath', FileType::class, array(
-                'label' => 'Photo(s)',
-                'invalid_message' => 'Veuillez sélectionner une fichier valide.',
-                'multiple' => true,
+            ->add('validation_comment', TextareaType::class, array(
+                'invalid_message' => 'Veuillez saisir un commentaire de validation valide.',
+                'required' => false,
                 'constraints' => array(
-                    new ContainsFileFormat(),
-                    new ContainsFileSize()
-                ),
-                'required' => false
-            ))
-            ->add('Envoyer', SubmitType::class);
+                    new Length(array(
+                        'max' => 255,
+                        'maxMessage' => 'Votre commentaire de validation ne peut dépasser {{ limit }} caratères'
+                    )),
+            )))
+            ->add('Valider', SubmitType::class)
+            ->add('Refuser', SubmitType::class);
     }
 }

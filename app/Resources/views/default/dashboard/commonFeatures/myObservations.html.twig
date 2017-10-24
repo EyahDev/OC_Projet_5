@@ -13,15 +13,21 @@
         <tr>
             <td><a href="#">Modifier</a></td>
             <td>
-                {{ observation.species.referenceName }}
+                {% if observation.species != null %}
+                    {{ observation.species.referenceName }}
+                {% else %}
+                    Espèce inconnu
+                {% endif %}
             </td>
             <td>
                 {{ observation.observationDate|date('d/m/Y') }}
             </td>
             <td>
-                {% if (observation.validate == true) %}
+                {% if observation.validate is same as(true) %}
                     Validée
-                {% else %}
+                {% elseif observation.validate is same as(false) %}
+                    Refusée
+                {% elseif observation.validate is same as(null) %}
                     En attente
                 {% endif %}
             </td>

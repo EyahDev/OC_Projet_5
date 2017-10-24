@@ -1,19 +1,19 @@
 <?php
 
-namespace AppBundle\Validator;
+namespace AppBundle\Validator\AddObservation;
 
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class ContainsPeriodBeginValidator extends ConstraintValidator
+class ContainsSpeciesValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        $periodEnd = $this->context->getRoot()->getData()['begin'];
+        $photos = $this->context->getRoot()->getData()->getPhotoPath();
 
         // Vérification si le champs de fin de période est vide
-        if ($value == null && is_a($periodEnd,'DateTime')) {
+        if ($value == null && $photos == null) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

@@ -1,1 +1,43 @@
 <p>Validation d'observations</p>
+<table class="table">
+    <tr>
+        <th>Espèce</th>
+        <th>Photos</th>
+        <th>Date d'observation</th>
+        <th>Détails</th>
+    </tr>
+
+    {% for observation in observations %}
+    <tr style="text-align: left">
+        <td>
+            {% if observation.species != null %}
+                {{ observation.species.referenceName }}</td>
+            {% else %}
+                Espece inconnu
+            {% endif %}
+        <td>
+            {% if observation.photoPath|length == 0 %}
+                Non
+            {% else %}
+                <a href="" data-toggle="modal" data-target="#photoModal{{ loop.index }}">Oui <i class="fa fa-eye" aria-hidden="true"></i></a>
+            {% endif %}
+        </td>
+        <td>{{ observation.observationDate|date('d/m/Y') }}</td>
+        <td><a href="{{ path('observation-detail', {'id' : observation.id }) }}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+    </tr>
+
+    <div class="modal fade" id="photoModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                {% if observation.photoPath|length != 0 %}
+                    {% for photoPath in observation.photoPath %}
+                        <img src="{{ asset(photoPath) }}" alt="{% if observation.species != null %}{{ observation.species.vernacularName }} {% else %}Espece inconnu{% endif %}">
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</table>

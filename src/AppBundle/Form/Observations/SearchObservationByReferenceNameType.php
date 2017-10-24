@@ -1,16 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Adrien
- * Date: 20/10/2017
- * Time: 11:09
- */
 
 namespace AppBundle\Form\Observations;
 
 
-use AppBundle\Validator\ContainsPeriodBegin;
-use AppBundle\Validator\ContainsPeriodEnd;
+use AppBundle\Validator\SearchObservation\ContainsFileFormat;
+use AppBundle\Validator\SearchObservation\ContainsPeriodBegin;
+use AppBundle\Validator\SearchObservation\ContainsPeriodEnd;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
