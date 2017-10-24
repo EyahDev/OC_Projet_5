@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Form\Signup;
+namespace AppBundle\Form\Account;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

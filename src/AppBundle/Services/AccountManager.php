@@ -2,10 +2,11 @@
 
 namespace AppBundle\Services;
 
-use AppBundle\Form\Signup\UpdateNameType;
-use AppBundle\Form\Signup\UpdateFirstNameType;
-use AppBundle\Form\Signup\AddLocationType;
-use AppBundle\Form\Signup\UpdateNewsletterType;
+use AppBundle\Form\Account\UpdateNameType;
+use AppBundle\Form\Account\UpdateFirstNameType;
+use AppBundle\Form\Account\AddLocationType;
+use AppBundle\Form\Account\UpdateNewsletterType;
+use AppBundle\Form\Account\UpdatePasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -25,7 +26,11 @@ class AccountManager
         $this->session = $session;
     }
 
-    // Récupération de l'utilisateur courrant
+    /**
+     * renvoie un utilisateur a partir de son id
+     * @param $id
+     * @return \AppBundle\Entity\User|null|object
+     */
     public function getUser($id) {
         // Récupération de la liste de toutes les catégories depuis le repository
         $user = $this->em->getRepository('AppBundle:User')->find($id);
@@ -34,42 +39,76 @@ class AccountManager
         return $user;
     }
 
-    // Informations personnelles
-    public function getFormUpdateName($id) {
-        // Récupération de l'utilisater par son id
-        $user = $this->getUser($id);
-
+    /**
+     * renvoie le formulaire de mise a jour du nom
+     * @param $user
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function getFormUpdateName($user) {
         $form = $this->formBuilder->create(UpdateNameType::class, $user);
 
         return $form;
     }
 
-    public function getFormUpdateFirstName($id) {
-        // Récupération de l'utilisater par son id
-        $user = $this->getUser($id);
-
+    /**
+     * renvoie le formulaire de mise à jour du prénom
+     * @param $user
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function getFormUpdateFirstName($user) {
         $form = $this->formBuilder->create(UpdateFirstNameType::class, $user);
 
         return $form;
     }
 
-    public function getFormAddLocation($id) {
-        // Récupération de l'utilisater par son id
-        $user = $this->getUser($id);
-
+    /**
+     * Renvoie le formulaire de mise à jour de l'adresse
+     * @param $user
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function getFormAddLocation($user) {
         $form = $this->formBuilder->create(AddLocationType::class, $user);
 
         return $form;
     }
 
-    public function getFormUpdateNewsletter($id) {
-        // Récupération de l'utilisater par son id
-        $user = $this->getUser($id);
-
+    /**
+     * renvoie le formulaire de mise à jour de l'inscription à la newsletter
+     * @param $user
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function getFormUpdateNewsletter($user) {
         $form = $this->formBuilder->create(UpdateNewsletterType::class, $user);
 
         return $form;
     }
 
+    /**
+     * Effectue la mise à jour des données de l'utilisateur
+     * @param $user
+     */
+    public function updateUser($user)
+    {
+        $this->em->persist($user);
+        $this->em->flush();
+    }
+
     // Mot de passe
+
+    /**
+     * renvoie le formulaire de mot de passe
+     */
+    public function getFormUpdatePassword()
+    {
+        return $this->formBuilder->create(UpdatePasswordType::class);
+    }
+
+    /**
+     * teste le mot de passe actuel
+     */
+    public function updatePassword($user,$encodedPassword)
+    {
+        $user->setPassword($encodedPassword);
+        $this->updateUser($user);
+    }
 }

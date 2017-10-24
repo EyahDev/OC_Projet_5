@@ -6,6 +6,7 @@ use AppBundle\Services\AccountManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountController extends Controller
 {
@@ -16,11 +17,9 @@ class AccountController extends Controller
      * @Route("/dasboard/user/{id}/edition/name", name="edit_user_name")
      */
     public function editNameAction($id, AccountManager $accountManager, Request $request) {
-        // Récupération de l'EntityManager
-        $em = $this->getDoctrine()->getManager();
-
+        $user = $accountManager->getUser($id);
         // Récupération du formulaire
-        $updateNameForm = $accountManager->getFormUpdateName($id);
+        $updateNameForm = $accountManager->getFormUpdateName($user);
 
         // Hydration de l'entitée avec les valeurs du formulaire
         $updateNameForm->handleRequest($request);
@@ -32,8 +31,7 @@ class AccountController extends Controller
             $user = $updateNameForm->getData();
 
             // Enregistrement
-            $em->persist($user);
-            $em->flush();
+           $accountManager->updateUser($user);
 
             // Rédirection vers le dashboard
             return $this->redirectToRoute('dashboard');
@@ -134,6 +132,38 @@ class AccountController extends Controller
 
         return $this->render("default/dashboard/commonFeatures/myAccount/editUserNewsletter.html.twig", array(
             'updateNewsletterForm' => $updateNewsletterForm->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/dasboard/user/edition/mot-de-passe", name="edit_user_password")
+     */
+    public function editPasswordAction( AccountManager $accountManager, Request $request, UserPasswordEncoderInterface $encoder) {
+
+        $user = $this->getUser();
+        // Récupération du formulaire
+        $updatePasswordForm = $accountManager->getFormUpdatePassword();
+
+        // Hydration de l'entitée avec les valeurs du formulaire
+        $updatePasswordForm->handleRequest($request);
+
+        // Soumission du formulaire
+        if ($updatePasswordForm->isSubmitted() && $updatePasswordForm->isValid()) {
+
+            // Si le mot de passe actuel est valide on met à jour le mot de passe
+            if($encoder->isPasswordValid($user,$updatePasswordForm->getData()["password"])) {
+                $encodedPassword = $encoder->encodePassword($user, $updatePasswordForm->getData()["newPassword"]);
+                $accountManager->updatePassword($user,$encodedPassword);
+            }
+
+
+
+            // Rédirection vers le dashboard
+            return $this->redirectToRoute('dashboard');
+        }
+
+        return $this->render("default/dashboard/commonFeatures/myAccount/editUserPassword.html.twig", array(
+            'updatePasswordForm' => $updatePasswordForm->createView(),
         ));
     }
 }
