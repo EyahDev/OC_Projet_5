@@ -21,42 +21,71 @@ class DashboardController extends Controller
 
     public function dashboardAction(Request $request, ContactManager $contactManager, BlogManager $blogManager, ObservationManager $observationManager, CommentManager $commentManager)
     {
-        /* Nous écrire */
-
-        // Récupération du formulaire de contact
-        $createContact = $contactManager->getFormCreateContact();
-        // Hydration de l'entitée avec les valeurs du formulaire
-        $createContact->handleRequest($request);
-        // Soumission du formulaire
-        if ($createContact->isSubmitted() && $createContact->isValid()) {
-            // Si le formulaire est valide le mail est envoyé
-            if($this->sendEmail($createContact->getData())){
-                // Rédirection vers le dashboard
-                return $this->redirectToRoute('dashboard');
-            }else{
-                var_dump("Une erreure s'est produite");
-            }
-        }
-
         /* Utilisateurs */
         $user = $this->getUser();
         $usersList = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
 
-        
-        /* Observations validées pour l'utilisateur classique */
+        /* Accès rapide */
+
+        // Récupération du formulaire de saisie d'observation
+        $createObservation = $observationManager->getObservationForm();
+
+        // Hydratation de l'entitée avec les valeurs du formulaire
+        $createObservation->handleRequest($request);
+
+        // Soumission du formulaire
+        if ($createObservation->isSubmitted() && $createObservation->isValid()) {
+
+            // Récupération de l'entitée Observation avec les valeurs hydratées
+            $observation = $createObservation->getData();
+
+            // Enregistrement de la nouvelle observation
+            $observationManager->setNewObservation($observation, $user);
+
+            // Rédirection vers le dashboard
+            return $this->redirectToRoute('dashboard');
+        }
+
+        /* Nous écrire */
+
+        // Récupération du formulaire de contact
+        $createContact = $contactManager->getFormCreateContact();
+
+        // Hydration de l'entitée avec les valeurs du formulaire
+        $createContact->handleRequest($request);
+
+        // Soumission du formulaire
+        if ($createContact->isSubmitted() && $createContact->isValid()) {
+
+            // Si le formulaire est valide le mail est envoyé
+            if($this->sendEmail($createContact->getData())){
+
+                // Rédirection vers le dashboard
+                return $this->redirectToRoute('dashboard');
+
+            } else {
+                var_dump("Une erreure s'est produite");
+            }
+        }
+
+        /* Statistiques Utilisateurs */
+
+        // Observations validées pour l'utilisateur classique
         $validatedObservationsByUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getValidatedObservationsByUser($user);
 
-        /* Observations refusées pour l'utilisateur classique */
+        // Observations refusées pour l'utilisateur classique
         $refusedObservationsByUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getRefusedObservationsByUser($user);
 
-        /* Observations refusées par l'utilisateur pro */
+        // Observations refusées par l'utilisateur pro
         $refusedObservationsByValidator = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getRefusedObservationsByValidator($user);
 
-        /* Observations refusées par l'utilisateur pro */
+        // Observations refusées par l'utilisateur pro
         $validatedObservationsByValidator = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getValidatedObservationsByValidator($user);
 
         /* Observations */
-        $observations = $observationManager->getObservations();
+
+        // Récupération des observations de l'utilisateur
+        $observations = $observationManager->getObservationsUnvalidated();
 
         /* Catégories */
 
@@ -106,37 +135,17 @@ class DashboardController extends Controller
             return $this->redirectToRoute('dashboard');
         }
 
-
         /* Commentaires */
 
         // Récupération des commentaires signalés
         $commentsFlagged = $commentManager->getCommentsFlagged();
 
-        /* Accès rapide */
-
-        // Récupération du formulaire de saisie d'observation
-        $createObservation = $observationManager->getObservationForm();
-
-        // Hydratation de l'entitée avec les valeurs du formulaire
-        $createObservation->handleRequest($request);
-
-        // Soumission du formulaire
-        if ($createObservation->isSubmitted() && $createObservation->isValid()) {
-
-            // Récupération de l'entitée Observation avec les valeurs hydratées
-            $observation = $createObservation->getData();
-
-            // Enregistrement de la nouvelle observation
-            $observationManager->setNewObservation($observation, $user);
-
-            // Rédirection vers le dashboard
-            return $this->redirectToRoute('dashboard');
-        }
 
         /* Gestion de la FAQ */
 
         // récupère la liste des questions/réponses
         $faqList = $this->getDoctrine()->getManager()->getRepository('AppBundle:Faq')->findAll();
+
       
         return $this->render("default/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),
