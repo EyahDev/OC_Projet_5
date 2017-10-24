@@ -40,7 +40,6 @@ class DefaultController extends Controller
             }
         }
         // replace this example code with whatever you need
-<<<<<<< HEAD
         return $this->render('default_integration/index.html.twig', array(
             'contactForm' => $createContact->createView(),
             'users' => $users,
@@ -48,11 +47,6 @@ class DefaultController extends Controller
             'species' => $species,
             'differentSpeciesObservations' => $differentSpeciesObservations
         ));
-=======
-        return $this->render('layout/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
->>>>>>> 162fc212a7710fbbe1c10f634f7532c20687787c
     }
 
     /**

@@ -151,7 +151,7 @@ class DashboardController extends Controller
     }
 
     private function sendEmail($data){
-        $ContactMail = 'nao-p5@laposte.net';
+        $ContactMail = 'oc_projet_5@laposte.net';
         $ContactPassword = '123456aA';
 
         $transport = \Swift_SmtpTransport::newInstance('smtp.laposte.net', 465,'ssl')
