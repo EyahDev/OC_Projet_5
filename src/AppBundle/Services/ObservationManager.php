@@ -59,55 +59,80 @@ class ObservationManager
     }
 
     public function getObservationForm() {
-        // Création d'une nouvelle observation
-        $observation = new Observation();
-
         // Récupération du formulaire de saisie d'observaition
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\CreateObservationType', $observation);
+        $form = $this->formBuilder->create('AppBundle\Form\Observations\CreateObservationType');
 
         // Retourne le formulaire
         return $form;
     }
 
-    public function setNewObservation(Observation $observation, User $user) {
-        // Définition de l'utilisateur créateur de l'observation
-        $observation->setObserver($user);
+    public function setNewObservation($observation, User $user) {
+        // Création d'une nouvelle Observation
+        $newObservation = new Observation();
 
-        // D2finition de la date de la nouvelle observation
-        $observation->setObservationDate(new \DateTime());
+        // Hydratation des valeurs
+        $newObservation->setBirdNumber($observation['birdNumber']);
+        $newObservation->setEggsNumber($observation['eggsNumber']);
+        $newObservation->setEggsDescription($observation['eggsDescription']);
+        $newObservation->setLatitude($observation['latitude']);
+        $newObservation->setLongitude($observation['longitude']);
+        $newObservation->setAltitude($observation['altitude']);
+        $newObservation->setObservationDescription($observation['observationDescription']);
+
+        // Définition de l'utilisateur créateur de l'observation
+        $newObservation->setObserver($user);
+
+        // Définition de la date de la nouvelle observation
+        $newObservation->setObservationDate(new \DateTime());
 
         // Récupération du fichier original
-        $file = $observation->getPhotoPath();
+        $files = $observation['photoPath'];
 
         // Récupération du chemin du dossier de stockage
         $path = $this->container->getParameter('observations_directory');
 
-        // Renommage du fichier
-        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        $filespath = array();
 
-        // Déplacement du fichier dans le dossiers des observations
-        $file->move($path, $fileName);
+        foreach ($files as $file) {
+            // Renommage du fichier
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
 
-        // Ajout de l'image dans l'observation
-        $observation->setPhotoPath("uploads/observations_files/".$fileName);
+            // Déplacement du fichier dans le dossiers des observations
+            $file->move($path, $fileName);
 
-        // Ajout du type dans l'observation
-        $observation->setType($observation->getSpecies()->getType());
+            // Ajout de l'image dans l'observation
+            array_push($filespath,"uploads/observations_files/".$fileName);
+        }
 
-        // Ajout du type dans l'observation
-        $observation->setFamily($observation->getSpecies()->getFamily());
+        // Ajout des images
+        $newObservation->setPhotoPath($filespath);
 
-        // Ajout de l'observation à l'espece
-        $observation->getSpecies()->addObservation($observation);
+        // Vérification si le nom commun ou le nom scientifique a été choisi
+        if ($observation['vernacularName'] != null) {
+            $newObservation->setSpecies($observation['vernacularName']);
+        } elseif ($observation['species'] != null) {
+            $newObservation->setSpecies($observation['species']);
+        }
 
-        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_PROFESSIONAL')) {
-            $observation->setValidate(true);
-            $observation->setValidateDate(new \DateTime());
-            $observation->setValidator($user);
+        if ($newObservation->getSpecies() != null) {
+            // Ajout du type dans l'observation
+            $newObservation->setType($newObservation->getSpecies()->getType());
+
+            // Ajout du type dans l'observation
+            $newObservation->setFamily($newObservation->getSpecies()->getFamily());
+
+            // Ajout de l'observation à l'espece
+            $newObservation->getSpecies()->addObservation($newObservation);
+
+            if ($this->container->get('security.authorization_checker')->isGranted('ROLE_PROFESSIONAL')) {
+                $newObservation->setValidate(true);
+                $newObservation->setValidateDate(new \DateTime());
+                $newObservation->setValidator($user);
+            }
         }
 
         // Enregistrement
-        $this->em->persist($observation);
+        $this->em->persist($newObservation);
         $this->em->flush();
     }
 }

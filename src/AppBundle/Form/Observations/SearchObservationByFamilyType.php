@@ -8,8 +8,9 @@
 
 namespace AppBundle\Form\Observations;
 
-use AppBundle\Validator\ContainsPeriodBegin;
-use AppBundle\Validator\ContainsPeriodEnd;
+use AppBundle\Validator\SearchObservation\ContainsFileFormat;
+use AppBundle\Validator\SearchObservation\ContainsPeriodBegin;
+use AppBundle\Validator\SearchObservation\ContainsPeriodEnd;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;

@@ -48,13 +48,8 @@ class ObservationController extends Controller
             // Récupération des données
             $observation = $createObservationForm->getData();
 
-            // Récupération du chemin de toutes les photos d'observations
-            $path = $this->getParameter('observations_directory');
-
             // Enregistrement
             $observationManager->setNewObservation($observation, $user);
-
-            dump($observation->getType());
 
             // Rédirection vers le dashboard
             return $this->redirectToRoute('saisieObservation');
