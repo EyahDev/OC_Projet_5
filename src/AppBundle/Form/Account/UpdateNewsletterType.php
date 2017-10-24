@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Form\Signup;
+namespace AppBundle\Form\Account;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
-class UpdateFirstNameType extends AbstractType
+class UpdateNewsletterType extends AbstractType
 {
 
     /**
@@ -19,7 +19,10 @@ class UpdateFirstNameType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', TextType::class)
+            ->add('newsletter', CheckboxType::class, array(
+                'label'    => 'Abonnement à la newsletter',
+                'required' => false,
+            ))
             ->add('save', SubmitType::class);
     }
     
@@ -38,7 +41,7 @@ class UpdateFirstNameType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_user';
+        return 'update_user_newsletter';
     }
 
 

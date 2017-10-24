@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Form\Signup;
+namespace AppBundle\Form\Account;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
-class UpdateNameType extends AbstractType
+class UpdateFirstNameType extends AbstractType
 {
 
     /**
@@ -19,7 +19,7 @@ class UpdateNameType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('firstname', TextType::class)
             ->add('save', SubmitType::class);
     }
     
@@ -38,7 +38,7 @@ class UpdateNameType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_user';
+        return 'update_user_firstname';
     }
 
 
