@@ -1,0 +1,37 @@
+<tr class="table-line-faq">
+    <td>
+        {{ faq.question |slice(0, 50) }}
+    </td>
+    <td>
+        {{ faq.answer |slice(0, 50)}}
+    </td>
+    <td>
+        <a href="{{ path('edit-faq', {'faqId': faq.id}) }}" class="btn-edit-faq" data-toggle="modal" data-target="#editFaqModal{{ faq.id }}">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        </a>
+
+        /
+        <a href="#" data-toggle="modal" data-target="#rmFaqModal{{ faq.id }}">
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </a>
+        <div class="modal fade" id="rmFaqModal{{ faq.id }}" tabindex="-1" role="dialog" aria-labelledby="rmFaqModal{{ faq.id }}Label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="rmFaqModal{{ faq.id }}Label">confirmation de suppression</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Voulez vous vraiment supprimer la question "{{ faq.question }}" ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NON</button>
+                        <a href="{{ path('remove-faq',{'faqId': faq.id }) }}" class="btn btn-primary btn-rm-faq" data-dismiss="modal">OUI</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>
