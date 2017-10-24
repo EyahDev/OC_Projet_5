@@ -1,0 +1,53 @@
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div id="menu" class="container-fluid">
+        <!-- Brand -->
+        <a class="navbar-brand js-scroll-trigger" href="{{ path("homepage") }}">
+            <img src="{{ asset('img/logo-pour-nav.png') }}" alt="logo-nao">
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="{{ path("homepage") }}">Accueil</a>
+                </li>
+                {% if not is_granted('ROLE_USER') %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{{ path("login") }}">connexion</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item dropdown">
+                        <div class="btn-group">
+                            <a class="nav-link js-scroll-trigger" href="{{ path("dashboard") }}">Dashboard</a>
+                            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ path('logout') }}">Déconnexion</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="{{ path("blog") }}">Blog</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Observations
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ path("rechercheObservations") }}">Recherche d'observations</a>
+                        <a class="dropdown-item" href="{{ path("saisieObservation") }}">Saisir une observation</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="{{ path("avanceeRecherche") }}">La recherche</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

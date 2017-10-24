@@ -1,0 +1,176 @@
+{% extends 'base_integration.html.twig' %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron vertical-center">
+            <img class="logo-mobile" src="{{ asset('img/logo-pour-mobile.png') }}" alt="logo-nao-mobile">
+            <div class="container">
+                <h1>Programme de recherche scientifique</h1>
+                <p>Devenez un scientifique citoyen en participant à l'observation des oiseaux</p>
+                <a class="btn btn-info button" href="{{ path("landingPage") }}">Participer</a>
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <!-- Infos -->
+    <section class="infos">
+         <div class="space">
+             <img src="{{ asset('img/icone-oiseau.png') }}" />
+             <div class ="position">
+                 <h3>+ de 280 espèces</h3>
+                 <p>
+                     Tu comprends, tu vois au passage qu'il n'y a rien de concret
+                     car c'est un très, très gros travail et c'est une sensation réelle qui se produit si on veut !
+                     C'est pour ça que j'ai fait des films avec des replicants.
+                 </p>
+             </div>
+         </div>
+        <div class="space">
+            <img src="{{ asset('img/icone-alert.png') }}" />
+            <div class="position">
+                <h3>10% disparaissent</h3>
+                <p>
+                    Tu comprends, tu vois au passage qu'il n'y a rien de concret
+                    car c'est un très, très gros travail et c'est une sensation réelle qui se produit si on veut !
+                    C'est pour ça que j'ai fait des films avec des replicants.
+                </p>
+            </div>
+        </div>
+        <div class="space">
+            <img src="{{ asset('img/icone-sauvegarder.png') }}" />
+            <div class="position">
+                <h3>Sauvegarder</h3>
+                <p>
+                    Tu comprends, tu vois au passage qu'il n'y a rien de concret
+                    car c'est un très, très gros travail et c'est une sensation réelle qui se produit si on veut !
+                    C'est pour ça que j'ai fait des films avec des replicants.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles -->
+
+    <section class="articles">
+        <div class="container">
+            <div class="row d-flex align-items-center">
+                <div class="col-md-6 padding-0">
+                    <div class="content-iphone"> <img class="img-fluid" src="{{ asset('img/Bien-choisir-son-oiseau.jpg') }}" alt="">
+                        <!--i class="fa fa-play play red-gradient"></i-->
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="single-content">
+                        <h3>Nos actions</h3>
+                        <p>
+                            Lorem enim exquisitaque, eram incididunt distin guantur. Tractavissent o quid
+                            laboris imitarentur ab de ipsum ubi multos de est sed quorum fugiat multos. O
+                            illum eiusmod distinguantur.
+                        </p>
+                        <a class="btn btn-info button" href="#">Voir plus</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row articles-images">
+                <div class="col-md-5 order">
+                    <div class="single-content">
+                        <h3>Le programme de recherche</h3>
+                        <p>
+                            Lorem enim exquisitaque, eram incididunt distin guantur. Tractavissent o quid
+                            laboris imitarentur ab de ipsum ubi multos de est sed quorum fugiat multos. O
+                            illum eiusmod distinguantur.
+                        </p>
+                        <a class="btn btn-info button" href="#">Voir plus</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-md-offset-1 padding-0 order">
+                    <div class="content-iphone">
+                        <img class="img-fluid" src="{{ asset('img/Les-principales-maladies-des-oiseaux.jpg') }}" alt="">
+                        <!--i class="fa fa-play play red-gradient"></i-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section compteur -->
+
+    <section class="animation">
+        <canvas id="canv"></canvas>
+            <div class="sky">
+                <div class="clouds">
+                   <div class="c1 one"></div>
+                   <div class="c1 two"></div>
+                   <div class="c1 three"></div>
+                   <div class="c1 four"></div>
+                   <div class="c2 one"></div>
+                   <div class="c2 two"></div>
+                   <div class="c2 three"></div>
+                   <div class="c2 four"></div>
+                </div>
+            </div>
+    </section>
+
+    <div class="compteur">
+        <div class="line"><p class ="size37">+{{ users|length }}</p><span class="size20">Membres</span></div>
+        <div class="line"><p class ="size37">+{{ observations|length }}</p><span class="size20">Observations</span></div>
+        <div class="line"><p class ="size37">+{{ differentSpeciesObservations }}</p><span class="size20">Espèces observées</span></div>
+    </div>
+
+    <!-- Section Contact -->
+
+    <section class="contact">
+        <div class="formulaire">
+            <h2>Nous contacter</h2>
+            {{ form_start(contactForm) }}
+
+            {{ form_widget(contactForm.nom) }}<br/>
+            {{ form_errors(contactForm.nom) }}
+
+            {{ form_widget(contactForm.prenom) }}<br/>
+            {{ form_errors(contactForm.prenom) }}
+
+            {{ form_widget(contactForm.email) }}<br/>
+            {{ form_errors(contactForm.email) }}
+
+            {{ form_widget(contactForm.sujet) }}<br/>
+            {{ form_errors(contactForm.sujet) }}
+
+            {{ form_widget(contactForm.message) }}<br/>
+            {{ form_errors(contactForm.message) }}
+
+            {{ form_widget(contactForm.save, { 'label': 'Envoyer' }) }}
+
+            {{ form_rest(contactForm) }}
+
+            {{ form_end(contactForm) }}
+        </div>
+
+        <div class="coordonnées">
+            <h4>Contact & Infos</h4>
+            <p>01 75 72 15 18</p>
+            <p>5 rue des pardrix, 75002 Paris</p>
+            <p>infos@nao.org</p>
+
+            <h4 class="spaceh4">Réseaux sociaux</h4>
+
+            <div class="center">
+                <a href="#"><i class="fa fa-facebook-square"></i></a>
+                <a href="#"><i class="fa fa-twitter-square"></i></a>
+                <a href="#"><i class="fa fa-pinterest-square"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+
