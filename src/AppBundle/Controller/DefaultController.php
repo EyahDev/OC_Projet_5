@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Services\ContactManager;
 use AppBundle\Services\MapsManager;
 use AppBundle\Services\ObservationManager;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

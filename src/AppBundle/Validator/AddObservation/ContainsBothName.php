@@ -14,6 +14,6 @@ class ContainsBothName extends Constraint
 
     public function validatedBy()
     {
-        return ContainsBothValidator::class;
+        return ContainsBothNameValidator::class;
     }
 }

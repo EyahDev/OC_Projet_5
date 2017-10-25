@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<h2>Modification l'observation</h2>
+    {{ form_start(modifyObservationForm) }}
+    {{ form_errors(modifyObservationForm) }}
+
+    {{ form_label(modifyObservationForm.observationDescription) }}
+    {{ form_widget(modifyObservationForm.observationDescription) }}
+
+    Charger une autre photo remplacera la photo actuelle <br/>
+
+    <img style="width: 400px" src="{{ asset(modifyObservationForm.vars.value.photoPath) }}" alt="{{ modifyObservationForm.vars.value.species.referenceName }}"><br/>
+
+    {{ form_label(modifyObservationForm.photoPath) }}<br/>
+    {{ form_widget(modifyObservationForm.photoPath) }}<br/>
+
+    {{ form_end(modifyObservationForm) }}
+{% endblock %}
