@@ -2,6 +2,7 @@
   
 namespace AppBundle\Controller;
 
+use AppBundle\Services\AccountManager;
 use AppBundle\Services\BlogManager;
 use AppBundle\Services\CommentManager;
 use AppBundle\Services\ContactManager;
@@ -19,7 +20,8 @@ class DashboardController extends Controller
      * @Route("/dashboard", name="dashboard")
      */
 
-    public function dashboardAction(Request $request, ContactManager $contactManager, BlogManager $blogManager, ObservationManager $observationManager, CommentManager $commentManager)
+    public function dashboardAction(Request $request, ContactManager $contactManager, BlogManager $blogManager,
+                                    ObservationManager $observationManager, CommentManager $commentManager, AccountManager $accountManager)
     {
         /* Utilisateurs */
         $user = $this->getUser();
@@ -146,7 +148,14 @@ class DashboardController extends Controller
         // récupère la liste des questions/réponses
         $faqList = $this->getDoctrine()->getManager()->getRepository('AppBundle:Faq')->findAll();
 
-      
+        /* Mes informations */
+        $updateUserNameForm = $accountManager->getFormUpdateName($user);
+        $updateUserFirstNameForm = $accountManager->getFormUpdateFirstName($user);
+        $updateUserLocationForm = $accountManager->getFormAddLocation($user);
+        $updateUserNewsletterForm = $accountManager->getFormUpdateNewsletter($user);
+        $updateUserPasswordForm = $accountManager->getFormUpdatePassword();
+
+
         return $this->render("default/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),
             'categoriesList' => $categoriesList,
@@ -162,11 +171,16 @@ class DashboardController extends Controller
             'createObservationForm' => $createObservation->createView(),
             'contactForm' => $createContact->createView(),
             'faqList' => $faqList,
+            'updateUserNameForm' => $updateUserNameForm->createView(),
+            'updateUserFirstNameForm' => $updateUserFirstNameForm->createView(),
+            'updateUserLocationForm' => $updateUserLocationForm->createView(),
+            'updateUserNewsletterForm' => $updateUserNewsletterForm->createView(),
+            'updateUserPasswordForm' => $updateUserPasswordForm->createView(),
         ));
     }
 
     private function sendEmail($data){
-        $ContactMail = 'nao-p5@laposte.net';
+        $ContactMail = 'oc_projet_5@laposte.net';
         $ContactPassword = '123456aA';
 
         $transport = \Swift_SmtpTransport::newInstance('smtp.laposte.net', 465,'ssl')
