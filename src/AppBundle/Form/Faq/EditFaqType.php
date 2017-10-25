@@ -1,25 +1,27 @@
 <?php
 
-namespace AppBundle\Form\Signup;
+namespace AppBundle\Form\Faq;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-
-class UpdateFirstNameType extends AbstractType
+class EditFaqType extends AbstractType
 {
-
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('firstname', TextType::class)
+        $builder->add('question', TextType::class, array(
+            'label' => 'Question'
+        ))
+            ->add('answer', TextareaType::class, array(
+                'label' => "Réponse"
+            ))
             ->add('save', SubmitType::class);
     }
     
@@ -29,7 +31,7 @@ class UpdateFirstNameType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User'
+            'data_class' => 'AppBundle\Entity\Faq'
         ));
     }
 
@@ -38,7 +40,7 @@ class UpdateFirstNameType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_user';
+        return 'edit_faq';
     }
 
 

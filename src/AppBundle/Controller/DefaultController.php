@@ -3,9 +3,13 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Services\ContactManager;
+use AppBundle\Services\MapsManager;
+use AppBundle\Services\ObservationManager;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use AppBundle\Form\Signup\SignupType;
 use AppBundle\Entity\User;
@@ -84,9 +88,124 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/recherche-observations", name="rechercheObservations")
      */
-    public function searchObservationsAction()
+    public function searchObservationsAction(Request $request, MapsManager $maps, SessionInterface $session)
     {
-        return $this->render("default/searchObservations.html.twig");
+        // Reset des markers
+        if ($session->get('search') == false){
+            $maps->resetMarkersXML();
+        }
+
+        // Récupération des formulaires de recherche
+        $searchByReferenceNameForm = $maps->searchObservationsByReferenceNameForm();
+        $searchVernacularForm = $maps->searchObservationsByVernacularForm();
+        $searchByType = $maps->searchObservationsByTypeForm();
+        $searchByFamily = $maps->searchObservationsByFamilyForm();
+
+        // Hydration avec les valeurs du formulaire
+        $searchByReferenceNameForm->handleRequest($request);
+        $searchVernacularForm->handleRequest($request);
+        $searchByType->handleRequest($request);
+        $searchByFamily->handleRequest($request);
+
+        // Soumission des différents formulaires
+        if ($searchByReferenceNameForm->isSubmitted() && $searchByReferenceNameForm->isValid()) {
+
+            // Récupération du critère de recherche
+            $criteria = $searchByReferenceNameForm->getData();
+
+            // Récupération du résultat
+            $result = $maps->searchObservationsBySpecies($criteria);
+
+            // Vérification si il y a un résultat
+            if (empty($result)) {
+                $session->getFlashBag()->add('notice', 'Votre recherche ne donne aucun résultat');
+                return $this->redirectToRoute('rechercheObservations');
+            }
+
+            // Création des markers maps
+            $maps->createMarkersXML($result);
+
+            // Passage de la variable de session à true suite à la recherche
+            $session->set('search', true);
+
+            return $this->redirectToRoute('rechercheObservations');
+        }
+
+        if ($searchVernacularForm->isSubmitted() && $searchVernacularForm->isValid()) {
+            // Récupération du critère de recherche
+            $criteria = $searchVernacularForm->getData();
+
+            // Récupération du résultat
+            $result = $maps->searchObservationsByVernacular($criteria);
+
+            // Vérification si il y a un résultat
+            if (empty($result)) {
+                $session->getFlashBag()->add('notice', 'Votre recherche ne donne aucun résultat');
+            }
+
+            // Création des markers maps
+            $maps->createMarkersXML($result);
+
+            // Passage de la variable de session à true suite à la recherche
+            $session->set('search', true);
+
+            return $this->redirectToRoute('rechercheObservations');
+        }
+
+        if ($searchByType->isSubmitted() && $searchByType->isValid()) {
+            // Récupération du critère de recherche
+            $criteria = $searchByType->getData();
+
+            // Récupération du résultat
+            $result = $maps->searchObservationsByType($criteria);
+
+            dump($result);
+
+            // Vérification si il y a un résultat
+            if (empty($result)) {
+                $session->getFlashBag()->add('notice', 'Votre recherche ne donne aucun résultat');
+                return $this->redirectToRoute('rechercheObservations');
+            }
+
+            // Création des markers maps
+            $maps->createMarkersXML($result);
+
+            // Passage de la variable de session à true suite à la recherche
+            $session->set('search', true);
+
+            return $this->redirectToRoute('rechercheObservations');
+        }
+
+        if ($searchByFamily->isSubmitted() && $searchByFamily->isValid()) {
+
+            $criteria = $searchByFamily->getData();
+
+            $result = $maps->searchObservationsByFamily($criteria);
+
+            // Vérification si il y a un résultat
+            if (empty($result)) {
+                $session->getFlashBag()->add('notice', 'Votre recherche ne donne aucun résultat');
+                return $this->redirectToRoute('rechercheObservations');
+            }
+
+            $maps->createMarkersXML($result);
+
+            // Passage de la variable de session à true suite à la recherche
+            $session->set('search', true);
+
+            return $this->redirectToRoute('rechercheObservations');
+        }
+
+        // Passage de la variable de session à false suite aucune recherche
+        $session->set('search', false);
+
+        return $this->render("default/searchObservations.html.twig",
+            array(
+                'searchReferenceNameForm' => $searchByReferenceNameForm->createView(),
+                'searchVernacularNameForm' => $searchVernacularForm->createView(),
+                'searchTypeForm' => $searchByType->createView(),
+                'searchFamilyForm' => $searchByFamily->createView(),
+            ));
     }
 
     /**
@@ -144,4 +263,5 @@ class DefaultController extends Controller
 
         return $mailer->send($message);
     }
+
 }

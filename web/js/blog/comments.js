@@ -187,4 +187,36 @@ $(document).ready(function() {
         // supprime le formulaire de commentaire
         $('form[name="new_comment"]').replaceWith("");
     });
+    // SIGNALER
+    //  auclic sur un bouton signaler
+    $(".btn-flag").on('click', function (e) {
+        // empeche l'action prévue sur le bouton répondre
+        e.preventDefault();
+        // conserve dans une variable le bouton
+        var $a = $(this);
+        // recupere l'url depuis l'attribut href du bouton
+        var url = $a.attr('href');
+        // appelle la fonction Ajax
+        $.ajax({
+            // type de requête ici GET
+            type: 'GET',
+            // url de la requete (prend la valeur de l'url du bouton commenter)
+            url: url,
+            // en cas de succes de la requete
+            success: function (data) {
+                // affiche le formulaire de réponse avant le bouton répondre
+                $a.parent().prepend(data);
+                // retire le message flash après 5 secondes
+                function removeFlagMsg(){
+                    $('.flag-msg').replaceWith("");
+                }
+                setTimeout(removeFlagMsg, 5000);
+            },
+            // en cas d'erreur
+            error: function (jqxhr) {
+                // affiche une alert contenant le message d'erreur
+                // alert(jqxhr.responseText);
+            }
+        });
+    });
 });

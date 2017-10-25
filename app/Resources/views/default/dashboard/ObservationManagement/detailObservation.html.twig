@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<h2>Détail de l'observation</h2>
+    {{ form_start(observationDetailForm) }}
+    {{ form_errors(observationDetailForm) }}
+    {{ form_end(observationDetailForm) }}
+{% endblock %}

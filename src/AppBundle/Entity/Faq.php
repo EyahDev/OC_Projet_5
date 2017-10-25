@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Faq
@@ -25,6 +26,8 @@ class Faq
      * @var string
      *
      * @ORM\Column(name="question", type="string", length=255)
+     * @Assert\NotBlank(message="Le champ question ne peut pas être vide.")
+     * @Assert\Length(min="2", minMessage="La question doit comporter au moins {{ limit }} caractères.")
      */
     private $question;
 
@@ -32,6 +35,9 @@ class Faq
      * @var string
      *
      * @ORM\Column(name="answer", type="text")
+     *
+     * @Assert\NotBlank(message="Le champ réponse ne peut pas être vide.")
+     * @Assert\Length(min="2", minMessage="La réponse doit comporter au moins {{ limit }} caractères.")
      */
     private $answer;
 

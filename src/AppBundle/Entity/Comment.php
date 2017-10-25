@@ -24,7 +24,7 @@ class Comment
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="parent", cascade={"persist", "remove"})
      */
     private $children;
 

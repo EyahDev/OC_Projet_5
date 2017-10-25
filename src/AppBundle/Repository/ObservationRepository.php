@@ -13,6 +13,98 @@ use Doctrine\ORM\QueryBuilder;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
+    /* Recherche Maps */
+
+    public function getObservationBySpecies($criteria){
+        // Création de l'alias
+        $qb = $this->createQueryBuilder('o');
+
+        if ($criteria['begin'] == null) {
+            $qb->where('o.species = :criteria')
+                ->andWhere('o.validate = true')
+                ->setParameter('criteria', $criteria['reference']);
+        } else {
+            $qb->where('o.species = :criteria')
+                ->andWhere('o.observationDate BETWEEN :start AND :end ')
+                ->where('o.validate = true')
+                ->setParameters(array(
+                    'criteria' => $criteria['reference'],
+                    'start' => $criteria['begin'],
+                    'end' => $criteria['end']
+                ));
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getObservationByVernacularName($criteria){
+        // Création de l'alias
+        $qb = $this->createQueryBuilder('o');
+
+        if ($criteria['begin'] == null) {
+            $qb->where('o.species = :criteria')
+                ->andWhere('o.validate = true')
+                ->setParameter('criteria', $criteria['vernacular']);
+        } else {
+            $qb->where('o.species = :criteria')
+                ->andWhere('o.observationDate BETWEEN :start AND :end ')
+                ->where('o.validate = true')
+                ->setParameters(array(
+                    'criteria' => $criteria['vernacular'],
+                    'start' => $criteria['begin'],
+                    'end' => $criteria['end']
+                ));
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getObservationByType($criteria){
+        // Création de l'alias
+        $qb = $this->createQueryBuilder('o');
+
+        if ($criteria['begin'] == null) {
+            $qb->where('o.type = :criteria')
+                ->andWhere('o.validate = true')
+                ->setParameter('criteria', $criteria['type']);
+        } else {
+            $qb->where('o.type = :criteria')
+                ->andWhere('o.observationDate BETWEEN :start AND :end ')
+                ->where('o.validate = true')
+                ->setParameters(array(
+                    'criteria' => $criteria['type'],
+                    'start' => $criteria['begin'],
+                    'end' => $criteria['end']
+                ));
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getObservationByFamily($criteria){
+        // Création de l'alias
+        $qb = $this->createQueryBuilder('o');
+
+        if ($criteria['begin'] == null) {
+            $qb->where('o.family = :criteria')
+                ->andWhere('o.validate = true')
+                ->setParameter('criteria', $criteria['family']);
+        } else {
+            $qb->where('o.family = :criteria')
+                ->andWhere('o.observationDate BETWEEN :start AND :end ')
+                ->where('o.validate = true')
+                ->setParameters(array(
+                    'criteria' => $criteria['family'],
+                    'start' => $criteria['begin'],
+                    'end' => $criteria['end']
+                ));
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /* Statistiques du dashboard */
+
     public function getValidatedObservationsByUser($user)
     {
         $qb = $this->createQueryBuilder('o')
