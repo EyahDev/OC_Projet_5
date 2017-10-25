@@ -114,7 +114,7 @@ class Observation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="observationDate", type="date")
+     * @ORM\Column(name="observationDate", type="datetime")
      */
     private $observationDate;
 
@@ -128,7 +128,7 @@ class Observation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="validateDate", type="date", nullable=true)
+     * @ORM\Column(name="validateDate", type="datetime", nullable=true)
      */
     private $validateDate;
 

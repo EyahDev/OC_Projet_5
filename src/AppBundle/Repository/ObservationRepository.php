@@ -161,7 +161,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
     }
 
-    public function getDifferentSpeciesObservations()
+    public function getSpeciesObserved()
     {
         $qb = $this->createQueryBuilder('o')
             ->select('COUNT(DISTINCT o.species)');

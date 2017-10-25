@@ -47,6 +47,19 @@ class AccountManager
     }
 
     /**
+     * Récupération de tous les utilisateurs non bannis
+     *
+     * @return User[]|array
+     */
+    public function getUsers() {
+        // Récupération de tous les utilisateurs existant et qui ne sont pas bannis
+        $users = $this->em->getRepository('AppBundle:User')->findBy(array('enabled' => true));
+
+        // Retourne les utilisateurs trouvés
+        return $users;
+    }
+
+    /**
      * renvoie le formulaire de mise à jour du prénom
      * @param $user
      * @return \Symfony\Component\Form\FormInterface

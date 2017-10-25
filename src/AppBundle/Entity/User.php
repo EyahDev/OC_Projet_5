@@ -111,6 +111,13 @@ class User implements UserInterface, \Serializable
     private $location;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar_path", type="string", length=255, nullable=true)
+     */
+    private $avatarPath;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="proPermission", type="boolean")
@@ -564,5 +571,29 @@ class User implements UserInterface, \Serializable
     public function getEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * Set avatarPath
+     *
+     * @param string $avatarPath
+     *
+     * @return User
+     */
+    public function setAvatarPath($avatarPath)
+    {
+        $this->avatarPath = $avatarPath;
+
+        return $this;
+    }
+
+    /**
+     * Get avatarPath
+     *
+     * @return string
+     */
+    public function getAvatarPath()
+    {
+        return $this->avatarPath;
     }
 }

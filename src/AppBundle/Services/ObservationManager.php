@@ -48,6 +48,27 @@ class ObservationManager
     }
 
     /**
+     * Récupération de toutes les observations
+     *
+     * @return Observation[]|array
+     */
+    public function getObservationsValidated() {
+        // Récupération de toutes les observations validées
+        $observations = $this->em->getRepository('AppBundle:Observation')->findBy(array('validate' => true));
+
+        // Retourne les observations validées
+        return $observations;
+    }
+
+    public function getSpeciesObserved() {
+        // Récupération du nombre d'espèces observées
+        $speciesObserved = $this->em->getRepository('AppBundle:Observation')->getSpeciesObserved();
+
+        // Retourne le compteur des espèces observées
+        return $speciesObserved;
+    }
+
+    /**
      * Récupération d'une observation par son id
      *
      * @param $id

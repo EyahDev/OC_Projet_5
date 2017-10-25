@@ -2,9 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Services\AccountManager;
 use AppBundle\Services\ContactManager;
 use AppBundle\Services\MapsManager;
 use AppBundle\Services\ObservationManager;
+use AppBundle\Services\SpeciesManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,29 +20,31 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request, ContactManager $contactManager)
+    public function indexAction(Request $request, ContactManager $contactManager, ObservationManager $observationManager, AccountManager $accountManager, SpeciesManager $speciesManager)
     {
+        /* Statistiques */
 
-        $users = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
-        $observations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->findAll();
-        $species = $this->getDoctrine()->getManager()->getRepository('AppBundle:Species')->findAll();
-        $differentSpeciesObservations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getDifferentSpeciesObservations($species);
+        $users = $accountManager->getUsers();
+        $observations = $observationManager->getObservationsValidated();
+        $species = $speciesManager->getSpecies();
+        $differentSpeciesObservations = $observationManager->getSpeciesObserved();
 
         /* Nous contacter */
 
         // Récupération du formulaire de contact
         $createContact = $contactManager->getFormCreateContact();
+
         // Hydration de l'entitée avec les valeurs du formulaire
         $createContact->handleRequest($request);
+
         // Soumission du formulaire
         if ($createContact->isSubmitted() && $createContact->isValid()) {
-            // Si le formulaire est valide le mail est envoyé
-            if($this->sendEmail($createContact->getData())){
-                // Rédirection vers le dashboard
-                return $this->redirectToRoute('dashboard');
-            }else{
-                var_dump("Une erreure s'est produite");
-            }
+            // Récupération des données du formulaire
+            $data = $createContact->getData();
+
+            // Préparation de l'email et envoi
+            $contactManager->sendMail($data);
+
         }
         // replace this example code with whatever you need
         return $this->render('default_integration/index.html.twig', array(
@@ -241,26 +245,6 @@ class DefaultController extends Controller
     public function faqAction()
     {
         return $this->render("default/faq.html.twig");
-    }
-
-    public function sendEmail($data){
-        $ContactMail = 'oc_projet_5@laposte.net';
-        $ContactPassword = '123456aA';
-
-        $transport = \Swift_SmtpTransport::newInstance('smtp.laposte.net', 465,'ssl')
-            ->setUsername($ContactMail)
-            ->setPassword($ContactPassword);
-
-        $mailer = \Swift_Mailer::newInstance($transport);
-
-        $message = \Swift_Message::newInstance($data["sujet"])
-            ->setFrom($ContactMail)
-            ->setTo(array(
-                $ContactMail => $ContactMail
-            ))
-            ->setBody(($data["message"]."<br>ContactMail :".$data["email"]),'text/html');
-
-        return $mailer->send($message);
     }
 
 }
