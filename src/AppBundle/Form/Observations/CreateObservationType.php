@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Observations;
 
+use AppBundle\Validator\AddObservation\Contains3FilesMax;
 use AppBundle\Validator\AddObservation\ContainsFileFormat;
 use AppBundle\Validator\AddObservation\ContainsFileSize;
 use AppBundle\Validator\AddObservation\ContainsBothName;
@@ -65,12 +66,12 @@ class CreateObservationType extends AbstractType
             ))
             ->add('eggsNumber', IntegerType::class, array(
                 'label' => 'Nombres oeufs observés',
-                'attr' => array('min' => 1),
+                'attr' => array('min' => 0),
                 'invalid_message' => 'Veuillez saisir un nombre d\'oeufs observés valide',
                 'required' => false,
                 'constraints' => array(
                     new GreaterThanOrEqual(array(
-                        'value' => 1,
+                        'value' => 0,
                         'message' => 'Veuillez saisir un nombre d\'oeufs observés valide'
                     ))
             )))
@@ -117,10 +118,9 @@ class CreateObservationType extends AbstractType
             ->add('photoPath', FileType::class, array(
                 'label' => 'Photo(s)',
                 'invalid_message' => 'Veuillez sélectionner une fichier valide.',
-                'multiple' => true,
                 'constraints' => array(
                     new ContainsFileFormat(),
-                    new ContainsFileSize()
+                    new ContainsFileSize(),
                 ),
                 'required' => false
             ))

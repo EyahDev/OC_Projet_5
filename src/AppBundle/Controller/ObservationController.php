@@ -46,6 +46,32 @@ class ObservationController extends Controller
     }
 
     /**
+     * @Route("/dashboard/observation/{id}/modification", name="modify-observation")
+     */
+    public function modifyObservationAction($id, ObservationManager $observationManager, Request $request) {
+        // Récupération du formulaire de modificaiton d'observation par l'utilisateur propriétaire
+        $modifyObservationForm = $observationManager->getObservationForModifyForm($id);
+
+        // Récupération des fichiers déjà présent
+        $files = $modifyObservationForm->getData()->getPhotoPath();
+
+        // Hydratation de l'entitée avec les valeurs du formulaire
+        $modifyObservationForm->handleRequest($request);
+
+        if ($modifyObservationForm->isSubmitted() && $modifyObservationForm->isValid()) {
+            $updatedObservation = $modifyObservationForm->getData();
+
+            $observationManager->setUpdatedObservation($updatedObservation);
+
+            return $this->redirectToRoute('dashboard');
+        }
+
+        return $this->render(":default/dashboard/ObservationManagement:ModifyObservation.html.twig", array(
+            'modifyObservationForm' => $modifyObservationForm->createView()
+        ));
+    }
+
+    /**
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/dashboard/observation/{id}/detail", name="observation-detail")
      */

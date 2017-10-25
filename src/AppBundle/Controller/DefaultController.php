@@ -3,8 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Services\MapsManager;
-use AppBundle\Services\ObservationManager;
-use function PHPSTORM_META\map;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
