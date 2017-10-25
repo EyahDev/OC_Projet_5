@@ -30,6 +30,7 @@ class CreateObservationType extends AbstractType
                 'label' => 'Espèces *',
                 'class' => 'AppBundle\Entity\Species',
                 'choice_label' => 'referenceName',
+                'placeholder' => '-- Sélectionnez une espèce --',
                 'invalid_message' => 'Veuillez sélectionner une espèce valide.',
                 'required' => false
             ))
@@ -37,6 +38,7 @@ class CreateObservationType extends AbstractType
                 'label' => 'Ou Nom commun *',
                 'class' => 'AppBundle\Entity\Species',
                 'choice_label' => 'vernacularName',
+                'placeholder' => '-- Sélectionnez une espèce --',
                 'invalid_message' => 'Veuillez sélectionner une espèce valide.',
                 'query_builder' => function(EntityRepository $repository){
                     return $repository->createQueryBuilder('s')
