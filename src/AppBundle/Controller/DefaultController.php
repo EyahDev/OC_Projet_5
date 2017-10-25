@@ -2,9 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Services\ContactManager;
 use AppBundle\Services\MapsManager;
 use AppBundle\Services\ObservationManager;
-use function PHPSTORM_META\map;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,12 +19,38 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction()
+    public function indexAction(Request $request, ContactManager $contactManager)
     {
+
+        $users = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
+        $observations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->findAll();
+        $species = $this->getDoctrine()->getManager()->getRepository('AppBundle:Species')->findAll();
+        $differentSpeciesObservations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getDifferentSpeciesObservations($species);
+
+        /* Nous contacter */
+
+        // Récupération du formulaire de contact
+        $createContact = $contactManager->getFormCreateContact();
+        // Hydration de l'entitée avec les valeurs du formulaire
+        $createContact->handleRequest($request);
+        // Soumission du formulaire
+        if ($createContact->isSubmitted() && $createContact->isValid()) {
+            // Si le formulaire est valide le mail est envoyé
+            if($this->sendEmail($createContact->getData())){
+                // Rédirection vers le dashboard
+                return $this->redirectToRoute('dashboard');
+            }else{
+                var_dump("Une erreure s'est produite");
+            }
+        }
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        return $this->render('default_integration/index.html.twig', array(
+            'contactForm' => $createContact->createView(),
+            'users' => $users,
+            'observations' => $observations,
+            'species' => $species,
+            'differentSpeciesObservations' => $differentSpeciesObservations
+        ));
     }
 
     /**
@@ -207,4 +234,34 @@ class DefaultController extends Controller
     {
         return $this->render("default/research.html.twig");
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/faq", name="faq")
+     */
+    public function faqAction()
+    {
+        return $this->render("default/faq.html.twig");
+    }
+
+    public function sendEmail($data){
+        $ContactMail = 'oc_projet_5@laposte.net';
+        $ContactPassword = '123456aA';
+
+        $transport = \Swift_SmtpTransport::newInstance('smtp.laposte.net', 465,'ssl')
+            ->setUsername($ContactMail)
+            ->setPassword($ContactPassword);
+
+        $mailer = \Swift_Mailer::newInstance($transport);
+
+        $message = \Swift_Message::newInstance($data["sujet"])
+            ->setFrom($ContactMail)
+            ->setTo(array(
+                $ContactMail => $ContactMail
+            ))
+            ->setBody(($data["message"]."<br>ContactMail :".$data["email"]),'text/html');
+
+        return $mailer->send($message);
+    }
+
 }
