@@ -588,3 +588,5 @@ window.addEventListener('resize',function(){
         };
     }
 });
+
+$('#contact_message').attr('class', 'contactMessage');

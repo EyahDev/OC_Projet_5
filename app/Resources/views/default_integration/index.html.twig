@@ -23,7 +23,7 @@
     <!-- Infos -->
     <section class="infos">
          <div class="space">
-             <img src="{{ asset('img/icone-oiseau.png') }}" />
+             <img src="{{ asset('img/icone-oiseau.png') }}" alt="oiseau"/>
              <div class ="position">
                  <h3>+ de 280 espèces</h3>
                  <p>
@@ -34,7 +34,7 @@
              </div>
          </div>
         <div class="space">
-            <img src="{{ asset('img/icone-alert.png') }}" />
+            <img src="{{ asset('img/icone-alert.png') }}" alt="alerte" />
             <div class="position">
                 <h3>10% disparaissent</h3>
                 <p>
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="space">
-            <img src="{{ asset('img/icone-sauvegarder.png') }}" />
+            <img src="{{ asset('img/icone-sauvegarder.png') }}" alt="sauvegarder" />
             <div class="position">
                 <h3>Sauvegarder</h3>
                 <p>
@@ -63,7 +63,7 @@
         <div class="container">
             <div class="row d-flex align-items-center">
                 <div class="col-md-6 padding-0">
-                    <div class="content-iphone"> <img class="img-fluid" src="{{ asset('img/Bien-choisir-son-oiseau.jpg') }}" alt="">
+                    <div class="content-iphone"> <img class="img-fluid" src="{{ asset('img/Bien-choisir-son-oiseau.jpg') }}" alt="oiseau-coloré">
                         <!--i class="fa fa-play play red-gradient"></i-->
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="col-md-6 col-md-offset-1 padding-0 order">
                     <div class="content-iphone">
-                        <img class="img-fluid" src="{{ asset('img/Les-principales-maladies-des-oiseaux.jpg') }}" alt="">
+                        <img class="img-fluid" src="{{ asset('img/Les-principales-maladies-des-oiseaux.jpg') }}" alt="perroquet">
                         <!--i class="fa fa-play play red-gradient"></i-->
                     </div>
                 </div>
@@ -120,14 +120,14 @@
     </section>
 
     <div class="compteur">
-        <div class="line"><p class ="size37">+{{ users|length }}</p><span class="size20">Membres</span></div>
-        <div class="line"><p class ="size37">+{{ observations|length }}</p><span class="size20">Observations</span></div>
-        <div class="line"><p class ="size37">+{{ differentSpeciesObservations }}</p><span class="size20">Espèces observées</span></div>
+        <div class="line"><p class ="size37">+{{ users|length }}</p><p class="size20">Membres</p></div>
+        <div class="line"><p class ="size37">+{{ observations|length }}</p><p class="size20">Observations</p></div>
+        <div class="line"><p class ="size37">+{{ differentSpeciesObservations }}</p><p class="size20">Espèces observées</p></div>
     </div>
 
     <!-- Section Contact -->
 
-    <section class="contact">
+    <section id="contact" class="contact">
         <div class="formulaire">
             <h2>Nous contacter</h2>
             {{ form_start(contactForm) }}
@@ -156,9 +156,9 @@
 
         <div class="coordonnées">
             <h4>Contact & Infos</h4>
-            <p>01 75 72 15 18</p>
-            <p>5 rue des pardrix, 75002 Paris</p>
-            <p>infos@nao.org</p>
+            <div><i class="fa fa-phone-square" aria-hidden="true"></i><p>01 75 72 15 18</p></div>
+            <div><i class="fa fa-home" aria-hidden="true"></i><p>5 rue des pardrix, 75002 Paris</p></div>
+            <div><i class="fa fa-envelope" aria-hidden="true"></i><p>infos@nao.org</p></div>
 
             <h4 class="spaceh4">Réseaux sociaux</h4>
 
