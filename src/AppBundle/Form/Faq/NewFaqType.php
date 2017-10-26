@@ -22,7 +22,10 @@ class NewFaqType extends AbstractType
             ->add('answer', TextareaType::class, array(
                 'label' => "Réponse"
             ))
-            ->add('save', SubmitType::class);
+            ->add('save', SubmitType::class,
+                array(
+                    'label' => 'Ajouter'
+                ));
     }
     
     /**

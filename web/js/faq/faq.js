@@ -20,10 +20,10 @@ $(document).ready(function() {
                     // efface la ligne du tableau correspondant à la question/réponse supprimée
                     $a.parentsUntil('tbody').replaceWith("");
                     // ajoute le message flash
-                    addFlashMsg('success', data);
+                    addFlashMsgFaq('success', data);
                 },
                 error: function (jqxhr) {
-                    addFlashMsg('danger', "Une erreur est survenue")
+                    addFlashMsgFaq('danger', "Une erreur est survenue")
                 }
             })
         });
@@ -80,7 +80,7 @@ $(document).ready(function() {
                                 });
                             },
                             error: function (jqxhr) {
-                                var appendCode = '<div class="flash-msg alert alert-danger">Le formulaire comporte des erreurs (la question et la réponse doivent comporter au moins 2 caractères)</div>';
+                                var appendCode = '<div class="flash-msg alert alert-danger">'+jqxhr.responseText+'</div>';
                                 $form.parent().prepend(appendCode);
                                 // efface le message flash apres 5 secondes
                                 function removeFlagMsg(){
@@ -93,7 +93,7 @@ $(document).ready(function() {
 
                 },
                 error: function() {
-                    addFlashMsg('danger', "Une erreur est survenue")
+                    addFlashMsgFaq('danger', "Une erreur est survenue")
                 }
             });
         });
@@ -101,16 +101,18 @@ $(document).ready(function() {
 
     // fonction permettant d'ajouter un message flash dynamiquement avec un message
     // et une couleur (couleur bootstrap (danger,primary...)) variables
-    function addFlashMsg(type, message) {
+    function addFlashMsgFaq(type, message) {
         // construit le html pour le message flash
         var appendCode = '<div class="flash-msg alert alert-'+type+'">'+message+'</div>';
         // ajoute le message flash dans la div dédiée
         $('#flashMsgFaq').append(appendCode);
-        // efface le message flash apres 5 secondes
-        function removeFlagMsg(){
-            $('.flash-msg').replaceWith("");
+        if(type != 'danger') {
+            // efface le message flash apres 5 secondes
+            function removeFlagMsg(){
+                $('.flash-msg').replaceWith("");
+            }
+            setTimeout(removeFlagMsg, 5000);
         }
-        setTimeout(removeFlagMsg, 5000);
     }
     // AJOUT QUESTION/REPONSE
     $('.btn-add-faq').on('click', function(e){
@@ -136,21 +138,21 @@ $(document).ready(function() {
                         data: $form.serialize(),
                         success: function (data, text, jqxhr) {
                             addFaq(data, $form);
-                            addFlashMsg('success', "Question ajoutée");
+                            addFlashMsgFaq('success', "Question ajoutée");
                             // retire l'ecoute de l'évenement clic sur un bouton edit
                             $('.btn-edit-faq').off('click');
                             removeFaq();
                             editFaq();
                         },
-                        error: function() {
-                            addFlashMsg('danger', "Le formulaire comporte des erreurs (la question et la réponse doivent comporter au moins 2 caractères)")
+                        error: function (jqxhr) {
+                            addFlashMsgFaq('danger', jqxhr.responseText);
                         }
                     })
                 })
 
             },
             error: function() {
-                addFlashMsg('danger', "Une erreur est survenue")
+                addFlashMsgFaq('danger', "Une erreur est survenue")
             }
         });
     });
@@ -165,10 +167,10 @@ $(document).ready(function() {
             success: function (data) {
                 //supprime la ligne de la question/réponse
                 $a.parentsUntil('tbody').replaceWith("");
-                addFlashMsg('success', data);
+                addFlashMsgFaq('success', data);
             },
             error: function (jqxhr) {
-
+                addFlashMsgFaq('danger', "Une erreur est survenue")
             }
         })
     });
@@ -221,7 +223,7 @@ $(document).ready(function() {
                             });
                         },
                         error: function (jqxhr) {
-                            var appendCode = '<div class="flash-msg alert alert-danger">Le formulaire comporte des erreurs (la question et la réponse doivent comporter au moins 2 caractères)</div>';
+                            var appendCode = '<div class="flash-msg alert alert-danger">'+jqxhr.responseText+'</div>';
                             $form.parent().prepend(appendCode);
                             // efface le message flash apres 5 secondes
                             function removeFlagMsg(){
@@ -234,7 +236,7 @@ $(document).ready(function() {
 
             },
             error: function() {
-                addFlashMsg('danger', "Une erreur est survenue")
+                addFlashMsgFaq('danger', "Une erreur est survenue")
             }
         });
     });
