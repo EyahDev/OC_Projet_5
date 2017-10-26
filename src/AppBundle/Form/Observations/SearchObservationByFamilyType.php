@@ -8,7 +8,6 @@
 
 namespace AppBundle\Form\Observations;
 
-use AppBundle\Validator\SearchObservation\ContainsFileFormat;
 use AppBundle\Validator\SearchObservation\ContainsPeriodBegin;
 use AppBundle\Validator\SearchObservation\ContainsPeriodEnd;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -23,12 +22,14 @@ class SearchObservationByFamilyType extends AbstractType
     {
         $builder
             ->add('family', EntityType::class, array(
+                'placeholder' => '-- Sélectionnez une famille',
                 'label' => 'Famille',
                 'class' => 'AppBundle\Entity\SpeciesFamily',
                 'choice_label' => 'name'
             ))
             ->add('De', DateTimeType::class, array(
                 'label' => 'De',
+                'placeholder' => 'ex : 01/01/1970',
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
                 'required' => false,
@@ -38,6 +39,7 @@ class SearchObservationByFamilyType extends AbstractType
             ))
             ->add('A', DateTimeType::class, array(
                 'label' => 'A',
+                'placeholder' => 'ex : 01/01/2013',
                 'widget' => 'single_text',
                 'required' => false,
                 'format' => 'dd/MM/yyyy',

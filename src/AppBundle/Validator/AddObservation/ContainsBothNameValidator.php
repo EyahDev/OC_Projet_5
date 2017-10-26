@@ -6,7 +6,7 @@ namespace AppBundle\Validator\AddObservation;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class ContainsBothValidator extends ConstraintValidator
+class ContainsBothNameValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {

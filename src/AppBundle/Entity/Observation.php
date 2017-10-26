@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Validator as CustomAssert;
 
@@ -104,17 +105,16 @@ class Observation
     private $altitude;
 
     /**
-     * @var array
+     * @var string
      *
-     * @ORM\Column(name="photoPath", type="array")
-     * @
+     * @ORM\Column(name="photoPath", type="string", length=255, nullable=true)
      */
     private $photoPath;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="observationDate", type="date")
+     * @ORM\Column(name="observationDate", type="datetime")
      */
     private $observationDate;
 
@@ -128,7 +128,7 @@ class Observation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="validateDate", type="date", nullable=true)
+     * @ORM\Column(name="validateDate", type="datetime", nullable=true)
      */
     private $validateDate;
 
@@ -138,6 +138,13 @@ class Observation
      * @ORM\Column(name="validation_comment", type="string", length=255, nullable=true)
      */
     private $validationComment;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="edit_observation", type="boolean", nullable=true)
+     */
+    private $editObservation;
 
 
     /**
@@ -297,7 +304,7 @@ class Observation
     /**
      * Set photoPath
      *
-     * @param array $photoPath
+     * @param string $photoPath
      *
      * @return Observation
      */
@@ -311,7 +318,7 @@ class Observation
     /**
      * Get photoPath
      *
-     * @return array
+     * @return string
      */
     public function getPhotoPath()
     {
@@ -556,5 +563,29 @@ class Observation
     public function getFamily()
     {
         return $this->family;
+    }
+
+    /**
+     * Set editObservation
+     *
+     * @param boolean $editObservation
+     *
+     * @return Observation
+     */
+    public function setEditObservation($editObservation)
+    {
+        $this->editObservation = $editObservation;
+
+        return $this;
+    }
+
+    /**
+     * Get editObservation
+     *
+     * @return boolean
+     */
+    public function getEditObservation()
+    {
+        return $this->editObservation;
     }
 }

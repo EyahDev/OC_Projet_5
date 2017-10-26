@@ -92,6 +92,13 @@ class Post
      */
     private $publishedDate;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photoPath", type="string", length=255, nullable=true)
+     */
+    private $photoPath;
+
 
     /**
      * Get id
@@ -348,5 +355,29 @@ class Post
     public function removeComment(\AppBundle\Entity\Comment $comment)
     {
         $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Set photoPath
+     *
+     * @param string $photoPath
+     *
+     * @return Post
+     */
+    public function setPhotoPath($photoPath)
+    {
+        $this->photoPath = $photoPath;
+
+        return $this;
+    }
+
+    /**
+     * Get photoPath
+     *
+     * @return string
+     */
+    public function getPhotoPath()
+    {
+        return $this->photoPath;
     }
 }

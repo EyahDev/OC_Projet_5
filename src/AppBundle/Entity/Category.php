@@ -52,6 +52,13 @@ class Category
      */
     private $slug;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photoPath", type="string", length=255, nullable=true)
+     */
+    private $photoPath;
+
 
     /**
      * Get id
@@ -151,5 +158,29 @@ class Category
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set photoPath
+     *
+     * @param string $photoPath
+     *
+     * @return Category
+     */
+    public function setPhotoPath($photoPath)
+    {
+        $this->photoPath = $photoPath;
+
+        return $this;
+    }
+
+    /**
+     * Get photoPath
+     *
+     * @return string
+     */
+    public function getPhotoPath()
+    {
+        return $this->photoPath;
     }
 }

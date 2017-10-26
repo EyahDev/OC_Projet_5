@@ -2,8 +2,6 @@
 
 namespace AppBundle\Form\Observations;
 
-
-use AppBundle\Validator\SearchObservation\ContainsFileFormat;
 use AppBundle\Validator\SearchObservation\ContainsPeriodBegin;
 use AppBundle\Validator\SearchObservation\ContainsPeriodEnd;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -19,10 +17,12 @@ class SearchObservationByReferenceNameType extends AbstractType
         $builder
             ->add('reference', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Species',
+                'placeholder' => '-- Sélectionnez une espèce --',
                 'choice_label' => 'referenceName',
             ))
             ->add('begin', DateTimeType::class, array(
                 'label' => 'De',
+                'placeholder' => 'ex : 01/01/1970',
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
                 'required' => false,
@@ -32,6 +32,7 @@ class SearchObservationByReferenceNameType extends AbstractType
             ))
             ->add('end', DateTimeType::class, array(
                 'label' => 'A',
+                'placeholder' => 'ex : 01/01/2013',
                 'widget' => 'single_text',
                 'required' => false,
                 'format' => 'dd/MM/yyyy',
