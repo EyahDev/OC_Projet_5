@@ -5,16 +5,60 @@
 {{ form_label(createCategoryForm.name) }}<br/>
 {{ form_widget(createCategoryForm.name) }}<br/>
 
+{{ form_label(createCategoryForm.photoPath) }}<br/>
+{{ form_widget(createCategoryForm.photoPath) }}<br/>
+
 {{ form_widget(createCategoryForm.save) }}<br/>
 {{ form_end(createCategoryForm) }}
 
 <br/>
+{% if categoriesList|length != 0 %}
+    <div class="table-responsive-vertical shadow-z-1">
+        <table id="table" class="table table-hover table-mc-default">
+            <thead>
+            <tr>
+                <th>Titre de la catégorie</th>
+                <th>Articles associés</th>
+                <th>Photo</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for category in categoriesList %}
+                <tr>
+                    <td data-title="Titre de la catégorie">
+                        {{ category.name }}
+                    </td>
+                    <td data-title="Articles associés">
+                        {{ category.posts|length }}
+                    </td>
+                    <td data-title="Photo">
+                        <a href="" data-toggle="modal" data-target="#viewPhoto{{ loop.index }}"><i class="fa fa-eye" aria-hidden="true"></i> Voir</a>
 
-<div>
-    {% for category in categoriesList %}
-        {{ category.name }} -- Articles associés  -- {{ category.posts|length }} --
-        <a href="{{path('edit_category', {'slug' : category.slug }) }}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-        /
-        <a href="{{path('advice_delete_category', {'slug' : category.slug }) }}"><i class="fa fa-times" aria-hidden="true"></i><br/></a>
-    {% endfor %}
-</div>
+                        <div class="modal fade " id="viewPhoto{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    {#<div class="modal-header">#}
+                                        {#<button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+                                            {#<span aria-hidden="true">&times;</span>#}
+                                        {#</button>#}
+                                    {#</div>#}
+                                    <div class="modal-body">
+                                        <img style="width: 770px" src="{{ asset(category.photoPath) }}" alt="{{ category.name }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                        <td data-title="Action">
+                            <a href="{{path('edit_category', {'slug': category.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> /
+                            <a href="{{path('advice_delete_category', {'slug': category.slug }) }}"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    Aucune catégorie n'existe pour l'instant, créez en une !
+{% endif %}

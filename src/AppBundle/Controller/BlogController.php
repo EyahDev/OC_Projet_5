@@ -83,10 +83,7 @@ class BlogController extends Controller
      */
     public function viewPostsByCategoryAction($category, BlogManager $blogManager) {
         // Récupération du nom de la catégorie à afficher
-        $categoryName = $blogManager->getCategory($category)->getName();
-
-        // Récupération des articles lié à la catégorie
-        $posts = $blogManager->getPostsByCategory($category);
+        $cat = $blogManager->getCategory($category);
 
         // Récupération de la liste de toutes les catégories
         $categories = $blogManager->getCategories();
@@ -95,8 +92,7 @@ class BlogController extends Controller
         $threeLastPost = $blogManager->getThreeLastPosts();
 
         return $this->render("default/blog/categoryBlog.html.twig", array(
-            'categoryName' => $categoryName,
-            'posts' => $posts,
+            'category' => $cat,
             'categories' => $categories,
             'threeLastPost' => $threeLastPost
         ));
@@ -112,6 +108,9 @@ class BlogController extends Controller
         // Récupération du formulaire de modification de la catégorie
         $updateCategoryForm = $blogManager->getFormUpdateCategory($slug);
 
+        // Récupération du fichier existant
+        $existingFile = $updateCategoryForm->getData()->getPhotoPath();
+
         // Hydration de l'entitée avec les valeurs du formulaire
         $updateCategoryForm->handleRequest($request);
 
@@ -122,7 +121,7 @@ class BlogController extends Controller
             $category = $updateCategoryForm->getData();
 
             // Enregistrement de la nouvelle catégorie
-            $blogManager->setCategory($category);
+            $blogManager->setUpdateCategory($category, $existingFile);
 
             // Rédirection vers le dashboard
             return $this->redirectToRoute('dashboard');
@@ -166,6 +165,9 @@ class BlogController extends Controller
         // Récupération du formulaire de modification de l'article
         $updatePostForm = $blogManager->getUpdatePostForm($slug);
 
+        // Récupération du fichier d'origine
+        $existingFile = $updatePostForm->getData()->getImagePath();
+
         // Hydration de l'entitée avec les valeurs du formulaire
         $updatePostForm->handleRequest($request);
 
@@ -176,7 +178,7 @@ class BlogController extends Controller
             $post = $updatePostForm->getData();
 
             // Enregistrement du nouvel article
-            $blogManager->updatePost($post);
+            $blogManager->updatePost($post, $existingFile);
 
             // Rédirection vers le dashboard
             return $this->redirectToRoute('dashboard');
