@@ -7,6 +7,7 @@ use AppBundle\Services\CommentManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class BlogController extends Controller
 {
@@ -301,7 +302,7 @@ class BlogController extends Controller
                 'commentForm' => $commentForm->createView()
             ));
         }
-        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
@@ -351,7 +352,7 @@ class BlogController extends Controller
                 'replyForm' => $replyForm->createView()
             ));
         }
-        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
@@ -374,6 +375,6 @@ class BlogController extends Controller
                 'message' => $message
             ));
         }
-        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 }

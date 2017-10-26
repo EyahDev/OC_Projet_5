@@ -36,3 +36,8 @@ services:
     import.csvtoarray:
         class: AppBundle\Services\ConvertCsvToArray
         public: true
+
+    appbundle.services.security.ban_listener:
+        class: AppBundle\Services\Security\BanListener
+        tags:
+            - { name: kernel.event_listener, event: security.authentication.success, method: generateExceptionBan}

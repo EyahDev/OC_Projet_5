@@ -49,4 +49,3 @@ security:
         #require le role user pour dashboard
         - { path: ^/dashboard, roles: ROLE_USER }
         - { path: ^/saisie-observation, roles: ROLE_USER }
-        - { path: ^/saisie-observation, roles: ROLE_USER }

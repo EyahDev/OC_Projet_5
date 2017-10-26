@@ -1,0 +1,84 @@
+<div class="mx-auto" id="flashMsgUserManagement">
+</div>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Nom d'utilisateur</th>
+        <th>Role</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in usersList %}
+        {% if user.id != app.user.id %}
+        <tr>
+            <th>{{ user.id }}</th>
+            <td>{{ user.username }}</td>
+            <td class="row justify-content-sm-center">
+                <div class="col-sm-5 role-name">
+                {% for role in user.roles %}
+                    {% if role == 'ROLE_ADMIN' %}Administrateur{% endif %}
+                    {% if role == 'ROLE_PROFESSIONAL' %}Professionnel{% endif %}
+                    {% if role == 'ROLE_USER' %}Particulier{% endif %}
+                {% endfor %}
+                </div>
+                <div class="offset-sm-1 col-sm-2">
+                    <a href="{{ path('change_role', {'id': user.id}) }}" id="btnChangeRole{{ user.id }}" class="btn-change-role-modal" data-toggle="modal" data-target="#ChangeRoleModal{{ user.id }}">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </td>
+            <td>
+                <a href="#" data-toggle="modal" data-target="#disableAccountModal{{ user.id }}" title="Désactiver le compte" class="btn-disable-account-modal" {% if user.enabled == 0 %} style="display: none"{% endif %}>
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+                </a>
+                <div class="modal fade" id="disableAccountModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="disableAccountModal{{ user.id }}Label" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="disableAccountModal{{ user.id }}Label">confirmation de désactivation</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Voulez vous vraiment desactiver le compte de  "{{ user.username }}" ?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                                <a class="btn btn-primary btn-disable-account" href="{{ path('disable_account', {'id': user.id}) }}" data-dismiss="modal">Oui</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" data-toggle="modal" data-target="#enableAccountModal{{ user.id }}" title="Activer le compte" class="btn-enable-account-modal" {% if not user.enabled == false %} style="display: none"{% endif %}>
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                </a>
+                <div class="modal fade" id="enableAccountModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="enableAccountModal{{ user.id }}Label" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="enableAccountModal{{ user.id }}Label">confirmation de réactivation</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Voulez vous vraiment réactiver le compte de  "{{ user.username }}" ?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                                <a class="btn btn-primary btn-enable-account" href="{{ path('enable_account', {'id': user.id}) }}" data-dismiss="modal">Oui</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endif %}
+{% endfor %}
+</tbody>
+</table>

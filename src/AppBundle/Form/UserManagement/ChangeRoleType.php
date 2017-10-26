@@ -1,18 +1,14 @@
 <?php
 
-namespace AppBundle\Form\Security;
+namespace AppBundle\Form\UserManagement;
 
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+
 
 class ChangeRoleType extends AbstractType
 {
@@ -22,11 +18,17 @@ class ChangeRoleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('roles', EntityType::class, array(
-            "class" => "AppBundle:Role",
-            "choice_label" => "name"
-        ))
-            ->add('save', SubmitType::class);
+        $builder->add('role', ChoiceType::class, array(
+            'choices'  => array(
+                'Administrateur' => 'ROLE_ADMIN',
+                'Professionnel' => 'ROLE_PROFESSIONAL',
+                'Particulier' => 'ROLE_USER',
+            )))
+            ->add('save', SubmitType::class,
+            array(
+                'label' => 'Modifier'
+            )
+        );
     }
     
     /**
@@ -35,7 +37,7 @@ class ChangeRoleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User'
+            'error_bubbling' => true
         ));
     }
 
@@ -44,7 +46,7 @@ class ChangeRoleType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_user';
+        return 'change_role';
     }
 
 
