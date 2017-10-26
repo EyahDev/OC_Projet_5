@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class FAQController extends Controller
 {
@@ -63,7 +64,7 @@ class FAQController extends Controller
                 'newFaqForm' => $newFaqForm->createView()
             ));
         }
-        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
@@ -103,7 +104,7 @@ class FAQController extends Controller
                 'faqId' => $faqId
             ));
         }
-        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
@@ -126,6 +127,6 @@ class FAQController extends Controller
             // envoie le message de confirmation pour l'afficher en JS
             return new Response($message);
         }
-        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 }

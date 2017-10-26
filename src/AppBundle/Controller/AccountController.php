@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 
 class AccountController extends Controller
@@ -45,7 +46,7 @@ class AccountController extends Controller
 
             throw new \Exception('Une erreur est survenue');
         }
-        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
@@ -79,7 +80,7 @@ class AccountController extends Controller
 
             throw new \Exception('Une erreur est survenue');
         }
-        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
@@ -113,7 +114,7 @@ class AccountController extends Controller
             }
             throw new \Exception('Une erreur est survenue');
         }
-        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
@@ -147,7 +148,7 @@ class AccountController extends Controller
             }
             throw new \Exception('Une erreur est survenue');
         }
-        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
@@ -181,6 +182,6 @@ class AccountController extends Controller
             }
             throw new \Exception('Une erreur est survenue');
         }
-        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 }

@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 
 class UserManagementController extends Controller
@@ -59,7 +60,7 @@ class UserManagementController extends Controller
                 'user' => $user
             ));
         }
-        throw new \Exception("Vous ne pouvez pas accéder à cette page");
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
@@ -81,7 +82,7 @@ class UserManagementController extends Controller
 
             return new Response("Le compte de l'utilisateur : ".$user->getUsername()." a été désactivé");
         }
-        throw new \Exception('Vous ne pouvez pas accéder à cette page.');
+        throw new AccessDeniedHttpException('Vous ne pouvez pas accéder à cette page.');
     }
 
     /**
@@ -103,6 +104,6 @@ class UserManagementController extends Controller
 
             return new Response("Le compte de l'utilisateur : ".$user->getUsername()." a été réactivé");
         }
-        throw new \Exception('Vous ne pouvez pas accéder à cette page.');
+        throw new AccessDeniedHttpException('Vous ne pouvez pas accéder à cette page.');
     }
 }
