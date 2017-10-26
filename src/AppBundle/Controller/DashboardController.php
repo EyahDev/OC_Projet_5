@@ -7,6 +7,7 @@ use AppBundle\Services\BlogManager;
 use AppBundle\Services\CommentManager;
 use AppBundle\Services\ContactManager;
 use AppBundle\Services\ObservationManager;
+use AppBundle\Services\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,11 +22,11 @@ class DashboardController extends Controller
      */
 
     public function dashboardAction(Request $request, ContactManager $contactManager, BlogManager $blogManager,
-                                    ObservationManager $observationManager, CommentManager $commentManager, AccountManager $accountManager)
+                                    ObservationManager $observationManager, CommentManager $commentManager,
+                                    AccountManager $accountManager, UserManager $userManager)
     {
         /* Utilisateurs */
         $user = $this->getUser();
-        $usersList = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
 
         /* Accès rapide */
 
@@ -155,6 +156,8 @@ class DashboardController extends Controller
         $updateUserNewsletterForm = $accountManager->getFormUpdateNewsletter($user);
         $updateUserPasswordForm = $accountManager->getFormUpdatePassword();
 
+        /* Gestion des utilisateurs*/
+        $usersList = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
 
         return $this->render("default/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),
@@ -176,6 +179,7 @@ class DashboardController extends Controller
             'updateUserLocationForm' => $updateUserLocationForm->createView(),
             'updateUserNewsletterForm' => $updateUserNewsletterForm->createView(),
             'updateUserPasswordForm' => $updateUserPasswordForm->createView(),
+
         ));
     }
 

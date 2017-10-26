@@ -10,6 +10,6 @@ class ContainsPeriodBegin extends Constraint
 
     public function validatedBy()
     {
-        return ContainsFileFormatValidator::class;
+        return ContainsPeriodBeginValidator::class;
     }
 }
