@@ -4,6 +4,7 @@ namespace AppBundle\Services;
 
 
 use AppBundle\Form\Contact\ContactType;
+use AppBundle\Form\Contact\ContactUsType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -42,11 +43,24 @@ class ContactManager
         return $form;
     }
 
+    /**
+     * Récupération du formulaire de contact
+     *
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function getFormCreateContactUs() {
+        // Récupération du formulaire de contact
+        $form = $this->formBuilder->create(ContactUsType::class);
+
+        // Retourne le formulaire
+        return $form;
+    }
+
     public function sendMail($data) {
         // Préparation de l'email de contact
         $sendMail = (new \Swift_Message('Nouveau message depuis le formulaire de contact NAO'))
-            ->setFrom(array('calcifer.hauru@gmail.com' => 'NAO - Nos amis les oiseaux'))
-            ->setTo('calcifer.hauru@gmail.com')
+            ->setFrom(array('dumaschaumette@gmail.com' => 'NAO - Nos amis les oiseaux'))
+            ->setTo('dumaschaumette@gmail.com')
             ->setBody($this->env->render(':default/email:mail.html.twig', array(
                 'data' => $data
             )), 'text/html');
@@ -55,5 +69,18 @@ class ContactManager
         $this->mailer->send($sendMail);
 
     }
-    
+
+    public function sendMailUser($data) {
+        // Préparation de l'email de contact
+        $sendMailUser = (new \Swift_Message('Nouveau message depuis le formulaire de contact NAO'))
+            ->setFrom(array('dumaschaumette@gmail.com' => 'NAO - Nos amis les oiseaux'))
+            ->setTo('dumaschaumette@gmail.com')
+            ->setBody($this->env->render(':default/email:mailUser.html.twig', array(
+                'data' => $data
+            )), 'text/html');
+
+        // Envoi de l'email
+        $this->mailer->send($sendMailUser);
+
+    }
 }
