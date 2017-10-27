@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // fonction permettant d'ajouter une ligne au tableau de FAQ après la soumission du formulaire d'ajout
     function addFaq(data, form) {
-        $('#tableFaq').children('tbody').append(data);
+        $('.table-faq').children('tbody').append(data);
         $('.btn-add-faq').fadeIn( "fast", function() {
         });
         form.replaceWith('');

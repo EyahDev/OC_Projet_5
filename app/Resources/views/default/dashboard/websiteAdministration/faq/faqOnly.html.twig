@@ -1,11 +1,11 @@
 <tr class="table-line-faq">
-    <td>
+    <td data-title="Question">
         {{ faq.question |slice(0, 50) }}
     </td>
-    <td>
+    <td data-title="Réponse">
         {{ faq.answer |slice(0, 50)}}
     </td>
-    <td>
+    <td data-title="Actions">
         <a href="{{ path('edit-faq', {'faqId': faq.id}) }}" class="btn-edit-faq" data-toggle="modal" data-target="#editFaqModal{{ faq.id }}">
         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
         </a>
