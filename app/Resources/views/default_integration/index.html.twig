@@ -2,7 +2,7 @@
 
 {% block header %}
     <header>
-        <div class="jumbotron vertical-center">
+        <div class="jumbotron-index vertical-center">
             <img class="logo-mobile" src="{{ asset('img/logo-pour-mobile.png') }}" alt="logo-nao-mobile">
             <div class="container">
                 <h1>Programme de recherche scientifique</h1>
@@ -21,90 +21,95 @@
 
 {% block body %}
     <!-- Infos -->
-    <section class="infos">
-         <div class="space">
-             <img src="{{ asset('img/icone-oiseau.png') }}" alt="oiseau"/>
-             <div class ="position">
-                 <h3>+ de 280 espèces</h3>
-                 <p>
-                     Tu comprends, tu vois au passage qu'il n'y a rien de concret
-                     car c'est un très, très gros travail et c'est une sensation réelle qui se produit si on veut !
-                     C'est pour ça que j'ai fait des films avec des replicants.
-                 </p>
+    <div class="container-body">
+        <section class="infos">
+             <div class="space">
+                 <img src="{{ asset('img/icone-oiseau.png') }}" alt="oiseau"/>
+                 <div class ="position">
+                     <h3>+ de 280 espèces</h3>
+                     <p>
+                         Tu comprends, tu vois au passage qu'il n'y a rien de concret
+                         car c'est un très, très gros travail et c'est une sensation réelle qui se produit si on veut !
+                         C'est pour ça que j'ai fait des films avec des replicants.
+                     </p>
+                 </div>
              </div>
-         </div>
-        <div class="space">
-            <img src="{{ asset('img/icone-alert.png') }}" alt="alerte" />
-            <div class="position">
-                <h3>10% disparaissent</h3>
-                <p>
-                    Tu comprends, tu vois au passage qu'il n'y a rien de concret
-                    car c'est un très, très gros travail et c'est une sensation réelle qui se produit si on veut !
-                    C'est pour ça que j'ai fait des films avec des replicants.
-                </p>
+            <div class="space">
+                <img src="{{ asset('img/icone-alert.png') }}" alt="alerte" />
+                <div class="position">
+                    <h3>10% disparaissent</h3>
+                    <p>
+                        Tu comprends, tu vois au passage qu'il n'y a rien de concret
+                        car c'est un très, très gros travail et c'est une sensation réelle qui se produit si on veut !
+                        C'est pour ça que j'ai fait des films avec des replicants.
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="space">
-            <img src="{{ asset('img/icone-sauvegarder.png') }}" alt="sauvegarder" />
-            <div class="position">
-                <h3>Sauvegarder</h3>
-                <p>
-                    Tu comprends, tu vois au passage qu'il n'y a rien de concret
-                    car c'est un très, très gros travail et c'est une sensation réelle qui se produit si on veut !
-                    C'est pour ça que j'ai fait des films avec des replicants.
-                </p>
+            <div class="space">
+                <img src="{{ asset('img/icone-sauvegarder.png') }}" alt="sauvegarder" />
+                <div class="position">
+                    <h3>Sauvegarder</h3>
+                    <p>
+                        Tu comprends, tu vois au passage qu'il n'y a rien de concret
+                        car c'est un très, très gros travail et c'est une sensation réelle qui se produit si on veut !
+                        C'est pour ça que j'ai fait des films avec des replicants.
+                    </p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+
 
     <!-- Articles -->
 
-    <section class="articles">
-        <div class="container">
-            <div class="row d-flex align-items-center">
-                <div class="col-md-6 padding-0">
-                    <div class="content-iphone"> <img class="img-fluid" src="{{ asset('img/Bien-choisir-son-oiseau.jpg') }}" alt="oiseau-coloré">
-                        <!--i class="fa fa-play play red-gradient"></i-->
+        <section class="articles">
+            <div class="container-fluid">
+                <div class="row d-flex align-items-center justify-content-around">
+                    <div class="col-md-6 padding-0">
+                        <div class="content-iphone"> <img class="img-fluid" src="{{ asset('img/Bien-choisir-son-oiseau.jpg') }}" alt="oiseau-coloré">
+                            <!--i class="fa fa-play play red-gradient"></i-->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="single-content">
+                            <h3>Nos actions</h3>
+                            <p>
+                                Lorem enim exquisitaque, eram incididunt distin guantur. Tractavissent o quid
+                                laboris imitarentur ab de ipsum ubi multos de est sed quorum fugiat multos. O
+                                illum eiusmod distinguantur.
+                            </p>
+                            <a class="btn btn-info button" href="#">Voir plus</a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-5">
-                    <div class="single-content">
-                        <h3>Nos actions</h3>
-                        <p>
-                            Lorem enim exquisitaque, eram incididunt distin guantur. Tractavissent o quid
-                            laboris imitarentur ab de ipsum ubi multos de est sed quorum fugiat multos. O
-                            illum eiusmod distinguantur.
-                        </p>
-                        <a class="btn btn-info button" href="#">Voir plus</a>
+                <div class="row d-flex align-items-center justify-content-around">
+                    <div class="col-md-5 order">
+                        <div class="single-content">
+                            <h3>Le programme de recherche</h3>
+                            <p>
+                                Lorem enim exquisitaque, eram incididunt distin guantur. Tractavissent o quid
+                                laboris imitarentur ab de ipsum ubi multos de est sed quorum fugiat multos. O
+                                illum eiusmod distinguantur.
+                            </p>
+                            <a class="btn btn-info button" href="#">Voir plus</a>
+                        </div>
+                    </div>
+                    <div class="col-md-5 padding-0 order">
+                        <div class="content-iphone">
+                            <img class="img-fluid" src="{{ asset('img/Les-principales-maladies-des-oiseaux.jpg') }}" alt="perroquet">
+                            <!--i class="fa fa-play play red-gradient"></i-->
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row articles-images">
-                <div class="col-md-5 order">
-                    <div class="single-content">
-                        <h3>Le programme de recherche</h3>
-                        <p>
-                            Lorem enim exquisitaque, eram incididunt distin guantur. Tractavissent o quid
-                            laboris imitarentur ab de ipsum ubi multos de est sed quorum fugiat multos. O
-                            illum eiusmod distinguantur.
-                        </p>
-                        <a class="btn btn-info button" href="#">Voir plus</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-md-offset-1 padding-0 order">
-                    <div class="content-iphone">
-                        <img class="img-fluid" src="{{ asset('img/Les-principales-maladies-des-oiseaux.jpg') }}" alt="perroquet">
-                        <!--i class="fa fa-play play red-gradient"></i-->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <!-- Section compteur -->
 
     <section class="animation">
-        <canvas id="canv"></canvas>
+
+        <canvas id="canv">
+        </canvas>
             <div class="sky">
                 <div class="clouds">
                    <div class="c1 one"></div>
@@ -117,13 +122,19 @@
                    <div class="c2 four"></div>
                 </div>
             </div>
+            <div class="compteur">
+                <div class="line"><p class ="size37">+{{ users|length }}</p><p class="size20">Membres</p></div>
+                <div class="line"><p class ="size37">+{{ observations|length }}</p><p class="size20">Observations</p></div>
+                <div class="line"><p class ="size37">+{{ differentSpeciesObservations }}</p><p class="size20">Espèces observées</p></div>
+            </div>
     </section>
-
-    <div class="compteur">
+    <div class="compteur-mobile">
         <div class="line"><p class ="size37">+{{ users|length }}</p><p class="size20">Membres</p></div>
         <div class="line"><p class ="size37">+{{ observations|length }}</p><p class="size20">Observations</p></div>
         <div class="line"><p class ="size37">+{{ differentSpeciesObservations }}</p><p class="size20">Espèces observées</p></div>
     </div>
+
+
 
     <!-- Section Contact -->
 

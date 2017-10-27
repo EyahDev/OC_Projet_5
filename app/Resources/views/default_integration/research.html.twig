@@ -1,0 +1,198 @@
+{% extends 'base_integration.html.twig' %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-laRecherche vertical-center">
+            <div class="container">
+                {#<h1>Avancée de la recherche</h1>#}
+                {#<p>Devenez un scientifique citoyen en participant à l'observation des oiseaux</p>#}
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <section class="container"><div class="research-title row d-flex justify-content-center align-items-center"><h2>Avancée de la recherche</h2><img src="{{ asset('img/symbole-science.png') }}" alt="symbole-science"></div></section>
+
+    <section class="timeline">
+        <ol>
+            <li>
+                <div>
+                    <time>1934</time> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+                </div>
+            </li>
+            <li>
+                <div>
+                    <time>1937</time> Proin quam velit, efficitur vel neque vitae, rhoncus commodo mi. Suspendisse finibus mauris et bibendum molestie. Aenean ex augue, varius et pulvinar in, pretium non nisi.
+                </div>
+            </li>
+            <li>
+                <div>
+                    <time>1940</time> Proin iaculis, nibh eget efficitur varius, libero tellus porta dolor, at pulvinar tortor ex eget ligula. Integer eu dapibus arcu, sit amet sollicitudin eros.
+                </div>
+            </li>
+            <li>
+                <div>
+                    <time>1943</time> In mattis elit vitae odio posuere, nec maximus massa varius. Suspendisse varius volutpat mattis. Vestibulum id magna est.
+                </div>
+            </li>
+            <li>
+                <div>
+                    <time>1946</time> In mattis elit vitae odio posuere, nec maximus massa varius. Suspendisse varius volutpat mattis. Vestibulum id magna est.
+                </div>
+            </li>
+            <li>
+                <div>
+                    <time>1956</time> In mattis elit vitae odio posuere, nec maximus massa varius. Suspendisse varius volutpat mattis. Vestibulum id magna est.
+                </div>
+            </li>
+            <li>
+                <div>
+                    <time>1957</time> In mattis elit vitae odio posuere, nec maximus massa varius. Suspendisse varius volutpat mattis. Vestibulum id magna est.
+                </div>
+            </li>
+            <li>
+                <div>
+                    <time>1967</time> Aenean condimentum odio a bibendum rhoncus. Ut mauris felis, volutpat eget porta faucibus, euismod quis ante.
+                </div>
+            </li>
+            <li>
+                <div>
+                    <time>1977</time> Vestibulum porttitor lorem sed pharetra dignissim. Nulla maximus, dui a tristique iaculis, quam dolor convallis enim, non dignissim ligula ipsum a turpis.
+                </div>
+            </li>
+            <li>
+                <div>
+                    <time>1985</time> In mattis elit vitae odio posuere, nec maximus massa varius. Suspendisse varius volutpat mattis. Vestibulum id magna est.
+                </div>
+            </li>
+            <li>
+                <div>
+                    <time>2000</time> In mattis elit vitae odio posuere, nec maximus massa varius. Suspendisse varius volutpat mattis. Vestibulum id magna est.
+                </div>
+            </li>
+            <li>
+                <div>
+                    <time>2005</time> In mattis elit vitae odio posuere, nec maximus massa varius. Suspendisse varius volutpat mattis. Vestibulum id magna est.
+                </div>
+            </li>
+            <li></li>
+        </ol>
+
+        <div class="arrows">
+            <button class="arrow arrow__prev disabled" disabled>
+                <img src="{{ asset('img/btn-reculer.png') }}" alt="prev timeline arrow">
+            </button>
+            <button class="arrow arrow__next">
+                <img src="{{ asset('img/btn-avancer.png') }}" alt="next timeline arrow">
+            </button>
+        </div>
+    </section>
+
+    <section class="container"><div class="research-title row d-flex justify-content-center align-items-center"><h2>Nous vous remercions<br /> pour votre participation</h2><img src="{{ asset('img/icone-remerciements.png') }}" alt="remerciements"></div></section>
+
+    <section class="container-statistics">
+        <div class="charts-container cf">
+            <img class="logo-statistics" src="{{ asset('img/logo-footer.png') }}" alt="logo-nao">
+            <h1>Statistiques : appli web Nao</h1>
+            <div class="chart" id="graph-1-container">
+                <h2 class="title">Vos observations</h2>
+                <div class="chart-svg">
+                    <svg class="chart-line" id="chart-1" viewBox="0 0 80 40">
+                        <defs>
+                            <clipPath id="clip" x="0" y="0" width="80" height="40">
+                                <rect id="clip-rect" x="-80" y="0" width="77" height="38.7"></rect>
+                            </clipPath>
+
+                            <linearGradient id="gradient-1">
+                                <stop offset="0" stop-color="#00d5bd"></stop>
+                                <stop offset="100" stop-color="#24c1ed"></stop>
+                            </linearGradient>
+
+                            <linearGradient id="gradient-2">
+                                <stop offset="0" stop-color="#954ce9"></stop>
+                                <stop offset="0.3" stop-color="#954ce9"></stop>
+                                <stop offset="0.6" stop-color="#24c1ed"></stop>
+                                <stop offset="1" stop-color="#24c1ed"></stop>
+                            </linearGradient>
+
+
+                            <linearGradient id="gradient-3" x1="0%" y1="0%" x2="0%" y2="100%">&gt;
+                                <stop offset="0" stop-color="rgba(0, 213, 189, 1)" stop-opacity="0.07"></stop>
+                                <stop offset="0.5" stop-color="rgba(0, 213, 189, 1)" stop-opacity="0.13"></stop>
+                                <stop offset="1" stop-color="rgba(0, 213, 189, 1)" stop-opacity="0"></stop>
+                            </linearGradient>
+
+
+                            <linearGradient id="gradient-4" x1="0%" y1="0%" x2="0%" y2="100%">&gt;
+                                <stop offset="0" stop-color="rgba(149, 76, 233, 1)" stop-opacity="0.07"></stop>
+                                <stop offset="0.5" stop-color="rgba(149, 76, 233, 1)" stop-opacity="0.13"></stop>
+                                <stop offset="1" stop-color="rgba(149, 76, 233, 1)" stop-opacity="0"></stop>
+                            </linearGradient>
+
+                            <clipPath id="Sj98nq2r81m"><rect x="-80" y="0" width="80" height="40" transform="matrix(1,0,0,1,80,0)"></rect></clipPath></defs>
+                        <desc>Created with Snap</desc><g id="grid"><path d="M0,0 L77,0" class="horizontal"></path><path d="M0,5.5 L77,5.5" class="horizontal"></path><path d="M0,11 L77,11" class="horizontal"></path><path d="M0,16.5 L77,16.5" class="horizontal"></path><path d="M0,22 L77,22" class="horizontal"></path><path d="M0,27.5 L77,27.5" class="horizontal"></path><path d="M0,33 L77,33" class="horizontal"></path><path d="M0,38.5 L77,38.5" class="horizontal"></path><path d="M0,38.7 L0,0" class="vertical"></path><path d="M5.5,38.7 L5.5,0" class="vertical"></path><path d="M11,38.7 L11,0" class="vertical"></path><path d="M16.5,38.7 L16.5,0" class="vertical"></path><path d="M22,38.7 L22,0" class="vertical"></path><path d="M27.5,38.7 L27.5,0" class="vertical"></path><path d="M33,38.7 L33,0" class="vertical"></path><path d="M38.5,38.7 L38.5,0" class="vertical"></path><path d="M44,38.7 L44,0" class="vertical"></path><path d="M49.5,38.7 L49.5,0" class="vertical"></path><path d="M55,38.7 L55,0" class="vertical"></path><path d="M60.5,38.7 L60.5,0" class="vertical"></path><path d="M66,38.7 L66,0" class="vertical"></path><path d="M71.5,38.7 L71.5,0" class="vertical"></path><path d="M77,38.7 L77,0" class="vertical"></path></g><path d="M1,34 L6.978571428571429,30 L12.957142857142857,24 L18.935714285714287,28 L24.914285714285715,22 L30.892857142857142,24 L36.871428571428574,26 L42.85,18 L48.82857142857143,25.2 L54.80714285714286,20 L60.785714285714285,16 L66.76428571428572,22 L72.74285714285715,12 L78,8.799999999999997" id="graph-1" style="stroke-dasharray: 104.673; stroke-dashoffset: 104.673;"></path><polygon points="1,34 6.978571428571429,30 12.957142857142857,24 18.935714285714287,28 24.914285714285715,22 30.892857142857142,24 36.871428571428574,26 42.85,18 48.82857142857143,25.2 54.80714285714286,20 60.785714285714285,16 66.76428571428572,22 72.74285714285715,12 78,8.799999999999997 78,38.4 1,38.4" id="poly-1" clip-path="url('#Sj98nq2r81m')"></polygon></svg>
+                    <h3 class="valueX">Pourcentage</h3>
+                </div>
+                <div class="chart-values">
+                    <p class="h-value visible">320 Obs.</p>
+                    <p class="percentage-value visible">+520%</p>
+                    <p class="total-gain">+63</p>
+                </div>
+                <div class="triangle green"></div>
+            </div>
+            <div class="chart" id="graph-2-container">
+                <h2 class="title">Nombre de participants</h2>
+                <div class="chart-svg">
+                    <svg class="chart-line" id="chart-2" viewBox="0 0 80 40">
+                        <desc>Created with Snap</desc><defs><clipPath id="Sj98nq2r81r"><rect x="-80" y="0" width="80" height="40" transform="matrix(1,0,0,1,80,0)"></rect></clipPath></defs><g id="grid"><path d="M0,0 L77,0" class="horizontal"></path><path d="M0,5.5 L77,5.5" class="horizontal"></path><path d="M0,11 L77,11" class="horizontal"></path><path d="M0,16.5 L77,16.5" class="horizontal"></path><path d="M0,22 L77,22" class="horizontal"></path><path d="M0,27.5 L77,27.5" class="horizontal"></path><path d="M0,33 L77,33" class="horizontal"></path><path d="M0,38.5 L77,38.5" class="horizontal"></path><path d="M0,38.7 L0,0" class="vertical"></path><path d="M5.5,38.7 L5.5,0" class="vertical"></path><path d="M11,38.7 L11,0" class="vertical"></path><path d="M16.5,38.7 L16.5,0" class="vertical"></path><path d="M22,38.7 L22,0" class="vertical"></path><path d="M27.5,38.7 L27.5,0" class="vertical"></path><path d="M33,38.7 L33,0" class="vertical"></path><path d="M38.5,38.7 L38.5,0" class="vertical"></path><path d="M44,38.7 L44,0" class="vertical"></path><path d="M49.5,38.7 L49.5,0" class="vertical"></path><path d="M55,38.7 L55,0" class="vertical"></path><path d="M60.5,38.7 L60.5,0" class="vertical"></path><path d="M66,38.7 L66,0" class="vertical"></path><path d="M71.5,38.7 L71.5,0" class="vertical"></path><path d="M77,38.7 L77,0" class="vertical"></path></g><path d="M1,36 L6.978571428571429,34 L12.957142857142857,30 L18.935714285714287,24 L24.914285714285715,18 L30.892857142857142,26.4 L36.871428571428574,18.4 L42.85,20 L48.82857142857143,16 L54.80714285714286,14.399999999999999 L60.785714285714285,18 L66.76428571428572,16.400000000000002 L72.74285714285715,11.600000000000001 L78,10" id="graph-2" style="stroke-dasharray: 96.6365; stroke-dashoffset: 96.6365;"></path><polygon points="1,36 6.978571428571429,34 12.957142857142857,30 18.935714285714287,24 24.914285714285715,18 30.892857142857142,26.4 36.871428571428574,18.4 42.85,20 48.82857142857143,16 54.80714285714286,14.399999999999999 60.785714285714285,18 66.76428571428572,16.400000000000002 72.74285714285715,11.600000000000001 78,10 78,38.4 1,38.4" id="poly-2" clip-path="url('#Sj98nq2r81r')"></polygon></svg>
+                    <h3 class="valueX">Pourcentage</h3>
+                </div>
+                <div class="chart-values">
+                    <p class="h-value visible">322 Part.</p>
+                    <p class="percentage-value visible">+750%</p>
+                    <p class="total-gain">+65</p>
+                </div>
+                <div class="triangle red"></div>
+            </div>
+            <div class="chart circle" id="circle-1">
+                <h2 class="title">Taux d'observations sur l'année</h2>
+                <div class="chart-svg align-center">
+                    <h2 class="circle-percentage">77%</h2>
+                    <svg class="chart-circle" id="chart-3" width="50%" viewBox="0 0 100 100">
+                        <path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"></path>
+                        <desc>Created with Snap</desc><defs></defs><path d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" id="circle-graph-1" style="stroke-dashoffset: 65.0401; stroke-dasharray: 282.783;"></path></svg>
+                </div>
+                <div class="triangle green"></div>
+            </div>
+            <div class="chart circle" id="circle-2">
+                <h2 class="title">Taux de participants sur l'année</h2>
+                <div class="chart-svg align-center">
+                    <h2 class="circle-percentage">53%</h2>
+                    <svg class="chart-circle" id="chart-4" width="50%" viewBox="0 0 100 100">
+                        <path class="underlay" d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50"></path>
+                        <desc>Created with Snap</desc><defs></defs><path d="M5,50 A45,45,0 1 1 95,50 A45,45,0 1 1 5,50" id="circle-graph-2" style="stroke-dashoffset: 132.908; stroke-dasharray: 282.783;"></path></svg>
+                </div>
+                <div class="triangle red"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container"><div class="research-title row d-flex justify-content-center align-items-center"><h2>Cette année la plus belle<br /> photo est de...</h2><img src="{{ asset('img/icone-photo.png') }}" alt="photo"></div></section>
+
+    <section class="container-remerciements">
+        <div><img class="gagnant img-fluid" src="{{ asset('img/la-gagnante.png') }}" alt="gagnant"></div>
+        <div><img class="like img-fluid" src="{{ asset('img/icone-like.png') }}" alt="like"></div>
+        <div><img class="photo-gagnant img-fluid" src="{{ asset('img/la-photo-gagnante.png') }}" alt="photo-gagnant"></div>
+    </section>
+
+    <section class="container"><div class="research-title row d-flex justify-content-center align-items-center"><h2>Toutes nos félicitations<br />pour leur nombre<br />d'observations validées</h2><img src="{{ asset('img/icone-coupe.png') }}" alt="photo"></div></section>
+
+    <section class="container"><div class="row d-flex justify-content-center align-items-center"><img class="img-fluid" src="{{ asset('img/podium.png') }}" alt="podium"></div></section>
+{% endblock %}

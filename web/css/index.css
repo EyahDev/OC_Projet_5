@@ -1,5 +1,5 @@
 /*----------------------------------------------- Header ----------------------------------------------- */
-.jumbotron {
+.jumbotron-index {
     background-color: #C2C0C0;
     height: 600px;
     Color : #444;
@@ -7,7 +7,7 @@
     border-radius: 0;
 }
 
-.jumbotron h1{
+.jumbotron-index h1{
     font-family: 'Raleway', sans-serif;
     font-size: 45px;
     margin-top: 0;
@@ -24,6 +24,7 @@
     margin-left: 20px;
     display: flex;
 }
+
 .nao-header-size1{
     Color : #444;
     font-size: 30px;
@@ -46,7 +47,7 @@
         display: none;
     }
 
-    .jumbotron{
+    .jumbotron-index{
         margin-top: 200px;
         background: url(img/image-header-mobile-t.png) 0 0 no-repeat;
         background-size: cover;
@@ -64,12 +65,23 @@
     }
 }
 
+.container-body{
+    margin: auto;
+    width: 100%;
+}
+
+@media (min-width: 1200px){
+    .container-body {
+        max-width: 1200px;
+    }
+}
+
+
 /*----------------------------------------------- Infos ----------------------------------------------- */
 .infos{
     display: flex;
     padding-top: 50px;
-    padding-bottom: 50px;
-    width: 90%;
+    width: 100%;
     margin: auto;
 }
 
@@ -100,6 +112,13 @@
 @media (max-width: 768px) {
     .infos{
         flex-wrap: wrap;
+        padding-bottom: 20px !important;
+    }
+
+
+    .container-body{
+        margin: auto;
+        width: 90%;
     }
 
     .space{
@@ -108,9 +127,11 @@
         margin-top:20px;
         margin-bottom:20px;
     }
+}
 
+@media (max-width: 420px) {
     .infos{
-        padding-bottom: 20px !important;
+        width: 95%;
     }
 }
 
@@ -120,11 +141,12 @@
     background-color: #fff;
 }
 
-.articles-images{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+
+/*.articles-images{*/
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+    /*align-items: center;*/
+/*}*/
 
 .padding-0 {
     padding-right: 0 !important;
@@ -175,7 +197,7 @@
     position: relative;
     text-transform: uppercase;
     word-spacing: 1.5px;
-    z-index: 1000;
+    z-index: 0;
 }
 
 .articles .single-content .button {
@@ -222,6 +244,12 @@
 }
 
 canvas{
+    position: absolute;
+    z-index:-1;
+    top: 0;
+    left:0;
+    bottom:0;
+    right:0;
     background: linear-gradient(#B7B0E3, #FFD3D6);
 }
 
@@ -249,7 +277,7 @@ canvas{
     position: absolute;
     background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/131045/clouds.png") 0 0 no-repeat;
     background-size: 100%;
-    z-index:999;
+    z-index:-1;
 }
 .c1.one, .c2.one {
     top: -260px;
@@ -271,6 +299,14 @@ canvas{
 .c2 .one {
     top: -209px;
 }
+
+@media (min-width: 769px) {
+    .compteur-mobile{
+        display:none;
+    }
+}
+
+
 @media (max-width: 1023px) {
     .c2.one {left: -80px;}
     .c2.two {left: -120px;}
@@ -287,9 +323,11 @@ canvas{
     animation: anim 1000s linear infinite forwards;
 }
 
+
 .compteur{
-    height: 200px;
-    width: 70%;
+    z-index: 1000;
+    height: 300px;
+    width: 90%;
     margin: auto;
     display: flex;
     align-items: center;
@@ -311,14 +349,21 @@ canvas{
 }
 
 @media (max-width: 768px) {
-    .compteur {
+    canvas{
+        display: none;
+    }
+    .compteur-mobile {
+        display: flex;
         background-color: #333;
-        color: #f9f9f9;
         align-items: center;
         width: 100%;
         flex-direction: column;
         margin-top: 20px;
         margin-bottom:40px;
+    }
+
+    .compteur-mobile p {
+        color: #f9f9f9 !important;
     }
 
     .compteur p{

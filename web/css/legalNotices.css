@@ -1,0 +1,19 @@
+.container-mentions-legales{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+.mentions-legales-adresse{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 16px;
+}
+
+.mentions-legales-adresse p{
+    margin-bottom: 0;
+    margin-left: 50px;
+}
