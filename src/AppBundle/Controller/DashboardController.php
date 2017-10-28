@@ -119,11 +119,15 @@ class DashboardController extends Controller
         // Récupération de la liste des articles
         $postsList = $blogManager->getPosts();
 
-        // Récupération du formulaire de création d'une catégorie
+        // Récupération du formulaire de création d'un article
         $createPost = $blogManager->getFormCreatePost();
 
-        // Hydratation de l'entitée des valeurs du formulaire
+        // Récupération du formulaire de création rapide d'une catégorie pour la partie article
+        $createCategoryQuickly = $blogManager->getFormCreateQuicklyCategory();
+
+        // Hydratation des entitées des valeurs du formulaire
         $createPost->handleRequest($request);
+        $createCategoryQuickly->handleRequest($request);
 
         // Soumission du formulaire
         if ($createPost->isSubmitted() && $createPost->isValid()) {
@@ -133,6 +137,19 @@ class DashboardController extends Controller
 
             // Enregistrement du nouvel article
             $blogManager->setPost($post, $user);
+
+            // Rédirection vers le dashboard
+            return $this->redirectToRoute('dashboard');
+        }
+
+        // Soumission du formulaire
+        if ($createCategoryQuickly->isSubmitted() && $createCategoryQuickly->isValid()) {
+
+            // Récupération de l'entitée Post avec les valeurs hydratées
+            $category = $createCategoryQuickly->getData();
+
+            // Enregistrement du nouvel article
+            $blogManager->setCategory($category);
 
             // Rédirection vers le dashboard
             return $this->redirectToRoute('dashboard');
@@ -162,6 +179,7 @@ class DashboardController extends Controller
         return $this->render("default/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),
             'categoriesList' => $categoriesList,
+            'createCategoryQuickly' => $createCategoryQuickly->createView(),
             'createPostForm' => $createPost->createView(),
             'postsList' => $postsList,
             'usersList' => $usersList,

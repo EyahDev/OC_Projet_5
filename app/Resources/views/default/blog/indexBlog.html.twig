@@ -11,7 +11,7 @@
         <i class="fa fa-tag" aria-hidden="true"></i> {{ post.category.name}}
         <i class="fa fa-comments" aria-hidden="true"></i> {{ post.comments|length }}<br/><br/>
 
-        {{ post.content|slice(0, 140) }}... <br/><br/>
+        {{ post.content|slice(0, 140)|purify }}... <br/><br/>
 
         <a href="{{ path('view-post', {'slugCat' : post.category.slug ,'slugPost' : post.slug }) }}"><button type="button" class="btn btn-primary">Lire la suite</button></a> <br/><br/>
     {% endfor %}

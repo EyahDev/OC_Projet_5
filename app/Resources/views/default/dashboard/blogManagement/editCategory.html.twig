@@ -8,6 +8,11 @@
     {{ form_label(updateCategoryForm.name) }}<br/>
     {{ form_widget(updateCategoryForm.name) }}<br/>
 
+    {{ form_label(updateCategoryForm.photoPath) }}<br/>
+    Image actuel : <br/>
+    <img style="width: 400px;" src="{{ asset(updateCategoryForm.vars.value.photoPath) }}" alt=""> <br/><br/>
+    {{ form_widget(updateCategoryForm.photoPath) }}<br/>
+
     {{ form_widget(updateCategoryForm.save) }}<br/>
     <a href="{{ path('category_delete', {'slug' : updateCategoryForm.vars.value.slug }) }}"><button type="button" class="btn btn-primary">Supprimer la catégorie</button></a>
     {{ form_end(updateCategoryForm) }}

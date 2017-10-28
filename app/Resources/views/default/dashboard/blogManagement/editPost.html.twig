@@ -12,11 +12,13 @@
     {{ form_label(updatePostForm.category) }}<br/>
     {{ form_widget(updatePostForm.category) }}<br/>
 
+    Image actuel : <br/>
+    <img style="width: 400px;" src="{{ asset(updatePostForm.vars.value.imagePath) }}" alt="{{ updatePostForm.vars.value.title }}"><br/><br/>
     {{ form_label(updatePostForm.imagePath) }}<br/>
     {{ form_widget(updatePostForm.imagePath) }}<br/>
 
     {{ form_label(updatePostForm.content) }}<br/>
-    {{ form_widget(updatePostForm.content) }}<br/>
+    {{ form_widget(updatePostForm.content, {'attr': {'class': 'tinyMCE'}}) }}<br/>
 
     {{ form_end(updatePostForm) }}
     <a href="{{ path('post_delete', {'slug' : updatePostForm.vars.value.slug }) }}"><button type="button" class="btn btn-primary">Supprimer la catégorie</button></a>

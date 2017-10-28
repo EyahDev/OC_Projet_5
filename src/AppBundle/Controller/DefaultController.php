@@ -9,6 +9,7 @@ use AppBundle\Services\ObservationManager;
 use AppBundle\Services\SpeciesManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -41,11 +42,12 @@ class DefaultController extends Controller
         if ($createContact->isSubmitted() && $createContact->isValid()) {
             // Récupération des données du formulaire
             $data = $createContact->getData();
+            dump($data);
 
             // Préparation de l'email et envoi
             $contactManager->sendMail($data);
-
         }
+
         // replace this example code with whatever you need
         return $this->render('default_integration/index.html.twig', array(
             'contactForm' => $createContact->createView(),
