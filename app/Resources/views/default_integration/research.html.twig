@@ -21,9 +21,20 @@
     <section class="container"><div class="research-title row d-flex justify-content-center align-items-center"><h2>Avancée de la recherche</h2><img src="{{ asset('img/symbole-science.png') }}" alt="symbole-science"></div></section>
 
     <section class="timeline">
+
+        <div class="arrows">
+            <button class="arrow arrow__prev disabled" disabled>
+                <img src="{{ asset('img/btn-reculer.png') }}" alt="prev timeline arrow">
+            </button>
+
+            <button class="arrow arrow__next">
+                <img src="{{ asset('img/btn-avancer.png') }}" alt="next timeline arrow">
+            </button>
+        </div>
+
         <ol>
             <li>
-                <div>
+                <div class="test">
                     <time>1934</time> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
                 </div>
             </li>
@@ -82,17 +93,10 @@
                     <time>2005</time> In mattis elit vitae odio posuere, nec maximus massa varius. Suspendisse varius volutpat mattis. Vestibulum id magna est.
                 </div>
             </li>
-            <li></li>
+            <li class="test2">
+            </li>
         </ol>
 
-        <div class="arrows">
-            <button class="arrow arrow__prev disabled" disabled>
-                <img src="{{ asset('img/btn-reculer.png') }}" alt="prev timeline arrow">
-            </button>
-            <button class="arrow arrow__next">
-                <img src="{{ asset('img/btn-avancer.png') }}" alt="next timeline arrow">
-            </button>
-        </div>
     </section>
 
     <section class="container"><div class="research-title row d-flex justify-content-center align-items-center"><h2>Nous vous remercions<br /> pour votre participation</h2><img src="{{ asset('img/icone-remerciements.png') }}" alt="remerciements"></div></section>

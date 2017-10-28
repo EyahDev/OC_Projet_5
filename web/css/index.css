@@ -109,16 +109,17 @@
     margin-right:50px;
 }
 
+@media (min-width: 420px) {
+    .container-body{
+        margin: auto;
+        width: 90%;
+    }
+}
+
 @media (max-width: 768px) {
     .infos{
         flex-wrap: wrap;
         padding-bottom: 20px !important;
-    }
-
-
-    .container-body{
-        margin: auto;
-        width: 90%;
     }
 
     .space{
@@ -327,7 +328,7 @@ canvas{
 .compteur{
     z-index: 1000;
     height: 300px;
-    width: 90%;
+    max-width: 1200px;
     margin: auto;
     display: flex;
     align-items: center;
@@ -356,7 +357,7 @@ canvas{
         display: flex;
         background-color: #333;
         align-items: center;
-        width: 100%;
+        max-width: 1200px;
         flex-direction: column;
         margin-top: 20px;
         margin-bottom:40px;
@@ -398,12 +399,12 @@ h2{
 .form-control{
     height: 50px;
     border-radius: 0;
-    box-shadow: 1px 1px 20px #F0EDED;
+    box-shadow: 1px 1px 20px #DCDCDC;
 }
 .contactMessage{
     height: 150px;
     border-radius: 0;
-    box-shadow: 1px 1px 20px #F0EDED;
+    box-shadow: 1px 1px 20px #DCDCDC;
     display: block;
     width: 100%;
     padding: .5rem .75rem;
@@ -421,11 +422,13 @@ form .btn {
     background-color: #333;
     color: #f9f9f9;
     font-family: 'Montserrat', sans-serif;
-    display: inline-block;
+    word-spacing: 1.5px;
+    z-index: 0;
     padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
+    margin: 0 2px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
     line-height: 1.42857143;
     text-align: center;
     text-transform: uppercase;
@@ -439,8 +442,9 @@ form .btn {
     background-image: none;
     border: 1px solid transparent;
     border-radius: 0;
-    box-shadow: 0 0 0 #333;
+    box-shadow: 6px 8px 10px #DCDCDB !important
 }
+
 
 .coordonnées{
     margin-left: 50px;

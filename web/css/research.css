@@ -54,13 +54,6 @@ button {
     outline: none;
 }
 
-/*body {*/
-    /*font: normal 16px/1.5 "Helvetica Neue", sans-serif;*/
-    /*background: #456990;*/
-    /*color: #fff;*/
-/*}*/
-
-
 /* .section SECTION
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
@@ -87,12 +80,19 @@ button {
 
 /* TIMELINE
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.test{
+    height: 150px !important;
+    border-left: 2px solid #888888;
+    padding: 15px;
+}
 
 .timeline {
+    position: relative;
     margin-top: 100px;
     margin-bottom: 100px;
     white-space: nowrap;
     overflow-x: hidden;
+    background-color: #00b3ff;
 }
 
 .timeline ol {
@@ -106,7 +106,7 @@ button {
     position: relative;
     display: inline-block;
     list-style-type: none;
-    width: 160px;
+    width: 200px;
     height: 20px;
     background: #888888;
 }
@@ -117,19 +117,6 @@ button {
 
 .timeline ol li:not(:first-child) {
     margin-left: 0;
-}
-
-.timeline ol li:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: calc(100% + 1px);
-    bottom: 0;
-    width: 12px;
-    height: 12px;
-    transform: translateY(-50%);
-    border-radius: 50%;
-    background: #F45B69;
 }
 
 .timeline ol li div {
@@ -147,7 +134,17 @@ button {
     content: '';
     position: absolute;
     top: 100%;
-    left: 0;
+    left: -1.5px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.timeline ol li div::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: -1px;
     width: 0;
     height: 0;
     border-style: solid;
@@ -160,8 +157,20 @@ button {
 
 .timeline ol li:nth-child(odd) div::before {
     top: 100%;
-    border-width: 8px 8px 0 0;
-    border-color: white transparent transparent transparent;
+    border-width: 16px 2px 0 0;
+    border-color: #888888;
+}
+
+.timeline ol li:nth-child(odd) div::after {
+    top: 50px;
+    left: -40px;
+    width: 80px;
+    height: 80px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    border: 5px solid #888888;
+    background-image: url(img/Les-principales-maladies-des-oiseaux.jpg);
+    background-size: contain;
 }
 
 .timeline ol li:nth-child(even) div {
@@ -169,9 +178,21 @@ button {
 }
 
 .timeline ol li:nth-child(even) div::before {
-    top: -8px;
-    border-width: 8px 0 0 8px;
-    border-color: transparent transparent transparent white;
+    top: 200px;
+    border-width: 16px 0 0 1px;
+    border-color: #888888;
+}
+
+.timeline ol li:nth-child(even) div::after {
+    top: 200px;
+    left: -40px;
+    width: 80px;
+    height: 80px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    border: 5px solid #888888;
+    background-image: url(img/Les-principales-maladies-des-oiseaux.jpg);
+    background-size: contain;
 }
 
 .timeline time {
@@ -186,24 +207,13 @@ button {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 .timeline .arrows {
+    position: absolute;
+    width: 100%;
+    top: 235px;
     display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    z-index: 1;
 }
-
-.timeline .arrows .arrow__prev {
-    margin-right: 20px;
-}
-
-.timeline .disabled {
-    opacity: .5;
-}
-
-.timeline .arrows img {
-    width: 45px;
-    height: 45px;
-}
-
 
 /* GENERAL MEDIA QUERIES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -256,9 +266,20 @@ button {
         height: 25px;
     }
 
+
+    .timeline ol li:nth-child(odd) div::after,
+    .timeline ol li:nth-child(even) div::after {
+        left: 50%;
+        top: 100%;
+        transform: translateX(-50%);
+        border: none;
+        border-left: 1px solid white;
+        height: 25px;
+    }
+
     .timeline ol li:last-child,
     .timeline ol li:nth-last-child(2) div::before,
-    .timeline ol li:not(:last-child)::after,
+    .timeline ol li:nth-last-child(2) div::after,
     .timeline .arrows {
         display: none;
     }
