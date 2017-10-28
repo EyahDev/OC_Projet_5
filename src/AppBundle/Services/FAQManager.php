@@ -10,6 +10,7 @@ use AppBundle\Form\Signup\UpdateFirstNameType;
 use AppBundle\Form\Signup\AddLocationType;
 use AppBundle\Form\Signup\UpdateNewsletterType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -22,6 +23,7 @@ class FAQManager
     private $request;
     private $session;
     private $validator;
+    private $container;
 
     /**
      * FAQManager constructor.
@@ -31,12 +33,13 @@ class FAQManager
      * @param SessionInterface $session
      * @param ValidatorInterface $validator
      */
-    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em, RequestStack $request, SessionInterface $session,   ValidatorInterface $validator) {
+    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em, RequestStack $request, SessionInterface $session,   ValidatorInterface $validator, ContainerInterface $container) {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
         $this->session = $session;
         $this->validator = $validator;
+        $this->container = $container;
     }
 
     /**
@@ -96,5 +99,19 @@ class FAQManager
             return $errorsString;
         }
         return true;
+    }
+
+    public function getPaginatedFaqList()
+    {
+        // récupère la liste des questions/réponses
+        $faqList = $this->em->getRepository('AppBundle:Faq')->findAll();
+        // récupère le service knp paginator
+        $paginator  = $this->container->get('knp_paginator');
+        // retourne les questions /réponse paginé selon la page passé en get
+        return $paginator->paginate(
+            $faqList/*$query*/, /* query NOT result */
+            $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
     }
 }

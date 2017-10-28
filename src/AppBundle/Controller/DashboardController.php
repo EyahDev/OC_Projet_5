@@ -6,6 +6,7 @@ use AppBundle\Services\AccountManager;
 use AppBundle\Services\BlogManager;
 use AppBundle\Services\CommentManager;
 use AppBundle\Services\ContactManager;
+use AppBundle\Services\FAQManager;
 use AppBundle\Services\ObservationManager;
 use AppBundle\Services\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,7 +24,7 @@ class DashboardController extends Controller
 
     public function dashboardAction(Request $request, ContactManager $contactManager, BlogManager $blogManager,
                                     ObservationManager $observationManager, CommentManager $commentManager,
-                                    AccountManager $accountManager, UserManager $userManager)
+                                    AccountManager $accountManager, UserManager $userManager, FAQManager $FAQManager)
     {
         /* Utilisateurs */
         $user = $this->getUser();
@@ -145,9 +146,8 @@ class DashboardController extends Controller
 
 
         /* Gestion de la FAQ */
+        $paginationFaq = $FAQManager->getPaginatedFaqList();
 
-        // récupère la liste des questions/réponses
-        $faqList = $this->getDoctrine()->getManager()->getRepository('AppBundle:Faq')->findAll();
 
         /* Mes informations */
         $updateUserNameForm = $accountManager->getFormUpdateName($user);
@@ -173,7 +173,7 @@ class DashboardController extends Controller
             'validatedObservationsByValidator' => $validatedObservationsByValidator,            
             'createObservationForm' => $createObservation->createView(),
             'contactForm' => $createContact->createView(),
-            'faqList' => $faqList,
+            'paginationFaq' => $paginationFaq,
             'updateUserNameForm' => $updateUserNameForm->createView(),
             'updateUserFirstNameForm' => $updateUserFirstNameForm->createView(),
             'updateUserLocationForm' => $updateUserLocationForm->createView(),

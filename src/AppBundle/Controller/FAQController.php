@@ -58,9 +58,7 @@ class FAQController extends Controller
                 // Enregistre la question/réponse
                 $faqManager->setFaq($newFaq);
                 // renvoie la ligne de tableau pour l'affichage en JS
-                return $this->render('default/dashboard/websiteAdministration/faq/faqOnly.html.twig', array(
-                    'faq' => $newFaq
-                ));
+                return new Response('FAQ : ajout ok');
             }
             // renvoie le formulaire d'ajout pour l'affichage en JS
             return $this->render('default/dashboard/websiteAdministration/faq/newFaqForm.html.twig', array(
@@ -100,9 +98,7 @@ class FAQController extends Controller
                 // Enregistre la question/réponse
                 $faqManager->setFaq($editedFaq);
                 // renvoie la ligne de tableau pour l'affichage en JS
-                return $this->render('default/dashboard/websiteAdministration/faq/faqOnly.html.twig', array(
-                    'faq' => $editedFaq
-                ));
+                return new Response('FAQ : édition ok');
             }
             // renvoie le formulaire d'ajout pour l'affichage en JS
             return $this->render(':default/dashboard/websiteAdministration/faq:editFaqForm.html.twig', array(
@@ -132,6 +128,22 @@ class FAQController extends Controller
             $message = $faqManager->removeFaq($faqId);
             // envoie le message de confirmation pour l'afficher en JS
             return new Response($message);
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/faq-management/pagination", name="pagination_faq")
+     */
+    public function paginationFaqAction(Request $request, FAQManager $FAQManager)
+    {
+        if($request->isXmlHttpRequest()) {
+            $paginationFaq = $FAQManager->getPaginatedFaqList();
+            return $this->render(':default/dashboard/websiteAdministration/faq:paginateTable.html.twig', array(
+                'paginationFaq' => $paginationFaq
+            ));
         }
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }

@@ -1,21 +1,12 @@
-{# ajout d'une question/reponse #}
-
-    <div class="mx-auto" id="flashMsgFaq">
-    </div>
-
-    <div class="mx-auto">
-        <a class="btn btn-primary btn-add-faq" href="{{ path('new-faq') }}">Ajouter une question</a>
-    </div>
-
 <div class="pagination-table-faq">
     <div class="table-responsive-vertical shadow-z-1">
         <table class="table table-hover table-mc-default table-faq">
             <thead>
-                <tr>
-                    <td>Question</td>
-                    <td>Réponse</td>
-                    <td>Actions</td>
-                </tr>
+            <tr>
+                <td>Question</td>
+                <td>Réponse</td>
+                <td>Actions</td>
+            </tr>
             </thead>
             <tbody>
             {% for faq in paginationFaq %}
@@ -60,7 +51,6 @@
             </tbody>
         </table>
     </div>
-    {# div englobant le paginator et contenant la route à prendre pour la requete Ajax de pagination#}
     <div id="paginationFaq" url="{{ path('pagination_faq') }}">
         {# display navigation #}
         <div class="navigation">
