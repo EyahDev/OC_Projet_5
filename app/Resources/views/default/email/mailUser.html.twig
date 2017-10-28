@@ -19,9 +19,9 @@
 
         <p>Ce mail a été envoyé depuis le formulaire de contact NAO - Nos amis les oiseaux</p>
         <hr/>
-        <p>Email de l'utilsateur : {{ data['email'] }} </p>
-        <p>Nom de l'utilsateur : {{ data['nom'] }} </p>
-        <p>Prénom de l'utilsateur : {{ data['prenom'] }} </p>
+        <p>Email de l'utilsateur : {{ app.user.email }} </p>
+        <p>Nom de l'utilsateur : {{ app.user.name }} </p>
+        <p>Prénom de l'utilsateur : {{ app.user.firstName }} </p>
         <p>Sujet du message : {{ data['sujet'] }}</p>
         <p>Message :</p>
         <p>{{ data['message'] }}</p>
