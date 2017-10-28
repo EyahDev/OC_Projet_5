@@ -80,12 +80,6 @@ button {
 
 /* TIMELINE
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.test{
-    height: 150px !important;
-    border-left: 2px solid #888888;
-    padding: 15px;
-}
-
 .timeline {
     position: relative;
     margin-top: 100px;
@@ -111,6 +105,20 @@ button {
     background: #888888;
 }
 
+.timeline p{
+     font-family: 'Montserrat', sans-serif;
+     font-size: 13px;
+     color: black;
+ }
+
+.timeline time{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px !important;
+    margin-bottom: 0 !important;
+    margin-top: 50px;
+    color: #666;
+}
+
 .timeline ol li:last-child {
     width: 280px;
 }
@@ -122,12 +130,14 @@ button {
 .timeline ol li div {
     position: absolute;
     left: calc(100% + 7px);
-    width: 280px;
+    width: 400px;
     padding: 15px;
     font-size: 1rem;
     white-space: normal;
     color: black;
-    background: white;
+    background: transparent;
+    height: 150px !important;
+    border-left: 2px solid #888888;
 }
 
 .timeline ol li div::before {
@@ -161,8 +171,8 @@ button {
     border-color: #888888;
 }
 
-.timeline ol li:nth-child(odd) div::after {
-    top: 50px;
+.timeline ol li:nth-child(odd) div.test::after {
+    top: 40px;
     left: -40px;
     width: 80px;
     height: 80px;
