@@ -3,17 +3,16 @@
 {% block contentBlog %}
     <h4>{{ post.title }}</h4><br/>
 
-    <i class="fa fa-calendar-o" aria-hidden="true"></i> {{ post.publishedDate|date("d/m/Y à h:i", "Europe/Paris") }}
+    <i class="fa fa-calendar-o" aria-hidden="true"></i> {{ post.publishedDate|date("d/m/Y à H:i", "Europe/Paris") }}
     <i class="fa fa-user" aria-hidden="true"></i> {{ post.author.username }}
     <i class="fa fa-tag" aria-hidden="true"></i> {{ post.category.name}}
     <i class="fa fa-comments" aria-hidden="true"></i> {{ post.comments|length }}<br/><br/>
 
-    {{ post.content}} <br/><br/>
+    <img style="width: 800px; margin-bottom: 20px;" src="{{ asset(post.imagePath) }}" alt="{{ post.title }}">
+    {{ post.content|purify }} <br/><br/>
 
    {% include "default/blog/rightMenuBlog.html.twig" %}
    {% include "default/blog/comments/comments.html.twig" %}
-
-
 
 {% endblock %}
 

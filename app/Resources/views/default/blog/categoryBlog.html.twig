@@ -1,16 +1,19 @@
 {% extends 'default/blog.html.twig' %}
 
 {% block contentBlog %}
-    <h3>Categorie : {{ categoryName }}</h3>
 
-    {% for post in posts %}
+    <img style="width: 800px" src="{{ asset(category.photoPath) }}" alt="{{ category.name }}">
+
+    <h3>Categorie : {{ category.name }}</h3>
+    
+    {% for post in category.posts %}
         <h4>{{ post.title }}</h4><br/>
         <i class="fa fa-calendar-o" aria-hidden="true"></i> {{ post.publishedDate|date("d/m/Y à h:i", "Europe/Paris") }}
         <i class="fa fa-user" aria-hidden="true"></i> {{ post.author.username }}
         <i class="fa fa-tag" aria-hidden="true"></i> {{ post.category.name}}
         <i class="fa fa-comments" aria-hidden="true"></i> {{ post.comments|length }}<br/><br/>
 
-        {{ post.content|slice(0, 140) }} <br/><br/>
+        {{ post.content|slice(0, 140)|purify }} <br/><br/>
 
         <a href="{{ path('view-post', {'slugCat' : post.category.slug ,'slugPost' : post.slug }) }}"><button type="button" class="btn btn-primary">Lire la suite</button></a> <br/><br/>
     {% endfor %}

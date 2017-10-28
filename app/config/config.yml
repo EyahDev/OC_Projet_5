@@ -8,6 +8,9 @@ imports:
 parameters:
     locale: en
     observations_directory: '%kernel.project_dir%/web/uploads/observations_files'
+    categories_directory: '%kernel.project_dir%/web/uploads/categories_files'
+    posts_directory: '%kernel.project_dir%/web/uploads/posts_files'
+    users_directory: '%kernel.project_dir%/web/uploads/users_files'
 
 framework:
     #esi: ~
@@ -69,6 +72,8 @@ swiftmailer:
     host: '%mailer_host%'
     username: '%mailer_user%'
     password: '%mailer_password%'
+    port: '%mailer_port%'
+    encryption: '%mailer_encryption%'
     spool: { type: memory }
 
 stof_doctrine_extensions:

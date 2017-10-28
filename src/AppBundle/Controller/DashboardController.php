@@ -53,38 +53,38 @@ class DashboardController extends Controller
         /* Nous écrire */
 
         // Récupération du formulaire de contact
-        $createContact = $contactManager->getFormCreateContact();
+        $createContactUs = $contactManager->getFormCreateContactUs();
 
         // Hydration de l'entitée avec les valeurs du formulaire
-        $createContact->handleRequest($request);
+        $createContactUs->handleRequest($request);
 
         // Soumission du formulaire
-        if ($createContact->isSubmitted() && $createContact->isValid()) {
+        if ($createContactUs->isSubmitted() && $createContactUs->isValid()) {
+            // Récupération des données du formulaire
+            $data = $createContactUs->getData();
 
-            // Si le formulaire est valide le mail est envoyé
-            if($this->sendEmail($createContact->getData())){
+            // Préparation de l'email et envoi
+            $contactManager->sendMailUser($data);
 
-                // Rédirection vers le dashboard
-                return $this->redirectToRoute('dashboard');
-
-            } else {
-                var_dump("Une erreure s'est produite");
-            }
+            // Rédirection vers le dashboard
+            return $this->redirectToRoute('dashboard');
         }
 
         /* Statistiques Utilisateurs */
 
         // Observations validées pour l'utilisateur classique
-        $validatedObservationsByUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getValidatedObservationsByUser($user);
+        $validatedObservationsByUser = $observationManager->validatedObservationsByUser($user);
 
         // Observations refusées pour l'utilisateur classique
-        $refusedObservationsByUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getRefusedObservationsByUser($user);
+
+        $refusedObservationsByUser = $observationManager->refusedObservationsByUser($user);
+
 
         // Observations refusées par l'utilisateur pro
-        $refusedObservationsByValidator = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getRefusedObservationsByValidator($user);
+        $refusedObservationsByValidator = $observationManager->refusedObservationsByValidator($user);
 
-        // Observations refusées par l'utilisateur pro
-        $validatedObservationsByValidator = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getValidatedObservationsByValidator($user);
+        // Observations validées par l'utilisateur pro
+        $validatedObservationsByValidator = $observationManager->validatedObservationsByValidator($user);        
 
         /* Observations */
 
@@ -120,11 +120,15 @@ class DashboardController extends Controller
         // Récupération de la liste des articles
         $postsList = $blogManager->getPosts();
 
-        // Récupération du formulaire de création d'une catégorie
+        // Récupération du formulaire de création d'un article
         $createPost = $blogManager->getFormCreatePost();
 
-        // Hydratation de l'entitée des valeurs du formulaire
+        // Récupération du formulaire de création rapide d'une catégorie pour la partie article
+        $createCategoryQuickly = $blogManager->getFormCreateQuicklyCategory();
+
+        // Hydratation des entitées des valeurs du formulaire
         $createPost->handleRequest($request);
+        $createCategoryQuickly->handleRequest($request);
 
         // Soumission du formulaire
         if ($createPost->isSubmitted() && $createPost->isValid()) {
@@ -134,6 +138,19 @@ class DashboardController extends Controller
 
             // Enregistrement du nouvel article
             $blogManager->setPost($post, $user);
+
+            // Rédirection vers le dashboard
+            return $this->redirectToRoute('dashboard');
+        }
+
+        // Soumission du formulaire
+        if ($createCategoryQuickly->isSubmitted() && $createCategoryQuickly->isValid()) {
+
+            // Récupération de l'entitée Post avec les valeurs hydratées
+            $category = $createCategoryQuickly->getData();
+
+            // Enregistrement du nouvel article
+            $blogManager->setCategory($category);
 
             // Rédirection vers le dashboard
             return $this->redirectToRoute('dashboard');
@@ -162,6 +179,7 @@ class DashboardController extends Controller
         return $this->render("default/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),
             'categoriesList' => $categoriesList,
+            'createCategoryQuickly' => $createCategoryQuickly->createView(),
             'createPostForm' => $createPost->createView(),
             'postsList' => $postsList,
             'usersList' => $usersList,
@@ -172,8 +190,8 @@ class DashboardController extends Controller
             'refusedObservationsByValidator' => $refusedObservationsByValidator,
             'validatedObservationsByValidator' => $validatedObservationsByValidator,            
             'createObservationForm' => $createObservation->createView(),
-            'contactForm' => $createContact->createView(),
             'paginationFaq' => $paginationFaq,
+            'contactForm' => $createContactUs->createView(),
             'updateUserNameForm' => $updateUserNameForm->createView(),
             'updateUserFirstNameForm' => $updateUserFirstNameForm->createView(),
             'updateUserLocationForm' => $updateUserLocationForm->createView(),
@@ -181,25 +199,5 @@ class DashboardController extends Controller
             'updateUserPasswordForm' => $updateUserPasswordForm->createView(),
 
         ));
-    }
-
-    private function sendEmail($data){
-        $ContactMail = 'oc_projet_5@laposte.net';
-        $ContactPassword = '123456aA';
-
-        $transport = \Swift_SmtpTransport::newInstance('smtp.laposte.net', 465,'ssl')
-            ->setUsername($ContactMail)
-            ->setPassword($ContactPassword);
-
-        $mailer = \Swift_Mailer::newInstance($transport);
-
-        $message = \Swift_Message::newInstance($data["sujet"])
-            ->setFrom($ContactMail)
-            ->setTo(array(
-                $ContactMail => $ContactMail
-            ))
-            ->setBody(($data["message"]."<br>ContactMail :".$data["email"]),'text/html');
-
-        return $mailer->send($message);
     }
 }

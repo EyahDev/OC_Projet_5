@@ -33,7 +33,35 @@ class ObservationManager
         $this->session = $session;
         $this->container = $container;
     }
+    
+    public function validatedObservationsByUser($user) {
+        // Récupération des observations validées pour l'utilisateur classique
+        $validatedObservationsByUser = $this->em->getRepository('AppBundle:Observation')->getValidatedObservationsByUser($user);
+    
+        return $validatedObservationsByUser;
+    }
 
+    public function refusedObservationsByUser($user) {
+        // Récupération des Observations refusées pour l'utilisateur classique
+        $refusedObservationsByUser = $this->em->getRepository('AppBundle:Observation')->getRefusedObservationsByUser($user);
+
+        return $refusedObservationsByUser;
+    }
+
+    public function refusedObservationsByValidator($user) {
+        // Récupération des Observations refusées par l'utilisateur pro
+        $refusedObservationsByValidator = $this->em->getRepository('AppBundle:Observation')->getRefusedObservationsByValidator($user);
+
+        return $refusedObservationsByValidator;
+    }
+
+    public function validatedObservationsByValidator($user) {
+    // Récupération des Observations validées par l'utilisateur pro
+    $validatedObservationsByValidator = $this->em->getRepository('AppBundle:Observation')->getValidatedObservationsByValidator($user);
+    
+    return $validatedObservationsByValidator;
+    }
+    
     /**
      * Récupération de toutes les observations non validées
      *

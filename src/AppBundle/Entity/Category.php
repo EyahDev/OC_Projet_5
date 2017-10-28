@@ -19,6 +19,7 @@ class Category
 {
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Post", mappedBy="category")
+     * @Assert\Valid()
      */
     private $posts;
 
