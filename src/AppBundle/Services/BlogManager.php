@@ -5,10 +5,13 @@ namespace AppBundle\Services;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
+use AppBundle\Form\Blog\CreateCategoryQuicklyType;
 use AppBundle\Form\Blog\CreateCategoryType;
 use AppBundle\Form\Blog\CreatePostType;
 use AppBundle\Form\Blog\UpdateCategoryType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -19,12 +22,22 @@ class BlogManager
     private $em;
     private $request;
     private $session;
+    private $container;
+    private $fileSystem;
 
-    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em, RequestStack $request, SessionInterface $session) {
+    public function __construct(FormFactoryInterface $formBuilder,
+                                EntityManagerInterface $em,
+                                RequestStack $request,
+                                SessionInterface $session,
+                                ContainerInterface $container,
+                                Filesystem $filesystem)
+    {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
         $this->session = $session;
+        $this->container = $container;
+        $this->fileSystem = $filesystem;
     }
 
     /* Gestion des catégories */
@@ -56,6 +69,17 @@ class BlogManager
         return $form;
     }
 
+    public function getFormCreateQuicklyCategory() {
+        // Création d'une nouvelle entitée Category
+        $category = new Category();
+
+        // Récupération du formulaire de création d'une nouvelle catégorie
+        $form = $this->formBuilder->create(CreateCategoryQuicklyType::class, $category);
+
+        // Retourne le formulaire
+        return $form;
+    }
+
     public function getFormUpdateCategory($slug) {
         // Récupération de la catégorie par son id
         $category = $this->getCategory($slug);
@@ -65,7 +89,68 @@ class BlogManager
         return $form;
     }
 
-    public function setCategory($category) {
+    public function setCategory(Category $category) {
+        // Récupération du chemin du dossier de stockage
+        $path = $this->container->getParameter('categories_directory');
+
+        // Récupération du nouveau fichier
+        $newFile = $category->getPhotoPath();
+
+        if ($newFile == null) {
+            // Ajout de l'image par défault
+            $category->setPhotoPath('img/default/category_default.jpg');
+
+        } else {
+            // Renommage du fichier
+            $fileName = md5(uniqid()).'.'.$newFile->guessExtension();
+
+            // Déplacement du fichier dans le dossiers des catégories
+            $newFile->move($path, $fileName);
+
+            // Ajout de l'image dans la catégorie
+            $filePath = "uploads/categories_files/".$fileName;
+
+            // Ajout des image
+            $category->setPhotoPath($filePath);
+        }
+
+        // Sauvegarde de la nouvelle catégorie
+        $this->em->persist($category);
+
+        // Enregistrement de la nouvelle catégorie
+        $this->em->flush();
+    }
+
+    public function setUpdateCategory(Category $category, $existingFile) {
+        // Récupération du chemin du dossier de stockage
+        $path = $this->container->getParameter('categories_directory');
+
+        // Récupération du nouveau fichier
+        $newFile = $category->getPhotoPath();
+
+        if ($newFile == null) {
+            // Ajout de l'image par défault
+            $category->setPhotoPath($existingFile);
+
+        } else {
+            if ($existingFile != 'img/default/category_default.jpg') {
+                // Suppression de l'ancienne photo
+                $this->fileSystem->remove(array($category->getPhotoPath()));
+            }
+
+            // Renommage du fichier
+            $fileName = md5(uniqid()).'.'.$newFile->guessExtension();
+
+            // Déplacement du fichier dans le dossiers des catégories
+            $newFile->move($path, $fileName);
+
+            // Ajout de l'image dans la catégorie
+            $filePath = "uploads/categories_files/".$fileName;
+
+            // Ajout des image
+            $category->setPhotoPath($filePath);
+        }
+
         // Sauvegarde de la nouvelle catégorie
         $this->em->persist($category);
 
@@ -79,11 +164,16 @@ class BlogManager
 
         // Vérification si il y a des articles dans cette catégorie
         if (count($category->getPosts()) != 0) {
-
             // Création du message flash d'erreur
             $this->session->getFlashBag()->add('notice', 'Vous ne pouvez pas supprimer une catégorie qui possède des articles.');
 
         } else {
+            // Vérification pour ne pas supprimer l'image pas défaut
+            if ($category->getPhotoPath() != 'img/default/category_default.jpg') {
+                // Suppression de l'ancienne photo
+                $this->fileSystem->remove(array($category->getPhotoPath()));
+            }
+
             // Supression de la catégorie
             $this->em->remove($category);
             $this->em->flush();
@@ -158,6 +248,31 @@ class BlogManager
         // Ajout de la date de publication
         $post->setPublishedDate(new \DateTime());
 
+        // Récupération de l'image sélectionnée si disponible
+        $newFile = $post->getImagePath();
+
+        // Récupération du chemin du dossier de stockage
+        // Récupération du chemin du dossier de stockage
+        $path = $this->container->getParameter('posts_directory');
+
+        if ($newFile == null) {
+            // Ajout de l'image par défault
+            $post->setImagePath('img/default/post_default.jpg');
+
+        } else {
+            // Renommage du fichier
+            $fileName = md5(uniqid()).'.'.$newFile->guessExtension();
+
+            // Déplacement du fichier dans le dossiers des catégories
+            $newFile->move($path, $fileName);
+
+            // Ecriture de du nouveau chemin
+            $filePath = "uploads/posts_files/".$fileName;
+
+            // Association de l'image à l'article
+            $post->setImagePath($filePath);
+        }
+
         // Sauvegarde du nouvel article
         $this->em->persist($post);
 
@@ -165,7 +280,36 @@ class BlogManager
         $this->em->flush();
     }
 
-    public function updatePost(Post $post) {
+    public function updatePost(Post $post, $existingFile) {
+        // Récupération du chemin du dossier de stockage
+        $path = $this->container->getParameter('posts_directory');
+
+        // Récupération du nouveau fichier
+        $newFile = $post->getImagePath();
+
+        if ($newFile == null) {
+            // Ajout de l'image par défault
+            $post->setImagePath($existingFile);
+
+        } else {
+            if ($existingFile != 'img/default/post_default.jpg') {
+                // Suppression de l'ancienne photo
+                $this->fileSystem->remove(array($post->getImagePath()));
+            }
+
+            // Renommage du fichier
+            $fileName = md5(uniqid()).'.'.$newFile->guessExtension();
+
+            // Déplacement du fichier dans le dossiers des catégories
+            $newFile->move($path, $fileName);
+
+            // Ajout de l'image dans la catégorie
+            $filePath = "uploads/posts_files/".$fileName;
+
+            // Ajout des image
+            $post->setImagePath($filePath);
+        }
+
         // Sauvegarde de la modification de l'article
         $this->em->persist($post);
 
@@ -177,7 +321,13 @@ class BlogManager
         // Récupération de la catégorie par son id
         $post = $this->getPost($slug);
 
-        // Supression de la catégorie
+        // Vérification pour ne pas supprimer l'image pas défaut
+        if ($post->getImagePath() != 'img/default/post_default.jpg') {
+            // Suppression de l'ancienne photo
+            $this->fileSystem->remove(array($post->getImagePath()));
+        }
+
+        // Supression de l'article
         $this->em->remove($post);
         $this->em->flush();
     }
