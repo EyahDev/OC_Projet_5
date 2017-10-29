@@ -335,7 +335,7 @@ canvas{
     justify-content: space-between;
 }
 
-.line{
+.index-line{
     display: flex;
     line-height: 50px;
 }
