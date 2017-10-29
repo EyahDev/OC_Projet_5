@@ -1,7 +1,7 @@
 /*----------------------------------------------- Header ----------------------------------------------- */
 
 .jumbotron-laRecherche {
-    background: url(img/image-header.jpg) 0 0 no-repeat;
+    background: url(img/research/image-header.jpg) 0 0 no-repeat;
     background-position: right;
     background-size: contain;
     height: 600px;
@@ -111,11 +111,27 @@ button {
      color: black;
  }
 
-.timeline time{
+.timeline time.odd-time-top{
     font-family: 'Montserrat', sans-serif;
     font-size: 15px !important;
     margin-bottom: 0 !important;
-    margin-top: 50px;
+    margin-top: 0;
+    color: #666;
+}
+
+.timeline time.odd-time-bottom{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px !important;
+    margin-bottom: 0 !important;
+    margin-top: 60px;
+    color: #666;
+}
+
+.timeline time.even-time{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px !important;
+    margin-bottom: 0 !important;
+    margin-top: 0;
     color: #666;
 }
 
@@ -137,18 +153,18 @@ button {
     color: black;
     background: transparent;
     height: 150px !important;
-    border-left: 2px solid #888888;
+    border-left: 1px solid #888888;
 }
 
-.timeline ol li div::before {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: -1.5px;
-    width: 0;
-    height: 0;
-    border-style: solid;
-}
+/*.timeline ol li div::before {*/
+    /*content: '';*/
+    /*position: absolute;*/
+    /*top: 100%;*/
+    /*left: -1.5px;*/
+    /*width: 0;*/
+    /*height: 0;*/
+    /*border-style: solid;*/
+/*}*/
 
 .timeline ol li div::after {
     content: '';
@@ -161,48 +177,127 @@ button {
 }
 
 .timeline ol li:nth-child(odd) div {
-    top: -16px;
+    top: 0;
     transform: translateY(-100%);
 }
 
-.timeline ol li:nth-child(odd) div::before {
-    top: 100%;
-    border-width: 16px 2px 0 0;
-    border-color: #888888;
-}
+/*.timeline ol li:nth-child(odd) div::before {*/
+    /*top: 100%;*/
+    /*border-width: 16px 2px 0 0;*/
+    /*border-color: #888888;*/
+/*}*/
 
-.timeline ol li:nth-child(odd) div.test::after {
-    top: 40px;
+.timeline ol li:nth-child(odd) div.odd-after-jum::after {
+    top: -40px;
     left: -40px;
     width: 80px;
     height: 80px;
     transform: translateY(-50%);
     border-radius: 50%;
     border: 5px solid #888888;
-    background-image: url(img/Les-principales-maladies-des-oiseaux.jpg);
+    background-image: url(img/research/p400-photo.png);
     background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.timeline ol li:nth-child(odd) div.odd-after-micro::after {
+    top: 30px;
+    left: -40px;
+    width: 80px;
+    height: 80px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    border: 5px solid #888888;
+    background-image: url(img/research/microscope-.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.timeline ol li:nth-child(odd) div.odd-after-graph::after {
+    top: 30px;
+    left: -40px;
+    width: 80px;
+    height: 80px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    border: 5px solid #888888;
+    background-image: url(img/research/7.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.timeline ol li:nth-child(odd) div.odd-after-goel::after {
+    top: -40px;
+    left: -40px;
+    width: 80px;
+    height: 80px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    border: 5px solid #888888;
+    background-image: url(img/research/1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .timeline ol li:nth-child(even) div {
-    top: calc(100% + 16px);
+    top: calc(100%);
 }
 
-.timeline ol li:nth-child(even) div::before {
-    top: 200px;
-    border-width: 16px 0 0 1px;
-    border-color: #888888;
-}
-
-.timeline ol li:nth-child(even) div::after {
-    top: 200px;
+.timeline ol li:nth-child(even) div.even-after-mol::after {
+    top: 125px;
     left: -40px;
     width: 80px;
     height: 80px;
     transform: translateY(-50%);
     border-radius: 50%;
     border: 5px solid #888888;
-    background-image: url(img/Les-principales-maladies-des-oiseaux.jpg);
+    background-color: white;
+    background-image: url(img/research/107944-200.png);
     background-size: contain;
+}
+
+.timeline ol li:nth-child(even) div.even-after-danger::after {
+    top: 180px;
+    left: -40px;
+    width: 80px;
+    height: 80px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    border: 5px solid #888888;
+    background-color: white;
+    background-image: url(img/research/iso-toxic-poison-warning-symbol-is-2041.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.timeline ol li:nth-child(even) div.even-after-erlen::after {
+    top: 125px;
+    left: -40px;
+    width: 80px;
+    height: 80px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    border: 5px solid #888888;
+    background-color: white;
+    background-image: url(img/research/test-tuve-icon.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.timeline ol li:nth-child(even) div.even-after-stat::after {
+    top: 180px;
+    left: -40px;
+    width: 80px;
+    height: 80px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    border: 5px solid #888888;
+    background-color: white;
+    background-image: url(img/research/2.png);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .timeline time {
