@@ -95,7 +95,7 @@ class User implements UserInterface, \Serializable
      * @Assert\Length(
      *      min = 6,
      *      minMessage = "Votre mot de passe doit contenir au moins {{ limit }} caractères")
-     *  @Assert\Regex(
+     * @Assert\Regex(
      *     pattern="/^(?=.*[a-zA-Z])(?=.*[0-9])/",
      *     match=true,
      *     message="Votre mot de passe doit contenir au moins une lettre et un chiffre."
@@ -114,6 +114,22 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="avatar_path", type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *     allowLandscape = false,
+     *     allowPortrait = false,
+     *     maxSize="2M",
+     *     minHeight="70",
+     *     minWidth="70",
+     *     maxHeight="1000",
+     *     maxWidth="1000",
+     *     maxSizeMessage="Votre avatar doit faire 2Mo au maximun.",
+     *     minHeightMessage="Votre avatar doit faire minimun 70x70px. (Hauteur de {{ height }}px actuellement)",
+     *     minWidthMessage="Votre avatar doit faire minimun 70x70px. (Largeur de {{ width }}px actuellement)",
+     *     maxHeightMessage="Votre avatar doit faire maximun 1000x1000px. (Hauteur de {{ height }}px actuellement)",
+     *     maxWidthMessage="Votre avatar doit faire maximun 1000x1000px. (Largeur de {{ width }}px actuellement)",
+     *     allowLandscapeMessage="Votre avatar doit avoir les mêmes dimensions en largeur et en hauteur (ex : 150x150px)",
+     *     allowPortraitMessage="Votre avatar doit avoir les mêmes dimensions en largeur et en hauteur (ex : 150x150px)",
+     * )
      */
     private $avatarPath;
 
