@@ -1,11 +1,61 @@
 $(document).ready(function() {
     // fonction permettant d'ajouter une ligne au tableau de FAQ après la soumission du formulaire d'ajout
     function addFaq(data, form) {
-        $('#tableFaq').children('tbody').append(data);
-        $('.btn-add-faq').fadeIn( "fast", function() {
-        });
-        form.replaceWith('');
+        $('.table-faq').children('tbody').append(data);
+        // $('.btn-add-faq').fadeIn( "fast", function() {
+        // });
+        //form.replaceWith('');
     }
+    function reloadTableFaqAfterAddingOrModifying() {
+        // récupère le num de la page courante
+        var currentPageNb = $('#paginationFaq').children().children().children('.current').text();
+        // crée l'argument pour la requete Get
+        var argGet = '?page='+currentPageNb;
+        // récupère la route pour la pagination
+        var urlNewRoute = $('#paginationFaq').attr('url');
+        // concatene la route et l'argument get
+        var newUrl = urlNewRoute+argGet;
+        $.ajax({
+            type: 'GET',
+            url: newUrl,
+            success: function (data) {
+                // actualise le tableau
+                $('.pagination-table-faq').replaceWith(data);
+                // relance les écouteurs d'evenement
+                removeFaq();
+                editFaq();
+                paginateFaq();
+            }
+        })
+    }
+    function reloadTableFaqAfterRemoving() {
+        // récupère le num de la page courante
+        var currentPageNb = $('#paginationFaq').children().children().children('.current').text();
+        // crée l'argument pour la requete Get
+        var argGet = '?page='+currentPageNb;
+        // change le numéro de page si la suppression vide le tableau de la page courrante
+        if ($('.table-line-faq').length == 1 && parseInt(currentPageNb) > 1) {
+            var prevPage = parseInt(currentPageNb)-1;
+            argGet = '?page='+prevPage.toString();
+        }
+        // récupère la route pour la pagination
+        var urlNewRoute = $('#paginationFaq').attr('url');
+        // concatene la route et l'argument get
+        var newUrl = urlNewRoute+argGet;
+        $.ajax({
+            type: 'GET',
+            url: newUrl,
+            success: function (data) {
+                // actualise le tableau
+                $('.pagination-table-faq').replaceWith(data);
+                // relance les écouteurs d'evenement
+                removeFaq();
+                editFaq();
+                paginateFaq();
+            }
+        })
+    }
+
     // fonction permettant d'ajouter le traitement de la suppression apres un ajout
     // ou une modification d'une question/réponse
     function removeFaq() {
@@ -17,13 +67,13 @@ $(document).ready(function() {
                 type:'GET',
                 url: url,
                 success: function (data) {
-                    // efface la ligne du tableau correspondant à la question/réponse supprimée
-                    $a.parentsUntil('tbody').replaceWith("");
+                    // recharge le tableau apres suppression
+                    reloadTableFaqAfterRemoving();
                     // ajoute le message flash
-                    addFlashMsg('success', data);
+                    addFlashMsgFaq('success', data);
                 },
                 error: function (jqxhr) {
-                    addFlashMsg('danger', "Une erreur est survenue")
+                    addFlashMsgFaq('danger', "Une erreur est survenue")
                 }
             })
         });
@@ -72,7 +122,7 @@ $(document).ready(function() {
                                     // efface la modale d'édition
                                     $a.prev().replaceWith('');
                                     // modifie la ligne du tableau qui vient d'etre modifié
-                                    $a.parentsUntil('tbody').replaceWith(data);
+                                    reloadTableFaqAfterAddingOrModifying();
                                     // retire l'ecoute de l'évenement clic sur un bouton edit
                                     $('.btn-edit-faq').off('click', edit);
                                     removeFaq();
@@ -80,7 +130,7 @@ $(document).ready(function() {
                                 });
                             },
                             error: function (jqxhr) {
-                                var appendCode = '<div class="flash-msg alert alert-danger">Le formulaire comporte des erreurs (la question et la réponse doivent comporter au moins 2 caractères)</div>';
+                                var appendCode = '<div class="flash-msg alert alert-danger">'+jqxhr.responseText+'</div>';
                                 $form.parent().prepend(appendCode);
                                 // efface le message flash apres 5 secondes
                                 function removeFlagMsg(){
@@ -93,7 +143,7 @@ $(document).ready(function() {
 
                 },
                 error: function() {
-                    addFlashMsg('danger', "Une erreur est survenue")
+                    addFlashMsgFaq('danger', "Une erreur est survenue")
                 }
             });
         });
@@ -101,16 +151,18 @@ $(document).ready(function() {
 
     // fonction permettant d'ajouter un message flash dynamiquement avec un message
     // et une couleur (couleur bootstrap (danger,primary...)) variables
-    function addFlashMsg(type, message) {
+    function addFlashMsgFaq(type, message) {
         // construit le html pour le message flash
         var appendCode = '<div class="flash-msg alert alert-'+type+'">'+message+'</div>';
         // ajoute le message flash dans la div dédiée
         $('#flashMsgFaq').append(appendCode);
-        // efface le message flash apres 5 secondes
-        function removeFlagMsg(){
-            $('.flash-msg').replaceWith("");
+        if(type != 'danger') {
+            // efface le message flash apres 5 secondes
+            function removeFlagMsg(){
+                $('.flash-msg').replaceWith("");
+            }
+            setTimeout(removeFlagMsg, 5000);
         }
-        setTimeout(removeFlagMsg, 5000);
     }
     // AJOUT QUESTION/REPONSE
     $('.btn-add-faq').on('click', function(e){
@@ -135,22 +187,25 @@ $(document).ready(function() {
                         url: url,
                         data: $form.serialize(),
                         success: function (data, text, jqxhr) {
-                            addFaq(data, $form);
-                            addFlashMsg('success', "Question ajoutée");
+                            $('.btn-add-faq').fadeIn( "fast", function() {
+                            });
+                            $form.replaceWith('');
+                            reloadTableFaqAfterAddingOrModifying();
+                            addFlashMsgFaq('success', "Question ajoutée");
                             // retire l'ecoute de l'évenement clic sur un bouton edit
                             $('.btn-edit-faq').off('click');
                             removeFaq();
                             editFaq();
                         },
-                        error: function() {
-                            addFlashMsg('danger', "Le formulaire comporte des erreurs (la question et la réponse doivent comporter au moins 2 caractères)")
+                        error: function (jqxhr) {
+                            addFlashMsgFaq('danger', jqxhr.responseText);
                         }
                     })
                 })
 
             },
             error: function() {
-                addFlashMsg('danger', "Une erreur est survenue")
+                addFlashMsgFaq('danger', "Une erreur est survenue")
             }
         });
     });
@@ -163,12 +218,11 @@ $(document).ready(function() {
             type:'GET',
             url: url,
             success: function (data) {
-                //supprime la ligne de la question/réponse
-                $a.parentsUntil('tbody').replaceWith("");
-                addFlashMsg('success', data);
+                reloadTableFaqAfterRemoving();
+                addFlashMsgFaq('success', data);
             },
             error: function (jqxhr) {
-
+                addFlashMsgFaq('danger', "Une erreur est survenue")
             }
         })
     });
@@ -212,8 +266,8 @@ $(document).ready(function() {
                             $a.prev().on('hidden.bs.modal', function (e) {
                                 // efface la modale
                                 $a.prev().replaceWith('');
-                                // modifie la ligne correspondant a la question/réponse modifiée
-                                $a.parentsUntil('tbody').replaceWith(data);
+                                // recharge le tableau
+                                reloadTableFaqAfterAddingOrModifying();
                                 // supprime l'écoute sur l'evenement clic sur le bouton d'edition
                                 $('.btn-edit-faq').off('click', edit);
                                 removeFaq();
@@ -221,7 +275,7 @@ $(document).ready(function() {
                             });
                         },
                         error: function (jqxhr) {
-                            var appendCode = '<div class="flash-msg alert alert-danger">Le formulaire comporte des erreurs (la question et la réponse doivent comporter au moins 2 caractères)</div>';
+                            var appendCode = '<div class="flash-msg alert alert-danger">'+jqxhr.responseText+'</div>';
                             $form.parent().prepend(appendCode);
                             // efface le message flash apres 5 secondes
                             function removeFlagMsg(){
@@ -234,10 +288,63 @@ $(document).ready(function() {
 
             },
             error: function() {
-                addFlashMsg('danger', "Une erreur est survenue")
+                addFlashMsgFaq('danger', "Une erreur est survenue")
             }
         });
     });
-
-
+    // Ecoute des boutons de paginations
+    $('#paginationFaq').children().children().children().children('a').on('click', function(e) {
+        e.preventDefault();
+        var $a = $(this);
+        var url = $a.attr('href');
+        // récupère l'argument passer en get
+        var argGet = url.substring(url.lastIndexOf('?'));
+        // récupère la route pour la pagination
+        var urlNewRoute = $('#paginationFaq').attr('url');
+        // concatene la route et l'argument
+        var newUrl = urlNewRoute+argGet;
+        $.ajax({
+            type: 'GET',
+            url: newUrl,
+            success: function (data) {
+                // recharge le tableau
+                $('.pagination-table-faq').replaceWith(data);
+                // réactive les écouteurs
+                removeFaq();
+                editFaq();
+                paginateFaq();
+            }, error: function() {
+                addFlashMsgFaq('danger', 'Une erreur est survenue')
+            }
+        })
+    });
+    function paginateFaq() {
+        $('#paginationFaq').children().children().children().children('a').on('click', function(e) {
+            e.preventDefault();
+            var $a = $(this);
+            var url = $a.attr('href');
+            // récupère l'argument passer en get
+            var argGet = url.substring(url.lastIndexOf('?'));
+            // récupère la route pour la pagination
+            var urlNewRoute = $('#paginationFaq').attr('url');
+            // concatene la route et l'argument
+            var newUrl = urlNewRoute+argGet;
+            $.ajax({
+                type: 'GET',
+                url: newUrl,
+                success: function (data) {
+                    // recharge le tableau
+                    $('.pagination-table-faq').replaceWith(data);
+                    // réactive les écouteurs
+                    removeFaq();
+                    editFaq();
+                    paginateFaq();
+                }, error: function() {
+                    addFlashMsgFaq('danger', 'Une erreur est survenue')
+                }
+            })
+        });
+    }
 });
+
+

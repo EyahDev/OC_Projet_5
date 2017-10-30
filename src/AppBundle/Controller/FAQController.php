@@ -47,17 +47,18 @@ class FAQController extends Controller
             $newFaqForm->handleRequest($request);
             // teste si la requete est en POST et si les données sont valides
             if($newFaqForm->isSubmitted()) {
-                if($newFaqForm->isValid()) {
-                    // récupère les données du formulaire dans un objet faq
-                    $newFaq = $newFaqForm->getData();
-                    // Enregistre la question/réponse
-                    $faqManager->setNewFaq($newFaq);
-                    // renvoie la ligne de tableau pour l'affichage en JS
-                    return $this->render('default/dashboard/websiteAdministration/faq/faqOnly.html.twig', array(
-                        'faq' => $newFaq
-                    ));
+                // récupère les données du formulaire dans un objet faq
+                $newFaq = $newFaqForm->getData();
+                // Valide la question/réponse et récupère les erreurs de formulaire si il y en a
+                $validation = $faqManager->validateFaq($newFaq);
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
                 }
-                throw new \Exception("Le formulaire comporte des erreurs");
+                // Enregistre la question/réponse
+                $faqManager->setFaq($newFaq);
+                // renvoie la ligne de tableau pour l'affichage en JS
+                return new Response('FAQ : ajout ok');
             }
             // renvoie le formulaire d'ajout pour l'affichage en JS
             return $this->render('default/dashboard/websiteAdministration/faq/newFaqForm.html.twig', array(
@@ -86,17 +87,18 @@ class FAQController extends Controller
             $editFaqForm->handleRequest($request);
             // teste si la requete est en POST et si les données sont valides
             if($editFaqForm->isSubmitted()) {
-                if($editFaqForm->isValid()) {
-                    // récupère les données du formulaire dans un objet faq
-                    $editedFaq = $editFaqForm->getData();
-                    // Enregistre la question/réponse
-                    $faqManager->updateFaq($editedFaq);
-                    // renvoie la ligne de tableau pour l'affichage en JS
-                    return $this->render('default/dashboard/websiteAdministration/faq/faqOnly.html.twig', array(
-                        'faq' => $editedFaq
-                    ));
+                // récupère les données du formulaire dans un objet faq
+                $editedFaq = $editFaqForm->getData();
+                // Valide la question/réponse et récupère les erreurs de formulaire si il y en a
+                $validation = $faqManager->validateFaq($editedFaq);
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
                 }
-                throw new \Exception("Le formulaire comporte des erreurs");
+                // Enregistre la question/réponse
+                $faqManager->setFaq($editedFaq);
+                // renvoie la ligne de tableau pour l'affichage en JS
+                return new Response('FAQ : édition ok');
             }
             // renvoie le formulaire d'ajout pour l'affichage en JS
             return $this->render(':default/dashboard/websiteAdministration/faq:editFaqForm.html.twig', array(
@@ -126,6 +128,22 @@ class FAQController extends Controller
             $message = $faqManager->removeFaq($faqId);
             // envoie le message de confirmation pour l'afficher en JS
             return new Response($message);
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/faq-management/pagination", name="pagination_faq")
+     */
+    public function paginationFaqAction(Request $request, FAQManager $FAQManager)
+    {
+        if($request->isXmlHttpRequest()) {
+            $paginationFaq = $FAQManager->getPaginatedFaqList();
+            return $this->render(':default/dashboard/websiteAdministration/faq:paginateTable.html.twig', array(
+                'paginationFaq' => $paginationFaq
+            ));
         }
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }

@@ -5,7 +5,7 @@
     {{ form_errors(newFaqForm) }}
 
     <div class="form-group">
-        {{ form_label(newFaqForm.question, "Question", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_label(newFaqForm.question, "Question", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
         {{ form_errors(newFaqForm.question) }}
         <div class="col-sm-12">
             {{ form_widget(newFaqForm.question, {'attr': {'class': 'form-control'}}) }}
@@ -13,7 +13,7 @@
     </div>
 
     <div class="form-group">
-        {{ form_label(newFaqForm.answer, "Réponse", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+        {{ form_label(newFaqForm.answer, "Réponse", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
         {{ form_errors(newFaqForm.answer) }}
         <div class="col-sm-12">
             {{ form_widget(newFaqForm.answer, {'attr': {'class': 'form-control'}}) }}

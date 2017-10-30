@@ -237,7 +237,7 @@ class DefaultController extends Controller
      */
     public function researchAction()
     {
-        return $this->render("default/research.html.twig");
+        return $this->render("default_integration/research.html.twig");
     }
 
     /**
@@ -247,6 +247,15 @@ class DefaultController extends Controller
     public function faqAction()
     {
         return $this->render("default/faq.html.twig");
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/mentions-legales", name="mentionsLegales")
+     */
+    public function leagalNoticesAction()
+    {
+        return $this->render("default/legalNotices.html.twig");
     }
 
 }

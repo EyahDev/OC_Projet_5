@@ -6,6 +6,7 @@ use AppBundle\Services\AccountManager;
 use AppBundle\Services\BlogManager;
 use AppBundle\Services\CommentManager;
 use AppBundle\Services\ContactManager;
+use AppBundle\Services\FAQManager;
 use AppBundle\Services\ObservationManager;
 use AppBundle\Services\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,7 +24,7 @@ class DashboardController extends Controller
 
     public function dashboardAction(Request $request, ContactManager $contactManager, BlogManager $blogManager,
                                     ObservationManager $observationManager, CommentManager $commentManager,
-                                    AccountManager $accountManager, UserManager $userManager)
+                                    AccountManager $accountManager, UserManager $userManager, FAQManager $FAQManager)
     {
         /* Utilisateurs */
         $user = $this->getUser();
@@ -52,38 +53,38 @@ class DashboardController extends Controller
         /* Nous écrire */
 
         // Récupération du formulaire de contact
-        $createContact = $contactManager->getFormCreateContact();
+        $createContactUs = $contactManager->getFormCreateContactUs();
 
         // Hydration de l'entitée avec les valeurs du formulaire
-        $createContact->handleRequest($request);
+        $createContactUs->handleRequest($request);
 
         // Soumission du formulaire
-        if ($createContact->isSubmitted() && $createContact->isValid()) {
+        if ($createContactUs->isSubmitted() && $createContactUs->isValid()) {
+            // Récupération des données du formulaire
+            $data = $createContactUs->getData();
 
-            // Si le formulaire est valide le mail est envoyé
-            if($this->sendEmail($createContact->getData())){
+            // Préparation de l'email et envoi
+            $contactManager->sendMailUser($data);
 
-                // Rédirection vers le dashboard
-                return $this->redirectToRoute('dashboard');
-
-            } else {
-                var_dump("Une erreure s'est produite");
-            }
+            // Rédirection vers le dashboard
+            return $this->redirectToRoute('dashboard');
         }
 
         /* Statistiques Utilisateurs */
 
         // Observations validées pour l'utilisateur classique
-        $validatedObservationsByUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getValidatedObservationsByUser($user);
+        $validatedObservationsByUser = $observationManager->validatedObservationsByUser($user);
 
         // Observations refusées pour l'utilisateur classique
-        $refusedObservationsByUser = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getRefusedObservationsByUser($user);
+
+        $refusedObservationsByUser = $observationManager->refusedObservationsByUser($user);
+
 
         // Observations refusées par l'utilisateur pro
-        $refusedObservationsByValidator = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getRefusedObservationsByValidator($user);
+        $refusedObservationsByValidator = $observationManager->refusedObservationsByValidator($user);
 
-        // Observations refusées par l'utilisateur pro
-        $validatedObservationsByValidator = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->getValidatedObservationsByValidator($user);
+        // Observations validées par l'utilisateur pro
+        $validatedObservationsByValidator = $observationManager->validatedObservationsByValidator($user);        
 
         /* Observations */
 
@@ -162,9 +163,8 @@ class DashboardController extends Controller
 
 
         /* Gestion de la FAQ */
+        $paginationFaq = $FAQManager->getPaginatedFaqList();
 
-        // récupère la liste des questions/réponses
-        $faqList = $this->getDoctrine()->getManager()->getRepository('AppBundle:Faq')->findAll();
 
         /* Mes informations */
         $updateUserNameForm = $accountManager->getFormUpdateName($user);
@@ -190,8 +190,8 @@ class DashboardController extends Controller
             'refusedObservationsByValidator' => $refusedObservationsByValidator,
             'validatedObservationsByValidator' => $validatedObservationsByValidator,            
             'createObservationForm' => $createObservation->createView(),
-            'contactForm' => $createContact->createView(),
-            'faqList' => $faqList,
+            'paginationFaq' => $paginationFaq,
+            'contactForm' => $createContactUs->createView(),
             'updateUserNameForm' => $updateUserNameForm->createView(),
             'updateUserFirstNameForm' => $updateUserFirstNameForm->createView(),
             'updateUserLocationForm' => $updateUserLocationForm->createView(),
@@ -199,25 +199,5 @@ class DashboardController extends Controller
             'updateUserPasswordForm' => $updateUserPasswordForm->createView(),
 
         ));
-    }
-
-    private function sendEmail($data){
-        $ContactMail = 'oc_projet_5@laposte.net';
-        $ContactPassword = '123456aA';
-
-        $transport = \Swift_SmtpTransport::newInstance('smtp.laposte.net', 465,'ssl')
-            ->setUsername($ContactMail)
-            ->setPassword($ContactPassword);
-
-        $mailer = \Swift_Mailer::newInstance($transport);
-
-        $message = \Swift_Message::newInstance($data["sujet"])
-            ->setFrom($ContactMail)
-            ->setTo(array(
-                $ContactMail => $ContactMail
-            ))
-            ->setBody(($data["message"]."<br>ContactMail :".$data["email"]),'text/html');
-
-        return $mailer->send($message);
     }
 }
