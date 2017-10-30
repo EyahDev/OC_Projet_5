@@ -311,6 +311,7 @@
 @media (max-width: 420px){
 
     .timeline {
+        width: 90%;
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
         transform: rotate(90deg);
@@ -559,7 +560,7 @@
     }
 
     .timeline ol li:nth-child(odd) div.odd-after-goel::after {
-        top: -20px;
+        top: -10px;
         left: -40px;
         width: 80px;
         height: 80px;
@@ -582,13 +583,13 @@
     .odd-after-goel time{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(260px) translateX(140px) !important;
+        transform: rotate(90deg) translateY(260px) translateX(150px) !important;
     }
 
     .odd-after-goel p{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(232px) translateX(-102px)  !important;
+        transform: rotate(90deg) translateY(232px) translateX(-92px)  !important;
         max-width: 100px;
     }
 
@@ -618,13 +619,13 @@
     .even-after-mol time{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(260px) translateX(240px) !important;
+        transform: rotate(90deg) translateY(260px) translateX(233px) !important;
     }
 
     .even-after-mol p{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(184px) translateX(47px)  !important;
+        transform: rotate(90deg) translateY(184px) translateX(40px)  !important;
         max-width: 100px;
     }
 
@@ -652,13 +653,13 @@
     .even-after-danger time{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(260px) translateX(240px) !important;
+        transform: rotate(90deg) translateY(260px) translateX(233px) !important;
     }
 
     .even-after-danger p{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(184px) translateX(47px)  !important;
+        transform: rotate(90deg) translateY(184px) translateX(40px)  !important;
         max-width: 100px;
     }
 
@@ -685,13 +686,13 @@
     .even-after-erlen time{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(260px) translateX(240px) !important;
+        transform: rotate(90deg) translateY(260px) translateX(233px) !important;
     }
 
     .even-after-erlen p{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(184px) translateX(47px)  !important;
+        transform: rotate(90deg) translateY(184px) translateX(40px)  !important;
         max-width: 100px;
     }
 
@@ -719,13 +720,13 @@
     .even-after-stat time{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(260px) translateX(240px) !important;
+        transform: rotate(90deg) translateY(260px) translateX(233px) !important;
     }
 
     .even-after-stat p{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(231px) translateX(0px)  !important;
+        transform: rotate(90deg) translateY(231px) translateX(-7px)  !important;
         max-width: 100px;
     }
 
@@ -1087,26 +1088,112 @@
 }
 
 /*----------------------------------------------- Remerciements ----------------------------------------------- */
+@media (min-width: 900px) {
+    .container-remerciements{
+        display: flex;
+        justify-content: center;
+        width: 600px;
+        margin:50px auto 80px auto;
+    }
 
-.container-remerciements{
-    background-color: #00b3ff;
-    position: relative;
-    height: 500px;
-    width: 70%;
-    margin: auto;
+    .gagnant{
+        float: left;
+        width: 350px;
+        height: 350px;
+        z-index: 0;
+    }
+
+    .like{
+        margin-top: 220px;
+        margin-left: -90px;
+        width: 150px;
+        height: 150px;
+        z-index: 1;
+    }
+
+    .photo-gagnant{
+        margin-left: 15px;
+        margin-top: 0;
+        max-height: 350px;
+        height: auto;
+        z-index: 0;
+    }
+
+    .container-remerciements p{
+        text-decoration: underline;
+        margin-top: 400px;
+        margin-left: -335px;
+        min-width: 300px;
+        font-size: 18px;
+    }
 }
 
-.gagnant{
-    position: absolute;
-    z-index: 0;
+@media (min-width: 420px ) and (max-width: 900px) {
+    .container-remerciements{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        margin:50px auto 50px auto;
+    }
+
+    .container-remerciements p{
+        text-decoration: underline;
+        text-align: center;
+        margin-top: 15px;
+        font-size: 18px;
+    }
+
+    .gagnant{
+        float: left;
+        max-width: 400px;
+        width: 80%;
+        margin: auto;
+    }
+
+    .like{
+        margin-top: -100px;
+        margin-left: 300px;
+        width: 150px;
+        height: 150px;
+    }
+
+    .photo-gagnant{
+        margin-top: 30px;
+        bottom: 0;
+    }
 }
 
-.like{
-    position: absolute;
-    z-index: 1;
-}
+@media (max-width: 420px){
+    .container-remerciements{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        margin:50px auto 50px auto;
+    }
 
-.photo-gagnant{
-    position: absolute;
-    z-index: 0;
+    .container-remerciements p{
+        text-decoration: underline;
+        text-align: center;
+        margin-top: 15px;
+        font-size: 18px;
+    }
+
+    .gagnant{
+        float: left;
+        width: 80%;
+        margin: auto;
+    }
+
+    .like{
+        margin-top: -70px;
+        margin-left: 200px;
+        max-width: 30%;
+    }
+
+    .photo-gagnant{
+        margin-top: 30px;
+        bottom: 0;
+    }
 }
