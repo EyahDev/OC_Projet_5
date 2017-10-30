@@ -135,7 +135,7 @@ class BlogManager
         } else {
             if ($existingFile != 'img/default/category_default.jpg') {
                 // Suppression de l'ancienne photo
-                $this->fileSystem->remove(array($category->getPhotoPath()));
+                $this->fileSystem->remove(array($existingFile));
             }
 
             // Renommage du fichier
@@ -294,7 +294,7 @@ class BlogManager
         } else {
             if ($existingFile != 'img/default/post_default.jpg') {
                 // Suppression de l'ancienne photo
-                $this->fileSystem->remove(array($post->getImagePath()));
+                $this->fileSystem->remove(array($existingFile));
             }
 
             // Renommage du fichier

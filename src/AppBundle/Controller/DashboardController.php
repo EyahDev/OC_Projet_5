@@ -1,5 +1,5 @@
 <?php
-  
+
 namespace AppBundle\Controller;
 
 use AppBundle\Services\AccountManager;
@@ -28,6 +28,27 @@ class DashboardController extends Controller
     {
         /* Utilisateurs */
         $user = $this->getUser();
+
+        // Récupération du formulaire pour la modification de l'avatar
+        $avatarForm = $accountManager->getFormUpdateAvatar($user);
+
+        // Récupération du fichier existant
+        $existingFile = $avatarForm->getData()->getAvatarPath();
+
+        // Hydratation des valeurs
+        $avatarForm->handleRequest($request);
+
+        // Soumission du formulaire
+        if ($avatarForm->isSubmitted() && $avatarForm->isValid()) {
+            // Récupération des données
+            $newAvatar = $avatarForm->getData();
+
+            // mise à jour de l'avatar
+            $accountManager->updateAvatar($newAvatar, $existingFile);
+
+            // Redirection vers le dashboard
+            return $this->redirectToRoute('dashboard');
+        }
 
         /* Accès rapide */
 
@@ -188,7 +209,7 @@ class DashboardController extends Controller
             'validatedObservationsByUser' => $validatedObservationsByUser,
             'refusedObservationsByUser' => $refusedObservationsByUser,
             'refusedObservationsByValidator' => $refusedObservationsByValidator,
-            'validatedObservationsByValidator' => $validatedObservationsByValidator,            
+            'validatedObservationsByValidator' => $validatedObservationsByValidator,
             'createObservationForm' => $createObservation->createView(),
             'paginationFaq' => $paginationFaq,
             'contactForm' => $createContactUs->createView(),
@@ -197,6 +218,7 @@ class DashboardController extends Controller
             'updateUserLocationForm' => $updateUserLocationForm->createView(),
             'updateUserNewsletterForm' => $updateUserNewsletterForm->createView(),
             'updateUserPasswordForm' => $updateUserPasswordForm->createView(),
+            'avatarForm' => $avatarForm->createView()
 
         ));
     }

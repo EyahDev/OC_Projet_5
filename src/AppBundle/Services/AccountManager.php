@@ -9,6 +9,8 @@ use AppBundle\Form\Account\AddLocationType;
 use AppBundle\Form\Account\UpdateNewsletterType;
 use AppBundle\Form\Account\UpdatePasswordType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -23,16 +25,22 @@ class AccountManager
     private $session;
     private $validator;
     private $encoder;
+    private $container;
+    private $filesystem;
 
     public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
                                 RequestStack $request, SessionInterface $session,
-                                ValidatorInterface $validator, UserPasswordEncoderInterface $encoder) {
+                                ValidatorInterface $validator, UserPasswordEncoderInterface $encoder,ContainerInterface $container,
+                                Filesystem $filesystem) {
+
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
         $this->session = $session;
         $this->validator = $validator;
         $this->encoder = $encoder;
+        $this->container = $container;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -79,6 +87,53 @@ class AccountManager
         $form = $this->formBuilder->create(AddLocationType::class, $user);
 
         return $form;
+    }
+
+    /**
+     * Renvoie le formulaire de mise à jour de l'avatar
+     *
+     * @param $user
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function getFormUpdateAvatar($user) {
+        $form = $this->formBuilder->create('AppBundle\Form\Account\UpdateAvatarType', $user);
+
+        return $form;
+    }
+
+    /**
+     * Mise à jour de l'avatar de l'utilisateur
+     *
+     * @param User $user
+     */
+    public function updateAvatar(User $user, $existingFile) {
+        // Récupération du chemin du dossier de stockage
+        $path = $this->container->getParameter('avatars_directory');
+
+        // Récupération du nouveau fichier
+        $newFile = $user->getAvatarPath();
+        if ($newFile === null) {
+            // Ajout de l'avatar existant
+            $user->setAvatarPath($existingFile);
+        } else {
+            if ($existingFile != 'img/default/avatar_default.png') {
+                // Suppression de l'ancienne photo
+                $this->filesystem->remove(array($existingFile));
+            }
+            // Renommage du fichier
+            $fileName = md5(uniqid()).'.'.$newFile->guessExtension();
+
+            // Déplacement du fichier dans le dossiers des avatars
+            $newFile->move($path, $fileName);
+
+            // Définition du chemin de l'avatar
+            $filePath = "uploads/avatars_files/".$fileName;
+
+            // Ajout de l'avatar
+            $user->setAvatarPath($filePath);
+        }
+
+        $this->updateUser($user);
     }
 
     /**
