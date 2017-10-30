@@ -379,3 +379,5 @@ $(window).on('load',function(){
     drawLineGraph('#chart-1', chart_1_y, '#graph-1-container', 1);
     drawLineGraph('#chart-2', chart_2_y, '#graph-2-container', 2);
 });
+
+

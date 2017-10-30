@@ -1,5 +1,7 @@
 {% extends 'base_integration.html.twig' %}
 
+{% block stylesheets %}<link href="{{ asset('css/research.css') }}" rel="stylesheet">{% endblock %}
+
 {% block header %}
     <header>
         <div class="jumbotron-laRecherche vertical-center">
@@ -177,4 +179,16 @@
     <section class="container"><div class="research-title row d-flex justify-content-center align-items-center"><h2>Toutes nos félicitations<br />pour leur nombre<br />d'observations validées</h2><img src="{{ asset('img/research/icone-coupe.png') }}" alt="photo"></div></section>
 
     <section class="container"><div class="row d-flex justify-content-center align-items-center"><img class="img-fluid" src="{{ asset('img/research/podium.png') }}" alt="podium"></div></section>
+{% endblock %}
+
+{% block javascripts %}
+{#Timeline#}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.js"></script>
+
+{#Statistics avancée de la recherche#}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script>
+<script src="https://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
+
+{#Custom scripts for the website#}
+<script src="{{ asset('js/research.js') }}"></script>
 {% endblock %}
