@@ -51,9 +51,10 @@
             </tbody>
         </table>
     </div>
-    <div id="paginationFaq" url="{{ path('pagination_faq') }}">
+    {# div englobant le paginator et contenant la route à prendre pour la requete Ajax de pagination#}
+    <div id="paginationFaq" url="{{ path('pagination_faq') }}" class="row">
         {# display navigation #}
-        <div class="navigation">
+        <div class="navigation mx-auto">
             {{ knp_pagination_render(paginationFaq) }}
         </div>
     </div>
