@@ -20,17 +20,34 @@ class SignupType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('firstname', TextType::class)
-            ->add('username', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
+            ->add('name', TextType::class, array(
+                'label' => 'Votre nom',
+                'invalid_message' => 'Veuillez saisir un nom valide.',
+            ))
+            ->add('firstname', TextType::class, array(
+                'label' => 'Votre prénom',
+                'invalid_message' => 'Veuillez saisir un prénom valide.',
+            ))
+            ->add('username', TextType::class, array(
+                'label' => 'Votre nom d\'utilisateur',
+                'invalid_message' => 'Veuillez saisir un nom d\'utilisateur valide.',
+            ))
+            ->add('email', EmailType::class, array(
+                'label' => 'Votre adresse mail',
+                'invalid_message' => 'Veuillez saisir une adresse mail valide.',
+            ))
+            ->add('password', PasswordType::class, array(
+                'label' => 'Votre mot de passe',
+                'invalid_message' => 'Veuillez saisir un mot de passe valide.',
+            ))
             ->add('proPermission', CheckboxType::class, array(
-                'label'    => 'Etes vous pro?',
+                'label'    => 'Etes vous pro ?',
+                'invalid_message' => 'Veuillez saisir un choix pro valide.',
                 'required' => false,
             ))
             ->add('newsletter', CheckboxType::class, array(
                 'label'    => 'Abonnement à la newsletter',
+                'invalid_message' => 'Veuillez saisir un choix de newsletter valide.',
                 'required' => false,
             ))
             ->add('save', SubmitType::class);

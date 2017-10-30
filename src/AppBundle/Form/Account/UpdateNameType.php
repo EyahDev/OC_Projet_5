@@ -18,7 +18,9 @@ class UpdateNameType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, array(
+                'invalid_message' => 'Veuillez saisir prénom valide.'
+            ))
             ->add('save', SubmitType::class);
     }
     

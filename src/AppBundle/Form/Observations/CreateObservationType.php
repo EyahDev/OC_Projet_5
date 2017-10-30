@@ -2,10 +2,8 @@
 
 namespace AppBundle\Form\Observations;
 
-use AppBundle\Validator\AddObservation\Contains3FilesMax;
-use AppBundle\Validator\AddObservation\ContainsFileFormat;
-use AppBundle\Validator\AddObservation\ContainsFileSize;
 use AppBundle\Validator\AddObservation\ContainsBothName;
+use AppBundle\Validator\AddObservation\ContainsSpecies;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -16,10 +14,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Validator\Constraints\Valid;
 
 class CreateObservationType extends AbstractType
 {
@@ -32,6 +30,9 @@ class CreateObservationType extends AbstractType
                 'choice_label' => 'referenceName',
                 'placeholder' => '-- Sélectionnez une espèce --',
                 'invalid_message' => 'Veuillez sélectionner une espèce valide.',
+                'constraints' => array(
+                    new ContainsSpecies()
+                ),
                 'required' => false
             ))
             ->add('vernacularName', EntityType::class, array(
@@ -48,8 +49,7 @@ class CreateObservationType extends AbstractType
                 },
                 'required' => false,
                 'constraints' => array(
-                    new ContainsBothName(),
-                    new ContainsFileSize()
+                    new ContainsBothName()
                 ),
             ))
             ->add('birdNumber', IntegerType::class, array(
@@ -74,7 +74,7 @@ class CreateObservationType extends AbstractType
                 'constraints' => array(
                     new GreaterThanOrEqual(array(
                         'value' => 0,
-                        'message' => 'Veuillez saisir un nombre d\'oeufs observés valide'
+                        'message' => 'Veuillez saisir un nombre d\'oeufs observés valide.'
                     ))
             )))
             ->add('eggsDescription', TextareaType::class, array(
@@ -83,9 +83,11 @@ class CreateObservationType extends AbstractType
                 'required' => false,
                 'constraints' => array(
                     new Length(array(
+                        'min' => 2,
                         'max' => 255,
-                        'maxMessage' => 'Votre description des oeufs ne peut dépasser {{ limit }} caratères'
-                    )),
+                        'minMessage' => 'Votre description des oeufs doit comporter minimun {{ limit }} caratères.',
+                        'maxMessage' => 'Votre description des oeufs doit comporter maximun {{ limit }} caratères.'
+                    ))
                 )
             ))
             ->add('latitude', TextType::class, array(
@@ -114,15 +116,22 @@ class CreateObservationType extends AbstractType
                 'constraints' => array(
                     new Length(array(
                         'max' => 255,
-                        'maxMessage' => 'Votre description des oeufs ne peut dépasser {{ limit }} caratères'
+                        'maxMessage' => 'Votre description des oeufs ne peut dépasser {{ limit }} caratères.'
                     )),
             )))
             ->add('photoPath', FileType::class, array(
                 'label' => 'Photo(s)',
                 'invalid_message' => 'Veuillez sélectionner une fichier valide.',
                 'constraints' => array(
-                    new ContainsFileFormat(),
-                    new ContainsFileSize(),
+                    new Image(array(
+                        'maxSize' => "4M",
+                            'minWidth' => "173",
+                            'minHeight' => "165",
+                            'maxSizeMessage' => "Votre photo doit ne peut pas faire plus de 4Mo.",
+                            'minHeightMessage' => "Votre photo doit faire minimun 173x165px. (Hauteur de {{ height }}px actuellement).",
+                            'minWidthMessage' => "Votre photo doit faire minimun 173x165px. (Largeur de {{ width }}px actuellement).",
+                        )
+                    )
                 ),
                 'required' => false
             ))

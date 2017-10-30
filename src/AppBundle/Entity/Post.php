@@ -52,8 +52,8 @@ class Post
      * @Assert\Length(
      *     min="2",
      *     max="150",
-     *     minMessage="Un titre doit contenir au moins {{ limit }} caractères.",
-     *     maxMessage="Un titre ne peut contenir plus de {{ limit }} caractères."
+     *     minMessage="Votre titre doit comporter au minimun {{ limit }} caractères.",
+     *     maxMessage="Votre titre doit comporter au maximun{{ limit }} caractères."
      * )
      */
     private $title;
@@ -75,6 +75,10 @@ class Post
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="Le contenu de votre article doit comporter au minimun {{ limit }} caractères."
+     * )
      */
     private $content;
 
@@ -82,6 +86,14 @@ class Post
      * @var string
      *
      * @ORM\Column(name="imagePath", type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *     maxSize="4M",
+     *     minWidth="1920",
+     *     minHeight="1080",
+     *     maxSizeMessage="Votre image doit ne peut pas faire plus de 4Mo.",
+     *     minHeightMessage="Votre image doit faire minimun 1920x1080px. (Hauteur de {{ height }}px actuellement)",
+     *     minWidthMessage="Votre image doit faire minimun 1920x1080px. (Largeur de {{ width }}px actuellement)",
+     * )
      */
     private $imagePath;
 

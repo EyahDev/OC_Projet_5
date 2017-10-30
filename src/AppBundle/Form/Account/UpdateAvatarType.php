@@ -3,29 +3,28 @@
 namespace AppBundle\Form\Account;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-
-class UpdateNewsletterType extends AbstractType
+class UpdateAvatarType extends AbstractType
 {
-
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('newsletter', CheckboxType::class, array(
-                'label'    => 'Abonnement à la newsletter',
-                'invalid_message' => 'Veuillez sélectionnez un choix de newsletter valide.',
-                'required' => false,
+            ->add('avatarPath', FileType::class, array(
+                'label' => 'Modifier votre avatar',
+                'invalid_message' => 'Veuillez sélectionner une fichier valide.',
+                'data_class' => null,
+                'required' => false
             ))
             ->add('save', SubmitType::class);
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -41,8 +40,6 @@ class UpdateNewsletterType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'update_user_newsletter';
+        return 'appbundle_user';
     }
-
-
 }

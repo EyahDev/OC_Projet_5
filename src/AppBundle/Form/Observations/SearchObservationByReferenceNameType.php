@@ -19,6 +19,7 @@ class SearchObservationByReferenceNameType extends AbstractType
                 'class' => 'AppBundle\Entity\Species',
                 'placeholder' => '-- Sélectionnez une espèce --',
                 'choice_label' => 'referenceName',
+                'invalid_message' => 'Veuillez saisir une espèce valide.',
             ))
             ->add('begin', DateTimeType::class, array(
                 'label' => 'De',
@@ -26,6 +27,7 @@ class SearchObservationByReferenceNameType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
                 'required' => false,
+                'invalid_message' => 'Veuillez saisir une date de début valide.',
                 'constraints' => array(
                     new ContainsPeriodBegin()
                 )
@@ -36,6 +38,7 @@ class SearchObservationByReferenceNameType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
                 'format' => 'dd/MM/yyyy',
+                'invalid_message' => 'Veuillez saisir une date de fin valide.',
                 'constraints' => array(
                     new ContainsPeriodEnd()
                 )

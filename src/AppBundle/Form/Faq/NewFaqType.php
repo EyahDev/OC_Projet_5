@@ -17,10 +17,12 @@ class NewFaqType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('question', TextType::class, array(
-            'label' => 'Question'
+            'label' => 'Question',
+            'invalid_message' => 'Veuillez saisir une question valide.'
         ))
             ->add('answer', TextareaType::class, array(
-                'label' => "Réponse"
+                'label' => "Réponse",
+                'invalid_message' => 'Veuillez saisir une réponse valide.'
             ))
             ->add('save', SubmitType::class,
                 array(

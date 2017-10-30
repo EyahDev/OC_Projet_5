@@ -40,7 +40,7 @@ class Category
      * @Assert\NotNull()
      * @Assert\Length(
      *     min="2",
-     *     max="35",
+     *     max="50",
      *     minMessage="Une catégorie doit contenir au moins {{ limit }} caractères.",
      *     maxMessage="Une catégorie ne peut contenir plus de {{ limit }} caractères."
      * )

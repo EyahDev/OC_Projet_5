@@ -135,7 +135,7 @@ class BlogManager
         } else {
             if ($existingFile != 'img/default/category_default.jpg') {
                 // Suppression de l'ancienne photo
-                $this->fileSystem->remove(array($category->getPhotoPath()));
+                $this->fileSystem->remove(array($existingFile));
             }
 
             // Renommage du fichier
@@ -252,7 +252,6 @@ class BlogManager
         $newFile = $post->getImagePath();
 
         // Récupération du chemin du dossier de stockage
-        // Récupération du chemin du dossier de stockage
         $path = $this->container->getParameter('posts_directory');
 
         if ($newFile == null) {
@@ -294,7 +293,7 @@ class BlogManager
         } else {
             if ($existingFile != 'img/default/post_default.jpg') {
                 // Suppression de l'ancienne photo
-                $this->fileSystem->remove(array($post->getImagePath()));
+                $this->fileSystem->remove(array($existingFile));
             }
 
             // Renommage du fichier

@@ -14,7 +14,8 @@
         Vous n'avez chargé aucune photo lors de la création de votre observation <br/>
     {% else %}
         Charger une autre photo remplacera la photo actuelle : <br/>
-        <img style="width: 400px" src="{{ asset(modifyObservationForm.vars.value.photoPath) }}" alt="{{ modifyObservationForm.vars.value.species.referenceName }}"><br/>
+        <img style="width: 400px" src="{{ asset(modifyObservationForm.vars.value.photoPath) }}"
+             alt="{% if modifyObservationForm.vars.value.species.referenceName == null%} {{ modifyObservationForm.vars.value.species.referenceName }} {% else %}Espèce inconue{% endif %}"><br/>
     {% endif %}
 
     {{ form_label(modifyObservationForm.photoPath) }}<br/>

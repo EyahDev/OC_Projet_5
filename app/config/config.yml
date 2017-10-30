@@ -9,6 +9,7 @@ parameters:
     locale: en
     observations_directory: '%kernel.project_dir%/web/uploads/observations_files'
     categories_directory: '%kernel.project_dir%/web/uploads/categories_files'
+    avatars_directory: '%kernel.project_dir%/web/uploads/avatars_files'
     posts_directory: '%kernel.project_dir%/web/uploads/posts_files'
     users_directory: '%kernel.project_dir%/web/uploads/users_files'
 

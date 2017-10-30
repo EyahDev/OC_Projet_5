@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
@@ -20,6 +19,7 @@ class AddLocationType extends AbstractType
     {
         $builder
             ->add('location', TextType::class, array(
+                'invalid_message' => 'Veuillez saisir un code postal valide.',
                 'required' => false
             ))
             ->add('save', SubmitType::class);
