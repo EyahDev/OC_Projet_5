@@ -252,7 +252,6 @@ class BlogManager
         $newFile = $post->getImagePath();
 
         // Récupération du chemin du dossier de stockage
-        // Récupération du chemin du dossier de stockage
         $path = $this->container->getParameter('posts_directory');
 
         if ($newFile == null) {

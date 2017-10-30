@@ -2,7 +2,6 @@
 
 namespace AppBundle\Form\Observations;
 
-use AppBundle\Validator\SearchObservation\ContainsFileFormat;
 use AppBundle\Validator\SearchObservation\ContainsPeriodBegin;
 use AppBundle\Validator\SearchObservation\ContainsPeriodEnd;
 use Doctrine\ORM\EntityRepository;
@@ -21,6 +20,7 @@ class SearchObservationByVernacularNameType extends AbstractType
                 'label' => 'Nom commun',
                 'class' => 'AppBundle\Entity\Species',
                 'choice_label' => 'vernacularName',
+                'invalid_message' => 'Veuillez saisir une espèce valide.',
                 'query_builder' => function(EntityRepository $repository){
                     return $repository->createQueryBuilder('s')
                         ->where('s.vernacularName != :empty')
@@ -33,6 +33,7 @@ class SearchObservationByVernacularNameType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
                 'required' => false,
+                'invalid_message' => 'Veuillez saisir une date de début valide.',
                 'constraints' => array(
                     new ContainsPeriodBegin()
                 )
@@ -42,6 +43,7 @@ class SearchObservationByVernacularNameType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
                 'format' => 'dd/MM/yyyy',
+                'invalid_message' => 'Veuillez saisir une date de fin valide.',
                 'constraints' => array(
                     new ContainsPeriodEnd()
                 )

@@ -2,7 +2,6 @@
 
 namespace AppBundle\Services;
 
-
 use AppBundle\Entity\User;
 use AppBundle\Form\UserManagement\ChangeRoleType;
 use Doctrine\ORM\EntityManagerInterface;

@@ -53,16 +53,20 @@ class ObservationController extends Controller
         $modifyObservationForm = $observationManager->getObservationForModifyForm($id);
 
         // Récupération des fichiers déjà présent
-        $files = $modifyObservationForm->getData()->getPhotoPath();
+        $existingFile = $modifyObservationForm->getData()->getPhotoPath();
 
         // Hydratation de l'entitée avec les valeurs du formulaire
         $modifyObservationForm->handleRequest($request);
 
+        // Soumission du formulaire
         if ($modifyObservationForm->isSubmitted() && $modifyObservationForm->isValid()) {
+            // Récupération des valeurs du formulaire
             $updatedObservation = $modifyObservationForm->getData();
 
-            $observationManager->setUpdatedObservation($updatedObservation);
+            // Mise à jour du de l'observation
+            $observationManager->setUpdatedObservation($updatedObservation, $existingFile);
 
+            // Rédirection vers le dashboard
             return $this->redirectToRoute('dashboard');
         }
 

@@ -5,7 +5,6 @@ namespace AppBundle\Form\Account;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -21,6 +20,7 @@ class UpdateNewsletterType extends AbstractType
         $builder
             ->add('newsletter', CheckboxType::class, array(
                 'label'    => 'Abonnement à la newsletter',
+                'invalid_message' => 'Veuillez sélectionnez un choix de newsletter valide.',
                 'required' => false,
             ))
             ->add('save', SubmitType::class);

@@ -26,8 +26,13 @@ class Faq
      * @var string
      *
      * @ORM\Column(name="question", type="string", length=255)
-     * @Assert\NotBlank(message="Le champ question ne peut pas être vide.")
-     * @Assert\Length(min="2", minMessage="La question doit comporter au moins {{ limit }} caractères.")
+     * @Assert\NotBlank(message="Veuillez saisir une question valide.")
+     * @Assert\Length(
+     *     min="2",
+     *     max="255",
+     *     minMessage="Votre question doit comporter au minimun {{ limit }} caractères.",
+     *     maxMessage="Votre question doit comporter au maximun {{ limit }} caractères."
+     * )
      */
     private $question;
 
@@ -37,7 +42,12 @@ class Faq
      * @ORM\Column(name="answer", type="text")
      *
      * @Assert\NotBlank(message="Le champ réponse ne peut pas être vide.")
-     * @Assert\Length(min="2", minMessage="La réponse doit comporter au moins {{ limit }} caractères.")
+     * @Assert\Length(
+     *     min="2",
+     *     max="255",
+     *     minMessage="Votre réponse doit comporter au minimun {{ limit }} caractères.",
+     *     maxMessage="Votre réponse doit comporter au maximun {{ limit }} caractères."
+     * )
      */
     private $answer;
 

@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ContactType extends AbstractType
@@ -19,28 +20,34 @@ class ContactType extends AbstractType
         $builder
             ->add('nom', TextType::class, array('attr' => array('placeholder' => 'Nom'),
                 'constraints' => array(
-                    new NotBlank(array("message" => "Renseignez votre nom")),
+                    new NotBlank(array("message" => "Veuillez saisir un nom valide.")),
                 )
             ))
             ->add('prenom', TextType::class, array('attr' => array('placeholder' => 'Prénom'),
                 'constraints' => array(
-                    new NotBlank(array("message" => "Renseignez votre prénom")),
+                    new NotBlank(array("message" => "Veuillez saisir un prénom valide.")),
                 )
             ))
             ->add('sujet', TextType::class, array('attr' => array('placeholder' => 'Sujet'),
                 'constraints' => array(
-                    new NotBlank(array("message" => "Ecrivez un sujet s'il vous plait")),
+                    new NotBlank(array("message" => "Veuillez saisir un sujet valide.")),
                 )
             ))
             ->add('email', EmailType::class, array('attr' => array('placeholder' => 'Email'),
                 'constraints' => array(
-                    new NotBlank(array("message" => "Renseignez un e-mail valide s'il vous plaît")),
-                    new Email(array("message" => "Votre email ne semble pas valide")),
+                    new NotBlank(array("message" => "Veuillez saisir une adresse mail valide.")),
+                    new Email(array(
+                        'checkMX' => true,
+                        'message' => "Veuillez saisir une adresse mail valide.")),
                 )
             ))
             ->add('message', TextareaType::class, array('attr' => array('placeholder' => 'Votre message'),
                 'constraints' => array(
-                    new NotBlank(array("message" => "Ecrivez un message s'il vous plaît")),
+                    new NotBlank(array("message" => "Veuillez saisir un message valide.")),
+                    new Length(array(
+                        'min' => '2',
+                        'minMessage' => 'Votre message doit comporter au minimun {{ limit }} caractères.'
+                    ))
                 )
             ))
             ->add('save', SubmitType::class)

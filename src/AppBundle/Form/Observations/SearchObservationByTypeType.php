@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Adrien
- * Date: 20/10/2017
- * Time: 11:09
- */
 
 namespace AppBundle\Form\Observations;
 
@@ -25,12 +19,14 @@ class SearchObservationByTypeType extends AbstractType
                 'label' => 'Ordre',
                 'class' => 'AppBundle\Entity\SpeciesType',
                 'choice_label' => 'name',
+                'invalid_message' => 'Veuillez saisir une espèce valide.',
             ))
             ->add('begin', DateTimeType::class, array(
                 'label' => 'De',
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
                 'required' => false,
+                'invalid_message' => 'Veuillez saisir une date de début valide.',
                 'constraints' => array(
                     new ContainsPeriodBegin()
                 )
@@ -40,6 +36,7 @@ class SearchObservationByTypeType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
                 'format' => 'dd/MM/yyyy',
+                'invalid_message' => 'Veuillez saisir une date de fin valide.',
                 'constraints' => array(
                     new ContainsPeriodEnd()
                 )

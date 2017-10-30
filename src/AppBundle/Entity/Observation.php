@@ -59,6 +59,11 @@ class Observation
      * @var int
      *
      * @ORM\Column(name="birdNumber", type="integer")
+     * @Assert\GreaterThanOrEqual(
+     *     value="1",
+     *     message="Veuillez saisir un nombre d'oiseaux observés valide."
+     * )
+     * @Assert\NotBlank(message="Veuillez saisir un nombre d'oiseaux observés valide.")
      */
     private $birdNumber;
 
@@ -66,6 +71,10 @@ class Observation
      * @var int
      *
      * @ORM\Column(name="eggsNumber", type="integer", nullable=true)
+     * @Assert\GreaterThanOrEqual(
+     *     value="0",
+     *     message="Veuillez saisir un nombre d'oeufs observés valide."
+     * )
      */
     private $eggsNumber;
 
@@ -73,6 +82,12 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="eggsDescription", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",
+     *     max="255",
+     *     minMessage="Votre description des oeufs doit comporter minimun {{ limit }} caratères.",
+     *     maxMessage="Votre description des oeufs doit comporter maximun {{ limit }} caratères.",
+     * )
      */
     private $eggsDescription;
 
@@ -80,6 +95,12 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="observationDescription", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min="2",
+     *     max="255",
+     *     minMessage="Votre description de l'observation doit comporter minimun {{ limit }} caratères.",
+     *     maxMessage="Votre description de l'observation doit comporter maximun {{ limit }} caratères.",
+     * )
      */
     private $observationDescription;
 
@@ -101,6 +122,10 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="altitude", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/^[0-9]{1,4}m$/",
+     *     message="Veuillez saisir une altitude valide."
+     * )
      */
     private $altitude;
 
@@ -108,6 +133,14 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="photoPath", type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *     maxSize="4M",
+     *     minWidth="173",
+     *     minHeight="165",
+     *     maxSizeMessage="Votre photo doit ne peut pas faire plus de 4Mo.",
+     *     minHeightMessage="Votre photo doit faire minimun 173x165px. (Hauteur de {{ height }}px actuellement)",
+     *     minWidthMessage="Votre photo doit faire minimun 173x165px. (Largeur de {{ width }}px actuellement)",
+     * )
      */
     private $photoPath;
 
