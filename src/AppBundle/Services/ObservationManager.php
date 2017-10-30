@@ -167,12 +167,11 @@ class ObservationManager
             $observation->setPhotoPath($filePath);
         }
 
-        // Vér
+        // Vérification du role de l'utilsateur qui modifie l'observation
         if ($this->container->get('security.authorization_checker')->isGranted('ROLE_PROFESSIONAL')) {
             // Nouvelle date de validation suite à la modification par un pro ou un admin
             $observation->setValidateDate(new \DateTime());
         } else {
-
             // Nouvelle soumission à validation
             $observation->setValidate(null);
         }
@@ -248,23 +247,25 @@ class ObservationManager
         // Définition de la date de la nouvelle observation
         $newObservation->setObservationDate(new \DateTime());
 
-        // Récupération du fichier original
-        $file = $observation['photoPath'];
+        if ($observation['photoPath'] != null) {
+            // Récupération du fichier original
+            $file = $observation['photoPath'];
 
-        // Récupération du chemin du dossier de stockage
-        $path = $this->container->getParameter('observations_directory');
+            // Récupération du chemin du dossier de stockage
+            $path = $this->container->getParameter('observations_directory');
 
-        // Renommage du fichier
-        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            // Renommage du fichier
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
 
-        // Déplacement du fichier dans le dossiers des observations
-        $file->move($path, $fileName);
+            // Déplacement du fichier dans le dossiers des observations
+            $file->move($path, $fileName);
 
-        // Ajout de l'image dans l'observation
-        $filePath = "uploads/observations_files/".$fileName;
+            // Ajout de l'image dans l'observation
+            $filePath = "uploads/observations_files/".$fileName;
 
-        // Ajout des images
-        $newObservation->setPhotoPath($filePath);
+            // Ajout des images
+            $newObservation->setPhotoPath($filePath);
+        }
 
         // Vérification si le nom commun ou le nom scientifique a été choisi
         if ($observation['vernacularName'] != null) {
