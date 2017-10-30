@@ -1,7 +1,7 @@
 /*----------------------------------------------- Header ----------------------------------------------- */
 
 .jumbotron-laRecherche {
-    background: url(img/image-header.jpg) 0 0 no-repeat;
+    background: url(img/research/image-header.jpg) 0 0 no-repeat;
     background-position: right;
     background-size: contain;
     height: 600px;
@@ -39,259 +39,715 @@
 }
 
 /*----------------------------------------------- Timeline ----------------------------------------------- */
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    outline: none;
-}
+    button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        outline: none;
+    }
 
-/* .section SECTION
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+    /* .section SECTION
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+    .section {
+        background: #F45B69;
+        padding: 50px 0;
+    }
 
-.section {
-    background: #F45B69;
-    padding: 50px 0;
-}
+    .section .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+    }
 
-.section .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-}
+    .section h1 {
+        font-size: 2.5rem;
+    }
 
-.section h1 {
-    font-size: 2.5rem;
-}
+    .section h2 {
+        font-size: 1.3rem;
+    }
 
-.section h2 {
-    font-size: 1.3rem;
-}
+    /* TIMELINE
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+    .timeline {
+        position: relative;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        white-space: nowrap;
+        overflow-x: hidden;
+    }
 
+    .line {
+        position: absolute;
+        background-color: #888888;
+        top: 250px;
+        z-index: 1;
+        width: 100%;
+        height: 20px;
 
-/* TIMELINE
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-.timeline {
-    position: relative;
-    margin-top: 100px;
-    margin-bottom: 100px;
-    white-space: nowrap;
-    overflow-x: hidden;
-    background-color: #00b3ff;
-}
-
-.timeline ol {
-    font-size: 0;
-    width: 100vw;
-    padding: 250px 0;
-    transition: all 1s;
-}
-
-.timeline ol li {
-    position: relative;
-    display: inline-block;
-    list-style-type: none;
-    width: 200px;
-    height: 20px;
-    background: #888888;
-}
-
-.timeline p{
-     font-family: 'Montserrat', sans-serif;
-     font-size: 13px;
-     color: black;
- }
-
-.timeline time{
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px !important;
-    margin-bottom: 0 !important;
-    margin-top: 50px;
-    color: #666;
-}
-
-.timeline ol li:last-child {
-    width: 280px;
-}
-
-.timeline ol li:not(:first-child) {
-    margin-left: 0;
-}
-
-.timeline ol li div {
-    position: absolute;
-    left: calc(100% + 7px);
-    width: 400px;
-    padding: 15px;
-    font-size: 1rem;
-    white-space: normal;
-    color: black;
-    background: transparent;
-    height: 150px !important;
-    border-left: 2px solid #888888;
-}
-
-.timeline ol li div::before {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: -1.5px;
-    width: 0;
-    height: 0;
-    border-style: solid;
-}
-
-.timeline ol li div::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: -1px;
-    width: 0;
-    height: 0;
-    border-style: solid;
-}
-
-.timeline ol li:nth-child(odd) div {
-    top: -16px;
-    transform: translateY(-100%);
-}
-
-.timeline ol li:nth-child(odd) div::before {
-    top: 100%;
-    border-width: 16px 2px 0 0;
-    border-color: #888888;
-}
-
-.timeline ol li:nth-child(odd) div.test::after {
-    top: 40px;
-    left: -40px;
-    width: 80px;
-    height: 80px;
-    transform: translateY(-50%);
-    border-radius: 50%;
-    border: 5px solid #888888;
-    background-image: url(img/Les-principales-maladies-des-oiseaux.jpg);
-    background-size: contain;
-}
-
-.timeline ol li:nth-child(even) div {
-    top: calc(100% + 16px);
-}
-
-.timeline ol li:nth-child(even) div::before {
-    top: 200px;
-    border-width: 16px 0 0 1px;
-    border-color: #888888;
-}
-
-.timeline ol li:nth-child(even) div::after {
-    top: 200px;
-    left: -40px;
-    width: 80px;
-    height: 80px;
-    transform: translateY(-50%);
-    border-radius: 50%;
-    border: 5px solid #888888;
-    background-image: url(img/Les-principales-maladies-des-oiseaux.jpg);
-    background-size: contain;
-}
-
-.timeline time {
-    display: block;
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-
-/* TIMELINE ARROWS
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-
-.timeline .arrows {
-    position: absolute;
-    width: 100%;
-    top: 235px;
-    display: flex;
-    justify-content: space-between;
-    z-index: 1;
-}
-
-/* GENERAL MEDIA QUERIES
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-@media screen and (max-width: 599px) {
-    .timeline ol,
-    .timeline ol li {
-        width: auto;
     }
 
     .timeline ol {
-        padding: 0;
-        transform: none !important;
+        font-size: 0;
+        width: 100vw;
+        padding: 250px 0;
+        transition: all 1s;
     }
 
     .timeline ol li {
-        display: block;
-        height: auto;
-        background: transparent;
+        position: relative;
+        display: inline-block;
+        list-style-type: none;
+        width: 200px;
+        height: 20px;
     }
 
-    .timeline ol li:first-child {
-        margin-top: 25px;
+    .timeline p {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13px;
+        color: black;
+    }
+
+    .timeline time.odd-time-top {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px !important;
+        margin-bottom: 0 !important;
+        margin-top: 0;
+        color: #666;
+    }
+
+    .timeline time.odd-time-bottom {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px !important;
+        margin-bottom: 0 !important;
+        margin-top: 60px;
+        color: #666;
+    }
+
+    .timeline time.even-time {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px !important;
+        margin-bottom: 0 !important;
+        margin-top: 0;
+        color: #666;
+    }
+
+    .timeline ol li:last-child {
+        width: 280px;
     }
 
     .timeline ol li:not(:first-child) {
-        margin-left: auto;
+        margin-left: 0;
     }
 
     .timeline ol li div {
-        width: 94%;
-        height: auto !important;
-        margin: 0 auto 25px;
+        position: absolute;
+        left: calc(100% + 7px);
+        width: 400px;
+        padding: 15px;
+        font-size: 1rem;
+        white-space: normal;
+        color: black;
+        background: transparent;
+        height: 150px !important;
+        border-left: 1px solid #888888;
     }
 
-    .timeline ol li div {
-        position: static;
+    .timeline ol li div::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: -1px;
+        width: 0;
+        height: 0;
+        border-style: solid;
     }
 
     .timeline ol li:nth-child(odd) div {
-        transform: none;
+        top: 0;
+        transform: translateY(-100%);
     }
 
-    .timeline ol li:nth-child(odd) div::before,
-    .timeline ol li:nth-child(even) div::before {
-        left: 50%;
-        top: 100%;
-        transform: translateX(-50%);
-        border: none;
-        border-left: 1px solid white;
-        height: 25px;
+    .timeline ol li:nth-child(odd) div.odd-after-jum::after {
+        top: -40px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-image: url(img/research/p400-photo.png);
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 
-
-    .timeline ol li:nth-child(odd) div::after,
-    .timeline ol li:nth-child(even) div::after {
-        left: 50%;
-        top: 100%;
-        transform: translateX(-50%);
-        border: none;
-        border-left: 1px solid white;
-        height: 25px;
+    .timeline ol li:nth-child(odd) div.odd-after-micro::after {
+        top: 30px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-image: url(img/research/microscope-.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
     }
 
-    .timeline ol li:last-child,
-    .timeline ol li:nth-last-child(2) div::before,
-    .timeline ol li:nth-last-child(2) div::after,
+    .timeline ol li:nth-child(odd) div.odd-after-graph::after {
+        top: 30px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-image: url(img/research/7.png);
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .timeline ol li:nth-child(odd) div.odd-after-goel::after {
+        top: -40px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-image: url(img/research/1.jpg);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .timeline ol li:nth-child(even) div {
+        top: calc(100%);
+    }
+
+    .timeline ol li:nth-child(even) div.even-after-mol::after {
+        top: 125px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-color: white;
+        background-image: url(img/research/107944-200.png);
+        background-size: contain;
+    }
+
+    .timeline ol li:nth-child(even) div.even-after-danger::after {
+        top: 180px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-color: white;
+        background-image: url(img/research/iso-toxic-poison-warning-symbol-is-2041.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .timeline ol li:nth-child(even) div.even-after-erlen::after {
+        top: 125px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-color: white;
+        background-image: url(img/research/test-tuve-icon.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .timeline ol li:nth-child(even) div.even-after-stat::after {
+        top: 180px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-color: white;
+        background-image: url(img/research/2.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .timeline time {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    /* TIMELINE ARROWS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */
     .timeline .arrows {
-        display: none;
+        position: absolute;
+        width: 100%;
+        top: 235px;
+        display: flex;
+        justify-content: space-between;
+        z-index: 2;
+    }
+
+@media (max-width: 420px){
+
+    .timeline {
+        width: 90%;
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg);
+    }
+
+    /*----------------------------------------------- Timeline ----------------------------------------------- */
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        outline: none;
+    }
+
+    /* .section SECTION
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+    .section {
+        background: #F45B69;
+        padding: 50px 0;
+    }
+
+    .section .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .section h1 {
+        font-size: 2.5rem;
+    }
+
+    .section h2 {
+        font-size: 1.3rem;
+    }
+
+
+    /* TIMELINE
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+    .timeline {
+        position: relative;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        white-space: nowrap;
+        overflow-x: hidden;
+    }
+
+    .line{
+        position: absolute;
+        background-color: #888888;
+        top: 250px;
+        z-index:1;
+        width: 100%;
+        height: 20px;
+
+    }
+
+    .timeline ol {
+        font-size: 0;
+        width: 100vw;
+        padding: 250px 0;
+        transition: all 1s;
+    }
+
+    .timeline ol li {
+        position: relative;
+        display: inline-block;
+        list-style-type: none;
+        width: 200px;
+        height: 20px;
+    }
+
+    .timeline p{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13px;
+        color: black;
+    }
+
+    .timeline time.odd-time-top{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px !important;
+        margin-bottom: 0 !important;
+        margin-top: 0;
+        color: #666;
+    }
+
+    .timeline time.odd-time-bottom{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px !important;
+        margin-bottom: 0 !important;
+        margin-top: 60px;
+        color: #666;
+    }
+
+    .timeline time.even-time{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px !important;
+        margin-bottom: 0 !important;
+        margin-top: 0;
+        color: #666;
+    }
+
+    .timeline ol li:last-child {
+        width: 280px;
+    }
+
+    .timeline ol li:not(:first-child) {
+        margin-left: 0;
+    }
+
+    .timeline ol li div {
+        position: absolute;
+        top: calc(100% + 20px);
+        width: 400px;
+        padding: 15px;
+        font-size: 1rem;
+        white-space: normal;
+        color: black;
+        background: transparent;
+        height: 150px !important;
+        border-left: 1px solid #888888;
+    }
+
+    .timeline ol li div::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: -1px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+    }
+
+    .timeline ol li:nth-child(odd) div {
+        top: 0;
+        transform: translateY(-100%);
+    }
+
+    .timeline ol li:nth-child(odd) div.odd-after-jum::after {
+        top: -10px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-image: url(img/research/p400-photo.png);
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg) !important;
+        background-color: white;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .odd-after-jum{
+        -ms-transform: rotate(180deg); /* IE 9 */
+        -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+        transform: rotate(180deg) translateX(500px) !important;
+    }
+
+    .odd-after-jum time{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(260px) translateX(150px) !important;
+    }
+
+    .odd-after-jum p{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(270px) translateX(-130px)  !important;
+        max-width: 100px;
+    }
+
+    .timeline ol li:nth-child(odd) div.odd-after-micro::after {
+        top: -10px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-image: url(img/research/microscope-.jpg);
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg) !important;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .odd-after-micro{
+         -ms-transform: rotate(180deg); /* IE 9 */
+         -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+         transform: rotate(180deg) translateX(500px) !important;
+     }
+
+    .odd-after-micro time{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(260px) translateX(90px) !important;
+    }
+
+    .odd-after-micro p{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(187px) translateX(-103px)  !important;
+        max-width: 100px;
+    }
+
+    .timeline ol li:nth-child(odd) div.odd-after-graph::after {
+        top: -10px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-image: url(img/research/7.png);
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg) !important;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .odd-after-graph{
+        -ms-transform: rotate(180deg); /* IE 9 */
+        -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+        transform: rotate(180deg) translateX(650px) !important;
+    }
+
+    .odd-after-graph time{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(260px) translateX(90px) !important;
+    }
+
+    .odd-after-graph p{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(232px) translateX(-152px)  !important;
+        max-width: 100px;
+    }
+
+    .timeline ol li:nth-child(odd) div.odd-after-goel::after {
+        top: -10px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-image: url(img/research/1.jpg);
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg) !important;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .odd-after-goel{
+        -ms-transform: rotate(180deg); /* IE 9 */
+        -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+        transform: rotate(180deg) translateX(650px) !important;
+    }
+
+    .odd-after-goel time{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(260px) translateX(150px) !important;
+    }
+
+    .odd-after-goel p{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(232px) translateX(-92px)  !important;
+        max-width: 100px;
+    }
+
+    /*.timeline ol li:nth-child(even) div {*/
+        /*top: calc(100%);*/
+    /*}*/
+
+    .timeline ol li:nth-child(even) div.even-after-mol::after {
+        top: 125px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-color: white;
+        background-image: url(img/research/107944-200.png);
+        background-size: contain;
+    }
+
+    .even-after-mol{
+        -ms-transform: rotate(180deg); /* IE 9 */
+        -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+        transform: rotate(180deg) translateX(600px) translateY(150px);
+    }
+
+    .even-after-mol time{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(260px) translateX(233px) !important;
+    }
+
+    .even-after-mol p{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(184px) translateX(40px)  !important;
+        max-width: 100px;
+    }
+
+    .timeline ol li:nth-child(even) div.even-after-danger::after {
+        top: 90px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-color: white;
+        background-image: url(img/research/iso-toxic-poison-warning-symbol-is-2041.png);
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg) !important;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .even-after-danger{
+        -ms-transform: rotate(180deg); /* IE 9 */
+        -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+        transform: rotate(180deg) translateX(600px) translateY(150px);
+    }
+
+    .even-after-danger time{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(260px) translateX(233px) !important;
+    }
+
+    .even-after-danger p{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(184px) translateX(40px)  !important;
+        max-width: 100px;
+    }
+
+    .timeline ol li:nth-child(even) div.even-after-erlen::after {
+        top: 125px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-color: white;
+        background-image: url(img/research/test-tuve-icon.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .even-after-erlen{
+        -ms-transform: rotate(180deg); /* IE 9 */
+        -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+        transform: rotate(180deg) translateX(600px) translateY(150px);
+    }
+
+    .even-after-erlen time{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(260px) translateX(233px) !important;
+    }
+
+    .even-after-erlen p{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(184px) translateX(40px)  !important;
+        max-width: 100px;
+    }
+
+    .timeline ol li:nth-child(even) div.even-after-stat::after {
+        top: 90px;
+        left: -40px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 5px solid #888888;
+        background-color: white;
+        background-image: url(img/research/2.png);
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg) !important;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .even-after-stat{
+        -ms-transform: rotate(180deg); /* IE 9 */
+        -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+        transform: rotate(180deg) translateX(700px) translateY(150px);
+    }
+
+    .even-after-stat time{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(260px) translateX(233px) !important;
+    }
+
+    .even-after-stat p{
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(231px) translateX(-7px)  !important;
+        max-width: 100px;
+    }
+
+    .timeline time {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+
+    /* TIMELINE ARROWS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+    .timeline .arrows {
+        position: absolute;
+        width: 100%;
+        top: 235px;
+        display: flex;
+        justify-content: space-between;
+        z-index: 2;
     }
 }
 
@@ -632,26 +1088,112 @@ button {
 }
 
 /*----------------------------------------------- Remerciements ----------------------------------------------- */
+@media (min-width: 900px) {
+    .container-remerciements{
+        display: flex;
+        justify-content: center;
+        width: 600px;
+        margin:50px auto 80px auto;
+    }
 
-.container-remerciements{
-    background-color: #00b3ff;
-    position: relative;
-    height: 500px;
-    width: 70%;
-    margin: auto;
+    .gagnant{
+        float: left;
+        width: 350px;
+        height: 350px;
+        z-index: 0;
+    }
+
+    .like{
+        margin-top: 220px;
+        margin-left: -90px;
+        width: 150px;
+        height: 150px;
+        z-index: 1;
+    }
+
+    .photo-gagnant{
+        margin-left: 15px;
+        margin-top: 0;
+        max-height: 350px;
+        height: auto;
+        z-index: 0;
+    }
+
+    .container-remerciements p{
+        text-decoration: underline;
+        margin-top: 400px;
+        margin-left: -335px;
+        min-width: 300px;
+        font-size: 18px;
+    }
 }
 
-.gagnant{
-    position: absolute;
-    z-index: 0;
+@media (min-width: 420px ) and (max-width: 900px) {
+    .container-remerciements{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        margin:50px auto 50px auto;
+    }
+
+    .container-remerciements p{
+        text-decoration: underline;
+        text-align: center;
+        margin-top: 15px;
+        font-size: 18px;
+    }
+
+    .gagnant{
+        float: left;
+        max-width: 400px;
+        width: 80%;
+        margin: auto;
+    }
+
+    .like{
+        margin-top: -100px;
+        margin-left: 300px;
+        width: 150px;
+        height: 150px;
+    }
+
+    .photo-gagnant{
+        margin-top: 30px;
+        bottom: 0;
+    }
 }
 
-.like{
-    position: absolute;
-    z-index: 1;
-}
+@media (max-width: 420px){
+    .container-remerciements{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        margin:50px auto 50px auto;
+    }
 
-.photo-gagnant{
-    position: absolute;
-    z-index: 0;
+    .container-remerciements p{
+        text-decoration: underline;
+        text-align: center;
+        margin-top: 15px;
+        font-size: 18px;
+    }
+
+    .gagnant{
+        float: left;
+        width: 80%;
+        margin: auto;
+    }
+
+    .like{
+        margin-top: -70px;
+        margin-left: 200px;
+        max-width: 30%;
+    }
+
+    .photo-gagnant{
+        margin-top: 30px;
+        bottom: 0;
+    }
 }
