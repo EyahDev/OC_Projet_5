@@ -14,39 +14,12 @@
 
 }
 
-.nao-header{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-
-.nao-header-align-left{
-    margin-left: 20px;
-    display: flex;
-}
-
-.nao-header-size1{
-    Color : #444;
-    font-size: 30px;
-    margin: 0;
-}
-
-.nao-header-size2{
-    Color : #444;
-    font-size: 15px;
-    margin: 0;
-}
-
 .logo-mobile{
     display: none;
 }
 
 @media (max-width: 420px)
 {
-    .nao-header-align-left{
-        display: none;
-    }
-
     .jumbotron-index{
         margin-top: 200px;
         background: url(img/image-header-mobile-t.png) 0 0 no-repeat;
