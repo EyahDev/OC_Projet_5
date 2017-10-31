@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Adrien
- * Date: 19/10/2017
- * Time: 17:12
- */
 
 namespace AppBundle\Services;
-
 
 use AppBundle\Entity\Observation;
 use Doctrine\ORM\EntityManagerInterface;

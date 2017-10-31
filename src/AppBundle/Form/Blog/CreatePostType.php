@@ -2,8 +2,6 @@
 
 namespace AppBundle\Form\Blog;
 
-use AppBundle\Validator\AddObservation\ContainsFileFormat;
-use AppBundle\Validator\AddObservation\ContainsFileSize;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -22,25 +20,24 @@ class CreatePostType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, array(
-                'label' => "Titre de l'article"
+                'label' => "Titre de l'article",
+                'invalid_message' => 'Veuillez saisir un titre d\'article valide.'
             ))
             ->add('category', EntityType::class, array(
                 'class' => 'AppBundle:Category',
                 'label' => "Catégorie",
                 'choice_label' => 'name',
+                'invalid_message' => 'Veuillez saisir une catégorie valide.',
                 'placeholder' => '-- Sélectionnez une catégorie -- '
             ))
             ->add('content', TextareaType::class, array(
-                'label' => "Contenu de l'article"
+                'label' => "Contenu de l'article",
+                'invalid_message' => 'Veuillez saisir un contenu valide.'
             ))
             ->add('imagePath', FileType::class, array(
                 'label' => 'Sélectionnez une image représant votre article',
-                'invalid_message' => 'Veuillez sélectionner une fichier valide.',
+                'invalid_message' => 'Veuillez sélectionner un fichier valide.',
                 'data_class' => null,
-                'constraints' => array(
-                    new ContainsFileFormat(),
-                    new ContainsFileSize(),
-                ),
                 'required' => false
             ))
             ->add('save', SubmitType::class);

@@ -2,8 +2,6 @@
 
 namespace AppBundle\Form\Observations;
 
-use AppBundle\Validator\AddObservation\ContainsFileFormat;
-use AppBundle\Validator\AddObservation\ContainsFileSize;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -23,17 +21,13 @@ class ModifObservationByObserverType extends AbstractType
                 'constraints' => array(
                     new Length(array(
                         'max' => 255,
-                        'maxMessage' => 'Votre description de l\'observation ne peut dépasser {{ limit }} caratères'
+                        'maxMessage' => 'Votre description de l\'observation ne peut dépasser {{ limit }} caratères.'
                     )),
             )))
             ->add('photoPath', FileType::class, array(
                 'label' => 'Photo(s)',
                 'invalid_message' => 'Veuillez sélectionner une fichier valide.',
                 'data_class' => null,
-                'constraints' => array(
-                    new ContainsFileFormat(),
-                    new ContainsFileSize(),
-                ),
                 'required' => false
             ))
             ->add('Modifier', SubmitType::class);

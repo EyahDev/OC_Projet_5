@@ -8,7 +8,7 @@ $(document).ready(function() {
     }
     function reloadTableFaqAfterAddingOrModifying() {
         // récupère le num de la page courante
-        var currentPageNb = $('#paginationFaq').children().children().children('.current').text();
+        var currentPageNb = $('#paginationFaq').find('.current').text();
         // crée l'argument pour la requete Get
         var argGet = '?page='+currentPageNb;
         // récupère la route pour la pagination
@@ -30,7 +30,7 @@ $(document).ready(function() {
     }
     function reloadTableFaqAfterRemoving() {
         // récupère le num de la page courante
-        var currentPageNb = $('#paginationFaq').children().children().children('.current').text();
+        var currentPageNb = $('#paginationFaq').find('.current').text();
         // crée l'argument pour la requete Get
         var argGet = '?page='+currentPageNb;
         // change le numéro de page si la suppression vide le tableau de la page courrante
@@ -292,9 +292,11 @@ $(document).ready(function() {
             }
         });
     });
+
     // Ecoute des boutons de paginations
-    $('#paginationFaq').children().children().children().children('a').on('click', function(e) {
+    $('#paginationFaq').find('a').on('click', function(e) {
         e.preventDefault();
+
         var $a = $(this);
         var url = $a.attr('href');
         // récupère l'argument passer en get
@@ -319,8 +321,9 @@ $(document).ready(function() {
         })
     });
     function paginateFaq() {
-        $('#paginationFaq').children().children().children().children('a').on('click', function(e) {
+        $('#paginationFaq').find('a').on('click', function(e) {
             e.preventDefault();
+
             var $a = $(this);
             var url = $a.attr('href');
             // récupère l'argument passer en get

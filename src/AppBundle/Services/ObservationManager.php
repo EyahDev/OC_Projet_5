@@ -6,6 +6,7 @@ use AppBundle\Entity\Observation;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -17,6 +18,7 @@ class ObservationManager
     private $request;
     private $session;
     private $container;
+    private $filesystem;
 
     /**
      * ObservationManager constructor.
@@ -26,12 +28,15 @@ class ObservationManager
      * @param SessionInterface $session
      * @param ContainerInterface $container
      */
-    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em, RequestStack $request, SessionInterface $session, ContainerInterface $container) {
+    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
+                                RequestStack $request, SessionInterface $session,
+                                ContainerInterface $container, Filesystem $filesystem) {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
         $this->session = $session;
         $this->container = $container;
+        $this->filesystem = $filesystem;
     }
     
     public function validatedObservationsByUser($user) {
@@ -174,18 +179,23 @@ class ObservationManager
      *
      * @param Observation $observation
      */
-    public function setUpdatedObservation(Observation $observation) {
+    public function setUpdatedObservation(Observation $observation, $existingFile) {
         // Récupération du chemin du dossier de stockage
         $path = $this->container->getParameter('observations_directory');
 
-        // Récupération des nouveaux fichiers
+        // Récupération du nouveau fichier
         $newFile = $observation->getPhotoPath();
 
         if ($newFile != null) {
+            if ($existingFile != 'img/default/category_default.png') {
+                // Suppression de l'ancienne photo
+                $this->filesystem->remove(array($existingFile));
+            }
+
             // Renommage du fichier
             $fileName = md5(uniqid()).'.'.$newFile->guessExtension();
 
-            // Déplacement du fichier dans le dossiers des observations
+            // Déplacement du fichier dans le dossier des observations
             $newFile->move($path, $fileName);
 
             // Récupération du nouveau chemin
@@ -312,6 +322,7 @@ class ObservationManager
             // Ajout de l'observation à l'espece
             $newObservation->getSpecies()->addObservation($newObservation);
 
+            // Autovalidation pour les pro et admin
             if ($this->container->get('security.authorization_checker')->isGranted('ROLE_PROFESSIONAL')) {
                 $newObservation->setValidate(true);
                 $newObservation->setValidateDate(new \DateTime());

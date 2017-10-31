@@ -102,7 +102,7 @@ class BlogController extends Controller
     /* Gestion des catégories */
 
     /**
-     * @Route("/dasboard/categorie/{slug}/edition/", name="edit_category")
+     * @Route("/dashboard/categorie/{slug}/edition/", name="edit_category")
      */
     public function editCategoryAction($slug, BlogManager $blogManager, Request $request) {
 
@@ -159,7 +159,7 @@ class BlogController extends Controller
     /* Gestion des articles */
 
     /**
-     * @Route("/dasboard/article/{slug}/edition/", name="edit_post")
+     * @Route("/dashboard/article/{slug}/edition/", name="edit_post")
      */
     public function editPostAction($slug, BlogManager $blogManager, Request $request) {
 

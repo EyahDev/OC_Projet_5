@@ -1,0 +1,15 @@
+.pagination-img {
+    height: 18px;
+    -webkit-filter: drop-shadow(2px 4px 2px #AAAAAA);
+    filter: drop-shadow(2px 4px 2px #AAAAAA);
+}
+.page-link {
+    border: none!important;
+    color: black!important;
+    font-size: 18px;
+    text-shadow: 2px 4px 2px #AAAAAA;
+}
+.page-item.active .page-link {
+    background-color: white;
+    text-shadow: 2px 4px 2px #AAAAAA;
+}

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -46,6 +47,13 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="message", type="string", length=255)
+     * @Assert\Length(
+     *     min="2",
+     *     max="255",
+     *     minMessage="Votre commentaire doit comporter au minimum {{limit}} caractères",
+     *     maxMessage="Votre commentaire doit comporter au maximun {{limit}} caractères"
+     * )
+     * @Assert\NotBlank(message="Veuillez saisir un commentaire valide")
      */
     private $message;
 
