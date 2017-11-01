@@ -103,5 +103,31 @@ $(document).ready(function () {
 
             }
         })
-    })
+    });
+    //MODIFICATION DE L'AVATAR
+    updateAvatar();
+    //définition de la fonction pour l'appliquer récursivement
+    function updateAvatar() {
+        $('form[name="update_user_avatar"]').on('submit', function (e) {
+            e.preventDefault();
+            var $form = $(this);
+            var url = $('.btn-user-update-avatar').attr('url');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function (data){
+                    $('.update-avatar-section').replaceWith(data);
+                    addFlashMsgAccount('success', 'avatar modifié');
+                    updateAvatar();
+                },
+                error: function (jqxhr) {
+                    addFlashMsgAccount('danger', jqxhr.responseText);
+
+                }
+            })
+        })
+    }
 });

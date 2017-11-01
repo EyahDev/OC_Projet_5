@@ -15,8 +15,9 @@ class ObservationFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $observation1 = new Observation();
+        $species1 = $manager->getRepository("AppBundle:Species")->findOneBy(array('referenceName' => 'Acrocephalus atyphus (Wetmore, 1919)'));
         $observation1
-            ->setSpecies($this->getReference('falcoAmurensis'))
+            ->setSpecies($species1)
             ->setObserver($this->getReference('user'))
             ->setValidator($this->getReference('pro'))
             ->setBirdNumber('1')
@@ -30,9 +31,11 @@ class ObservationFixtures extends Fixture
             ->setValidate('1')
             ->setValidateDate (\DateTime::createFromFormat('Y-m-d', '2017-10-10'));
         $manager->persist($observation1);
+
         $observation2 = new Observation();
+        $species2 = $manager->getRepository("AppBundle:Species")->findOneBy(array('referenceName' => 'Amazilia leucogaster (Gmelin, 1788)'));
         $observation2
-            ->setSpecies($this->getReference('acridotheres'))
+            ->setSpecies($species2)
             ->setObserver($this->getReference('user'))
             ->setValidator($this->getReference('admin'))
             ->setBirdNumber('3')
@@ -48,8 +51,9 @@ class ObservationFixtures extends Fixture
         $manager->persist($observation2);
         $manager->flush();
         $observation3 = new Observation();
+        $species3 = $manager->getRepository("AppBundle:Species")->findOneBy(array('referenceName' => 'Tyrannopsis sulphurea (Spix, 1825)'));
         $observation3
-            ->setSpecies($this->getReference('acridotheres'))
+            ->setSpecies($species3)
             ->setObserver($this->getReference('user'))
             ->setValidator($this->getReference('admin'))
             ->setBirdNumber('1')
@@ -64,7 +68,7 @@ class ObservationFixtures extends Fixture
         $manager->persist($observation3);
         $observation4 = new Observation();
         $observation4
-            ->setSpecies($this->getReference('accipiterBicolor'))
+            ->setSpecies($species1)
             ->setObserver($this->getReference('user'))
             ->setValidator($this->getReference('admin'))
             ->setBirdNumber('1')
@@ -83,7 +87,6 @@ class ObservationFixtures extends Fixture
     {
         return array(
             UserFixtures::class,
-            SpeciesFixtures::Class,
         );
     }
 }
