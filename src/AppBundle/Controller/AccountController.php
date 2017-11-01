@@ -118,6 +118,46 @@ class AccountController extends Controller
     }
 
     /**
+     * @Route("/dasboard/user/edition/avatar", name="edit_user_avatar")
+     */
+    public function editAvatarAction(AccountManager $accountManager, Request $request) {
+        if($request->isXmlHttpRequest()) {
+            $user = $this->getUser();
+
+            // Récupération du formulaire pour la modification de l'avatar
+            $avatarForm = $accountManager->getFormUpdateAvatar($user);
+
+            // Récupération du fichier existant
+            $existingFile = $avatarForm->getData()->getAvatarPath();
+
+            // Hydratation des valeurs
+            $avatarForm->handleRequest($request);
+
+            // Soumission du formulaire
+            if ($avatarForm->isSubmitted()) {
+                // Récupération des données
+                $newAvatar = $avatarForm->getData();
+                // récupère le résultat de la validation
+                $validation = $accountManager->validateUser($newAvatar);
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
+                }
+
+                // mise à jour de l'avatar
+                $accountManager->updateAvatar($newAvatar, $existingFile);
+
+                // Renvoie l'avatar et le formulaire pour le remplacement en js
+                return $this->render('default/dashboard/commonFeatures/myAccount/avatarSection.html.twig', array(
+                    'avatarForm' => $avatarForm->createView()
+                ));
+            }
+            throw new \Exception('Une erreur est survenue');
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
+
+    /**
      * @Route("/dasboard/user/edition/newsletter", name="edit_user_newsletter")
      */
     public function editNewsletterAction(AccountManager $accountManager, Request $request) {

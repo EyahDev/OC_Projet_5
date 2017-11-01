@@ -2,6 +2,32 @@
 <div class="row justify-content-sm-center">
     <h6 class="col-sm-8 text-left">Vos informations personnelles :</h6>
 </div>
+
+{# Avatar de l'utilisateur #}
+<div class="well update-avatar-section">
+    {{ form_start(avatarForm, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {# Les erreurs générales du formulaire. #}
+    {{ form_errors(avatarForm) }}
+
+    <div class="row justify-content-center">
+        <img style="height: 150px" src="{{ asset(app.user.avatarPath) }}" alt="{{ app.user.username }}" >
+    </div>
+
+    <div class="form-group row justify-content-sm-center">
+        <div class="col-sm-6">
+            {{ form_widget(avatarForm.avatarPath) }}
+        </div>
+        <div class="col-sm-2">
+            {{ form_widget(avatarForm.save, {'label': 'Modifier',
+                'attr': {'class': 'btn btn-primary btn-user-update-avatar',
+                    'url': path('edit_user_avatar')}}) }}
+        </div>
+    </div>
+
+    {{ form_end(avatarForm) }}
+</div>
+
 {# Nom de l'utilisateur #}
 <div class="well">
     {{ form_start(updateUserNameForm, {'attr': {'class': 'form-horizontal'}}) }}
@@ -61,27 +87,7 @@
     {{ form_end(updateUserLocationForm) }}
 </div>
 
-{# Avatar de l'utilisateur #}
-<div class="well">
-    {{ form_start(avatarForm, {'attr': {'class': 'form-horizontal'}}) }}
 
-    {# Les erreurs générales du formulaire. #}
-    {{ form_errors(avatarForm) }}
-
-    <div class="form-group row justify-content-sm-center">
-        <div class="col-sm-6">
-            {{ form_widget(avatarForm.avatarPath, {'attr': {'placeholder': 'Code postal'}}) }}
-        </div>
-        <div class="col-sm-2">
-            {{ form_widget(avatarForm.save, {'label': 'Modifier',
-                'attr': {'class': 'btn btn-primary btn-user-update-location',
-                    'url': path('edit_user_location'),
-                    'placeholder': 'Code postal'}}) }}
-        </div>
-    </div>
-
-    {{ form_end(avatarForm) }}
-</div>
 
 {# Inscription à la newsletter #}
 <div class="well">
