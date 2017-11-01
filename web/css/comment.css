@@ -86,6 +86,14 @@ a p{
     justify-content: flex-end;
 }
 
+.childComment i.fa.fa-lightbulb-o.fa-2x{
+    margin-right: 0 !important;
+}
+
+#comments{
+    margin-bottom: 50px;
+}
+
 @media (max-width: 768px){
     #comments.container{
         display: flex;

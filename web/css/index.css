@@ -355,7 +355,6 @@ canvas{
 .contact{
     display: flex;
     justify-content: space-around;
-    padding-bottom: 80px;
     width: 70%;
     margin: auto;
 }

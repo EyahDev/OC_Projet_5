@@ -7,6 +7,7 @@ use AppBundle\Services\CommentManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class BlogController extends Controller
@@ -27,10 +28,14 @@ class BlogController extends Controller
         // Récupération des 3 derniers articles rédigés
         $threeLastPost = $blogManager->getThreeLastPosts();
 
+        /* Gestion de la pagination des articles */
+        $paginationPosts = $blogManager->getPaginatedPostList();
+
         return $this->render("default/blog/indexBlog.html.twig", array(
             'posts' => $posts,
             'categories' => $categories,
-            'threeLastPost' => $threeLastPost
+            'threeLastPost' => $threeLastPost,
+            'paginationPosts' => $paginationPosts
         ));
     }
 
@@ -89,12 +94,16 @@ class BlogController extends Controller
         // Récupération de la liste de toutes les catégories
         $categories = $blogManager->getCategories();
 
+        /* Gestion de la pagination */
+        $paginationPostsCategory = $blogManager->getPaginatedPostsCategoryList($category);
+
         // Récupération des 3 derniers articles rédigés
         $threeLastPost = $blogManager->getThreeLastPosts();
 
         return $this->render("default/blog/categoryBlog.html.twig", array(
             'category' => $cat,
             'categories' => $categories,
+            'paginationPostsCategory' => $paginationPostsCategory,
             'threeLastPost' => $threeLastPost
         ));
     }
@@ -375,6 +384,39 @@ class BlogController extends Controller
             // Envoi le message flash pour l'affichage en JS
             return $this->render("default/blog/comments/returnFlagged.html.twig", array(
                 'message' => $message
+            ));
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/post-management/pagination", name="pagination_post")
+     */
+    public function paginationPostAction(Request $request, BlogManager $BlogManager)
+    {
+        if($request->isXmlHttpRequest()) {
+            $paginationPosts = $BlogManager->getPaginatedPostList();
+            return $this->render(':default/blog:indexBlog.html.twig', array(
+                'paginationPosts' => $paginationPosts
+            ));
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/postsByCategory-management/pagination", name="pagination_postsCategory")
+     */
+    public function paginationCategoryAction(Request $request, BlogManager $BlogManager, $category)
+    {
+        if($request->isXmlHttpRequest()) {
+
+            $paginationPostsCategory = $BlogManager->getPaginatedPostsCategoryList($category);
+            return $this->render(':default/blog:categoryBlog.html.twig', array(
+                'paginationPostsCategory' => $paginationPostsCategory
             ));
         }
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");

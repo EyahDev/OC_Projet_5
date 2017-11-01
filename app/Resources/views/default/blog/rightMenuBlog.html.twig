@@ -20,8 +20,8 @@
     <hr>
     {% for lastPost in threeLastPost %}
         <div class="space">
-            <p>{{ lastPost.title }} -- <a href="{{ path('view-post', {'slugCat' : lastPost.category.slug ,'slugPost' : lastPost.slug }) }}">Lire</a></p>
             <p><i class="fa fa-calendar-o" aria-hidden="true"></i> {{ lastPost.publishedDate|date("d/m/Y à H:i", "Europe/Paris") }}</p>
+            <p>{{ lastPost.title }} -- <a href="{{ path('view-post', {'slugCat' : lastPost.category.slug ,'slugPost' : lastPost.slug }) }}">Lire</a></p>
         </div>
     {% endfor %}
 {% endif %}

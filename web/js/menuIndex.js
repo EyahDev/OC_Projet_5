@@ -26,15 +26,33 @@
         offset: 54
     });
 
-    // Collapse the navbar when page is scrolled
-    // $(window).scroll(function() {
-    //     if ($("#mainNav").offset().top > 100) {
-    //         $("#mainNav").addClass("navbar-shrink");
-    //     } else {
-    //         $("#mainNav").removeClass("navbar-shrink");
-    //     }
+    $("#mainNav").removeClass("navbar-shrink");
+
+
+
+    // $("#mainNav").click(function() {
+    //     $("#menu.container-fluid").on("click").attr("style", "background-color: white;");
+    // });
+    //
+    // $("#mainNav").click(function() {
+    //     $("#menu.container-fluid").off("click").attr("style", "background-color: yellow;");
     // });
 
-    $("#mainNav").addClass("navbar-shrink");
+
+    // Collapse the navbar when page is scrolled
+    $(window).scroll(function() {
+        if ($("#mainNav").offset().top > 100) {
+            $("#mainNav").addClass("navbar-shrink");
+        } else {
+            $("#mainNav").removeClass("navbar-shrink");
+        }
+    });
+
+    if (window.matchMedia("(min-width: 420px)").matches) {
+        $("#menu.container-fluid").attr("style", "height: auto !important");
+    }
+    else {
+        $("#menu.container-fluid").attr("style", "height: 200px !important");
+    }
 
 })(jQuery); // End of use strict

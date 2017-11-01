@@ -1,6 +1,6 @@
-.navbar-light .navbar-toggler-icon {
-        width: 150px;
-    }
+/*.navbar-light .navbar-toggler-icon {*/
+        /*width: 150px;*/
+    /*}*/
 
 
 /*----------------------------------------------- Header ----------------------------------------------- */
@@ -44,6 +44,14 @@
 }
 
 /*----------------------------------------------- Timeline ----------------------------------------------- */
+
+    #timeline.container-fluid{
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
     *,
     *::before,
     *::after {
@@ -85,9 +93,10 @@
     –––––––––––––––––––––––––––––––––––––––––––––––––– */
     .timeline {
         position: relative;
-        margin-top: 50px;
-        margin-bottom: 50px;
+        margin-top: 0;
+        margin-bottom: 0;
         white-space: nowrap;
+        overflow-y: hidden;
         overflow-x: hidden;
     }
 
@@ -217,6 +226,7 @@
         border-radius: 50%;
         border: 5px solid #888888;
         background-image: url(img/research/7.png);
+        background-color: white;
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
@@ -315,13 +325,6 @@
 
 @media (max-width: 420px){
 
-    .timeline {
-        width: 90%;
-        -ms-transform: rotate(90deg); /* IE 9 */
-        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg);
-    }
-
     *,
     *::before,
     *::after {
@@ -363,12 +366,20 @@
 
     /* TIMELINE
     –––––––––––––––––––––––––––––––––––––––––––––––––– */
+    #timeline.container-fluid{
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
     .timeline {
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg) translateY(10px);
         position: relative;
         margin-top: 0 !important;
         margin-bottom: 0 !important;
         white-space: nowrap;
-        overflow-x: hidden;
+        overflow-y: hidden !important;
+        overflow-x: hidden !important;
     }
 
     .line{
@@ -384,7 +395,7 @@
     .timeline ol {
         font-size: 0;
         width: 100vw;
-        padding: 250px 0;
+        padding: 150px 0 150px 0;
         transition: all 1s;
     }
 
@@ -751,7 +762,12 @@
         top: 235px;
         display: flex;
         justify-content: space-between;
+        transform:translateY(-100px)  !important;
         z-index: 2;
+    }
+
+    .line{
+        transform:translateY(-100px)  !important;
     }
 }
 
@@ -1199,5 +1215,9 @@
     .photo-gagnant{
         margin-top: 30px;
         bottom: 0;
+    }
+
+    #prout.container{
+        max-width: 300px;
     }
 }
