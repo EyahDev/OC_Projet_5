@@ -333,4 +333,17 @@ class ObservationManager
         $this->em->persist($newObservation);
         $this->em->flush();
     }
+    public function getCurrentUserPaginatedObservationsList(User $user)
+    {
+        // récupère la liste des observations
+        $observationList = $user->getObservations();
+        // récupère le service knp paginator
+        $paginator  = $this->container->get('knp_paginator');
+        // retourne les observations paginées selon la page passée en get
+        return $paginator->paginate(
+            $observationList/*$query*/, /* query NOT result */
+            $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
+            2/*limit per page*/
+        );
+    }
 }

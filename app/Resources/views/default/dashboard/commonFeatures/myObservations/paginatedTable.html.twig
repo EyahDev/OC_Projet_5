@@ -1,16 +1,16 @@
-{% if app.user.observations|length != 0 %}
-<div class="table-responsive-vertical shadow-z-1">
-    <table class="table table-hover table-mc-default">
-        <thead>
-        <tr>
-            <th>Espèces observées</th>
-            <th>Date d'observation</th>
-            <th>Statut</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for observation in app.user.observations %}
+<div class="pagination-table-my-observations">
+    <div class="table-responsive-vertical shadow-z-1">
+        <table class="table table-hover table-mc-default">
+            <thead>
+            <tr>
+                <th>Espèces observées</th>
+                <th>Date d'observation</th>
+                <th>Statut</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for observation in currentUserObservations %}
                 <tr>
                     <td data-title="Espèces observées">
                         {% if observation.species != null %}
@@ -96,9 +96,14 @@
                     {% endif %}
                 </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+    {# div englobant le paginator et contenant la route à prendre pour la requete Ajax de pagination#}
+    <div id="paginationMyObservations" url="{{ path('pagination_my_observations') }}" class="row">
+        {# display navigation #}
+        <div class="navigation mx-auto">
+            {{ knp_pagination_render(currentUserObservations) }}
+        </div>
+    </div>
 </div>
-{% else %}
-    Vous n'avez réalisé aucune observation pour le moment.
-{% endif %}

@@ -6,6 +6,7 @@ use AppBundle\Services\ObservationManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class ObservationController extends Controller
 {
@@ -112,5 +113,22 @@ class ObservationController extends Controller
         return $this->render("default/dashboard/ObservationManagement/detailObservation.html.twig", array(
             'observationDetailForm' => $observationDetailForm->createView()
         ));
+    }
+
+    /**
+     * @param Request $request
+     * @param ObservationManager $observationManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/dashboard/myObservations/pagination", name="pagination_my_observations")
+     */
+    public function paginationMyObservationsAction(Request $request, ObservationManager $observationManager)
+    {
+        if($request->isXmlHttpRequest()) {
+            $currentUserObservations = $observationManager->getCurrentUserPaginatedObservationsList($this->getUser());
+            return $this->render('default/dashboard/commonFeatures/myObservations/paginatedTable.html.twig', array(
+                'currentUserObservations' => $currentUserObservations
+            ));
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 }
