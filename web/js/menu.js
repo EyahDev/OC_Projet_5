@@ -27,12 +27,25 @@
     });
 
     // Collapse the navbar when page is scrolled
-    $(window).scroll(function() {
-        if ($("#mainNav").offset().top > 100) {
-            $("#mainNav").addClass("navbar-shrink");
-        } else {
-            $("#mainNav").removeClass("navbar-shrink");
-        }
-    });
+    // $(window).scroll(function() {
+    //     if ($("#mainNav").offset().top > 100) {
+    //         $("#mainNav").addClass("navbar-shrink");
+    //     } else {
+    //         $("#mainNav").removeClass("navbar-shrink");
+    //     }
+    // });
+
+    $("#mainNav").addClass("navbar-shrink");
 
 })(jQuery); // End of use strict
+
+$(document).ready(function(){
+    $('.navbar-toggler').click(function() {
+        if($("#menu").css('background-color') == 'rgb(255, 255, 255)') {
+            $("#menu").css('background-color', 'transparent');
+        }
+        else{
+            $("#menu").css('background-color', 'white');
+        }
+    });
+});

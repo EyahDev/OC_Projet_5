@@ -4,7 +4,7 @@
     <header>
         <div class="jumbotron-blog vertical-center">
             <div class="container-fluid">
-                <img class="img-fluid" src="{{ asset('img/blog/image-du-blog.jpg') }}">
+                <img src="{{ asset('img/blog/image-du-blog.jpg') }}">
             </div>
         </div>
         <div class="nao-header-align-left">
@@ -18,8 +18,9 @@
 
 {% block contentBlog %}
     <div class="container">
+
         <section class="posts">
-            {% for post in posts %}
+            {% for post in paginationPosts %}
                 <h4>{{ post.title }}</h4>
                 <div class="posts-infos">
                     <p><i class="fa fa-calendar-o" aria-hidden="true"></i>{{ post.publishedDate|date("d/m/Y à H:i", "Europe/Paris") }}</p>
@@ -27,15 +28,21 @@
                     <p><i class="fa fa-tag" aria-hidden="true"></i>{{ post.category.name}}</p>
                     <p><i class="fa fa-comments" aria-hidden="true"></i>{{ post.comments|length }}</p>
                 </div>
-
-                {{ post.content|slice(0, 800)|purify }}...<br /><br />
-
-                <a href="{{ path('view-post', {'slugCat' : post.category.slug ,'slugPost' : post.slug }) }}"><button type="button" class="btn-default btn">Lire la suite</button></a> <br/><br/>
+                <p>{{ post.content|slice(0, 800)|purify }}...</p>
+                <a href="{{ path('view-post', {'slugCat' : post.category.slug ,'slugPost' : post.slug }) }}"><button type="button" class="btn-default btn">Lire la suite</button></a>
             {% endfor %}
+            {# div englobant le paginator et contenant la route à prendre pour la requete Ajax de pagination#}
+            <div id="paginationPost" url="{{ path('pagination_post') }}" class="row">
+                {# display navigation #}
+                <div class="navigation mx-auto">
+                    {{ knp_pagination_render(paginationPosts) }}
+                </div>
+            </div>
         </section>
 
         <section class="rightMenu">
             {% include "default/blog/rightMenuBlog.html.twig" %}
         </section>
+
     </div>
 {% endblock %}

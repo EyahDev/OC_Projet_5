@@ -1,22 +1,59 @@
 {{ form_start(createObservationForm) }}
-{{ form_errors(createObservationForm) }}
 
-{{ form_label(createObservationForm.species) }}
-{{ form_widget(createObservationForm.species) }}
-{{ form_label(createObservationForm.vernacularName) }}
-{{ form_widget(createObservationForm.vernacularName) }}
-{{ form_label(createObservationForm.birdNumber) }}
-{{ form_widget(createObservationForm.birdNumber) }}
-{{ form_label(createObservationForm.eggsNumber) }}
-{{ form_widget(createObservationForm.eggsNumber) }}
-{{ form_label(createObservationForm.eggsDescription) }}
-{{ form_widget(createObservationForm.eggsDescription) }}
-<br/>
-<a id="geoloc" class="btn-primary btn">Géolocalisez vous !</a> <br/>
-<div id="map" style="height: 300px; width: 100%;"></div>
-{{ form_label(createObservationForm.latitude) }}
-{{ form_widget(createObservationForm.latitude) }}
-{{ form_errors(createObservationForm) }}
+<span class="custom-dropdown">
+{{ form_row(createObservationForm.species )}}<br/>
+{{ form_errors(createObservationForm.species) }}
+</span>
+
+
+<span class="custom-dropdown">
+    {{ form_row(createObservationForm.vernacularName) }}<br/>
+    {{ form_errors(createObservationForm.vernacularName) }}
+</span>
+
+<div class="birdNumber">
+    <span class="label-space">{{ form_label(createObservationForm.birdNumber) }}</span>
+    <span class="custom-spinner">
+        {{ form_widget(createObservationForm.birdNumber) }}
+        {{ form_errors(createObservationForm.birdNumber) }}
+    </span>
+</div>
+
+<div class="eggsNumber">
+    <span class="label-space">{{ form_label(createObservationForm.eggsNumber) }}</span>
+    <span class="custom-spinner">
+    {{ form_widget(createObservationForm.eggsNumber) }}<br/>
+    {{ form_errors(createObservationForm.eggsNumber) }}
+    </span>
+</div>
+
+
+{{ form_row(createObservationForm.eggsDescription) }}<br/>
+{{ form_errors(createObservationForm.eggsDescription) }}
+
+<button class="btn-default btn" id="geoloc">Géolocaliser</button>
+
+{{ form_row(createObservationForm.latitude) }}<br/>
+{{ form_errors(createObservationForm.latitude) }}
+
+{{ form_row(createObservationForm.longitude) }}<br/>
+{{ form_errors(createObservationForm.longitude) }}
+
+{{ form_row(createObservationForm.altitude) }}<br/>
+{{ form_errors(createObservationForm.altitude) }}
+
+{{ form_row(createObservationForm.observationDescription) }}<br/>
+{{ form_errors(createObservationForm.observationDescription) }}
+
+{{ form_row(createObservationForm.altitude) }}<br/>
+{{ form_errors(createObservationForm.altitude) }}
+
+{{ form_widget(createObservationForm.photoPath) }}<br/>
+{{ form_errors(createObservationForm.photoPath) }}
+
+{{ form_widget(createObservationForm.Envoyer) }}
+
+{{ form_rest(createObservationForm) }}
 
 {{ form_end(createObservationForm) }}
 

@@ -1,4 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_integration.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('css/addObservation.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-addObservation vertical-center">
+            <div class="container">
+                {#<h1>Avancée de la recherche</h1>#}
+                {#<p>Devenez un scientifique citoyen en participant à l'observation des oiseaux</p>#}
+            </div>
+        </div>
+    </header>
+{% endblock %}
 
 {% block stylesheets %}
     <style>
@@ -50,7 +65,15 @@
     <div id="map" style="height: 900px; width: 100%;"></div> <br>
 
 
+    <div class="container-fluid">
 
+        <div id="map" style="height: 300px;"></div>
+
+        <div class="formulaire">
+        {{ include(':default/dashboard/quickAcces:addObservationForm.html.twig') }}
+        </div>
+
+    </div>
     
 {% endblock %}
 
@@ -111,5 +134,6 @@
         }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNQR3Hw_y1urMSouzdoaVgUESayHjM90g&&callback=initMap" async defer></script>
-
+    <script src="{{ asset('js/observation/observation.js') }}"></script>
+    <script src="{{ asset('js/menu.js') }}"></script>
 {% endblock %}

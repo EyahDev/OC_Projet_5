@@ -1,4 +1,7 @@
 /*----------------------------------------------- Eléments de base ----------------------------------------------- */
+.container-fluid{
+    padding: 0;
+}
 
 .btn {
   display: inline-block;
@@ -154,24 +157,24 @@ margin: .450rem 0 0;
 font-size: 16px;
 }
 
-@media (max-width: 992px) {
-  .navbar-collapse {
-
-    background-color: white;
-  }
-
-  .navbar-nav {
-    padding-left: 50px;
-  }
-
+button:focus {
+    outline: 0 dotted;
+    outline-color: -webkit-focus-ring-color;
+    outline-style: auto;
+    outline-width: 0;
+    outline: 0 auto -webkit-focus-ring-color;
+    outline-color: -webkit-focus-ring-color;
+    outline-style: auto;
+    outline-width: 0;
 }
-
 
 @media (max-width: 420px) {
   #menu.container-fluid{
-  height: 200px;
+  height: 35px;
   justify-content: flex-end !important;
   }
+
+
 
   .dropdown-menu {
   margin: -20px 0 0;
@@ -198,11 +201,14 @@ font-size: 16px;
   }
 
   #mainNav .navbar-toggler {
+      background-color: white;
   font-size: 12px;
   right: 0;
-  padding: 13px;
+  padding: 5px 5px 5px 5px;
+      margin-right: 5px;
+      border: 1px solid white;
+      border-radius: 20px;
   color: #333;
-  border: 0;
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-transform: uppercase; }
 
@@ -213,6 +219,36 @@ font-size: 16px;
   .navbar-nav{
   padding-left: 50px;
   }
+}
+
+@media (max-width: 992px) {
+    .navbar-collapse {
+
+        background-color: white;
+    }
+
+    .navbar-nav {
+        padding-left: 50px;
+    }
+
+    #mainNav .navbar-toggler {
+        background-color: white;
+        font-size: 12px;
+        right: 0;
+        padding: 5px 5px 5px 5px;
+        margin-right: 5px;
+        border: 1px solid white;
+        border-radius: 20px;
+        color: #333;
+        font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        text-transform: uppercase;
+    }
+
+}
+
+#menu.container-fluid {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 @media (min-width: 992px) {
@@ -280,6 +316,10 @@ footer a:hover{
   color: #38A5E0;
 }
 
+footer{
+    margin-top: 80px;
+}
+
 .footer{
   background-color: #222222;
   color: #f9f9f9;
@@ -316,6 +356,10 @@ footer a:hover{
 
 @media (max-width: 420px)
 {
+    footer{
+        margin-top: 30px !important;
+    }
+
   .nav-footer{
     flex-direction: column;
     align-items: center;

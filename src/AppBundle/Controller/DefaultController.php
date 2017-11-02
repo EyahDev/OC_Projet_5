@@ -49,7 +49,7 @@ class DefaultController extends Controller
         }
 
         // replace this example code with whatever you need
-        return $this->render('default_integration/index.html.twig', array(
+        return $this->render('default/index.html.twig', array(
             'contactForm' => $createContact->createView(),
             'users' => $users,
             'observations' => $observations,
@@ -238,7 +238,7 @@ class DefaultController extends Controller
      */
     public function researchAction()
     {
-        return $this->render("default_integration/research.html.twig");
+        return $this->render("default/research.html.twig");
     }
 
     /**
