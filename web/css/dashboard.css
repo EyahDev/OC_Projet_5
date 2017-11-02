@@ -1,0 +1,60 @@
+/*----------------------------------------------- Header ----------------------------------------------- */
+.jumbotron-dashboard img{
+    width : 100%;
+    height : 800px;
+    object-fit: cover;
+}
+
+@media (max-width: 420px) {
+    .jumbotron-dashboard img {
+        height: 200px;
+    }
+}
+
+/*----------------------------------------------- Container dashboard ----------------------------------------------- */
+
+#dashboard.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+#dashboard.container a{
+    font-family: 'Raleway', sans-serif;
+    font-size: 45px;
+    margin-top: 0;
+    Color : #444;
+}
+
+#dashboard.container a{
+    Color : #444;
+    text-decoration: none;
+}
+
+
+
+/*----------------------------------------------- Card ----------------------------------------------- */
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    max-width: 1000px;
+    margin: 10px auto 10px auto;
+    word-wrap: break-word;
+    background-color: white;
+    background-clip: border-box;
+    border: 2px solid black;
+    border-radius: 0;
+}
+
+.card-header {
+    padding: 20px 20px;
+    margin-bottom: 0;
+    background-color: white;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+

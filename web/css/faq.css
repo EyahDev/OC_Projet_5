@@ -5,6 +5,15 @@
     margin-right: 5px;
 }
 
-.nao-header-faq{
-    margin-bottom: 20px
+/*----------------------------------------------- Header ----------------------------------------------- */
+.jumbotron-faq img{
+    width : 100%;
+    height : 800px;
+    object-fit: cover;
+}
+
+@media (max-width: 420px) {
+    .jumbotron-faq img {
+        height: 200px;
+    }
 }
