@@ -80,10 +80,16 @@ class ObservationManager
      */
     public function getObservationsUnvalidated() {
         // Récupération de toutes observations existantes
-        $observation = $this->em->getRepository('AppBundle:Observation')->findBy(array('validate' => null));
+        $observations = $this->em->getRepository('AppBundle:Observation')->findBy(array('validate' => null));
+        // récupère le service knp paginator
+        $paginator  = $this->container->get('knp_paginator');
+        // retourne les observations paginées selon la page passée en get
+        return $paginator->paginate(
+            $observations, /* query NOT result */
+            $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
+            2/*limit per page*/
+        );
 
-        // Retourne toutes les observations
-        return $observation;
     }
 
     /**
@@ -351,7 +357,7 @@ class ObservationManager
         $paginator  = $this->container->get('knp_paginator');
         // retourne les observations paginées selon la page passée en get
         return $paginator->paginate(
-            $observationList/*$query*/, /* query NOT result */
+            $observationList, /* query NOT result */
             $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
             10/*limit per page*/
         );

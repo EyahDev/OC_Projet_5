@@ -145,4 +145,21 @@ class ObservationController extends Controller
         }
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
+
+    /**
+     * @param Request $request
+     * @param ObservationManager $observationManager
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/dashboard/observationsValidation/pagination", name="pagination_observations_validation")
+     */
+    public function paginationObservationsValidationAction(Request $request, ObservationManager $observationManager)
+    {
+        if($request->isXmlHttpRequest()) {
+            $observations = $observationManager->getObservationsUnvalidated();
+            return $this->render('default/dashboard/commonFeatures/ObservationsValidation/paginatedTable.html.twig', array(
+                'observations' => $observations
+            ));
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
 }
