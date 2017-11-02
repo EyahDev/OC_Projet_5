@@ -168,25 +168,6 @@ button:focus {
     outline-width: 0;
 }
 
-@media (max-width: 992px) {
-  .navbar-collapse {
-
-    background-color: white;
-  }
-
-  .navbar-nav {
-    padding-left: 50px;
-  }
-
-}
-
-#menu.container-fluid {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-
-
 @media (max-width: 420px) {
   #menu.container-fluid{
   height: 35px;
@@ -238,6 +219,36 @@ button:focus {
   .navbar-nav{
   padding-left: 50px;
   }
+}
+
+@media (max-width: 992px) {
+    .navbar-collapse {
+
+        background-color: white;
+    }
+
+    .navbar-nav {
+        padding-left: 50px;
+    }
+
+    #mainNav .navbar-toggler {
+        background-color: white;
+        font-size: 12px;
+        right: 0;
+        padding: 5px 5px 5px 5px;
+        margin-right: 5px;
+        border: 1px solid white;
+        border-radius: 20px;
+        color: #333;
+        font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        text-transform: uppercase;
+    }
+
+}
+
+#menu.container-fluid {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 @media (min-width: 992px) {
