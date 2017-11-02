@@ -32,7 +32,9 @@ class UserFixtures extends Fixture
             ->setSalt(substr(md5(time()), 0, 23))
             ->setProPermission(false)
             ->setNewsletter(false)
-            ->setSignupDate(new \DateTime());
+            ->setSignupDate(new \DateTime())
+            ->setAvatarPath("img/default/avatar_default.png");
+
         $manager->persist($admin);
         $this->addReference('admin', $admin);
 
@@ -48,7 +50,9 @@ class UserFixtures extends Fixture
             ->setSalt(substr(md5(time()), 0, 23))
             ->setProPermission(false)
             ->setNewsletter(false)
-            ->setSignupDate(new \DateTime());
+            ->setSignupDate(new \DateTime())
+            ->setAvatarPath("img/default/avatar_default.png");
+
         $manager->persist($pro);
         $this->addReference('pro', $pro);
 
@@ -63,7 +67,8 @@ class UserFixtures extends Fixture
             ->setSalt(substr(md5(time()), 0, 23))
             ->setProPermission(false)
             ->setNewsletter(false)
-            ->setSignupDate(new \DateTime());
+            ->setSignupDate(new \DateTime())
+            ->setAvatarPath("img/default/avatar_default.png");
 
         $manager->persist($user);
 
