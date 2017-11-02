@@ -1,6 +1,27 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_integration.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-dashboard vertical-center">
+            <div class="container-fluid">
+                <img src="{{ asset('img/dashboard/image-header.png') }}">
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
 
 {% block body %}
+    <div id="dashboard" class="container">
     {% if app.user.enabled == true %}
         <h2>Tableau de bord</h2>
         {% for message in app.session.flashbag.get('notice') %}
@@ -8,7 +29,7 @@
                 {{ message }}
             </div>
         {% endfor %}
-        <div id="quickAccess" class="text-center">
+        <div id="quickAccess" class="container">
             <h3>Accès rapide</h3>
 
             <p><a class="btn btn-primary" id="buttonSaisieRapide" href="{{ path('saisieObservation') }}" role="button" data-toggle="modal" data-target="#saisieObservation" >Saisie d'une observation</a></p>
@@ -33,7 +54,7 @@
         </div>
 
         {# accordéon particulier et professionnel #}
-        <div id="commonFeatures" class="text-center">
+        <div id="commonFeatures" class="container">
             <div id="accordionUserAndPro" role="tablist">
                 {# collapse mes informations #}
                 <div class="card">
@@ -125,7 +146,7 @@
         {# partie accessible uniquement avec un role admin #}
         {% if is_granted('ROLE_ADMIN') %}
             {# accordéon gestion du blog #}
-            <div id="blogManagement" class="text-center">
+            <div id="blogManagement" class="container">
                 <h3>Gestion du blog</h3>
                 <div id="accordionBlogManagement" role="tablist">
                     {# collapse Rédiger un article #}
@@ -192,7 +213,7 @@
                 </div>
             </div>
             {# accordéon administration du site #}
-            <div id="websiteAdministration" class="text-center">
+            <div id="websiteAdministration" class="container">
             <h3>Administration du site</h3>
             <div id="accordionWebsiteAdministration" role="tablist">
                 {# collapse Gestion des utilsateurs #}
@@ -233,6 +254,7 @@
             Compte desactivé : contactez nous ou créez un nouveau compte
         </div>
     {% endif %}
+    </div>
 {% endblock %}
 {% block javascripts %}
 <script>
@@ -289,5 +311,5 @@
 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNQR3Hw_y1urMSouzdoaVgUESayHjM90g&&callback=initMap" async defer></script>
+    <script src="{{ asset('js/menu.js') }}"></script>
 {% endblock %}
-

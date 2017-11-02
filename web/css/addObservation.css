@@ -3,7 +3,7 @@
     background: url(../img/observation/image-header.png) 0 0 no-repeat;
     background-position: right;
     background-size: contain;
-    height: 600px;
+    height: 800px;
     Color : #444;
     margin-left: auto;
     margin-right: auto;
@@ -178,7 +178,7 @@ select.form-control {
 
 .custom-dropdown::after { /*  Custom dropdown arrow */
     content: "";
-    background: url(img/observation/icone-open-list.png);
+    background: url(../img/observation/icone-open-list.png);
     background-size: contain;
     background-repeat: no-repeat;
     height: 14px;

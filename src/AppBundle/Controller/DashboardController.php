@@ -197,7 +197,7 @@ class DashboardController extends Controller
         /* Gestion des utilisateurs*/
         $usersList = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
 
-        return $this->render("default/dashboard.html.twig", array(
+        return $this->render("default_integration/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),
             'categoriesList' => $categoriesList,
             'createCategoryQuickly' => $createCategoryQuickly->createView(),

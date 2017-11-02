@@ -8,11 +8,8 @@
 
 {% block header %}
     <header>
-        <div class="jumbotron-index vertical-center">
-            <img class="logo-mobile" src="{{ asset('img/logo-pour-mobile.png') }}" alt="logo-nao-mobile">
-            <div class="container">
-                <h1>FAQ</h1>
-            </div>
+        <div class="jumbotron-faq vertical-center">
+            <img class="logo-mobile" src="{{ asset('img/faq/image-header.jpg') }}" alt="logo-nao-mobile">
         </div>
         <div class="nao-header-align-left">
             <div class="nao-header nao-header-faq">
@@ -25,13 +22,15 @@
 
 {% block body %}
     {% for item in faq %}
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title">
-                    {{ item.question }}
-                </h3>
-                <div class="card-text">
-                    {{ item.answer }}
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        {{ item.question }}
+                    </h3>
+                    <div class="card-text">
+                        {{ item.answer }}
+                    </div>
                 </div>
             </div>
         </div>
