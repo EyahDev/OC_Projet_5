@@ -1,17 +1,43 @@
-{% if app.user.observations|length != 0 %}
-<div class="table-responsive-vertical shadow-z-1">
-    <table class="table table-hover table-mc-default">
-        <thead>
-        <tr>
-            <th>Espèces observées</th>
-            <th>Date d'observation</th>
-            <th>Statut</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for observation in app.user.observations %}
+<div class="pagination-table-my-observations">
+    <div class="table-responsive-vertical shadow-z-1">
+        <table class="table table-hover table-mc-default">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Espèces observées</th>
+                <th>Date d'observation</th>
+                <th>Statut</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for observation in currentUserObservations %}
                 <tr>
+                    <td>
+                        <a href="" data-toggle="modal" data-target="#observation{{ observation.id }}DetailModal">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="observation{{ observation.id }}DetailModal" tabindex="-1" role="dialog" aria-labelledby="observation{{ observation.id }}DetailModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="observation{{ observation.id }}DetailModalLabel">Détails de l'obersevation</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {% include('default/dashboard/ObservationManagement/ObservationDetail.html.twig') %}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
                     <td data-title="Espèces observées">
                         {% if observation.species != null %}
                             {{ observation.species.referenceName }}
@@ -26,11 +52,11 @@
                         {% if observation.validate is same as(true) %}
                             <a href="" style="color: green" data-toggle="modal" data-target="#statusDetail{{ loop.index }}"><i  class="fa fa-check" aria-hidden="true"></i> Validée</a>
 
-                            <div class="modal fade" id="statusDetail{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="statusDetail{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="statusDetail{{ loop.index }}Label" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Détail du statut</h5>
+                                            <h5 class="modal-title" id="statusDetail{{ loop.index }}Label">Détail du statut</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -90,15 +116,44 @@
                         {% endif %}
                     </td>
                     {% if observation.editObservation is same as(null) %}
-                        <td data-title="Action"><a href="{{path('modify-observation', {'id': observation.id }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                        <td data-title="Action">
+                            <a href="{{path('modify-observation', {'id': observation.id }) }}" class="btn-edit-current-user-observation" style="color: green" data-toggle="modal" data-target="#modifyObservationModal{{ observation.id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+
+                            <div class="modal fade" id="statusDetail{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="statusDetail{{ loop.index }}Label" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="statusDetail{{ loop.index }}Label">Détail du statut</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {% if observation.validationComment != null %}
+                                                <p>Commentaire du validateur :</p>
+                                                <p>{{ observation.validationComment }}</p>
+                                            {% else %}
+                                                <p>Le validateur n'a laissé aucun commentaire.</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
                     {% else %}
                         <td data-title="Action">Aucune action possible</td>
                     {% endif %}
                 </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+    {# div englobant le paginator et contenant la route à prendre pour la requete Ajax de pagination#}
+    <div id="paginationMyObservations" url="{{ path('pagination_my_observations') }}" class="row">
+        {# display navigation #}
+        <div class="navigation mx-auto">
+            {{ knp_pagination_render(currentUserObservations) }}
+        </div>
+    </div>
 </div>
-{% else %}
-    Vous n'avez réalisé aucune observation pour le moment.
-{% endif %}

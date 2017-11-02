@@ -1,0 +1,8 @@
+<div class="mx-auto" id="flashMsgMyObservations">
+
+</div>
+{% if app.user.observations|length != 0 %}
+    {% include('default/dashboard/commonFeatures/myObservations/paginatedTable.html.twig') %}
+{% else %}
+    <p>Vous n'avez réalisé aucune observation pour le moment.</p>
+{% endif %}

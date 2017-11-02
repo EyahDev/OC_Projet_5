@@ -11,15 +11,15 @@
         <div id="quickAccess" class="text-center">
             <h3>Accès rapide</h3>
 
-            <p><a class="btn btn-primary" id="buttonSaisieRapide" href="{{ path('saisieObservation') }}" role="button" data-toggle="modal" data-target="#saisieObservation" >Saisie d'une observation</a></p>
+            <p><a class="btn btn-primary" id="buttonSaisieRapide" href="{{ path('saisieObservation') }}" role="button" data-toggle="modal" data-target="#saisieObservationModal" >Saisie d'une observation</a></p>
 
 
             <!-- Modal -->
-            <div class="modal fade" id="saisieObservation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="saisieObservationModal" tabindex="-1" role="dialog" aria-labelledby="saisieObservationModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Saisie rapide d'une observation</h5>
+                            <h5 class="modal-title" id="saisieObservationModalLabel">Saisie rapide d'une observation</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -62,7 +62,7 @@
                     </div>
                     <div id="collapseMyObservations" class="collapse" role="tabpanel" aria-labelledby="headingMyObservations" data-parent="#accordionUserAndPro">
                         <div class="card-body">
-                            {% include 'default/dashboard/commonFeatures/myObservations.html.twig' %}
+                            {% include 'default/dashboard/commonFeatures/myObservations/myObservations.html.twig' %}
                         </div>
                     </div>
                 </div>
