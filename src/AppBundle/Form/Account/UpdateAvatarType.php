@@ -40,6 +40,6 @@ class UpdateAvatarType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_user';
+        return 'update_user_avatar';
     }
 }

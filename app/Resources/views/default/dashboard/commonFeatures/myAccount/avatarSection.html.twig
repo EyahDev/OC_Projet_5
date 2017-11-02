@@ -1,0 +1,24 @@
+{# Avatar de l'utilisateur #}
+<div class="well update-avatar-section">
+    {{ form_start(avatarForm, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {# Les erreurs générales du formulaire. #}
+    {{ form_errors(avatarForm) }}
+
+    <div class="row justify-content-sm-center">
+        <img style="height: 150px" src="{{ asset(app.user.avatarPath) }}" alt="{{ app.user.username }}" >
+    </div>
+
+    <div class="form-group row justify-content-sm-center">
+        <div class="col-sm-6">
+            {{ form_widget(avatarForm.avatarPath) }}
+        </div>
+        <div class="col-sm-2">
+            {{ form_widget(avatarForm.save, {'label': 'Modifier',
+                'attr': {'class': 'btn btn-primary btn-user-update-avatar',
+                    'url': path('edit_user_avatar')}}) }}
+        </div>
+    </div>
+
+    {{ form_end(avatarForm) }}
+</div>

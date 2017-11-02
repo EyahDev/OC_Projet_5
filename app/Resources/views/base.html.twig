@@ -49,7 +49,7 @@
                         {% else %}
                             <li class="nav-item dropdown">
                                 <div class="btn-group">
-                                    <a class="nav-link js-scroll-trigger" href="{{ path("dashboard") }}">Dashboard</a>
+                                    <a class="nav-link js-scroll-trigger" href="{{ path("dashboard") }}">{{ app.user.username }}</a>
                                     <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -155,6 +155,8 @@
         <script src="{{asset('tinyMCE/jquery.tinymce.min.js')}}"></script>
         <script src="{{asset('tinyMCE/tinymce.js')}}"></script>
         <script src="{{asset('js/custom.js')}}"></script>
+        <script src="{{asset('SideBarTest/jquery.sidebar.min.js')}}"></script>
+
 
 
         {#Custom scripts for the website#}
@@ -162,6 +164,8 @@
         <script src="{{ asset('js/faq/faq.js') }}"></script>
         <script src="{{ asset('js/myAccount/myAccount.js') }}"></script>
         <script src="{{ asset('js/userManagement/userManagement.js') }}"></script>
+        <script src="{{ asset('js/Observations/myObservations.js') }}"></script>
+
         {% block javascripts %}{% endblock %}
 
     </body>

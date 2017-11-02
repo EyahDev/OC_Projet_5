@@ -79,6 +79,7 @@ class DefaultController extends Controller
             // select default user role
             $user->setRoles($role);
             $user->setSignupDate(new \DateTime());
+            $user->setAvatarPath("img/default/avatar_default.png");
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('dashboard');

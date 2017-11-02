@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-sm-11">
+        <img style="max-width: 100%"
+             src="{{ asset(observation.photoPath) }}"
+             alt="{% if observation.species != null %}{{ observation.species.vernacularName }} {% else %}Espece inconnu{% endif %}">
+    </div>
+    <div>
+        <div >
+            <p> Espèces : {% if observation.species != null %}{{ observation.species.vernacularName }} {% else %}Espece inconnu{% endif %} </p>
+            <p> Nombre d'oiseaux : {{ observation.birdNumber}}</p>
+            <p> Nombre d'oeufs : {% if observation.eggsNumber != null %}{{ observation.eggsNumber }} {% else %}Aucun observé{% endif %}</p>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div>
+        <div>
+            <p>Description des oeufs</p>
+            <p>
+                {% if observation.eggsDescription != null %}
+                    {{ observation.eggsDescription }}
+                {% else %}
+                    Aucune description
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row d-flex justify-content-around">
+    <div>
+        <p>Latitude:: {{ observation.latitude}}</p>
+
+        <p>Longitude : {{ observation.longitude}}</p>
+
+        <p>Altitude : {{ observation.altitude}}</p>
+    </div>
+    <div>
+        <p> Commentaire d'observation </p>
+        <p> {{ observation.observationDescription}}</p>
+    </div>
+</div>

@@ -18,7 +18,6 @@ class Observation
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Species", inversedBy="observations")
      * @ORM\JoinColumn(nullable=true)
-     * @CustomAssert\AddObservation\ContainsSpecies()
      */
     private $species;
 
@@ -122,10 +121,6 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="altitude", type="string", length=255, nullable=true)
-     * @Assert\Regex(
-     *     pattern="/^[0-9]{1,4}m$/",
-     *     message="Veuillez saisir une altitude valide."
-     * )
      */
     private $altitude;
 

@@ -29,26 +29,6 @@ class DashboardController extends Controller
         /* Utilisateurs */
         $user = $this->getUser();
 
-        // Récupération du formulaire pour la modification de l'avatar
-        $avatarForm = $accountManager->getFormUpdateAvatar($user);
-
-        // Récupération du fichier existant
-        $existingFile = $avatarForm->getData()->getAvatarPath();
-
-        // Hydratation des valeurs
-        $avatarForm->handleRequest($request);
-
-        // Soumission du formulaire
-        if ($avatarForm->isSubmitted() && $avatarForm->isValid()) {
-            // Récupération des données
-            $newAvatar = $avatarForm->getData();
-
-            // mise à jour de l'avatar
-            $accountManager->updateAvatar($newAvatar, $existingFile);
-
-            // Redirection vers le dashboard
-            return $this->redirectToRoute('dashboard');
-        }
 
         /* Accès rapide */
 
@@ -188,11 +168,22 @@ class DashboardController extends Controller
 
 
         /* Mes informations */
+
+        // Récupération du formulaire pour la modification du nom
         $updateUserNameForm = $accountManager->getFormUpdateName($user);
+        // Récupération du formulaire pour la modification du prénom
         $updateUserFirstNameForm = $accountManager->getFormUpdateFirstName($user);
+        // Récupération du formulaire pour la modification de l'adresse
         $updateUserLocationForm = $accountManager->getFormAddLocation($user);
+        // Récupération du formulaire pour la modification de l'inscription à la newsletter
         $updateUserNewsletterForm = $accountManager->getFormUpdateNewsletter($user);
+        // Récupération du formulaire pour la modification du mot de passe
         $updateUserPasswordForm = $accountManager->getFormUpdatePassword();
+        // Récupération du formulaire pour la modification de l'avatar
+        $avatarForm = $accountManager->getFormUpdateAvatar($user);
+
+        /* Mes observations*/
+        $currentUserObservations = $observationManager->getCurrentUserPaginatedObservationsList($user);
 
         /* Gestion des utilisateurs*/
         $usersList = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
@@ -218,7 +209,8 @@ class DashboardController extends Controller
             'updateUserLocationForm' => $updateUserLocationForm->createView(),
             'updateUserNewsletterForm' => $updateUserNewsletterForm->createView(),
             'updateUserPasswordForm' => $updateUserPasswordForm->createView(),
-            'avatarForm' => $avatarForm->createView()
+            'avatarForm' => $avatarForm->createView(),
+            'currentUserObservations' => $currentUserObservations,
 
         ));
     }
