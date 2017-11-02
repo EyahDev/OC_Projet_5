@@ -30,6 +30,6 @@ class ModifObservationByObserverType extends AbstractType
                 'data_class' => null,
                 'required' => false
             ))
-            ->add('Modifier', SubmitType::class);
+            ->add('save', SubmitType::class);
     }
 }

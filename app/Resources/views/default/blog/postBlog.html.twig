@@ -4,7 +4,7 @@
     <header>
         <div class="jumbotron-post vertical-center">
             <div class="container-fluid">
-                <img class="img-fluid" src="{{ asset(post.imagePath) }}" alt="{{ post.title }}">
+                <img src="{{ asset(post.imagePath) }}" alt="{{ post.title }}">
             </div>
         </div>
         <div class="nao-header-align-left">
@@ -27,7 +27,7 @@
                 <p><i class="fa fa-comments" aria-hidden="true"></i> {{ post.comments|length }}</p>
             </div>
 
-            {{ post.content|purify }} <br/><br/>
+            {{ post.content|purify }}
         </section>
         <section class="rightMenu">
             {% include "default/blog/rightMenuBlog.html.twig" %}
@@ -48,7 +48,5 @@
             {% include "default/blog/comments/comments.html.twig" %}
         </section>
     </div>
-
-
 {% endblock %}
 
