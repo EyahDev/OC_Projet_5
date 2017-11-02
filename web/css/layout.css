@@ -1,4 +1,7 @@
 /*----------------------------------------------- Eléments de base ----------------------------------------------- */
+.container-fluid{
+    padding: 0;
+}
 
 .btn {
   display: inline-block;
@@ -177,6 +180,12 @@ button:focus {
 
 }
 
+#menu.container-fluid {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
 
 @media (max-width: 420px) {
   #menu.container-fluid{
@@ -184,12 +193,7 @@ button:focus {
   justify-content: flex-end !important;
   }
 
-    span.navbar-toggler-icon{
-        background-color: white !important;
-        padding: 10px;
-        border: 1px solid white;
-        border-radius:15px;
-    }
+
 
   .dropdown-menu {
   margin: -20px 0 0;
@@ -216,11 +220,14 @@ button:focus {
   }
 
   #mainNav .navbar-toggler {
+      background-color: white;
   font-size: 12px;
   right: 0;
-  padding: 13px 13px 0 13px;
+  padding: 5px 5px 5px 5px;
+      margin-right: 5px;
+      border: 1px solid white;
+      border-radius: 20px;
   color: #333;
-  border: 0;
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-transform: uppercase; }
 

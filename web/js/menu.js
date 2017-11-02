@@ -38,3 +38,14 @@
     $("#mainNav").addClass("navbar-shrink");
 
 })(jQuery); // End of use strict
+
+$(document).ready(function(){
+    $('.navbar-toggler').click(function() {
+        if($("#menu").css('background-color') == 'rgb(255, 255, 255)') {
+            $("#menu").css('background-color', 'transparent');
+        }
+        else{
+            $("#menu").css('background-color', 'white');
+        }
+    });
+});

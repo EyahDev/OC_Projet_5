@@ -33,7 +33,7 @@ class CreateObservationType extends AbstractType
                 'constraints' => array(
                     new ContainsSpecies()
                 ),
-                'required' => false
+                'required' => false,
             ))
             ->add('vernacularName', EntityType::class, array(
                 'label' => 'Ou Nom commun *',
