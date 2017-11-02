@@ -260,17 +260,12 @@ class ObservationManager
         // Récupération du nouveau fichier
         $newFile = $observation->getPhotoPath();
 
-<<<<<<< HEAD
-        if ($newFile != null) {
-            if ($existingFile != 'img/default/observation_default.png') {
-=======
         if ($newFile == null) {
             // Ajout de l'image par défault
             $observation->setPhotoPath($existingFile);
 
         } else {
-            if ($existingFile != 'img/default/category_default.png') {
->>>>>>> 4b072487b35aab99fb80995e711176b25b72d74d
+            if ($existingFile != 'img/default/observation_default.png') {
                 // Suppression de l'ancienne photo
                 $this->filesystem->remove(array($existingFile));
             }
