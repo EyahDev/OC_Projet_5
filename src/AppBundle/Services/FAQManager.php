@@ -29,7 +29,9 @@ class FAQManager
      * @param SessionInterface $session
      * @param ValidatorInterface $validator
      */
-    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em, RequestStack $request, SessionInterface $session,   ValidatorInterface $validator, ContainerInterface $container) {
+    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
+                                RequestStack $request, SessionInterface $session,
+                                ValidatorInterface $validator, ContainerInterface $container) {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;

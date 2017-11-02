@@ -10,6 +10,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ObservationManager
 {
@@ -19,6 +20,7 @@ class ObservationManager
     private $session;
     private $container;
     private $filesystem;
+    private $validator;
 
     /**
      * ObservationManager constructor.
@@ -27,16 +29,20 @@ class ObservationManager
      * @param RequestStack $request
      * @param SessionInterface $session
      * @param ContainerInterface $container
+     * @param Filesystem $filesystem
+     * @param ValidatorInterface $validator
      */
     public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
                                 RequestStack $request, SessionInterface $session,
-                                ContainerInterface $container, Filesystem $filesystem) {
+                                ContainerInterface $container, Filesystem $filesystem,
+                                ValidatorInterface $validator) {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
         $this->session = $session;
         $this->container = $container;
         $this->filesystem = $filesystem;
+        $this->validator = $validator;
     }
     
     public function validatedObservationsByUser($user) {
@@ -186,7 +192,11 @@ class ObservationManager
         // Récupération du nouveau fichier
         $newFile = $observation->getPhotoPath();
 
-        if ($newFile != null) {
+        if ($newFile == null) {
+            // Ajout de l'image par défault
+            $observation->setPhotoPath($existingFile);
+
+        } else {
             if ($existingFile != 'img/default/category_default.png') {
                 // Suppression de l'ancienne photo
                 $this->filesystem->remove(array($existingFile));
@@ -343,7 +353,19 @@ class ObservationManager
         return $paginator->paginate(
             $observationList/*$query*/, /* query NOT result */
             $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
-            2/*limit per page*/
+            10/*limit per page*/
         );
+    }
+    public function validateObservation(Observation $observation)
+    {
+        $errors = $this->validator->validate($observation);
+        if (count($errors) > 0) {
+            $errorsString = "";
+            foreach ($errors as $error) {
+                $errorsString .=$error->getmessage().'<br>';
+            }
+            return $errorsString;
+        }
+        return true;
     }
 }
