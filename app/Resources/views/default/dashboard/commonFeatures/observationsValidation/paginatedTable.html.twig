@@ -1,19 +1,19 @@
-{% if observations|length != 0  %}
-<div class="table-responsive-vertical shadow-z-1">
-    <table id="table" class="table table-hover table-mc-default">
-        <thead>
-        <tr>
-            <th>Espèce observée</th>
-            <th>Photo</th>
-            <th>Date d'observation</th>
-            <th>Détail</th>
-        </tr>
-        </thead>
-        <tbody>
+<div class="pagination-table-observations-validation">
+    <div class="table-responsive-vertical shadow-z-1">
+        <table id="table" class="table table-hover table-mc-default">
+            <thead>
+            <tr>
+                <th>Espèce observée</th>
+                <th>Photo</th>
+                <th>Date d'observation</th>
+                <th>Détail</th>
+            </tr>
+            </thead>
+            <tbody>
             {% for observation in observations %}
                 <tr>
                     <td datatype="Espèces observées">
-                    {% if observation.species != null %}
+                        {% if observation.species != null %}
                         {{ observation.species.referenceName }}</td>
                     {% else %}
                         Espece inconnu
@@ -26,7 +26,7 @@
                             <div class="modal fade" id="photoModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
-                                        <img style="width: 800px; margin-left: auto; margin-right: auto"
+                                        <img style="max-width: 800px; margin-left: auto; margin-right: auto"
                                              src="{{ asset(observation.photoPath) }}"
                                              alt="{% if observation.species != null %}{{ observation.species.vernacularName }} {% else %}Espece inconnu{% endif %}">
                                     </div>
@@ -38,9 +38,14 @@
                     <td datatype="Détail"><a href="{{ path('observation-detail', {'id' : observation.id }) }}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                 </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+    {# div englobant le paginator et contenant la route à prendre pour la requete Ajax de pagination#}
+    <div id="paginationObservationsValidation" url="{{ path('pagination_observations_validation') }}" class="row">
+        {# display navigation #}
+        <div class="navigation mx-auto">
+            {{ knp_pagination_render(observations) }}
+        </div>
+    </div>
 </div>
-{% else %}
-    Aucune observation n'est en attente de validation pour l'instant, revenez plus tard.
-{% endif %}
