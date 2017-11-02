@@ -15,7 +15,7 @@
     {% else %}
         Charger une autre photo remplacera la photo actuelle : <br/>
         <img style="width: 400px" src="{{ asset(modifyObservationForm.vars.value.photoPath) }}"
-             alt="{% if modifyObservationForm.vars.value.species.referenceName == null%} {{ modifyObservationForm.vars.value.species.referenceName }} {% else %}Espèce inconue{% endif %}"><br/>
+             alt="{% if modifyObservationForm.vars.value.species != null %} {{ modifyObservationForm.vars.value.species.referenceName }} {% else %}Espèce inconnue{% endif %}"><br/>
     {% endif %}
 
     {{ form_label(modifyObservationForm.photoPath) }}<br/>

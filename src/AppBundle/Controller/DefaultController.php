@@ -101,29 +101,24 @@ class DefaultController extends Controller
         }
 
         // Récupération des formulaires de recherche
-        $searchByReferenceNameForm = $maps->searchObservationsByReferenceNameForm();
-        $searchVernacularForm = $maps->searchObservationsByVernacularForm();
-        $searchByType = $maps->searchObservationsByTypeForm();
-        $searchByFamily = $maps->searchObservationsByFamilyForm();
+        $searchObservationForm = $maps->searchObservationsForm();
 
-        // Hydration avec les valeurs du formulaire
-        $searchByReferenceNameForm->handleRequest($request);
-        $searchVernacularForm->handleRequest($request);
-        $searchByType->handleRequest($request);
-        $searchByFamily->handleRequest($request);
+        //Hydratation des valeurs
+        $searchObservationForm->handleRequest($request);
 
         // Soumission des différents formulaires
-        if ($searchByReferenceNameForm->isSubmitted() && $searchByReferenceNameForm->isValid()) {
+        if ($searchObservationForm->isSubmitted() && $searchObservationForm->isValid()) {
 
             // Récupération du critère de recherche
-            $criteria = $searchByReferenceNameForm->getData();
+            $criteria = $searchObservationForm->getData();
 
             // Récupération du résultat
-            $result = $maps->searchObservationsBySpecies($criteria);
+            $result = $maps->searchObservations($criteria);
 
+            dump(empty($result));
             // Vérification si il y a un résultat
             if (empty($result)) {
-                $session->getFlashBag()->add('notice', 'Votre recherche ne donne aucun résultat');
+                $session->getFlashBag()->add('notice', 'Votre recherche ne donne aucun résultat, vous pouvez affiner avec la recherche avancée');
                 return $this->redirectToRoute('rechercheObservations');
             }
 
@@ -133,72 +128,7 @@ class DefaultController extends Controller
             // Passage de la variable de session à true suite à la recherche
             $session->set('search', true);
 
-            return $this->redirectToRoute('rechercheObservations');
-        }
-
-        if ($searchVernacularForm->isSubmitted() && $searchVernacularForm->isValid()) {
-            // Récupération du critère de recherche
-            $criteria = $searchVernacularForm->getData();
-
-            // Récupération du résultat
-            $result = $maps->searchObservationsByVernacular($criteria);
-
-            // Vérification si il y a un résultat
-            if (empty($result)) {
-                $session->getFlashBag()->add('notice', 'Votre recherche ne donne aucun résultat');
-            }
-
-            // Création des markers maps
-            $maps->createMarkersXML($result);
-
-            // Passage de la variable de session à true suite à la recherche
-            $session->set('search', true);
-
-            return $this->redirectToRoute('rechercheObservations');
-        }
-
-        if ($searchByType->isSubmitted() && $searchByType->isValid()) {
-            // Récupération du critère de recherche
-            $criteria = $searchByType->getData();
-
-            // Récupération du résultat
-            $result = $maps->searchObservationsByType($criteria);
-
-            dump($result);
-
-            // Vérification si il y a un résultat
-            if (empty($result)) {
-                $session->getFlashBag()->add('notice', 'Votre recherche ne donne aucun résultat');
-                return $this->redirectToRoute('rechercheObservations');
-            }
-
-            // Création des markers maps
-            $maps->createMarkersXML($result);
-
-            // Passage de la variable de session à true suite à la recherche
-            $session->set('search', true);
-
-            return $this->redirectToRoute('rechercheObservations');
-        }
-
-        if ($searchByFamily->isSubmitted() && $searchByFamily->isValid()) {
-
-            $criteria = $searchByFamily->getData();
-
-            $result = $maps->searchObservationsByFamily($criteria);
-
-            // Vérification si il y a un résultat
-            if (empty($result)) {
-                $session->getFlashBag()->add('notice', 'Votre recherche ne donne aucun résultat');
-                return $this->redirectToRoute('rechercheObservations');
-            }
-
-            $maps->createMarkersXML($result);
-
-            // Passage de la variable de session à true suite à la recherche
-            $session->set('search', true);
-
-            return $this->redirectToRoute('rechercheObservations');
+            return $this->redirectToRoute('rechercheObservations', array('results' => $result));
         }
 
         // Passage de la variable de session à false suite aucune recherche
@@ -206,10 +136,7 @@ class DefaultController extends Controller
 
         return $this->render("default/searchObservations.html.twig",
             array(
-                'searchReferenceNameForm' => $searchByReferenceNameForm->createView(),
-                'searchVernacularNameForm' => $searchVernacularForm->createView(),
-                'searchTypeForm' => $searchByType->createView(),
-                'searchFamilyForm' => $searchByFamily->createView(),
+                'searchObservationForm' => $searchObservationForm->createView()
             ));
     }
 

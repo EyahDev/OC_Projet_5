@@ -1,4 +1,171 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_integration.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        /* Global */
+        .container-fluid {
+            padding: 0;
+        }
+
+        .sidebars {
+            position: relative;
+        }
+
+        #controls {
+            color: white;
+            background-color: white;
+            border-radius: 0 0 10px 10px;
+            -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
+            box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
+            padding: 10px;
+        }
+
+        /* Maps */
+        #map {
+            height: 1000px;
+            width: 100%;
+        }
+
+        /* Résultat de la recherche */
+
+        .result-sidebar {
+            margin-top: 625px;
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 50%;
+            background: transparent;
+        }
+
+        .headerResult {
+            margin-right: 15px;
+            background-color: white;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+            -webkit-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
+            -moz-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
+            box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
+            margin-left: 3px;
+            height: 350px;
+            padding: 10px;
+        }
+
+        .contentResult {
+            background-color: white;
+            -webkit-box-shadow: inset 0 0 10px -1px rgba(48,48,48,1);
+            -moz-box-shadow: inset 0 0 10px -1px rgba(48,48,48,1);
+            box-shadow: inset 0 0 10px -1px rgba(48,48,48,1);
+            margin-left: 25px;
+            height: 250px;
+            width: 78%;
+            padding: 10px;
+            overflow: auto;
+        }
+
+        .iconResults {
+            height: 20px;
+        }
+
+        .logoResultResearch {
+            height: 40px;
+        }
+
+        /* Recherche */
+
+        .research-sidebar {
+            margin-top: 15px;
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 40%;
+            background: transparent;
+        }
+
+        .headerResearch {
+            margin-right: 15px;
+            background-color: white;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+            -webkit-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
+            -moz-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
+            box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
+            margin-top: 25px;
+            margin-left: 3px;
+            min-height: 150px;
+            padding: 10px;
+        }
+
+        /* Marker Maps */
+
+        .contentMarker {
+            background-color: white;
+            -webkit-box-shadow: inset 0 0 10px -1px rgba(48,48,48,1);
+            -moz-box-shadow: inset 0 0 10px -1px rgba(48,48,48,1);
+            box-shadow: inset 0 0 10px -1px rgba(48,48,48,1);
+            height: 440px;
+            width: 96%;
+            padding: 10px;
+        }
+
+        .maps {
+            margin-right: 15px;
+            background-color: white;
+            border: 1px solid lightgray;
+            border-radius: 10px;
+            -webkit-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
+            -moz-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
+            box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
+            margin-left: 3px;
+            width: 450px;
+            height: 460px;
+            padding: 10px;
+        }
+
+        .image {
+            width: 35%;
+            height: 150px;
+            border: 1px solid lightgray;
+        }
+
+        .textMarker {
+            padding: 10px;
+        }
+
+        .signatureObservation {
+            margin-top: 30px;
+            text-align: right;
+        }
+
+        .firstTextMarker {
+            margin-top: 0;
+        }
+
+        .descriptionObservationMarker {
+            min-height: 54px;
+        }
+    </style>
+{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-blog vertical-center">
+            <div class="container-fluid">
+                <img class="img-fluid" src="{{ asset('img/blog/image-du-blog.jpg') }}">
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
 
 {% block body %}
     {% for message in app.session.flashbag.get('notice') %}
@@ -6,109 +173,169 @@
             {{ message }}
         </div>
     {% endfor %}
+    <div class="container-fluid">
+        <div class="sidebars">
+            <div class="research-sidebar">
+                <div class="headerResearch">
+                    <div>
+                        <p>Recherche d'une observation</p>
+                        <div>
+                            {{ form_start(searchObservationForm) }}
+                            {{ form_errors(searchObservationForm) }}
 
-    <div>
-        <div style="width: 48%; display: inline-block; margin-right: 25px;">
-            <hr>
-                Recherche par nom scientifique
-            <hr>
+                            {{ form_label(searchObservationForm.vernacular) }}
+                            {{ form_widget(searchObservationForm.vernacular) }}
+                            <a href="" class="ml-auto" data-toggle="collapse" data-target='#advancedResearch'>recherche avancée</a>
 
-            {{ form_start(searchReferenceNameForm) }}
-            {{ form_errors(searchReferenceNameForm) }}
-            {{ form_end(searchReferenceNameForm) }}
+                            <br>
+                            <div id="advancedResearch" class="collapse">
+                                {{ form_label(searchObservationForm.reference) }}
+                                {{ form_widget(searchObservationForm.reference) }}
+
+                                {{ form_label(searchObservationForm.type) }}
+                                {{ form_widget(searchObservationForm.type) }}
+
+                                {{ form_label(searchObservationForm.family) }}
+                                {{ form_widget(searchObservationForm.family) }}
+
+                                {{ form_label(searchObservationForm.begin) }}
+                                {{ form_widget(searchObservationForm.begin) }}
+
+                                {{ form_label(searchObservationForm.end) }}
+                                {{ form_widget(searchObservationForm.end) }}
+
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <div class="ml-auto searchBTN">
+                                    {{ form_widget(searchObservationForm.Rechercher) }}
+                                    {{ form_end(searchObservationForm) }}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebars">
+            <div class="result-sidebar">
+                <div class="headerResult">
+                    <div class="d-flex justify-content-start">
+                        <p>Détails de la recherche : 15 résultats</p>
+                        <img class="ml-auto logoResultResearch" src="{{ asset('img/research_observations/logo-resultat-de-recherche.png') }}" alt="resultat">
+                    </div>
+                    <div class="contentResult">
+                        <div class="table-responsive-vertical shadow-z-1">
+                            <table class="table table-hover table-mc-default">
+                                <tr >
+                                    <td data-title="Espèce observée"><img class="iconResults" src="{{asset('img/research_observations/icon-maps-results.png')}}" alt="Icone de resultat"> Espece observée</td>
+                                    <td data-title="Date d'observation">20/01/2017 à 12h00</td>
+                                    <td data-title="Aussi observée">+31</td>
+                                </tr>
+                                <tr >
+                                    <td data-title="Espèce observée"><img class="iconResults" src="{{asset('img/research_observations/icon-maps-results.png')}}" alt="Icone de resultat"> Espece observée</td>
+                                    <td data-title="Date d'observation">20/01/2017 à 12h00</td>
+                                    <td data-title="Aussi observée">+31</td>
+                                </tr>
+                                <tr >
+                                    <td data-title="Espèce observée"><img class="iconResults" src="{{asset('img/research_observations/icon-maps-results.png')}}" alt="Icone de resultat"> Espece observée</td>
+                                    <td data-title="Date d'observation">20/01/2017 à 12h00</td>
+                                    <td data-title="Aussi observée">+31</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="map"></div>
+
+        <div id="controls">
+            <a class="btn btn-dark" id="triggerResearch">Recherche</a>
+            <a class="btn btn-dark" id="triggerResult">Détails des résultats</a>
         </div>
 
-        <div style="width: 48%; display: inline-block">
-            <hr>
-                Recherche par nom commun
-            <hr>
+        <div>
 
-            {{ form_start(searchVernacularNameForm) }}
-            {{ form_errors(searchVernacularNameForm) }}
-            {{ form_end(searchVernacularNameForm) }}
-        </div>
-
-        <div style="width: 48%; display: inline-block; margin-right: 25px;">
-            <hr>
-                Recherche par ordre
-            <hr>
-
-            {{ form_start(searchTypeForm) }}
-            {{ form_errors(searchTypeForm) }}
-            {{ form_end(searchTypeForm) }}
-        </div>
-
-        <div style="width: 48%; display: inline-block">
-            <hr>
-                Recherche par famille
-            <hr>
-
-            {{ form_start(searchFamilyForm) }}
-            {{ form_errors(searchFamilyForm) }}
-            {{ form_end(searchFamilyForm) }}
         </div>
     </div>
-    <button id="testGeo">Géolocalisation</button>
-    <div id="map" style="height: 500px; margin-top: 15px"></div>
-
-
 {% endblock %}
 
 {% block javascripts %}
-    <script>
 
-        var customLabel = {
-            restaurant: {
-                label: 'R'
-            },
-            bar: {
-                label: 'B'
-            }
-        };
+    <script>
+        $(document).ready(function(){
+            $('.research-sidebar').sidebar();
+            $('.result-sidebar').sidebar();
+
+            $('#triggerResearch').click(function() {
+                $(".research-sidebar").trigger("sidebar:toggle");
+            });
+
+            $('#triggerResult').click(function() {
+                $(".result-sidebar").trigger("sidebar:toggle");
+            });
+        });
 
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 4,
                 center: new google.maps.LatLng(46.6, 1.9),
-                mapTypeId: 'roadmap'
+                mapTypeId: 'roadmap',
+                zoomControl: 1,
+                disableDefaultUI: true
             });
+
             var infoWindow = new google.maps.InfoWindow;
 
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(document.getElementById('controls'));
+
             var icons = {
-                parking: {
+                bird: {
                     icon: '{{ asset('img/marqueur.png') }}'
                 }
             };
 
-            // Change this depending on the name of your PHP or XML file
             downloadUrl("{{ asset('markers/markers.xml') }}", function(data) {
                 var xml = data.responseXML;
                 var markers = xml.documentElement.getElementsByTagName('marker');
                 var markerArray = [];
                 Array.prototype.forEach.call(markers, function(markerElem) {
-                    var name = markerElem.getAttribute('user');
-                    var address = markerElem.getAttribute('address');
+                    var user = markerElem.getAttribute('user');
+                    var date = markerElem.getAttribute('date');
+                    var referenceName = markerElem.getAttribute('reference');
+                    var vernacularName = markerElem.getAttribute('vernacular');
+                    var birdNumber = markerElem.getAttribute('birdNumber');
+                    var eggsNumber = markerElem.getAttribute('eggsNumber');
+                    var photo = markerElem.getAttribute('photo');
                     var type = markerElem.getAttribute('type');
+                    var nest;
                     var point = new google.maps.LatLng(
                         parseFloat(markerElem.getAttribute('lat')),
                         parseFloat(markerElem.getAttribute('lng')));
 
-                    var infowincontent = document.createElement('div');
-                    infowincontent.innerHTML =
-                        '<img style="width: 100px;" src="{{ asset('uploads/observations_files/5d4a35502bd4887eab896433dbc88e26.png') }}"/><p>Ceci est un test</p>';
-                    var strong = document.createElement('strong');
-                    strong.textContent = name;
-                    infowincontent.appendChild(strong);
-                    infowincontent.appendChild(document.createElement('br'));
+                    if (eggsNumber === null || eggsNumber === 0) {
+                        nest = 'Non';
+                    } else {
+                        nest = 'Oui';
+                    }
 
-                    var text = document.createElement('text');
-                    text.textContent = address
-                    infowincontent.appendChild(text);
+                    var infowincontent =
+                        '<img src="../'+ photo +'" alt="'+ referenceName +'" style="margin-left: auto; margin-right: auto; height: 150px; border: 1px solid black;">' +
+                        '<div style="padding: 10px;">\n' +
+                        '<h5 style="margin-top: 0; text-align: center;">'+ referenceName +'</h5>' +
+                        '<p style="color: black">Nom Commun : '+ vernacularName +'</p>' +
+                        '<p style="color: black">Observée : '+ birdNumber +'</p>' +
+                        '<p style="color: black">Nid(s) : '+ nest +'</p>' +
+                        '<p style="color: black">Oeuf(s) : '+ eggsNumber +'</p>' +
+                        '<p style="color: black">Observé par : '+ user +' le '+ date +'</p>' +
+                        '</div>';
 
                     var icon = icons[type].icon || {};
-
+                    var marker;
                     {% if not is_granted('ROLE_PROFESSIONAL') %}
-                        var marker = new google.maps.Circle({
+                        marker = new google.maps.Circle({
                             strokeColor: '#FF0000',
                             strokeOpacity: 0.35,
                             strokeWeight: 2,
@@ -119,7 +346,7 @@
                             radius: 10000
                         });
                     {% else %}
-                        var marker = new google.maps.Marker({
+                        marker = new google.maps.Marker({
                             map: map,
                             position: point,
                             icon: icon,
@@ -127,7 +354,6 @@
                         });
 
                         markerArray.push(marker);
-                        console.log(markerArray);
 
                         marker.addListener('click', function() {
                             infoWindow.setContent(infowincontent);
@@ -139,8 +365,6 @@
                 });
             });
         }
-
-
 
         function downloadUrl(url, callback) {
             var request = window.ActiveXObject ?
@@ -160,6 +384,5 @@
 
         function doNothing() {}
     </script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNQR3Hw_y1urMSouzdoaVgUESayHjM90g&&callback=initMap" async defer></script>
 {% endblock %}

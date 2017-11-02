@@ -10,74 +10,71 @@ class MapsManager
 {
     private $em;
     private $formBuilder;
+    private $observationManager;
 
-    public function __construct(EntityManagerInterface $entityManager, FormFactoryInterface $formFactory) {
+    public function __construct(EntityManagerInterface $entityManager, FormFactoryInterface $formFactory, ObservationManager $observationManager) {
         $this->em = $entityManager;
         $this->formBuilder = $formFactory;
+        $this->observationManager = $observationManager;
     }
 
-    public function searchObservationsByReferenceNameForm() {
+    public function searchObservationsForm() {
         // Récupération du formulaire de recherche
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\SearchObservationByReferenceNameType');
+        $form = $this->formBuilder->create('AppBundle\Form\Observations\SearchObservationType');
 
         // Retourne le formulaire
         return $form;
     }
 
-    public function searchObservationsByVernacularForm() {
-        // Récupération du formulaire de recherche
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\SearchObservationByVernacularNameType');
+    public function searchObservations($criteria) {
+        // Creation d'un tableau de résultat
+        $results = array();
 
-        // Retourne le formulaire
-        return $form;
-    }
+        // Recherche par nom de reference
+        if ($criteria['reference'] != null) {
+            // Récupération de la recherche
+            $queryReference = $this->observationManager->getObservationsByReferenceName($criteria);
 
-    public function searchObservationsByTypeForm() {
-        // Récupération du formulaire de recherche
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\SearchObservationByTypeType');
+            // Vérification si le résultat n'est pas vide
+            if (!empty($queryReference)) {
+                array_push($results, $queryReference);
+            };
+        }
 
-        // Retourne le formulaire
-        return $form;
-    }
+        // Recherche par nom commun
+        if ($criteria['vernacular'] != null) {
+            // Récupération de la recherche
+            $queryVernacular = $this->observationManager->getObservationsByVernacular($criteria);
 
-    public function searchObservationsByFamilyForm() {
-        // Récupération du formulaire de recherche
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\SearchObservationByFamilyType');
+            // Vérification si le résultat n'est pas vide
+            if (!empty($queryVernacular)) {
+                array_push($results, $queryVernacular);
+            };
+        }
 
-        // Retourne le formulaire
-        return $form;
-    }
+        // Recherche par ordre
+        if ($criteria['type'] != null) {
+            // Récupération de la recherche
+            $queryType = $this->observationManager->getObservationsByType($criteria);
 
-    public function searchObservationsBySpecies($criteria) {
-        // Récupération du résultat de la recherche
-        $result = $this->em->getRepository('AppBundle:Observation')->getObservationBySpecies($criteria);
+            // Vérification si le résultat n'est pas vide
+            if (!empty($queryType)) {
+                array_push($results, $queryType);
+            };
+        }
 
-        // Retourne le résultat
-        return $result;
-    }
+        // Recherche par famille
+        if ($criteria['family'] != null) {
+            // Récupération de la recherche
+            $queryFamily = $this->observationManager->getObservationsByFamily($criteria);
 
-    public function searchObservationsByVernacular($criteria) {
-        // Récupération du résultat de la recherche
-        $result = $this->em->getRepository('AppBundle:Observation')->getObservationByVernacularName($criteria);
+            // Vérification si le résultat n'est pas vide
+            if (!empty($queryFamily)) {
+                array_push($results, $queryFamily);
+            };
+        }
 
-        // Retourne le résultat
-        return $result;
-    }
-
-    public function searchObservationsByType($criteria) {
-        // Récupération du résultat de la recherche
-        $result = $this->em->getRepository('AppBundle:Observation')->getObservationByType($criteria);
-
-        // Retourne le résultat
-        return $result;
-    }
-
-    public function searchObservationsByFamily($criteria) {
-        // Récupération du résultat de la recherche
-        $result = $this->em->getRepository('AppBundle:Observation')->getObservationByFamily($criteria);
-
-        // Retourne le résultat
-        return $result;
+        return $results;
     }
 
     public function resetMarkersXML() {
@@ -100,7 +97,7 @@ class MapsManager
         file_put_contents($mapsXMLPath, $mapsXMLDoc->saveXml());
     }
 
-    public function createMarkersXML($searchCriteria = array(Observation::class)) {
+    public function createMarkersXML($searchCriteria = array()) {
         // Création du document XML
         $mapsXMLDoc = new \DOMDocument('1.0', 'utf-8');
 
@@ -109,18 +106,23 @@ class MapsManager
 
         $mapsXMLDoc->appendChild($markersNode);
 
-
-
         // Ajout des URLs dans le document XML
-        foreach($searchCriteria as $marker){
-
-            // Création du noeud <url>
-            $markerNode = $mapsXMLDoc->createElement('marker');
-            $markerNode->setAttribute('user', $marker->getObserver()->getUserName());
-            $markerNode->setAttribute('lat', $marker->getLatitude());
-            $markerNode->setAttribute('lng', $marker->getLongitude());
-            $markerNode->setAttribute('type', 'parking');
-            $markersNode->appendChild($markerNode);
+        foreach($searchCriteria as $results){
+            foreach ($results as $marker) {
+                // Création du noeud <url>
+                $markerNode = $mapsXMLDoc->createElement('marker');
+                $markerNode->setAttribute('user', $marker->getObserver()->getUserName());
+                $markerNode->setAttribute('date', $marker->getObservationDate()->format('d/m/Y à H:i'));
+                $markerNode->setAttribute('reference', $marker->getSpecies()->getReferenceName());
+                $markerNode->setAttribute('vernacular', $marker->getSpecies()->getVernacularName());
+                $markerNode->setAttribute('birdNumber', $marker->getBirdNumber());
+                $markerNode->setAttribute('eggsNumber', $marker->getEggsNumber());
+                $markerNode->setAttribute('photo', $marker->getPhotoPath());
+                $markerNode->setAttribute('lat', $marker->getLatitude());
+                $markerNode->setAttribute('lng', $marker->getLongitude());
+                $markerNode->setAttribute('type', 'bird');
+                $markersNode->appendChild($markerNode);
+            }
         }
 
         // Ecriture du fichier XML du sitemap

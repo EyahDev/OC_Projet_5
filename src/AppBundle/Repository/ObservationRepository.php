@@ -26,7 +26,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         } else {
             $qb->where('o.species = :criteria')
                 ->andWhere('o.observationDate BETWEEN :start AND :end ')
-                ->where('o.validate = true')
+                ->andWhere('o.validate = true')
                 ->setParameters(array(
                     'criteria' => $criteria['reference'],
                     'start' => $criteria['begin'],
@@ -48,14 +48,13 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         } else {
             $qb->where('o.species = :criteria')
                 ->andWhere('o.observationDate BETWEEN :start AND :end ')
-                ->where('o.validate = true')
+                ->andWhere('o.validate = true')
                 ->setParameters(array(
                     'criteria' => $criteria['vernacular'],
                     'start' => $criteria['begin'],
                     'end' => $criteria['end']
                 ));
         }
-
         return $qb->getQuery()->getResult();
     }
 
@@ -70,7 +69,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         } else {
             $qb->where('o.type = :criteria')
                 ->andWhere('o.observationDate BETWEEN :start AND :end ')
-                ->where('o.validate = true')
+                ->andWhere('o.validate = true')
                 ->setParameters(array(
                     'criteria' => $criteria['type'],
                     'start' => $criteria['begin'],
@@ -92,7 +91,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         } else {
             $qb->where('o.family = :criteria')
                 ->andWhere('o.observationDate BETWEEN :start AND :end ')
-                ->where('o.validate = true')
+                ->andWhere('o.validate = true')
                 ->setParameters(array(
                     'criteria' => $criteria['family'],
                     'start' => $criteria['begin'],

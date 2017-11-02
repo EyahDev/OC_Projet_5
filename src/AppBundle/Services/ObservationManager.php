@@ -38,7 +38,57 @@ class ObservationManager
         $this->container = $container;
         $this->filesystem = $filesystem;
     }
-    
+
+    /**
+     * Recherche pas nom scientifique
+     *
+     * @param $criteria
+     * @return array
+     */
+    public function getObservationsByReferenceName($criteria) {
+        // Récupération des observations pas nom de reference
+        return $this->em->getRepository('AppBundle:Observation')->getObservationBySpecies($criteria);
+    }
+
+    /**
+     * Recherche pas nom scientifique
+     *
+     * @param $criteria
+     * @return array
+     */
+    public function getObservationsByVernacular($criteria) {
+        // Récupération des observations pas nom de reference
+        return $this->em->getRepository('AppBundle:Observation')->getObservationByVernacularName($criteria);
+    }
+
+    /**
+     * Recherche pas nom scientifique
+     *
+     * @param $criteria
+     * @return array
+     */
+    public function getObservationsByType($criteria) {
+        // Récupération des observations pas nom de reference
+        return $this->em->getRepository('AppBundle:Observation')->getObservationByType($criteria);
+    }
+
+    /**
+     * Recherche pas nom scientifique
+     *
+     * @param $criteria
+     * @return array
+     */
+    public function getObservationsByFamily($criteria) {
+        // Récupération des observations pas nom de reference
+        return $this->em->getRepository('AppBundle:Observation')->getObservationByFamily($criteria);
+    }
+
+    /**
+     * Récupération des observations validées pour l'utilisateur classique
+     *
+     * @param $user
+     * @return array
+     */
     public function validatedObservationsByUser($user) {
         // Récupération des observations validées pour l'utilisateur classique
         $validatedObservationsByUser = $this->em->getRepository('AppBundle:Observation')->getValidatedObservationsByUser($user);
@@ -46,6 +96,12 @@ class ObservationManager
         return $validatedObservationsByUser;
     }
 
+    /**
+     * Récupération des Observations refusées pour l'utilisateur classique
+     *
+     * @param $user
+     * @return array
+     */
     public function refusedObservationsByUser($user) {
         // Récupération des Observations refusées pour l'utilisateur classique
         $refusedObservationsByUser = $this->em->getRepository('AppBundle:Observation')->getRefusedObservationsByUser($user);
@@ -53,6 +109,12 @@ class ObservationManager
         return $refusedObservationsByUser;
     }
 
+    /**
+     * Récupération des Observations refusées par l'utilisateur pro
+     *
+     * @param $user
+     * @return array
+     */
     public function refusedObservationsByValidator($user) {
         // Récupération des Observations refusées par l'utilisateur pro
         $refusedObservationsByValidator = $this->em->getRepository('AppBundle:Observation')->getRefusedObservationsByValidator($user);
@@ -60,11 +122,17 @@ class ObservationManager
         return $refusedObservationsByValidator;
     }
 
+    /**
+     * Récupération des Observations validées par l'utilisateur pro
+     *
+     * @param $user
+     * @return array
+     */
     public function validatedObservationsByValidator($user) {
-    // Récupération des Observations validées par l'utilisateur pro
-    $validatedObservationsByValidator = $this->em->getRepository('AppBundle:Observation')->getValidatedObservationsByValidator($user);
-    
-    return $validatedObservationsByValidator;
+        // Récupération des Observations validées par l'utilisateur pro
+        $validatedObservationsByValidator = $this->em->getRepository('AppBundle:Observation')->getValidatedObservationsByValidator($user);
+
+        return $validatedObservationsByValidator;
     }
     
     /**
@@ -187,7 +255,7 @@ class ObservationManager
         $newFile = $observation->getPhotoPath();
 
         if ($newFile != null) {
-            if ($existingFile != 'img/default/category_default.png') {
+            if ($existingFile != 'img/default/observation_default.png') {
                 // Suppression de l'ancienne photo
                 $this->filesystem->remove(array($existingFile));
             }
