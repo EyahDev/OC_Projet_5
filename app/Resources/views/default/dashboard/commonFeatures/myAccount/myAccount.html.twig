@@ -1,138 +1,109 @@
+<link href="{{ asset('css/dashboard/commonFeatures/myAccount.css') }}" rel="stylesheet">
+
 <div id="flashMsgAccount"></div>
-<div class="row justify-content-sm-center">
-    <h6 class="col-sm-8 text-left">Vos informations personnelles :</h6>
-</div>
 
-{# Avatar de l'utilisateur #}
-<div class="well update-avatar-section">
-    {{ form_start(avatarForm, {'attr': {'class': 'form-horizontal'}}) }}
-
-    {# Les erreurs générales du formulaire. #}
-    {{ form_errors(avatarForm) }}
-
-    <div class="row justify-content-center">
-        <img style="height: 150px" src="{{ asset(app.user.avatarPath) }}" alt="{{ app.user.username }}" >
-    </div>
-
-    <div class="form-group row justify-content-sm-center">
-        <div class="col-sm-6">
+<div class="container d-flex flex-column text-left">
+    <h6>Vos informations personnelles :</h6>
+    {# Avatar de l'utilisateur #}
+    <div class="update-avatar-section">
+        {{ form_start(avatarForm) }}
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(avatarForm) }}
+        <div>
+            <img style="height: 150px" src="{{ asset(app.user.avatarPath) }}" alt="{{ app.user.username }}" >
+        </div>
+        <div class="avatarPath">
             {{ form_widget(avatarForm.avatarPath) }}
         </div>
-        <div class="col-sm-2">
+        <div>
             {{ form_widget(avatarForm.save, {'label': 'Modifier',
-                'attr': {'class': 'btn btn-primary btn-user-update-avatar',
+                'attr': {'class': 'btn btn-default btn-user-update-avatar',
                     'url': path('edit_user_avatar')}}) }}
         </div>
-    </div>
+        {{ form_end(avatarForm) }}
+    </div><hr>
 
-    {{ form_end(avatarForm) }}
-</div>
+    <div class="perso">
+        <div class="inputPerso">
+            {{ form_start(updateUserNameForm) }}
 
-{# Nom de l'utilisateur #}
-<div class="well">
-    {{ form_start(updateUserNameForm, {'attr': {'class': 'form-horizontal'}}) }}
-
-    {# Les erreurs générales du formulaire. #}
-    {{ form_errors(updateUserNameForm) }}
-
-    <div class="form-group row justify-content-sm-center">
-        <div class="col-sm-6">
-            {{ form_widget(updateUserNameForm.name) }}
+            {# Les erreurs générales du formulaire. #}
+            {{ form_errors(updateUserNameForm) }}
+            <div>
+                {{ form_row(updateUserNameForm.name) }}
+            </div>
+            <div>
+                {{ form_widget(updateUserNameForm.save, {'label': 'Modifier', 'attr': {'class': 'btn btn-default btn-user-update-name', 'url': path('edit_user_name')}}) }}
+            </div>
+            {{ form_end(updateUserNameForm) }}
         </div>
-        <div class="col-sm-2">
-            {{ form_widget(updateUserNameForm.save, {'label': 'Modifier', 'attr': {'class': 'btn btn-primary btn-user-update-name', 'url': path('edit_user_name')}}) }}
+
+        {# prénom de l'utilisateur #}
+        <div class="inputPerso">
+            {{ form_start(updateUserFirstNameForm) }}
+
+            {# Les erreurs générales du formulaire. #}
+            {{ form_errors(updateUserFirstNameForm) }}
+            <div>
+                {{ form_row(updateUserFirstNameForm.firstname) }}
+            </div>
+            <div>
+                {{ form_widget(updateUserFirstNameForm.save, {'label': 'Modifier', 'attr': {'class': 'btn btn-default btn-user-update-firstname', 'url': path('edit_user_firstname')}}) }}
+            </div>
+            {{ form_end(updateUserFirstNameForm) }}
         </div>
-    </div>
-    {{ form_end(updateUserNameForm) }}
-</div>
 
-{# prénom de l'utilisateur #}
-<div class="well">
-    {{ form_start(updateUserFirstNameForm, {'attr': {'class': 'form-horizontal'}}) }}
+        {# Adresse de l'utilisateur #}
+        <div class="inputPerso">
+            {{ form_start(updateUserLocationForm, {'attr': {'class': 'form-horizontal'}}) }}
 
-    {# Les erreurs générales du formulaire. #}
-    {{ form_errors(updateUserFirstNameForm) }}
-
-    <div class="form-group row justify-content-sm-center">
-        <div class="col-sm-6">
-            {{ form_widget(updateUserFirstNameForm.firstname) }}
+            {# Les erreurs générales du formulaire. #}
+            {{ form_errors(updateUserLocationForm) }}
+            <div>
+                {{ form_row(updateUserLocationForm.location) }}
+            </div>
+            <div>
+                {{ form_widget(updateUserLocationForm.save, {'label': 'Modifier',
+                    'attr': {'class': 'btn btn-default btn-user-update-location',
+                        'url': path('edit_user_location'),
+                        }}) }}
+            </div>
+            {{ form_end(updateUserLocationForm) }}
         </div>
-        <div class="col-sm-2">
-            {{ form_widget(updateUserFirstNameForm.save, {'label': 'Modifier', 'attr': {'class': 'btn btn-primary btn-user-update-firstname', 'url': path('edit_user_firstname')}}) }}
-        </div>
-    </div>
 
-    {{ form_end(updateUserFirstNameForm) }}
-</div>
+        {# Inscription à la newsletter #}
+        <div class="inputPerso newsletter">
+            {{ form_start(updateUserNewsletterForm) }}
 
-{# Adresse de l'utilisateur #}
-<div class="well">
-    {{ form_start(updateUserLocationForm, {'attr': {'class': 'form-horizontal'}}) }}
-
-    {# Les erreurs générales du formulaire. #}
-    {{ form_errors(updateUserLocationForm) }}
-
-    <div class="form-group row justify-content-sm-center">
-        <div class="col-sm-6">
-            {{ form_widget(updateUserLocationForm.location, {'attr': {'placeholder': 'Code postal'}}) }}
-        </div>
-        <div class="col-sm-2">
-            {{ form_widget(updateUserLocationForm.save, {'label': 'Modifier',
-                'attr': {'class': 'btn btn-primary btn-user-update-location',
-                    'url': path('edit_user_location'),
-                    'placeholder': 'Code postal'}}) }}
-        </div>
-    </div>
-
-    {{ form_end(updateUserLocationForm) }}
-</div>
-
-
-
-{# Inscription à la newsletter #}
-<div class="well">
-    {{ form_start(updateUserNewsletterForm, {'attr': {'class': 'form-horizontal'}}) }}
-
-    {# Les erreurs générales du formulaire. #}
-    {{ form_errors(updateUserNewsletterForm) }}
-
-    <div class="form-group row justify-content-sm-center">
-        {#<div class="col-sm-3" style="display: inline">#}
-            {#{{ form_label(updateUserNewsletterForm.newsletter) }}#}
-        {#</div>#}
-        <div class="col-sm-6" >
-            {{ form_widget(updateUserNewsletterForm.newsletter) }}
-        </div>
-        <div class="col-sm-2">
-            {{ form_widget(updateUserNewsletterForm.save, {'label': 'Modifier', 'attr': {'class': 'btn btn-primary btn-user-update-newsletter', 'url': path('edit_user_newsletter')}}) }}
+            {# Les erreurs générales du formulaire. #}
+            {{ form_errors(updateUserNewsletterForm) }}
+            <div >
+                {{ form_widget(updateUserNewsletterForm.newsletter) }}
+            </div>
+            <div>
+                {{ form_widget(updateUserNewsletterForm.save, {'label': 'Modifier', 'attr': {'class': 'btn btn-default btn-user-update-newsletter', 'url': path('edit_user_newsletter')}}) }}
+            </div>
+            {{ form_end(updateUserNewsletterForm) }}
         </div>
     </div>
 
-    {{ form_end(updateUserNewsletterForm) }}
-</div>
-
-<h6>Votre mot de passe</h6>
-<div class="well">
-    {{ form_start(updateUserPasswordForm, {'attr': {'class': 'form-horizontal'}}) }}
-
-    {# Les erreurs générales du formulaire. #}
-    {{ form_errors(updateUserPasswordForm) }}
-
-
-    <div class="form-group row justify-content-sm-center">
-        <div class="col-sm-8 row">
-            {{ form_widget(updateUserPasswordForm.password, { 'attr': {'placeholder': 'Mot de passe actuel'}}) }}
-        </div>
-        <div class="col-sm-8 row">
-            {{ form_widget(updateUserPasswordForm.newPassword.first, { 'attr': {'placeholder': 'Nouveau mot de passe'}}) }}
-        </div>
-        <div class="col-sm-8 row">
-            {{ form_widget(updateUserPasswordForm.newPassword.second, { 'attr': {'placeholder': 'Confirmez le mot de passe'}}) }}
-        </div>
-        <div class="col-sm-12 row">
-            {{ form_widget(updateUserPasswordForm.save, {'attr': {'class': 'btn btn-primary mx-auto  btn-user-update-password', 'url': path('edit_user_password')}}) }}
-        </div>
+    <h6>Votre mot de passe</h6>
+    <div class="mdp">
+        {{ form_start(updateUserPasswordForm) }}
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(updateUserPasswordForm) }}
+            <div class="inputPerso">
+                {{ form_row(updateUserPasswordForm.password) }}
+            </div>
+            <div class="inputPerso">
+                {{ form_row(updateUserPasswordForm.newPassword.first) }}
+            </div>
+            <div class="inputPerso">
+                {{ form_row(updateUserPasswordForm.newPassword.second) }}
+            </div>
+            <div>
+                {{ form_widget(updateUserPasswordForm.save, {'attr': {'class': 'btn btn-default mx-auto  btn-user-update-password', 'url': path('edit_user_password')}}) }}
+            </div>
+        {{ form_end(updateUserPasswordForm) }}
     </div>
-
-    {{ form_end(updateUserPasswordForm) }}
 </div>

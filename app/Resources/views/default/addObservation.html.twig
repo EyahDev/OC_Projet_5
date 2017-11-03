@@ -1,9 +1,5 @@
 {% extends 'base_integration.html.twig' %}
 
-{% block stylesheets %}
-    <link href="{{ asset('css/addObservation.css') }}" rel="stylesheet">
-{% endblock %}
-
 {% block header %}
     <header>
         <div class="jumbotron-addObservation vertical-center">
@@ -16,6 +12,7 @@
 {% endblock %}
 
 {% block stylesheets %}
+    <link href="{{ asset('css/addObservation.css') }}" rel="stylesheet">
     <style>
         .sidebar.left {
             position: absolute;
@@ -64,16 +61,6 @@
 
     <div id="map" style="height: 900px; width: 100%;"></div> <br>
 
-
-    <div class="container-fluid">
-
-        <div id="map" style="height: 300px;"></div>
-
-        <div class="formulaire">
-        {{ include(':default/dashboard/quickAcces:addObservationForm.html.twig') }}
-        </div>
-
-    </div>
     
 {% endblock %}
 

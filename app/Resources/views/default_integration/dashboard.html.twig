@@ -54,7 +54,7 @@
         </div>
 
         {# accordéon particulier et professionnel #}
-        <div id="commonFeatures" class="container">
+        <section id="commonFeatures" class="container">
             <div id="accordionUserAndPro" role="tablist">
                 {# collapse mes informations #}
                 <div class="card">
@@ -141,7 +141,7 @@
                 </div>
                 {% endif %}
             </div>
-        </div>
+        </section>
 
         {# partie accessible uniquement avec un role admin #}
         {% if is_granted('ROLE_ADMIN') %}

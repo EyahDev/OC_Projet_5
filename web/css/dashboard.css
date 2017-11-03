@@ -1,3 +1,7 @@
+h3{
+    margin-top: 40px;
+}
+
 /*----------------------------------------------- Header ----------------------------------------------- */
 .jumbotron-dashboard img{
     width : 100%;
@@ -11,6 +15,30 @@
     }
 }
 
+/*----------------------------------------------- quickAccess ----------------------------------------------- */
+#quickAccess{
+    max-width: 40%;
+}
+
+#quickAccess img{
+    max-width: 100px;
+}
+
+#quickAccess img{
+    margin-top: 15px;
+    max-width: 100px;
+}
+
+#quickAccess p{
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+#quickAccess p:hover{
+    color: #38A5E0;
+}
+
+
 /*----------------------------------------------- Container dashboard ----------------------------------------------- */
 
 #dashboard.container{
@@ -22,7 +50,7 @@
 
 #dashboard.container a{
     font-family: 'Raleway', sans-serif;
-    font-size: 45px;
+    font-size: 40px;
     margin-top: 0;
     Color : #444;
 }
@@ -49,6 +77,7 @@
     background-clip: border-box;
     border: 2px solid black;
     border-radius: 0;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.4) !important;
 }
 
 .card-header {
@@ -57,4 +86,14 @@
     background-color: white;
     border-bottom: 1px solid rgba(0,0,0,.125);
 }
+
+/*----------------------------------------------- commonFeatures ----------------------------------------------- */
+#commonFeatures hr{
+    width: 50%;
+}
+
+#commonFeatures h3{
+    margin-top: 80px !important;
+}
+
 
