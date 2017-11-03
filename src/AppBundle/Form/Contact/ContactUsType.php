@@ -19,6 +19,10 @@ class ContactUsType extends AbstractType
             ->add('sujet', TextType::class, array('attr' => array('placeholder' => 'Sujet'),
                 'constraints' => array(
                     new NotBlank(array("message" => "Veuillez saisir un sujet valide.")),
+                    new Length(array(
+                        'min' => '2',
+                        'minMessage' => 'Le sujet doit comporter au minimun {{ limit }} caractères.'
+                    ))
                 )
             ))
             ->add('message', TextareaType::class, array('attr' => array('placeholder' => 'Votre message'),
