@@ -114,22 +114,22 @@ class DefaultController extends Controller
             $criteria = $searchObservationForm->getData();
 
             // Récupération du résultat
-            $result = $maps->searchObservations($criteria);
+            $results = $maps->searchObservations($criteria);
 
-            dump(empty($result));
             // Vérification si il y a un résultat
-            if (empty($result)) {
+            if (empty($results)) {
                 $session->getFlashBag()->add('notice', 'Votre recherche ne donne aucun résultat, vous pouvez affiner avec la recherche avancée');
                 return $this->redirectToRoute('rechercheObservations');
             }
 
             // Création des markers maps
-            $maps->createMarkersXML($result);
+            $maps->createMarkersXML($results);
 
             // Passage de la variable de session à true suite à la recherche
             $session->set('search', true);
+            $session->set('nbResults', count($results));
 
-            return $this->redirectToRoute('rechercheObservations', array('results' => $result));
+            return $this->redirectToRoute('rechercheObservations');
         }
 
         // Passage de la variable de session à false suite aucune recherche
