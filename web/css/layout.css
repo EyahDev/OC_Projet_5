@@ -1,4 +1,15 @@
 /*----------------------------------------------- Eléments de base ----------------------------------------------- */
+
+@font-face {
+    font-family:"Small Font Regular";
+    src: url("../fonts/small_font.eot?") format("eot"),
+    url("../fonts/small_font.woff") format("woff"),
+    url("../fonts/small_font.ttf") format("truetype"),
+    url("../fonts/small_font.svg#Small-Font") format("svg");
+    font-weight:normal;
+    font-style:normal;
+}
+
 .container-fluid{
     padding: 0;
 }

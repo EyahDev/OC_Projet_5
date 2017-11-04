@@ -1,9 +1,5 @@
 {% extends 'base_integration.html.twig' %}
 
-{% block stylesheets %}
-    <link href="{{ asset('css/addObservation.css') }}" rel="stylesheet">
-{% endblock %}
-
 {% block header %}
     <header>
         <div class="jumbotron-addObservation vertical-center">
@@ -16,6 +12,7 @@
 {% endblock %}
 
 {% block stylesheets %}
+    <link href="{{ asset('css/addObservation.css') }}" rel="stylesheet">
     <style>
         .sidebar.left {
             position: absolute;
@@ -30,6 +27,7 @@
 
     </style>
 {% endblock %}
+
 {% block body %}
     <div style="position: relative;">
         <div class="sidebar left row" style="left: 0;">
