@@ -106,4 +106,21 @@ class UserManagementController extends Controller
         }
         throw new AccessDeniedHttpException('Vous ne pouvez pas accéder à cette page.');
     }
+
+    /**
+     * @param Request $request
+     * @param UserManager $userManager
+     * @Route("dashboard/user-management", name="pagination_user_management")
+     * @return Response
+     */
+    public function paginateUserManagement(Request $request, UserManager $userManager)
+    {
+        if($request->isXmlHttpRequest()) {
+            $usersList = $userManager->getPaginatedUsersList($this->getUser()->getId());
+            return $this->render('default/dashboard/websiteAdministration/userManagement/paginatedTable.html.twig', array(
+                'usersList' => $usersList
+            ));
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
 }

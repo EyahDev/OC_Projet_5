@@ -5,6 +5,7 @@ namespace AppBundle\Services;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserManagement\ChangeRoleType;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -21,6 +22,7 @@ class UserManager
     private $request;
     private $session;
     private $validator;
+    private $container;
 
     /**
      * UserManager constructor.
@@ -30,12 +32,14 @@ class UserManager
      * @param SessionInterface $session
      * @param ValidatorInterface $validator
      */
-    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em, RequestStack $request, SessionInterface $session, ValidatorInterface $validator) {
+    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em, RequestStack $request,
+                                SessionInterface $session, ValidatorInterface $validator, ContainerInterface $container) {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
         $this->session = $session;
         $this->validator = $validator;
+        $this->container = $container;
     }
 
     /**
@@ -130,4 +134,22 @@ class UserManager
         $this->em->flush();
     }
 
+    /**
+     * Retourne la liste paginée des utilisateurs
+     * @param $id
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+     */
+    public function getPaginatedUsersList($id)
+    {
+        // récupère la liste des questions/réponses
+        $usersList = $this->em->getRepository('AppBundle:User')->findAllExceptUser($id);
+        // récupère le service knp paginator
+        $paginator  = $this->container->get('knp_paginator');
+        // retourne les questions /réponse paginé selon la page passé en get
+        return $paginator->paginate(
+            $usersList/*$query*/, /* query NOT result */
+            $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
+            10/*limit per page*/
+        );
+    }
 }

@@ -1,6 +1,7 @@
 {% extends 'base_integration.html.twig' %}
 
 {% block stylesheets %}
+    <link href="{{ asset('css/table.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
 {% endblock %}
 
@@ -221,7 +222,7 @@
                     <div class="card-header" role="tab" id="headingUsersManagement">
                         <h5 class="mb-0">
                             <a class="collapsed" data-toggle="collapse" href="#collapseUsersManagement" aria-expanded="false" aria-controls="collapseUsersManagement">
-                                Gestion des utilsateurs
+                                Gestion des utilisateurs
                             </a>
                         </h5>
                     </div>
@@ -318,4 +319,5 @@
     <script src="{{ asset('js/Observations/myObservations.js') }}"></script>
     <script src="{{ asset('js/Observations/observationsValidation.js') }}"></script>
     <script src="{{ asset('js/contact/contactUs.js') }}"></script>
+    <script src="{{ asset('js/table.js') }}"></script>
 {% endblock %}
