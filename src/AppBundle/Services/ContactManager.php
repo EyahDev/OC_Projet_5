@@ -7,6 +7,7 @@ use AppBundle\Form\Contact\ContactType;
 use AppBundle\Form\Contact\ContactUsType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Twig\Environment;
@@ -82,5 +83,44 @@ class ContactManager
         // Envoi de l'email
         $this->mailer->send($sendMailUser);
 
+    }
+
+    /**
+     * récupère et retourne les erreurs des validations du formulaires
+     * @param FormInterface $form
+     * @return string
+     */
+    private function getErrorMessages(FormInterface $form) {
+        $errors = array();
+
+        foreach ($form->getErrors() as $key => $error) {
+            if ($form->isRoot()) {
+                $errors['#'][] = $error->getMessage();
+            } else {
+                $errors[] = $error->getMessage();
+            }
+        }
+        // récupère les erreurs des formulaires enfant si il y en a
+        foreach ($form->all() as $child) {
+            if (!$child->isValid()) {
+                $errors[$child->getName()] = $this->getErrorMessages($child);
+            }
+        }
+        $errorsString = implode('<br>',$errors);
+        return $errorsString;
+    }
+
+    /**
+     * vérifie si le formulaire valide si oui retourne true si non retourne les messages d'erreurs
+     * @param FormInterface $form
+     * @return bool|string
+     */
+    public function validateForm(FormInterface $form)
+    {
+        $errorMessages = $this->getErrorMessages($form);
+        if ($errorMessages == '') {
+            return true;
+        }
+        return $errorMessages;
     }
 }

@@ -68,7 +68,7 @@
 
                     <div id="collapseMyAccount" class="collapse" role="tabpanel" aria-labelledby="headingMyAccount" data-parent="#accordionUserAndPro">
                         <div class="card-body">
-                            {% include 'default/dashboard/commonFeatures/myAccount.html.twig' %}
+                            {% include 'default/dashboard/commonFeatures/myAccount/myAccount.html.twig' %}
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                     </div>
                     <div id="collapseMyObservations" class="collapse" role="tabpanel" aria-labelledby="headingMyObservations" data-parent="#accordionUserAndPro">
                         <div class="card-body">
-                            {% include 'default/dashboard/commonFeatures/myObservations.html.twig' %}
+                            {% include 'default/dashboard/commonFeatures/myObservations/myObservations.html.twig' %}
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                     </div>
                     <div id="collapseValidation" class="collapse" role="tabpanel" aria-labelledby="headingValidation" data-parent="#accordionUserAndPro">
                         <div class="card-body">
-                            {% include 'default/dashboard/commonFeatures/observationsValidation.html.twig' %}
+                            {% include 'default/dashboard/commonFeatures/observationsValidation/observationsValidation.html.twig' %}
                         </div>
                     </div>
                 </div>
@@ -312,4 +312,10 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNQR3Hw_y1urMSouzdoaVgUESayHjM90g&&callback=initMap" async defer></script>
     <script src="{{ asset('js/menu.js') }}"></script>
+    <script src="{{ asset('js/faq/faq.js') }}"></script>
+    <script src="{{ asset('js/myAccount/myAccount.js') }}"></script>
+    <script src="{{ asset('js/userManagement/userManagement.js') }}"></script>
+    <script src="{{ asset('js/Observations/myObservations.js') }}"></script>
+    <script src="{{ asset('js/Observations/observationsValidation.js') }}"></script>
+    <script src="{{ asset('js/contact/contactUs.js') }}"></script>
 {% endblock %}
