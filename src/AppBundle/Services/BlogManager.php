@@ -15,6 +15,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BlogManager
 {
@@ -24,13 +25,15 @@ class BlogManager
     private $session;
     private $container;
     private $fileSystem;
+    private $validator;
 
     public function __construct(FormFactoryInterface $formBuilder,
                                 EntityManagerInterface $em,
                                 RequestStack $request,
                                 SessionInterface $session,
                                 ContainerInterface $container,
-                                Filesystem $filesystem)
+                                Filesystem $filesystem,
+                                ValidatorInterface $validator)
     {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
@@ -38,6 +41,7 @@ class BlogManager
         $this->session = $session;
         $this->container = $container;
         $this->fileSystem = $filesystem;
+        $this->validator = $validator;
     }
 
     /* Gestion des catégories */
@@ -333,6 +337,11 @@ class BlogManager
 
     /* Gestion des commentaires */
 
+    public function getCommentsByPost($postId)
+    {
+        return $this->em->getRepository('AppBundle:Comment')->findByPost($postId);
+    }
+
     public function getCommentForm() {
         // Création d'un nouveau commentaire
         $comment = new Comment();
@@ -420,6 +429,24 @@ class BlogManager
         return $message;
     }
 
+    /**
+     * Valide l'utilisateur
+     * @param Comment $comment
+     * @return bool|string
+     */
+    public function validateComment (Comment $comment)
+    {
+        $errors = $this->validator->validate($comment);
+        if (count($errors) > 0) {
+            $errorsString = "";
+            foreach ($errors as $error) {
+                $errorsString .=$error->getmessage().'<br>';
+            }
+            return $errorsString;
+        }
+        return true;
+    }
+
     public function getPaginatedPostList()
     {
         // récupère la liste des questions/réponses
@@ -447,4 +474,5 @@ class BlogManager
             1/*limit per page*/
         );
     }
+
 }

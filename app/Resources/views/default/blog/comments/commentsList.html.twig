@@ -1,20 +1,4 @@
-<hr>
-<h4>Commentaires</h4>
-<hr>
-
-{# Si l'utlisateur est connecté on affiche le bouton de commentaire #}
-{% if is_granted('ROLE_USER') %}
-    Vous êtes connecté en tant que : {{ app.user.username }}
-    <div id="flashMsgNewComment"></div>
-    <div id="formComm">
-        <a id="createComm" href="{{ path('create-comm', { 'slugPost' : post.slug }) }}" class="btn btn-primary">commenter</a>
-    </div>
-{% else %}
-    {# Sinon on l'invite à se connecter #}
-    <p>Pour rédiger un message, veuillez vous <a href="{{ path('login') }}">connecter</a></p>
-{% endif %}
-<hr>
-    <div id="commentsList" url="{{ path('reload_comments_list', {'slugPost': post.slug}) }}">
+<div id="commentsList" url="{{ path('reload_comments_list', {'slugPost': post.slug}) }}">
     {# on parcourt les commentaires pour les afficher #}
     {% for comment in commentsList %}
         {# si le commentaire n'a pas de parent, on l'affiche #}
@@ -37,16 +21,16 @@
 
             {# on parcourt les commentaires enfant pour les afficher #}
             {% for child in comment.children %}
-            <div class="childComment">
-                <p class="userAndDateComment anwserMargin">{{ child.author.username }} - {{ child.date|date("d/m/Y à H:i", "Europe/Paris") }}</p>
-                <div class="d-flex flex-row align-items-center anwserMargin">
-                    <img class="avatarComments" src="{{ asset(child.author.avatarPath) }}" alt="avatar">
-                    <i class="fa fa-caret-left pointerAvatar" aria-hidden="true"></i>
-                    <p class="commentMessage">{{ child.message }}</p>
+                <div class="childComment">
+                    <p class="userAndDateComment anwserMargin">{{ child.author.username }} - {{ child.date|date("d/m/Y à H:i", "Europe/Paris") }}</p>
+                    <div class="d-flex flex-row align-items-center anwserMargin">
+                        <img class="avatarComments" src="{{ asset(child.author.avatarPath) }}" alt="avatar">
+                        <i class="fa fa-caret-left pointerAvatar" aria-hidden="true"></i>
+                        <p class="commentMessage">{{ child.message }}</p>
+                    </div>
+                    <a class="d-flex align-items-center" href="{{ path("flag-comm", {'commentId': child.id}) }}"><p>Signaler</p><i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i></a>
                 </div>
-                <a class="d-flex align-items-center" href="{{ path("flag-comm", {'commentId': child.id}) }}"><p>Signaler</p><i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i></a>
-            </div>
             {% endfor %}
         {% endif %}
     {% endfor %}
-    </div>
+</div>
