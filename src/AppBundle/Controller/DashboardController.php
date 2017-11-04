@@ -186,7 +186,7 @@ class DashboardController extends Controller
         $currentUserObservations = $observationManager->getCurrentUserPaginatedObservationsList($user);
 
         /* Gestion des utilisateurs*/
-        $usersList = $this->getDoctrine()->getManager()->getRepository('AppBundle:User')->findAll();
+        $usersList = $userManager->getPaginatedUsersList($user->getId());
 
         return $this->render("default_integration/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),

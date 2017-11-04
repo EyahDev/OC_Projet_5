@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * récupère tous les utilisateurs enregistrés autres que l'utilisateur dont l'id est passé en argument
+     * @param $id
+     * @return array
+     */
+    public function findAllExceptUser($id)
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        $qb->where('u.id != :id')->setParameter('id', $id);
+
+        return $qb->getQuery()->getResult();
+    }
 }
