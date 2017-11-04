@@ -2,6 +2,10 @@ h3{
     margin-top: 40px;
 }
 
+.close img{
+    width: 30px;
+}
+
 /*----------------------------------------------- Header ----------------------------------------------- */
 .jumbotron-dashboard img{
     width : 100%;
@@ -20,12 +24,7 @@ h3{
     max-width: 40%;
 }
 
-#quickAccess img{
-    max-width: 100px;
-}
-
-#quickAccess img{
-    margin-top: 15px;
+#buttonSaisieRapide img{
     max-width: 100px;
 }
 
@@ -50,7 +49,7 @@ h3{
 
 #dashboard.container a{
     font-family: 'Raleway', sans-serif;
-    font-size: 40px;
+    font-size: 35px;
     margin-top: 0;
     Color : #444;
 }
@@ -96,4 +95,60 @@ h3{
     margin-top: 80px !important;
 }
 
+/*----------------------------------------------- Modal ----------------------------------------------- */
+
+.modal-content{
+    max-width: 400px;
+    margin: auto;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0 solid;
+    border-radius: 0;
+    outline: 0;
+}
+
+.modal-header {
+    border-bottom: 0;
+}
+
+.modal-footer {
+    border-top: 0;
+}
+
+.photo .control-label {
+    margin: auto;
+    background-color: #333;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+@media (max-width: 420px) {
+    .modal-content{
+        width: 100%
+    }
+}
 

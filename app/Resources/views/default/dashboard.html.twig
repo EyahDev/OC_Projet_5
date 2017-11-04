@@ -3,6 +3,8 @@
 {% block stylesheets %}
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
     <link href="{{ asset('css/quickAccess.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard/commonFeatures/myAccount.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard/commonFeatures/myObservations.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block header %}
@@ -10,11 +12,11 @@
         <div class="jumbotron-dashboard vertical-center">
             <div class="container-fluid">
                 {% if is_granted('ROLE_ADMIN') %}
-                    <img src="{{ asset('img/dashboard/image-header-a.png') }}">
+                    <img src="{{ asset('img/dashboard/image-header-a.png') }}" alt="hibou">
                 {% elseif is_granted('ROLE_PROFESSIONAL') %}
-                    <img src="{{ asset('img/dashboard/image-header-p.jpg') }}">
+                    <img src="{{ asset('img/dashboard/image-header-p.jpg') }}" alt="rouge-gorge">
                 {% elseif  is_granted('ROLE_USER') %}
-                    <img src="{{ asset('img/dashboard/image-header-u.png') }}">
+                    <img src="{{ asset('img/dashboard/image-header-u.png') }}" alt="ipad">
                 {% endif %}
             </div>
         </div>
@@ -49,7 +51,7 @@
                         <div class="modal-header">
                             <h5 class="modal-title" id="saisieObservationModalLabel">Saisie rapide d'une observation</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
                             </button>
                         </div>
                         <div class="modal-body" id="modalSaisieRapide">

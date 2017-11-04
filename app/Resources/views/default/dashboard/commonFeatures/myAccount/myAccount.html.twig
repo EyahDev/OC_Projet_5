@@ -1,5 +1,3 @@
-<link href="{{ asset('css/dashboard/commonFeatures/myAccount.css') }}" rel="stylesheet">
-
 <div id="flashMsgAccount"></div>
 
 <div class="container d-flex flex-column text-left">
@@ -12,11 +10,12 @@
         <div>
             <img style="height: 150px" src="{{ asset(app.user.avatarPath) }}" alt="{{ app.user.username }}" >
         </div>
-        <div class="avatarPath">
+        <div class="photo">
+            {{ form_label(avatarForm.avatarPath) }}
             {{ form_widget(avatarForm.avatarPath) }}
         </div>
         <div>
-            {{ form_widget(avatarForm.save, {'label': 'Modifier',
+            {{ form_widget(avatarForm.save, {'label': 'Valider',
                 'attr': {'class': 'btn btn-default btn-user-update-avatar',
                     'url': path('edit_user_avatar')}}) }}
         </div>
@@ -87,7 +86,7 @@
         </div>
     </div>
 
-    <h6>Votre mot de passe</h6>
+    <h6>Votre mot de passe :</h6>
     <div class="mdp">
         {{ form_start(updateUserPasswordForm) }}
         {# Les erreurs générales du formulaire. #}

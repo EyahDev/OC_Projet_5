@@ -1,0 +1,35 @@
+.table thead th {
+    text-align: center;
+}
+
+.fa {
+    font-size: 25px;
+}
+
+td a{
+    font-size: 16px !important;
+    display: flex;
+    justify-content: center;
+ }
+
+td a p{
+    margin-right: 5px;
+}
+
+input#modif_observation_by_observer_photoPath {
+   display: none;
+}
+
+#modif_observation_by_observer_observationDescription{
+    height: 200px;
+    border: 1px solid black;
+}
+
+#commentaire.form-group{
+    text-align: left !important;
+}
+
+textarea#modif_observation_by_observer_observationDescription.form-control {
+    box-shadow: 0 0 0 #DCDCDC !important;
+}
+

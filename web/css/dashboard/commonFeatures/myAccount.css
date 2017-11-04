@@ -25,6 +25,9 @@ h6{
 div.update-avatar-section form{
     width: 100%;
     margin: 15px auto 15px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -33,8 +36,12 @@ div.update-avatar-section form{
     margin-bottom: 15px;
 }
 
-.avatarPath{
+.photo{
     margin-bottom: 15px;
+}
+
+input#update_user_avatar_avatarPath{
+    display: none;
 }
 
 /*----------------------------------------------- infos persos ----------------------------------------------- */
@@ -67,6 +74,7 @@ hr{
     width: 100% !important;
     max-width: 300px;
     margin: 0 auto 15px auto;
+    display: flex;
     flex-direction: row !important;
     justify-content: center;
     align-items: flex-end;
@@ -109,5 +117,11 @@ hr{
 @media (max-width: 992px) {
     .mdp {
         width: 100% !important;
+    }
+}
+
+@media (max-width: 992px) {
+    h6{
+        margin-left: 0;
     }
 }
