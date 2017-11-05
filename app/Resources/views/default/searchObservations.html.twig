@@ -22,10 +22,9 @@
                 height: 100%;
                 z-index: 1031;
                 width: 100%;
-                background: transparent;
             }
 
-            .headerResearch {
+            .contentResearch {
                 -webkit-box-shadow: none;
                 -moz-box-shadow: none;
                 box-shadow: none;
@@ -47,10 +46,9 @@
                 bottom: 0;
                 width: 100%;
                 height: 100%;
-                background: transparent;
             }
 
-            .headerResult {
+            .contentSideBarResult {
                 -webkit-box-shadow: none;
                 -moz-box-shadow: none;
                 box-shadow: none;
@@ -90,10 +88,9 @@
                 left: 0;
                 bottom: 0;
                 width: 40%;
-                background: transparent;
             }
 
-            .headerResearch {
+            .contentResearch {
                 -webkit-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
                 -moz-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
                 box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
@@ -113,10 +110,9 @@
                 left: 0;
                 bottom: 0;
                 width: 50%;
-                background: transparent;
             }
 
-            .headerResult {
+            .contentSideBarResult {
                 margin-right: 15px;
                 border-radius: 10px;
                 border: 1px solid lightgray;
@@ -207,10 +203,14 @@
             text-transform: uppercase;
         }
 
+        .closeSideBar {
+            margin-top: 3px;
+            cursor: pointer;
+        }
 
         /* Recherche */
 
-        .headerResearch {
+        .contentResearch {
             background-color: white;
             min-height: 150px;
             padding: 10px;
@@ -220,7 +220,7 @@
         /* Résultat de la recherche */
 
 
-        .headerResult {
+        .contentSideBarResult {
             background-color: white;
             padding: 10px;
         }
@@ -269,78 +269,72 @@
         </div>
     {% endfor %}
     <div class="container-fluid">
-        {#<div class="sidebars">#}
-            <div class="research-sidebar">
-                <div class="headerResearch">
-                    <div>
-                        <div class="d-flex justify-content-start">
-                            <p class="presSideBars">Recherche d'une observation</p>
-                            <p id="closeResearch" class="closeSideBar ml-auto close">&times;</p>
-                        </div>
-                        <div>
-                            {{ form_start(searchObservationForm) }}
-                            {{ form_errors(searchObservationForm) }}
-
-                            {{ form_label(searchObservationForm.vernacular) }}
-                            {{ form_widget(searchObservationForm.vernacular) }}
-                            <a href="" class="ml-auto" data-toggle="collapse" data-target='#advancedResearch'>recherche avancée</a>
-
-                            <br>
-                            <div id="advancedResearch" class="collapse">
-                                {{ form_label(searchObservationForm.reference) }}
-                                {{ form_widget(searchObservationForm.reference) }}
-
-                                {{ form_label(searchObservationForm.type) }}
-                                {{ form_widget(searchObservationForm.type) }}
-
-                                {{ form_label(searchObservationForm.family) }}
-                                {{ form_widget(searchObservationForm.family) }}
-
-                                {{ form_label(searchObservationForm.begin) }}
-                                {{ form_widget(searchObservationForm.begin) }}
-
-                                {{ form_label(searchObservationForm.end) }}
-                                {{ form_widget(searchObservationForm.end) }}
-
-                            </div>
-                            <div class="d-flex justify-content-start">
-                                <div class="ml-auto searchBTN">
-                                    {{ form_widget(searchObservationForm.Rechercher) }}
-                                    {{ form_end(searchObservationForm) }}
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+        <div class="research-sidebar">
+            <div class="contentResearch">
+                <div class="d-flex justify-content-start">
+                    <p class="presSideBars">Recherche d'une observation</p>
+                    <p id="closeResearch" class="closeSideBar ml-auto close">&times;</p>
                 </div>
-            </div>
-        </div>
-        <div class="sidebars">
-            <div class="result-sidebar">
-                <div class="headerResult">
-                    <div id="resultsCounter" class="d-flex justify-content-start">
-                        <p class="presSideBars">Details de la recherche : 0 resultat</p>
-                        <p id="closeResult" class="closeSideBar ml-auto close">&times;</p>
-                    </div>
-                    <div class="contentResult">
-                        <div class="table-responsive-vertical shadow-z-1">
-                            <table id="resultsNoMaps" class="table table-hover table-mc-default">
-                            </table>
-                        </div>
+                <div>
+                    {{ form_start(searchObservationForm) }}
+                    {{ form_errors(searchObservationForm) }}
+
+                    {{ form_label(searchObservationForm.vernacular) }}
+                    {{ form_widget(searchObservationForm.vernacular) }}
+                    <a href="" class="ml-auto" data-toggle="collapse" data-target='#advancedResearch'>recherche avancée</a>
+
+                    <br>
+                    <div id="advancedResearch" class="collapse">
+                        {{ form_label(searchObservationForm.reference) }}
+                        {{ form_widget(searchObservationForm.reference) }}
+
+                        {{ form_label(searchObservationForm.type) }}
+                        {{ form_widget(searchObservationForm.type) }}
+
+                        {{ form_label(searchObservationForm.family) }}
+                        {{ form_widget(searchObservationForm.family) }}
+
+                        {{ form_label(searchObservationForm.begin) }}
+                        {{ form_widget(searchObservationForm.begin) }}
+
+                        {{ form_label(searchObservationForm.end) }}
+                        {{ form_widget(searchObservationForm.end) }}
+
                     </div>
                     <div class="d-flex justify-content-start">
-                        <img class="ml-auto logoResultResearch" src="{{ asset('img/research_observations/logo-resultat-de-recherche.png') }}" alt="resultat">
+                        <div class="ml-auto searchBTN">
+                            {{ form_widget(searchObservationForm.Rechercher) }}
+                            {{ form_end(searchObservationForm) }}
+                        </div>
                     </div>
                 </div>
             </div>
-
-        {#</div>#}
-        <div id="map"></div>
-
-        <div id="controls">
-            <a class="btn btn-dark" id="triggerResearch">Recherche</a>
-            <a class="btn btn-dark" id="triggerResult">Détails des résultats</a>
         </div>
+    </div>
+
+    <div class="result-sidebar">
+        <div class="contentSideBarResult">
+            <div id="resultsCounter" class="d-flex justify-content-start">
+                <p class="presSideBars">Details de la recherche : 0 resultat</p>
+                <p id="closeResult" class="closeSideBar ml-auto close">&times;</p>
+            </div>
+            <div class="contentResult">
+                <div class="table-responsive-vertical shadow-z-1">
+                    <table id="resultsNoMaps" class="table table-hover table-mc-default">
+                    </table>
+                </div>
+            </div>
+            <div class="d-flex justify-content-start">
+                <img class="ml-auto logoResultResearch" src="{{ asset('img/research_observations/logo-resultat-de-recherche.png') }}" alt="resultat">
+            </div>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <div id="controls">
+        <a class="btn btn-dark" id="triggerResearch">Recherche</a>
+        <a class="btn btn-dark" id="triggerResult">Détails des résultats</a>
     </div>
 
 {% endblock %}
