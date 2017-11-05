@@ -23,7 +23,7 @@
     </div><hr>
 
     <div class="perso">
-        <div class="inputPerso">
+        <div class="input">
             {{ form_start(updateUserNameForm) }}
 
             {# Les erreurs générales du formulaire. #}
@@ -38,7 +38,7 @@
         </div>
 
         {# prénom de l'utilisateur #}
-        <div class="inputPerso">
+        <div class="input">
             {{ form_start(updateUserFirstNameForm) }}
 
             {# Les erreurs générales du formulaire. #}
@@ -53,7 +53,7 @@
         </div>
 
         {# Adresse de l'utilisateur #}
-        <div class="inputPerso">
+        <div class="input">
             {{ form_start(updateUserLocationForm, {'attr': {'class': 'form-horizontal'}}) }}
 
             {# Les erreurs générales du formulaire. #}
@@ -71,7 +71,7 @@
         </div>
 
         {# Inscription à la newsletter #}
-        <div class="inputPerso newsletter">
+        <div class="input newsletter">
             {{ form_start(updateUserNewsletterForm) }}
 
             {# Les erreurs générales du formulaire. #}
@@ -91,13 +91,13 @@
         {{ form_start(updateUserPasswordForm) }}
         {# Les erreurs générales du formulaire. #}
         {{ form_errors(updateUserPasswordForm) }}
-            <div class="inputPerso">
+            <div class="input">
                 {{ form_row(updateUserPasswordForm.password) }}
             </div>
-            <div class="inputPerso">
+            <div class="input">
                 {{ form_row(updateUserPasswordForm.newPassword.first) }}
             </div>
-            <div class="inputPerso">
+            <div class="input">
                 {{ form_row(updateUserPasswordForm.newPassword.second) }}
             </div>
             <div>

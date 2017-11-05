@@ -16,13 +16,13 @@ class ContactUsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('sujet', TextType::class, array('attr' => array('placeholder' => 'Sujet'),
-                'constraints' => array(
+            ->add('sujet', TextType::class, array(
+                    'constraints' => array(
                     new NotBlank(array("message" => "Veuillez saisir un sujet valide.")),
                 )
             ))
-            ->add('message', TextareaType::class, array('attr' => array('placeholder' => 'Votre message'),
-                'constraints' => array(
+            ->add('message', TextareaType::class, array(
+                    'constraints' => array(
                     new NotBlank(array("message" => "Veuillez saisir un message valide.")),
                     new Length(array(
                         'min' => '2',

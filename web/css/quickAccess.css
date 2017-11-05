@@ -196,3 +196,24 @@ select.form-control {
 .custom-spinner.custom-spinner--disabled::after {
     color: rgba(0,0,0,.1);
 }
+
+@media (max-width: 420px) {
+    #quickAccess {
+        max-width: 100%;
+    }
+
+    #quickAccess p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    #quickAccess h3 {
+        margin-top: 10px;
+    }
+}
+
+
+textarea#create_observation_observationDescription.form-control,
+textarea#create_observation_eggsDescription.form-control{
+    height: 100px;
+}

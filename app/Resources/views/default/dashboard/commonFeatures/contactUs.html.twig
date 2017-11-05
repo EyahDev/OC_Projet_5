@@ -1,15 +1,25 @@
-<div>
-    {{ form_start(contactForm) }}
+<div id="contactUs">
+    <div class="input">
+        {{ form_start(contactForm) }}
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(contactForm) }}
 
-    {{ form_widget(contactForm.sujet) }}<br/>
-    {{ form_errors(contactForm.sujet) }}
+        <div class="sujet">
+        {{ form_row(contactForm.sujet) }}<br/>
+        </div>
 
-    {{ form_widget(contactForm.message) }}<br/>
-    {{ form_errors(contactForm.message) }}
+        <div class="message">
+        {{ form_row(contactForm.message) }}<br/>
+        </div>
 
-    {{ form_widget(contactForm.save) }}
+        <div class="submit">
+        {{ form_widget(contactForm.save, {'label': 'Envoyer' }) }}
+        </div>
 
-    {{ form_rest(contactForm) }}
+        {{ form_rest(contactForm) }}
 
-    {{ form_end(contactForm) }}
+        {{ form_end(contactForm) }}
+    </div>
 </div>
+
+

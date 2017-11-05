@@ -1,6 +1,7 @@
 /*----------------------------------------------- Header ----------------------------------------------- */
 .jumbotron-index {
     background: url(../img/cinémagraphe-page-accueil-Nao.gif) 0 0 no-repeat;
+    background-position: center;
     background-size: cover;
     height: 800px;
     Color : #444;
