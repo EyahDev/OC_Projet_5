@@ -430,7 +430,7 @@ class BlogManager
         return $paginator->paginate(
             $postList/*$query*/, /* query NOT result */
             $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
-            4/*limit per page*/
+            3/*limit per page*/
         );
     }
 

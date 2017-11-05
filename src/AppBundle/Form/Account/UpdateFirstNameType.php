@@ -19,6 +19,7 @@ class UpdateFirstNameType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, array(
+                'label' => 'Prénom',
                 'invalid_message' => 'Veuillez saisir un prénom valide.'
             ))
             ->add('save', SubmitType::class);

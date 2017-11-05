@@ -1,0 +1,114 @@
+.fa {
+    font-size: 25px;
+}
+
+@media (min-width: 992px) {
+    #mobile{
+        display:none;
+    }
+
+    /*----------------------------------------------- Tableau ----------------------------------------------- */
+
+    .table thead th {
+        text-align: center;
+    }
+
+    #collapseValidation{
+        width: 100%;
+    }
+
+    td a{
+        font-size: 16px !important;
+        display: flex;
+        justify-content: center;
+    }
+
+    td a p{
+        margin-right: 5px;
+    }
+
+    /*----------------------------------------------- Modifications ----------------------------------------------- */
+
+    input#modif_observation_by_observer_photoPath {
+        display: none;
+    }
+
+    #modif_observation_by_observer_observationDescription{
+        height: 200px;
+        border: 1px solid black;
+    }
+
+    #commentaire.form-group{
+        text-align: left !important;
+    }
+
+    textarea#modif_observation_by_observer_observationDescription.form-control {
+        box-shadow: 0 0 0 #DCDCDC !important;
+    }
+
+    /*----------------------------------------------- Détails ----------------------------------------------- */
+
+    #details h6 {
+        text-decoration: none;
+        margin-left: 0;
+    }
+
+    #details p{
+        font-size: 13px;
+        margin-left: 20px
+    }
+
+    .border{
+        border: 1.5px solid  !important;
+        margin-bottom: 10px;
+        padding: 5px;
+    }
+
+    #details .description p{
+        margin-left: 0 !important;
+        min-height: 100px;
+    }
+
+    #details .commentaire p{
+        margin-left: 0 !important;
+        min-height: 100px;
+    }
+
+    #details img[alt]{
+        font-family: 'Montserrat', sans-serif;
+        color : #666;
+        font-size: 13px;
+        margin-bottom: 30px;
+    }
+
+    /*----------------------------------------------- Validation ----------------------------------------------- */
+
+    .status h6 {
+        text-decoration: none;
+        margin-left: 0;
+    }
+
+    .status p{
+        font-size: 13px;
+        margin-left: 20px
+    }
+
+    .border{
+        border: 1.5px solid  !important;
+        margin-bottom: 10px;
+        padding: 5px;
+    }
+
+    .status .border p{
+        margin-top: 20px;
+        line-height: 2;
+        margin-left: 0 !important;
+        min-height: 100px;
+    }
+}
+
+@media (max-width: 992px) {
+    #desktop {
+        display: none;
+    }
+}

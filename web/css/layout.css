@@ -76,6 +76,11 @@ h2, h3{
   align-items: center;
 }
 
+:focus {
+    outline: -webkit-focus-ring-color 0 ;
+}
+
+
 /*----------------------------------------------- Header ----------------------------------------------- */
 
 
@@ -172,7 +177,6 @@ button:focus {
     outline: 0 dotted;
     outline-color: -webkit-focus-ring-color;
     outline-style: auto;
-    outline-width: 0;
     outline: 0 auto -webkit-focus-ring-color;
     outline-color: -webkit-focus-ring-color;
     outline-style: auto;
@@ -212,13 +216,13 @@ button:focus {
   }
 
   #mainNav .navbar-toggler {
-      background-color: white;
+  background-color: white;
   font-size: 12px;
   right: 0;
   padding: 5px 5px 5px 5px;
-      margin-right: 5px;
-      border: 1px solid white;
-      border-radius: 20px;
+  margin-right: 5px;
+  border: 1px solid white;
+  border-radius: 20px;
   color: #333;
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-transform: uppercase; }
