@@ -1,18 +1,25 @@
-<div id="flashMsgContactUs">
+<div id="contactUs">
+    <div class="input">
+        {{ form_start(contactForm) }}
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(contactForm) }}
 
+        <div class="sujet">
+        {{ form_row(contactForm.sujet) }}<br/>
+        </div>
+
+        <div class="message">
+        {{ form_row(contactForm.message) }}<br/>
+        </div>
+
+        <div class="submit">
+        {{ form_widget(contactForm.save, {'label': 'Envoyer' }) }}
+        </div>
+
+        {{ form_rest(contactForm) }}
+
+        {{ form_end(contactForm) }}
+    </div>
 </div>
-<div>
-    {{ form_start(contactForm) }}
-    <p>
-        {{ form_widget(contactForm.sujet) }}
-        {{ form_errors(contactForm.sujet) }}
-    </p>
-    <p>
-        {{ form_widget(contactForm.message) }}
-        {{ form_errors(contactForm.message) }}
-    </p>
-    <p>
-        {{ form_widget(contactForm.save, {'label': 'Envoyer', 'attr': {'class': 'btn btn-contact-us', 'url': path('contact_us')}}) }}
-    </p>
-    {{ form_end(contactForm) }}
-</div>
+
+

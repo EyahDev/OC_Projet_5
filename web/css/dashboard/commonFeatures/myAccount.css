@@ -1,0 +1,124 @@
+#collapseMyAccount h6{
+    text-decoration: underline;
+    margin-left: -30%;
+}
+
+
+
+.btn.focus, .btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0;
+}
+
+.perso label {
+    margin-bottom: 0 !important;
+}
+
+.mdp label{
+    margin-bottom: 0 !important;
+}
+
+/*----------------------------------------------- Avatar ----------------------------------------------- */
+.update-avatar-section{
+    width: 60%;
+    margin: 0 auto 0 auto;
+}
+
+div.update-avatar-section form{
+    width: 100%;
+    margin: 15px auto 15px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.update-avatar-section img{
+    margin-bottom: 15px;
+}
+
+.photo{
+    margin-bottom: 15px;
+}
+
+input#update_user_avatar_avatarPath{
+    display: none;
+}
+
+/*----------------------------------------------- infos persos ----------------------------------------------- */
+.perso{
+    margin-bottom: 20px;
+}
+
+hr{
+    /*margin: 10px auto 10px auto;*/
+}
+
+.input .form-control {
+    height: 32px !important;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    width: 100%;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #495057;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid black;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.perso form{
+    width: 100% !important;
+    max-width: 300px;
+    margin: 0 auto 15px auto;
+    display: flex;
+    flex-direction: row !important;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.newsletter form{
+    align-items: center !important;
+}
+
+.input .form-group{
+    margin: 0 !important
+}
+.input button{
+    margin-left: 10px;
+}
+
+/*----------------------------------------------- Mot de passe ----------------------------------------------- */
+.mdp{
+    display: flex;
+    flex-direction: column;
+    text-align: center !important;
+}
+
+.input{
+    text-align: left !important;
+}
+
+.mdp form{
+    max-width: 300px;
+    width: 100% !important;
+    margin: 0 auto 15px auto;
+}
+
+.mdp button{
+    margin-top: 20px;
+}
+
+@media (max-width: 992px) {
+    #collapseMyAccount h6{
+        margin-left: 0;
+    }
+    .mdp {
+        width: 100% !important;
+    }
+}

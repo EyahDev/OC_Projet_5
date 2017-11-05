@@ -35,7 +35,7 @@ class CreatePostType extends AbstractType
                 'invalid_message' => 'Veuillez saisir un contenu valide.'
             ))
             ->add('imagePath', FileType::class, array(
-                'label' => 'Sélectionnez une image représant votre article',
+                'label' => 'Sélectionnez une image',
                 'invalid_message' => 'Veuillez sélectionner un fichier valide.',
                 'data_class' => null,
                 'required' => false

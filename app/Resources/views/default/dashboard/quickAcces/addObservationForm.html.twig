@@ -1,12 +1,17 @@
-<div>
-    {{ form_start(createObservationForm) }}
+<div class="container-fluid">
+    <div class="formulaire">
+        {{ form_start(createObservationForm) }}
+        {{ form_errors(createObservationForm.species) }}
+
+        <span class="custom-dropdown">
+        {{ form_row(createObservationForm.species )}}<br/>
+        </span>
 
     <span class="custom-dropdown">
         {{ form_row(createObservationForm.species )}}<br/>
         {{ form_errors(createObservationForm.species) }}
     </span>
-
-
+    
     <span class="custom-dropdown">
         {{ form_row(createObservationForm.vernacularName) }}<br/>
         {{ form_errors(createObservationForm.vernacularName) }}
@@ -22,7 +27,7 @@
             {{ form_errors(createObservationForm.birdNumber) }}
         </span>
     </div>
-
+    
     <div class="eggsNumber">
         <span class="label-space">
             {{ form_label(createObservationForm.eggsNumber) }}
@@ -32,8 +37,7 @@
             {{ form_errors(createObservationForm.eggsNumber) }}
         </span>
     </div>
-
-
+    
     {{ form_row(createObservationForm.eggsDescription) }}<br/>
     {{ form_errors(createObservationForm.eggsDescription) }}
 
@@ -107,5 +111,6 @@
             'Erreur : Impossible de vous localiser, vous pouvez entrer manuellement les coordonnées de votre observation.' :
             'Erreur : Votre navigateur ne supporte pas la géolocalisation, veuillez entrer manuellement les coordonnées GPS de votre observation');
     }
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNQR3Hw_y1urMSouzdoaVgUESayHjM90g&&callback=initMap" async defer></script>
