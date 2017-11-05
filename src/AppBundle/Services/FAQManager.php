@@ -85,7 +85,11 @@ class FAQManager
         return $this->formBuilder->create(EditFaqType::class, $faq);
     }
 
-
+    /**
+     * Valide la question / réponse
+     * @param Faq $faq
+     * @return bool|string
+     */
     public function validateFaq (Faq $faq)
     {
         $errors = $this->validator->validate($faq);
@@ -99,6 +103,10 @@ class FAQManager
         return true;
     }
 
+    /**
+     * Retourne la liste paginée des questions / réponses
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+     */
     public function getPaginatedFaqList()
     {
         // récupère la liste des questions/réponses
@@ -109,7 +117,7 @@ class FAQManager
         return $paginator->paginate(
             $faqList/*$query*/, /* query NOT result */
             $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
-            5/*limit per page*/
+            10/*limit per page*/
         );
     }
 }

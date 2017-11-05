@@ -1,0 +1,8 @@
+<div class="mx-auto" id="flashMsgObservationsValidation">
+
+</div>
+{% if observations|length != 0  %}
+{% include('default/dashboard/commonFeatures/observationsValidation/paginatedTable.html.twig') %}
+{% else %}
+    Aucune observation n'est en attente de validation pour l'instant, revenez plus tard.
+{% endif %}
