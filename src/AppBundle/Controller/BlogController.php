@@ -350,19 +350,23 @@ class BlogController extends Controller
             $replyForm->handleRequest($request);
 
             // Soumission du formulaire
-            if ($replyForm->isSubmitted() && $replyForm->isValid()) {
+            if ($replyForm->isSubmitted()) {
                 // Récupération de l'auteur du message
                 $user = $this->getUser();
                 // Récupération de l'entitée Catégory avec les valeurs hydratées
                 $comment = $replyForm->getData();
+                // Récupère le résultat de la validation
+                $validation = $blogManager->validateComment($comment);
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
+                }
                 // Ajout du commentaire parent
                 $comment->setParent($commentParent);
                 // Enregistrement de la nouvelle catégorie
                 $blogManager->setComment($comment, $post, $user);
                 // Envoi de la réponse seule pour l'affichage en js
-                return $this->render("default/blog/comments/replyOnly.html.twig", array(
-                    'comment' => $comment
-                ));
+                return new Response('Réponse au commentaire ajoutée');
             }
             // Envoi de le formulaire de réponse  pour l'affichage en js
             return $this->render("default/blog/comments/replyComment.html.twig", array(
@@ -389,9 +393,7 @@ class BlogController extends Controller
             // Ajout un signalement au commentaire et récupère le message pour le message flash JS
             $message = $blogManager->setCommentFlag($commentId);
             // Envoi le message flash pour l'affichage en JS
-            return $this->render("default/blog/comments/returnFlagged.html.twig", array(
-                'message' => $message
-            ));
+            return new Response($message);
         }
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }

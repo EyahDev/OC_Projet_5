@@ -1,9 +1,10 @@
 {{ form_start(commentForm) }}
 {{ form_errors(commentForm) }}
 
-{{ form_errors(commentForm.message) }}
-{{ form_label(commentForm.message) }}<br/>
-{{ form_widget(commentForm.message) }}<br/>
+<div>
+    {{ form_errors(commentForm.message) }}
+    {{ form_widget(commentForm.message, {'attr': {'placeholder': 'Votre message...'}}) }}
+</div>
 <div class="d-flex justify-content-end btn-new-comment-section">
     {{ form_widget(commentForm.save, {'label': 'Commenter'}) }}
 </div>

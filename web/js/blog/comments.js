@@ -72,6 +72,8 @@ $(document).ready(function() {
             $('form[name="reply_comment"]').replaceWith("");
             // supprime les formulaires de reponse
             $('form[name="new_comment"]').replaceWith("");
+            // supprime les messages flash
+            $('.flash-msg').replaceWith("");
         })
     }
     // AJOUT D'UN COMMENTAIRE
@@ -144,8 +146,7 @@ $(document).ready(function() {
                 },
                 // en cas d'erreur
                 error: function (jqxhr) {
-                    // affiche une alert contenant le message d'erreur
-                    // alert(jqxhr.responseText);
+                    addFlashMsgNewComment('danger', 'Une erreur est survenue')
                 }
             });
         });
@@ -170,15 +171,18 @@ $(document).ready(function() {
                 // en cas de succes de la requete
                 success: function (data) {
                     // affiche le formulaire de réponse avant le bouton répondre
-                    $a.parentsUntil('#commentsList').append(data);
-                    // ajoute apres le formulaire un bouton annuler pour réafficher les autres bouton de la page
-                    $a.parentsUntil('#commentsList').append('<button class="cancel-btn btn">Annuler</button>');
+                    $a.parent().next('.form-reply-comment-section').replaceWith(data);
+
+                    $a.parent().next('.form-reply-comment-section').css('margin-top', '10px');
+                    $('.btn-reply-comment-section').css('margin-top', '10px');
                     // masque les boutons répondre
                     $(".btn-reply").hide();
                     // masque le bouton commenter
                     $("#createComm").hide();
                     // supprime le formulaire de commentaire
                     $('form[name="new_comment"]').replaceWith("");
+                    // ajoute apres le formulaire un bouton annuler pour réafficher les autres bouton de la page
+                    $('.btn-reply-comment-section').prepend('<button class="cancel-btn btn">Annuler</button>');
                     // au clic sur le bouton annuler
                     cancelBtnComment();
                     // a la soumission du formulaire
@@ -198,43 +202,37 @@ $(document).ready(function() {
                             // ajoute le formulaire sous forme de chaine de caractères
                             data: $form.serialize(),
                             // en cas de succès
-                            success: function (data, text, jqxhr) {
-                                // ajoute la réponse a la suite des autres réponses (apres le commentaire parent)
-                                $('form[name="reply_comment"]').parent().prev().append(jqxhr.responseText);
-                                //supprime le formulaire de réponse
-                                $('form[name="reply_comment"]').replaceWith("");
-                                // affiche les boutons réponses
-                                $('.btn-reply').fadeIn( "fast", function() {
-                                    // Animation complete
-                                });
+                            success: function (data) {
+                                // affiche le message de confirmation d'ajout
+                                addFlashMsgReplyComment('success', data);
+                                // recharge la liste de commentaires
+                                reloadComments();
                                 // affiche le bouton commenter
                                 $('#createComm').fadeIn( "fast", function() {
                                     // Animation complete
                                 });
-                                // supprime le bouton annuler
-                                $('.cancel-btn').replaceWith("");
                             },
                             // en cas d'erreur
                             error: function (jqxhr) {
-                                // affiche une alert contenant le message d'erreur
-                                // alert(jqxhr.responseText);
+                                // affiche le message d'erreur
+                                addFlashMsgReplyComment('danger', jqxhr.responseText);
                             }
                         });
                     })
                 },
                 // en cas d'erreur
-                error: function (jqxhr) {
-                    // affiche une alert contenant le message d'erreur
-                    // alert(jqxhr.responseText);
+                error: function () {
+                    // affiche le message d'erreur
+                    addFlashMsgReplyComment('danger', 'Une erreur est survenue');
                 }
             });
         });
     }
-    // SIGNALEMENT
+    // SIGNALEMENT COMMENTAIRE NIVEAU 0
     flagComment();
     function flagComment() {
         //  auclic sur un bouton signaler
-        $(".btn-flag").on('click', function (e) {
+        $(".btn-flag-comment").on('click', function (e) {
             // empeche l'action prévue sur le bouton répondre
             e.preventDefault();
             // conserve dans une variable le bouton
@@ -249,6 +247,48 @@ $(document).ready(function() {
                 url: url,
                 // en cas de succes de la requete
                 success: function (data) {
+                    formattedData = '<div class="flash-msg alert alert-success">'+data+'</div>';
+                    // affiche le formulaire de réponse avant le bouton répondre
+                    $a.parent().parent().prepend(data);
+                    // retire le message flash après 5 secondes
+                    function removeFlagMsg(){
+                        $('.flag-msg').replaceWith("");
+                    }
+                    setTimeout(removeFlagMsg, 5000);
+                },
+                // en cas d'erreur
+                error: function () {
+                    // affiche l'erreur
+                    $a.parent().prepend('<div class="flash-msg alert alert-success">Une erreur est survenue</div>');
+                    // retire le message flash après 5 secondes
+                    function removeFlagMsg(){
+                        $('.flag-msg').replaceWith("");
+                    }
+                    setTimeout(removeFlagMsg, 15000);
+                }
+            });
+        });
+    }
+    // SIGNALEMENT COMMENTAIRE NIVEAU 1
+    flagReply();
+    function flagReply() {
+        //  auclic sur un bouton signaler
+        $(".btn-flag-reply").on('click', function (e) {
+            // empeche l'action prévue sur le bouton répondre
+            e.preventDefault();
+            // conserve dans une variable le bouton
+            var $a = $(this);
+            // recupere l'url depuis l'attribut href du bouton
+            var url = $a.attr('href');
+            // appelle la fonction Ajax
+            $.ajax({
+                // type de requête ici GET
+                type: 'GET',
+                // url de la requete (prend la valeur de l'url du bouton commenter)
+                url: url,
+                // en cas de succes de la requete
+                success: function (data) {
+                    formattedData = '<div class="flash-msg alert alert-success">'+data+'</div>';
                     // affiche le formulaire de réponse avant le bouton répondre
                     $a.parent().prepend(data);
                     // retire le message flash après 5 secondes
@@ -258,9 +298,14 @@ $(document).ready(function() {
                     setTimeout(removeFlagMsg, 5000);
                 },
                 // en cas d'erreur
-                error: function (jqxhr) {
-                    // affiche une alert contenant le message d'erreur
-                    // alert(jqxhr.responseText);
+                error: function () {
+                    // affiche l'erreur
+                    $a.parent().prepend('<div class="flash-msg alert alert-success">Une erreur est survenue</div>');
+                    // retire le message flash après 5 secondes
+                    function removeFlagMsg(){
+                        $('.flag-msg').replaceWith("");
+                    }
+                    setTimeout(removeFlagMsg, 15000);
                 }
             });
         });
