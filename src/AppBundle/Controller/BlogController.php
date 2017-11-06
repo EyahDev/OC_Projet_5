@@ -89,17 +89,17 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("blog/{category}", name="view-posts-by-category")
+     * @Route("blog/{categorySlug}", name="view-posts-by-category")
      */
-    public function viewPostsByCategoryAction($category, BlogManager $blogManager) {
+    public function viewPostsByCategoryAction($categorySlug, BlogManager $blogManager) {
         // Récupération du nom de la catégorie à afficher
-        $cat = $blogManager->getCategory($category);
+        $cat = $blogManager->getCategory($categorySlug);
 
         // Récupération de la liste de toutes les catégories
         $categories = $blogManager->getCategories();
 
         /* Gestion de la pagination */
-        $paginationPostsCategory = $blogManager->getPaginatedPostsCategoryList($category);
+        $paginationPostsCategory = $blogManager->getPaginatedPostsCategoryList($cat);
 
         // Récupération des 3 derniers articles rédigés
         $threeLastPost = $blogManager->getThreeLastPosts();

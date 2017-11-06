@@ -197,8 +197,7 @@ class BlogManager
 
     public function getPostsByCategory($category) {
         // Récupération des articles par sa catégorie
-        $posts = $this->getCategory($category)->getPosts();
-
+        $posts = $this->em->getRepository('AppBundle:Post')->findByCategory($category->getId());
         // Retourne les articles associés à la catégorie
         return $posts;
     }
@@ -450,28 +449,28 @@ class BlogManager
     public function getPaginatedPostList()
     {
         // récupère la liste des questions/réponses
-        $postList = $this->em->getRepository('AppBundle:Post')->findAll();
+        $postList = $this->getPosts();
         // récupère le service knp paginator
         $paginator  = $this->container->get('knp_paginator');
         // retourne les questions /réponse paginé selon la page passé en get
         return $paginator->paginate(
             $postList/*$query*/, /* query NOT result */
             $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
-            4/*limit per page*/
+            5/*limit per page*/
         );
     }
 
     public function getPaginatedPostsCategoryList($category)
     {
         // récupère la liste des questions/réponses
-        $postsListCategory = $this->getCategory($category)->getPosts();
+        $postsListCategory = $this->getPostsByCategory($category);
         // récupère le service knp paginator
         $paginator  = $this->container->get('knp_paginator');
         // retourne les questions /réponse paginé selon la page passé en get
         return $paginator->paginate(
             $postsListCategory/*$query*/, /* query NOT result */
             $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
-            1/*limit per page*/
+            5/*limit per page*/
         );
     }
 
