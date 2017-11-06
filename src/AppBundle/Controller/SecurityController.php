@@ -8,6 +8,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
@@ -23,6 +24,10 @@ class SecurityController extends Controller
     {
         // récupération des erreurs si il y en a
         $error = $authUtils->getLastAuthenticationError();
+        if($error != null){
+            $response = '<div class="alert alert-danger justify-content-center">Nom d\'utilisateur ou mot de passe invalide</div>';
+            return new Response($response, 500);
+        }
 
         // dernier nom d'utilisateur saisie par l'utilisateur
         $lastUsername = $authUtils->getLastUsername();
