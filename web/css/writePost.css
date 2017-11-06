@@ -73,6 +73,10 @@ select.form-control {
      top: 53%; margin-top: -.5em;
 }
 
+#create_category_quickly_save{
+
+}
+
 @media (max-width: 992px){
      #writePost form{
           width: 90%;

@@ -3,29 +3,31 @@
         <table id="table" class="table table-hover table-mc-default">
             <thead>
             <tr>
+                <th>Détails</th>
                 <th>Espèce observée</th>
-                <th>Photo</th>
                 <th>Date d'observation</th>
-                <th>Détail</th>
+                <th>Photo</th>
             </tr>
             </thead>
             <tbody>
             {% for observation in observations %}
                 <tr>
+                    <td datatype="Détails"><a href="{{ path('observation-detail', {'id' : observation.id }) }}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                     <td datatype="Espèces observées">
                         {% if observation.species != null %}
                         {{ observation.species.referenceName }}</td>
                     {% else %}
                         Espece inconnu
                     {% endif %}
+                    <td datatype="Date d'observation">{{ observation.observationDate|date('d/m/Y') }}</td>
                     <td datatype="Photo">
                         {% if observation.photoPath == null %}
-                            non
+                            <div><p>non</p><i class="fa fa-times" aria-hidden="true"></i></div>
                         {% else %}
-                            <a href="" data-toggle="modal" data-target="#photoModal{{ loop.index }}">Oui <i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="" data-toggle="modal" data-target="#photoModal{{ loop.index }}"><p>Oui</p><i class="fa fa-camera" aria-hidden="true"></i></a>
                             <div class="modal fade" id="photoModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
+                                    <div class=modal-content">
                                         <img style="max-width: 800px; margin-left: auto; margin-right: auto"
                                              src="{{ asset(observation.photoPath) }}"
                                              alt="{% if observation.species != null %}{{ observation.species.vernacularName }} {% else %}Espece inconnu{% endif %}">
@@ -34,8 +36,6 @@
                             </div>
                         {% endif %}
                     </td>
-                    <td datatype="Date d'observation">{{ observation.observationDate|date('d/m/Y') }}</td>
-                    <td datatype="Détail"><a href="{{ path('observation-detail', {'id' : observation.id }) }}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                 </tr>
             {% endfor %}
             </tbody>

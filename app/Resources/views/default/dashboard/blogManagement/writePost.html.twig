@@ -40,8 +40,9 @@
             <div class="modal-body">
                 {{ form_start(createCategoryQuickly) }}
                 {{ form_errors(createCategoryQuickly) }}
-                {{ form_label(createCategoryQuickly.name) }}<br/>
-                {{ form_widget(createCategoryQuickly.name) }}<br/>
+                <div class="input">
+                {{ form_row(createCategoryQuickly.name) }}<br/>
+                </div>
             </div>
             <div class="modal-footer">
                 {{ form_widget(createCategoryQuickly.save) }}<br/>

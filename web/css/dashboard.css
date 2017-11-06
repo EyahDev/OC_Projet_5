@@ -6,6 +6,32 @@ h3{
     width: 30px;
 }
 
+.btn {
+    background-color: #333;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+    margin: auto;
+}
+
 /*----------------------------------------------- Header ----------------------------------------------- */
 .jumbotron-dashboard img{
     width : 100%;
@@ -47,7 +73,7 @@ h3{
     text-align: center;
 }
 
-#dashboard.container a{
+.card-header a{
     font-family: 'Raleway', sans-serif;
     font-size: 35px;
     margin-top: 0;
@@ -154,20 +180,52 @@ h3{
     align-items: center;
 }
 
-@media (max-width: 420px) {
-    .modal-content{
-        width: 100%;
-    }
+    /*.card-header a{*/
+        /*font-size: 20px;*/
+    /*}*/
 
-    #dashboard.container a{
-        font-size: 20px;
-    }
+    /*#commonFeatures h3 {*/
+        /*margin-top: 0 !important;*/
+    /*}*/
+    /*.modal-dialog {*/
+        /*margin: 0;*/
+    /*}*/
+/*}*/
 
-    #commonFeatures h3 {
-        margin-top: 0 !important;
-    }
-    .modal-dialog {
-        margin: 0;
-    }
+
+/*----------------------------------------------- Gestion article ----------------------------------------------- */
+
+.action{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
+.action a{
+    margin: 0 15px 0 15px;
+}
+
+/*----------------------------------------------- Gestion Categories ----------------------------------------------- */
+input#create_category_photoPath{
+    display: none;
+}
+
+#choiceCategory form{
+    width: 50%;
+    text-align: left;
+    margin: auto
+}
+
+#choiceCategory p{
+    font-size: 13px;
+}
+
+#choiceCategory .create{
+    display: flex;
+    justify-content: space-between;
+}
+
+/*----------------------------------------------- Gestion Commentaires ----------------------------------------------- */
+#collapseCommentsModeration{
+    width: 100%;
+}
