@@ -15,12 +15,13 @@
                 </li>
                 {% if not is_granted('ROLE_USER') %}
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ path("login") }}">connexion</a>
+                        <a class="nav-link js-scroll-trigger btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">connexion</a>
+
                     </li>
                 {% else %}
                     <li class="nav-item dropdown">
                         <div class="btn-group">
-                            <a class="nav-link js-scroll-trigger" href="{{ path("dashboard") }}">Dashboard</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ path("dashboard") }}">{{ app.user.username }}</a>
                             <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -38,14 +39,18 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="{{ path("rechercheObservations") }}">Recherche d'observations</a>
-                        <a class="dropdown-item" href="{{ path("saisieObservation") }}">Saisir une observation</a>
+                        {% if not is_granted('ROLE_USER') %}
+                            <a class="dropdown-item btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">Saisir une observation</a>
+                        {% else %}
+                            <a class="dropdown-item" href="{{ path("saisieObservation") }}">Saisir une observation</a>
+                        {% endif %}
                     </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="{{ path("avanceeRecherche") }}">La recherche</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                    <a class="nav-link js-scroll-trigger" href="{{ path("homepage") }}#contact">Contact</a>
                 </li>
             </ul>
         </div>

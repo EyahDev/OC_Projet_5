@@ -1,28 +1,54 @@
-{% extends 'base.html.twig' %}
-{% block body %}
-<div class="well ">
+<div class="modal fade" id="connexionModal" tabindex="-1" role="dialog" aria-labelledby="connexionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="well row">
+                    <div class="col-sm-4 order-2 order-sm-1 cnx-infos-section">
+                        <div class="container-fluid footer">
+                            <img src="{{ asset('img/logo-footer.png') }}" />
+                            <p class="nao">Nao</p>
+                        </div>
+                        <h4>Contact & Infos</h4>
+                        <div><i class="fa fa-phone-square" aria-hidden="true"></i><p>01 75 72 15 18</p></div>
+                        <div><i class="fa fa-home" aria-hidden="true"></i><p>5 rue des pardrix, 75002 Paris</p></div>
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i><p>infos@nao.org</p></div>
+                    </div>
+                    <div class="col-sm-8 align-items-center order-1 order-sm-2 cnx-form-section">
+                        <div class="row justify-content-between">
+                            <h5 class="modal-title" id="connexionModalLabel">Connexion</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="align-items-center">
+                            {% if error %}
+                            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+                            <form action="{{ path('login') }}" method="post" class="form-gr" id="connexion-form">
+                                <div class="form-group">
+                                    <label for="username">Nom d'utilisateur :</label>
+                                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" placeholder="Saississez votre nom d'utilisateur" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Mot de passe :</label>
+                                    <input type="password" id="password" name="_password" class="form-control" placeholder="Saississez votre nom d'utilisateur" />
+                                </div>
 
-    {% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    <form action="{{ path('login') }}" method="post" class="form-gr">
-        <div class="form-group">
-            <label for="username">Nom d'utilisateur :</label>
-            <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" placeholder="Saississez votre nom d'utilisateur" />
+                                <div class="d-flex justify-content-between">
+                                    <a href="{{ path('lostPassword') }}">mot de passe oublié ?</a>
+                                    <button type="submit" class="btn btn-primary ">Se connecter</button>
+                                </div>
+                            </form>
+                            <div class="row justify-content-center">
+                                <p>Vous n'avez pas de compte ?</p>
+                            </div>
+                            <div class="row justify-content-center">
+                                <a class="btn btn-primary" href="{{ path('landingPage') }}">Créer un compte</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="password">Mot de passe :</label>
-            <input type="password" id="password" name="_password" class="form-control" placeholder="Saississez votre nom d'utilisateur" />
-        </div>
-        {#
-            If you want to control the URL the user
-            is redirected to on success (more details below)
-            <input type="hidden" name="_target_path" value="/account" />
-        #}
-
-        <button type="submit">Se connecter</button>
-
-    </form>
+    </div>
 </div>
-{% endblock %}
