@@ -1,16 +1,27 @@
-{{ form_start(createCategoryForm) }}
-{{ form_errors(createCategoryForm) }}
+<div id="choiceCategory">
+    {{ form_start(createCategoryForm) }}
+    {{ form_errors(createCategoryForm) }}
 
-{{ form_errors(createCategoryForm.name) }}
-{{ form_label(createCategoryForm.name) }}<br/>
-{{ form_widget(createCategoryForm.name) }}<br/>
-
-{{ form_label(createCategoryForm.photoPath) }}<br/>
-{{ form_widget(createCategoryForm.photoPath) }}<br/>
-
-{{ form_widget(createCategoryForm.save) }}<br/>
-{{ form_end(createCategoryForm) }}
-
+    {{ form_errors(createCategoryForm.name) }}
+        <div class="input">
+            {{ form_row(createCategoryForm.name) }}<br/>
+        </div>
+        <div class="photo">
+            <div>
+                <p>Sélectionnez une image répresantant la catégorie (si aucune image n'est sélectionnée, une image par défaut sera ajoutée)</p>
+                <div class="create">
+                    <div>
+                        {{ form_label(createCategoryForm.photoPath) }}
+                        {{ form_widget(createCategoryForm.photoPath) }}
+                    </div>
+                    <div>
+                        {{ form_widget(createCategoryForm.save, {'label': 'Créer'}) }}<br/>
+                        {{ form_end(createCategoryForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
 <br/>
 {% if categoriesList|length != 0 %}
     <div class="table-responsive-vertical shadow-z-1">
@@ -33,7 +44,7 @@
                         {{ category.posts|length }}
                     </td>
                     <td data-title="Photo">
-                        <a href="" data-toggle="modal" data-target="#viewPhoto{{ loop.index }}"><i class="fa fa-eye" aria-hidden="true"></i> Voir</a>
+                        <a href="" data-toggle="modal" data-target="#viewPhoto{{ loop.index }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
 
                         <div class="modal fade " id="viewPhoto{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
@@ -44,14 +55,14 @@
                                         {#</button>#}
                                     {#</div>#}
                                     <div class="modal-body">
-                                        <img style="width: 770px" src="{{ asset(category.photoPath) }}" alt="{{ category.name }}">
+                                        <img class="img-fluid" src="{{ asset(category.photoPath) }}" alt="{{ category.name }}">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </td>
-                        <td data-title="Action">
-                            <a href="{{path('edit_category', {'slug': category.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> /
+                        <td class="action" data-title="Action">
+                            <a href="{{path('edit_category', {'slug': category.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                             <a href="{{path('advice_delete_category', {'slug': category.slug }) }}"><i class="fa fa-times" aria-hidden="true"></i></a>
                         </td>
                     </tr>

@@ -111,6 +111,20 @@ class User implements UserInterface, \Serializable
     private $location;
 
     /**
+    * @var string
+    *
+    * @ORM\Column(name="resetToken", type="string", length=255, nullable=true)
+    */
+    private $resetToken;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="tokenExpirationDate", type="datetime", nullable=true)
+     */
+    private $tokenExpirationDate;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="avatar_path", type="string", length=255, nullable=true)
@@ -611,5 +625,53 @@ class User implements UserInterface, \Serializable
     public function getAvatarPath()
     {
         return $this->avatarPath;
+    }
+
+    /**
+     * Set resetToken
+     *
+     * @param string $resetToken
+     *
+     * @return User
+     */
+    public function setResetToken($resetToken)
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    /**
+     * Get resetToken
+     *
+     * @return string
+     */
+    public function getResetToken()
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * Set tokenExpirationDate
+     *
+     * @param \DateTime $tokenExpirationDate
+     *
+     * @return User
+     */
+    public function setTokenExpirationDate($tokenExpirationDate)
+    {
+        $this->tokenExpirationDate = $tokenExpirationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get tokenExpirationDate
+     *
+     * @return \DateTime
+     */
+    public function getTokenExpirationDate()
+    {
+        return $this->tokenExpirationDate;
     }
 }

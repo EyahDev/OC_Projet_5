@@ -3,12 +3,12 @@ $('#create_observation_eggsDescription').attr("placeholder", "Décrire la couleu
 
 $('#create_observation_observationDescription').attr("class", "form-control commentaires");
 
-$('#create_observation_longitude').attr("placeholder", "Ex. 36.20 42N");
+$('#create_observation_longitude').attr("placeholder", "Ex. -1.218");
 
 
-$('#create_observation_latitude').attr("placeholder", " Ex. 23.5. 80E");
+$('#create_observation_latitude').attr("placeholder", " Ex. 46.548");
 
 
-$('#create_observation_altitude').attr("placeholder", " Ex. 310 (mètres)");
+$('#create_observation_altitude').attr("placeholder", " Ex. 310m");
 
 

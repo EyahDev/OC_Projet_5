@@ -50,8 +50,8 @@ class Comment
      * @Assert\Length(
      *     min="2",
      *     max="255",
-     *     minMessage="Votre commentaire doit comporter au minimum {{limit}} caractères",
-     *     maxMessage="Votre commentaire doit comporter au maximun {{limit}} caractères"
+     *     minMessage="Votre commentaire doit comporter au minimum {{ limit }} caractères",
+     *     maxMessage="Votre commentaire doit comporter au maximun {{ limit }} caractères"
      * )
      * @Assert\NotBlank(message="Veuillez saisir un commentaire valide")
      */

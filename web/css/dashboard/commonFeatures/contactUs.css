@@ -1,5 +1,5 @@
 #collapseContactUs{
-    width: 40%;
+    width: 80%;
     margin: auto;
 }
 
@@ -9,7 +9,7 @@ textarea#contact_us_message.form-control {
 
 #contactUs .sujet{
     margin-bottom: -10px;
-    width: 50%;
+    width: 60%;
 }
 
 #contactUs .submit{

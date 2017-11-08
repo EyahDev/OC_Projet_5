@@ -46,6 +46,5 @@ security:
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
     access_control:
-        #require le role user pour dashboard
-        - { path: ^/dashboard, roles: ROLE_USER }
-        - { path: ^/saisie-observation, roles: ROLE_USER }
+
+

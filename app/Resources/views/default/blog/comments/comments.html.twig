@@ -5,53 +5,13 @@
 {# Si l'utlisateur est connecté on affiche le bouton de commentaire #}
 {% if is_granted('ROLE_USER') %}
     Vous êtes connecté en tant que : {{ app.user.username }}
+    <div id="flashMsgNewComment"></div>
     <div id="formComm">
         <a id="createComm" href="{{ path('create-comm', { 'slugPost' : post.slug }) }}" class="btn btn-primary">commenter</a>
     </div>
 {% else %}
     {# Sinon on l'invite à se connecter #}
-    <p>Pour rédiger un message, veuillez vous <a href="{{ path('login') }}">connecter</a></p>
+    <p>Pour rédiger un message, veuillez vous <a class="btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">connecter</a></p>
 {% endif %}
 <hr>
-    {# on parcourt les commentaires pour les afficher #}
-    {% for comment in post.comments %}
-        {# si le commentaire n'a pas de parent, on l'affiche #}
-        {% if  comment.parent == null %}
-            <div class="parentComment">
-                <p class="userAndDateComment">{{ comment.author.username }} - {{ comment.date|date("d/m/Y - H:i", "Europe/Paris") }}</p>
-                <div class="d-flex flex-row align-items-center">
-                    <img class="avatarComments" src="{{ asset(comment.author.avatarPath) }}" alt="avatar">
-                    <i class="fa fa-caret-left pointerAvatar" aria-hidden="true"></i>
-                    <p class="commentMessage">{{ comment.message }}</p>
-                </div>
-                {# Si l'utlisateur est connecté on affiche les bouton répondre #}
-                {% if is_granted('ROLE_USER') %}
-                    <div class="d-flex justify-content-end align-items-center answerButton">
-                        <a class="d-flex align-items-center" href="{{ path("flag-comm", {'commentId': comment.id}) }}"><p>Signaler</p><i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i></a>
-                        <a class="btn-default btn" href="{{ path('reply-com', { 'slugPost' : post.slug, 'parentId': comment.id}) }}">Répondre</a>
-                    </div>
-                {% endif %}
-            </div>
-
-            {# on parcourt les commentaires enfant pour les afficher #}
-            {% for child in comment.children %}
-            <div class="childComment">
-                <p class="userAndDateComment anwserMargin">{{ child.author.username }} - {{ child.date|date("d/m/Y à H:i", "Europe/Paris") }}</p>
-                <div class="d-flex flex-row align-items-center anwserMargin">
-                    <img class="avatarComments" src="{{ asset(child.author.avatarPath) }}" alt="avatar">
-                    <i class="fa fa-caret-left pointerAvatar" aria-hidden="true"></i>
-                    <p class="commentMessage">{{ child.message }}</p>
-                </div>
-                <a class="d-flex align-items-center" href="{{ path("flag-comm", {'commentId': child.id}) }}"><p>Signaler</p><i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i></a>
-            </div>
-                {#<div class="child-div" style="padding-left: 20px;">#}
-                    {#<p>#}
-                        {#{{ child.author.username }}  {{ child.date|date("d/m/Y à H:i", "Europe/Paris") }}#}
-                        {#<a class="btn-flag float-right" href="{{ path("flag-comm", {'commentId': child.id}) }}"><i class="fa fa-flag" aria-hidden="true"></i></a>#}
-                    {#</p>#}
-                    {#<p>{{ child.message }}</p>#}
-                    {#<hr>#}
-                {#</div>#}
-            {% endfor %}
-        {% endif %}
-    {% endfor %}
+    {% include('default/blog/comments/commentsList.html.twig') %}

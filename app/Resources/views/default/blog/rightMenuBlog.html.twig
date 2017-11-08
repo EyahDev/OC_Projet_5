@@ -6,7 +6,7 @@
         {% for category in categories %}
             {% if category|length != 0 %}
                 <div>
-                    <a href="{{ path('view-posts-by-category', {'category' : category.slug }) }}">{{ category.name }} ({{ category.posts|length }})</a>
+                    <a href="{{ path('view-posts-by-category', {'categorySlug' : category.slug }) }}">{{ category.name }} ({{ category.posts|length }})</a>
                 </div>
             {% endif %}
         {% endfor %}
