@@ -1,9 +1,85 @@
 h3{
     margin-top: 40px;
+    font-size: 30px;
 }
+
+td.action{
+    display: flex;
+    justify-content: center;
+}
+td.action a:first-child{
+    margin-right: 30px;
+}
+
+@media (max-width: 420px){
+
+    td.action a:first-child{
+        margin-right: 10px;
+    }
+}
+
+.input .form-control {
+    height: 32px !important;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    width: 100%;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #495057;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid black;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+/*a.collapsed .titre{*/
+    /*position: relative;*/
+/*}*/
+
+/*a.collapsed .fleche{*/
+    /*position: absolute;*/
+    /*left: 90%;*/
+    /*bottom: 10%;*/
+/*}*/
+
+/*.rotate{*/
+    /*transform-origin: 72% 10%;*/
+    /*transform: rotateY( 180deg );*/
+    /*-webkit-transform:rotate(180deg);*/
+    /*-moz-transform:rotate(180deg);*/
+/*}*/
 
 .close img{
     width: 30px;
+}
+
+.btn {
+    background-color: #333;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+    margin: auto;
 }
 
 /*----------------------------------------------- Header ----------------------------------------------- */
@@ -47,9 +123,9 @@ h3{
     text-align: center;
 }
 
-#dashboard.container a{
+.card-header a{
     font-family: 'Raleway', sans-serif;
-    font-size: 35px;
+    font-size: 25px;
     margin-top: 0;
     Color : #444;
 }
@@ -76,7 +152,10 @@ h3{
     word-wrap: break-word;
     background-color: white;
     background-clip: border-box;
-    border: 2px solid black;
+    border-top: 0 solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
     border-radius: 0 0 30px 30px;
 }
 
@@ -101,7 +180,7 @@ h3{
 /*----------------------------------------------- Modal ----------------------------------------------- */
 
 .modal-content{
-    width: 400px;
+    width: 600px;
     margin: auto;
     position: relative;
     display: -ms-flexbox;
@@ -113,6 +192,17 @@ h3{
     border: 0 solid;
     border-radius: 0;
     outline: 0;
+}
+
+@media (max-width: 768px){
+    .modal-content{
+        width: 100%;
+    }
+
+    .modal-dialog{
+        margin: 0;
+    }
+
 }
 
 .modal-header {
@@ -154,20 +244,163 @@ h3{
     align-items: center;
 }
 
-@media (max-width: 420px) {
-    .modal-content{
+/*----------------------------------------------- Gestion Categories ----------------------------------------------- */
+input#create_category_photoPath{
+    display: none;
+}
+
+#choiceCategory label, p{
+    text-align: left;
+}
+
+#choiceCategory form {
+    width: 60%;
+    margin: auto
+}
+#choiceCategory p{
+    font-size: 13px;
+}
+
+#choiceCategory button{
+    margin-top: 10px;
+}
+
+td{
+    text-align: center !important;
+}
+
+.table > thead > tr > th {
+    text-align: center !important;
+}
+
+@media (max-width: 768px){
+    #choiceCategory form {
         width: 100%;
     }
 
-    #dashboard.container a{
-        font-size: 20px;
+    td {
+        text-align: right !important;
     }
 
-    #commonFeatures h3 {
-        margin-top: 0 !important;
-    }
-    .modal-dialog {
-        margin: 0;
-    }
 }
 
+/*----------------------------------------------- Gestion Commentaires ----------------------------------------------- */
+#collapseCommentsModeration{
+    width: 100%;
+}
+
+/*----------------------------------------------- Gestion Utilisateurs ----------------------------------------------- */
+
+a.btn.btn-default.btn-disable-account{
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+/*----------------------------------------------- FAQ ----------------------------------------------- */
+
+a.btn.btn-default.btn-add-faq{
+    margin-bottom: 20px;
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+button#new_faq_save.btn.btn-primary{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+#collapseFaqManagement form label{
+   text-align: left !important;
+}
+
+
+textarea#new_faq_answer.form-control {
+    height: 100px !important;
+}
+
+a.btn.btn-default.btn-rm-faq{
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}

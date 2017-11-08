@@ -3,24 +3,24 @@
 }
 
 #writePost form{
-     width: 60%;
+     width: 80%;
      margin: auto;
      display: flex;
      flex-direction: column;
 }
 
 div.input.title{
-     width: 70%;
+     width: 50%;
      margin: auto;
 }
 
 div.input.categorie{
-     width: 70%;
+     width: 50%;
      margin: auto;
 }
 
 #writePost .form-control {
-     padding: 0 0 5px 0;
+     padding: 0 0 5px 5px;
 }
 
 input#appbundle_post_imagePath{
@@ -40,7 +40,7 @@ input#appbundle_post_imagePath{
      margin-bottom: 20px;
 }
 
-.input textarea#appbundle_post_content.tinyMCE.form-control{
+#mceu_26{
      height: 300px !important;
 }
 
@@ -71,6 +71,10 @@ select.form-control {
      line-height: 1;
      right: 1em;
      top: 53%; margin-top: -.5em;
+}
+
+#create_category_quickly_save{
+
 }
 
 @media (max-width: 992px){

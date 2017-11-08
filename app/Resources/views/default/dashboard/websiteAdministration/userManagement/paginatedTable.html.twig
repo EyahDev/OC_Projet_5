@@ -8,7 +8,7 @@
                 <th>nombre d'observations</th>
                 <th>Profil</th>
                 <th>Pro</th>
-                <th>Actions</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -25,11 +25,6 @@
                                 {% if role == 'ROLE_USER' %}Particulier{% endif %}
                             {% endfor %}
                         </div>
-                        <div>
-                            <a href="{{ path('change_role', {'id': user.id}) }}" id="btnChangeRole{{ user.id }}" class="btn-change-role-modal" data-toggle="modal" data-target="#ChangeRoleModal{{ user.id }}">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </a>
-                        </div>
                     </td>
                     <td data-title="Pro">
                         {% if user.proPermission == true %}
@@ -38,7 +33,10 @@
                             Non
                         {% endif %}
                     </td>
-                    <td data-title="Actions">
+                    <td data-title="Action" class="action">
+                        <a href="{{ path('change_role', {'id': user.id}) }}" id="btnChangeRole{{ user.id }}" class="btn-change-role-modal" data-toggle="modal" data-target="#ChangeRoleModal{{ user.id }}">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
                         <a href="#" data-toggle="modal" data-target="#disableAccountModal{{ user.id }}" title="Désactiver le compte" class="btn-disable-account-modal" {% if user.enabled == 0 %} style="display: none"{% endif %}>
                             <i class="fa fa-ban" aria-hidden="true"></i>
                         </a>
@@ -46,17 +44,17 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="disableAccountModal{{ user.id }}Label">confirmation de désactivation</h5>
+                                        <h5 class="modal-title" id="disableAccountModal{{ user.id }}Label"></h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        Voulez vous vraiment desactiver le compte de  "{{ user.username }}" ?
+                                        <h5>Etes-vous sûr de vouloir bannir "{{ user.username }}" ?</h5>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-                                        <a class="btn btn-primary btn-disable-account" href="{{ path('disable_account', {'id': user.id}) }}" data-dismiss="modal">Oui</a>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+                                        <a class="btn btn-default btn-disable-account" href="{{ path('disable_account', {'id': user.id}) }}" data-dismiss="modal">Oui</a>
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +68,7 @@
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="enableAccountModal{{ user.id }}Label">confirmation de réactivation</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
