@@ -52,6 +52,9 @@ class BlogController extends Controller
         // Récupération des 3 derniers articles rédigés
         $threeLastPost = $blogManager->getThreeLastPosts();
 
+        // Récupération de la liste des commentaire
+        $commentsList = $blogManager->getCommentsByPost($post->getId());
+
         // Récupération du formulaire de rédaction d'un nouveau commentaire
         $commentForm = $blogManager->getCommentForm();
 
@@ -80,22 +83,23 @@ class BlogController extends Controller
             'post' => $post,
             'categories' => $categories,
             'threeLastPost' => $threeLastPost,
-            'commentForm' => $commentForm->createView()
+            'commentForm' => $commentForm->createView(),
+            'commentsList' => $commentsList
         ));
     }
 
     /**
-     * @Route("blog/{category}", name="view-posts-by-category")
+     * @Route("blog/{categorySlug}", name="view-posts-by-category")
      */
-    public function viewPostsByCategoryAction($category, BlogManager $blogManager) {
+    public function viewPostsByCategoryAction($categorySlug, BlogManager $blogManager) {
         // Récupération du nom de la catégorie à afficher
-        $cat = $blogManager->getCategory($category);
+        $cat = $blogManager->getCategory($categorySlug);
 
         // Récupération de la liste de toutes les catégories
         $categories = $blogManager->getCategories();
 
         /* Gestion de la pagination */
-        $paginationPostsCategory = $blogManager->getPaginatedPostsCategoryList($category);
+        $paginationPostsCategory = $blogManager->getPaginatedPostsCategoryList($cat);
 
         // Récupération des 3 derniers articles rédigés
         $threeLastPost = $blogManager->getThreeLastPosts();
@@ -293,19 +297,22 @@ class BlogController extends Controller
             $commentForm->handleRequest($request);
 
             // Soumission du formulaire
-            if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            if ($commentForm->isSubmitted() ) {
                 // Récupération de l'auteur du message
                 $user = $this->getUser();
                 // Récupération de l'entitée Catégory avec les valeurs hydratées
                 $comment = $commentForm->getData();
-
+                // Récupère le résultat de la validation
+                $validation = $blogManager->validateComment($comment);
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
+                }
                 // Enregistrement de la nouvelle catégorie
                 $blogManager->setComment($comment, $post, $user);
 
                 // Envoi du commentaire seul pour l'affichage en js
-                return $this->render("default/blog/comments/commentOnly.html.twig", array(
-                    'comment' => $comment
-                ));
+                return new Response('Commentaire ajouté');
             }
             // Envoi de le formulaire de commentaire pour l'affichage en js
             return $this->render("default/blog/comments/createComments.html.twig", array(
@@ -343,19 +350,23 @@ class BlogController extends Controller
             $replyForm->handleRequest($request);
 
             // Soumission du formulaire
-            if ($replyForm->isSubmitted() && $replyForm->isValid()) {
+            if ($replyForm->isSubmitted()) {
                 // Récupération de l'auteur du message
                 $user = $this->getUser();
                 // Récupération de l'entitée Catégory avec les valeurs hydratées
                 $comment = $replyForm->getData();
+                // Récupère le résultat de la validation
+                $validation = $blogManager->validateComment($comment);
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
+                }
                 // Ajout du commentaire parent
                 $comment->setParent($commentParent);
                 // Enregistrement de la nouvelle catégorie
                 $blogManager->setComment($comment, $post, $user);
                 // Envoi de la réponse seule pour l'affichage en js
-                return $this->render("default/blog/comments/replyOnly.html.twig", array(
-                    'comment' => $comment
-                ));
+                return new Response('Réponse au commentaire ajoutée');
             }
             // Envoi de le formulaire de réponse  pour l'affichage en js
             return $this->render("default/blog/comments/replyComment.html.twig", array(
@@ -382,9 +393,7 @@ class BlogController extends Controller
             // Ajout un signalement au commentaire et récupère le message pour le message flash JS
             $message = $blogManager->setCommentFlag($commentId);
             // Envoi le message flash pour l'affichage en JS
-            return $this->render("default/blog/comments/returnFlagged.html.twig", array(
-                'message' => $message
-            ));
+            return new Response($message);
         }
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
@@ -417,6 +426,24 @@ class BlogController extends Controller
             $paginationPostsCategory = $BlogManager->getPaginatedPostsCategoryList($category);
             return $this->render(':default/blog:categoryBlog.html.twig', array(
                 'paginationPostsCategory' => $paginationPostsCategory
+            ));
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("Blog/{slugPost}/comments", name="reload_comments_list")
+     */
+    public function reloadComments(Request $request, $slugPost, BlogManager $blogManager)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $post = $blogManager->getPost($slugPost);
+            $commentsList = $blogManager->getCommentsByPost($post->getId());
+            return $this->render('default/blog/comments/commentsList.html.twig', array(
+                'post' => $post,
+                'commentsList' => $commentsList
             ));
         }
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");

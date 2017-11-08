@@ -10,4 +10,22 @@ namespace AppBundle\Repository;
  */
 class PostRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAll()
+    {
+        return $this->findBy(array(), array('publishedDate' => 'DESC'));
+    }
+
+    public function findByCategory($categoryId)
+    {
+        // Création de l'alias
+        $qb = $this->createQueryBuilder('p')->leftJoin('p.category', 'c')
+            ->where('c.id = :categoryId')->setParameter(":categoryId", $categoryId)
+            ->orderBy('p.publishedDate', 'DESC');
+
+        // Récupération du résultat
+        $results = $qb->getQuery()->getResult();
+
+        // Retourne le résultat
+        return $results;
+    }
 }

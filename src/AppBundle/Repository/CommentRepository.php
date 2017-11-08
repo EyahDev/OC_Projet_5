@@ -23,4 +23,19 @@ class CommentRepository extends \Doctrine\ORM\EntityRepository
         // Retourne le résultat
         return $results;
     }
+
+    public function findByPost($postId)
+    {
+        // Création de l'alias
+        $qb = $this->createQueryBuilder('c')->leftJoin('c.post','p')
+            ->where('p.id = :postId')->setParameter(":postId", $postId)
+            ->orderBy('c.date', 'DESC');
+
+        // Récupération du résultat
+        $results = $qb->getQuery()->getResult();
+
+        // Retourne le résultat
+        return $results;
+
+    }
 }
