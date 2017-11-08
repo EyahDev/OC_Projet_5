@@ -239,7 +239,7 @@
                         <div class="card-header" role="tab" id="headingUsersManagement">
                             <h5 class="mb-0">
                                 <a class="collapsed" data-toggle="collapse" href="#collapseUsersManagement" aria-expanded="false" aria-controls="collapseUsersManagement">
-                                    Gestion des utilsateurs
+                                    Gestion des utilisateurs
                                 </a>
                             </h5>
                         </div>
@@ -282,7 +282,7 @@
                 center: {lat: 46.6, lng: 1.9},
                 zoom: 4
             });
-            $('#saisieObservation').on('shown.bs.modal', function () {
+            $('#saisieObservationModal').on('shown.bs.modal', function () {
                 google.maps.event.trigger(map, 'resize');
                 map.setCenter({lat: 46.6, lng: 1.9});
             });
@@ -319,6 +319,12 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNQR3Hw_y1urMSouzdoaVgUESayHjM90g&&callback=initMap" async defer></script>
     <script src="{{ asset('js/menu.js') }}"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
+    <script src="{{ asset('js/myAccount/myAccount.js') }}"></script>
+    <script src="{{ asset('js/userManagement/userManagement.js') }}"></script>
+    <script src="{{ asset('js/Observations/myObservations.js') }}"></script>
+    <script src="{{ asset('js/faq/faq.js') }}"></script>
+    <script src="{{ asset('js/Observations/observationsValidation.js') }}"></script>
+    <script src="{{ asset('js/contact/contactUs.js') }}"></script>
 {% endblock %}
 
 

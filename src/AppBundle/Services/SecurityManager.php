@@ -57,7 +57,7 @@ class SecurityManager
     public function sendMail(User $user) {
         // Préparation de l'email de contact
         $sendMail = (new \Swift_Message('Nouveau message depuis le formulaire de contact NAO'))
-            ->setFrom(array('oc_projet_5@laposte.net' => 'NAO - Nos amis les oiseaux'))
+            ->setFrom(array('noreply@adriendesmet.com' => 'NAO - Nos amis les oiseaux'))
             ->setTo($user->getEmail())
             ->setBody($this->env->render('default/security/mailResetPassword.html.twig', array(
                 'token' => $user->getResetToken()

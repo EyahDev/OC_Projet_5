@@ -44,6 +44,7 @@ $(document).ready(function() {
                 $('#commentsList').replaceWith(data);
                 // réactive les écouteurs
                 flagComment();
+                flagReply();
                 replyToComment();
             },
             error: function () {

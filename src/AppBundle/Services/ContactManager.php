@@ -60,8 +60,8 @@ class ContactManager
     public function sendMail($data) {
         // Préparation de l'email de contact
         $sendMail = (new \Swift_Message('Nouveau message depuis le formulaire de contact NAO'))
-            ->setFrom(array('oc_projet_5@laposte.net' => 'NAO - Nos amis les oiseaux'))
-            ->setTo('oc_projet_5@laposte.net')
+            ->setFrom(array('noreply@adriendesmet.com' => 'NAO - Nos amis les oiseaux'))
+            ->setTo('calcifer.hauru@gmail.com')
             ->setBody($this->env->render(':default/email:mail.html.twig', array(
                 'data' => $data
             )), 'text/html');
@@ -74,8 +74,8 @@ class ContactManager
     public function sendMailUser($data) {
         // Préparation de l'email de contact
         $sendMailUser = (new \Swift_Message('Nouveau message depuis le formulaire de contact NAO'))
-            ->setFrom(array('oc_projet_5@laposte.net' => 'NAO - Nos amis les oiseaux'))
-            ->setTo('oc_projet_5@laposte.net')
+            ->setFrom(array('noreply@adriendesmet.com' => 'NAO - Nos amis les oiseaux'))
+            ->setTo('calcifer.hauru@gmail.com')
             ->setBody($this->env->render(':default/email:mailUser.html.twig', array(
                 'data' => $data
             )), 'text/html');
