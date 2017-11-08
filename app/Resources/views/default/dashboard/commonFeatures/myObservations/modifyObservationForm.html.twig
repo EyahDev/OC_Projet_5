@@ -2,29 +2,24 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modifyObservationModal{{ observation.id }}Label">Edition de l'observation</h5>
+                <h5 class="modal-title" id="modifyObservationModal{{ observation.id }}Label">Modification de l'observation</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
                 </button>
             </div>
             <div class="modal-body">
                 {{ form_start(modifyObservationForm, {'attr': {'class': 'form-horizontal'}}) }}
 
                 {{ form_errors(modifyObservationForm) }}
-
-                <div class="form-group">
-                    {{ form_label(modifyObservationForm.observationDescription, "Commentaire", {'label_attr': {'class': 'control-label'}}) }}
+                <div>
+                    {{ form_errors(modifyObservationForm.photoPath) }}
                     {{ form_errors(modifyObservationForm.observationDescription) }}
-                    <div class="col-sm-12">
-                        {{ form_widget(modifyObservationForm.observationDescription, {'attr': {'class': 'form-control'}}) }}
-                    </div>
                 </div>
                 {% if modifyObservationForm.vars.value.photoPath == null %}
                     <p>Vous n'avez chargé aucune photo lors de la création de votre observation</p>
                 {% else %}
-                    <p>Charger une autre photo remplacera la photo actuelle : </p>
                     <div>
-                        <img style="width: 400px" src="{{ asset(modifyObservationForm.vars.value.photoPath) }}"
+                        <img style="width: 100%" src="{{ asset(modifyObservationForm.vars.value.photoPath) }}"
                              alt="{% if not observation.species == null%}
                                         {{ observation.species.referenceName }}
                                     {% else %}
@@ -33,18 +28,23 @@
                                 ">
                     </div>
                 {% endif %}
-                <div class="form-group">
-                    {{ form_label(modifyObservationForm.photoPath, "Photo", {'label_attr': {'class': 'control-label'}}) }}
-                    {{ form_errors(modifyObservationForm.photoPath) }}
+                <div class="photo">
+                    {{ form_label(modifyObservationForm.photoPath) }}
                     <div class="col-sm-12">
-                        {{ form_widget(modifyObservationForm.photoPath, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(modifyObservationForm.photoPath) }}
+                    </div>
+                </div>
+                <div id="commentaire" class="form-group">
+                    {{ form_label(modifyObservationForm.observationDescription) }}
+                    <div>
+                        {{ form_widget(modifyObservationForm.observationDescription) }}
                     </div>
                 </div>
                 <div class="alert alert-warning">
                     <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Vous ne pourrez modifier l'observation qu'une seule fois
                 </div>
                 <div class="modal-footer">
-                    {{ form_widget(modifyObservationForm.save, {'label': 'Modifier', 'attr': {'class': 'btn btn-primary'}}) }}
+                    {{ form_widget(modifyObservationForm.save, {'label': 'Modifier', 'attr': {'class': 'btn btn-default'}}) }}
                 </div>
 
                 {{ form_end(modifyObservationForm) }}

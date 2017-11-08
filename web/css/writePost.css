@@ -1,0 +1,97 @@
+#collapseWritePost{
+     width: 100%;
+}
+
+#writePost form{
+     width: 80%;
+     margin: auto;
+     display: flex;
+     flex-direction: column;
+}
+
+div.input.title{
+     width: 50%;
+     margin: auto;
+}
+
+div.input.categorie{
+     width: 50%;
+     margin: auto;
+}
+
+#writePost .form-control {
+     padding: 0 0 5px 5px;
+}
+
+input#appbundle_post_imagePath{
+     display: none;
+}
+
+#writePost p{
+     font-size: 13px;
+     margin: 0 auto 5px auto;
+}
+
+#writePost .photo{
+     margin-bottom: 0;
+}
+
+#writePost button{
+     margin-bottom: 20px;
+}
+
+#mceu_26{
+     height: 300px !important;
+}
+
+select.form-control {
+     -moz-appearance:none;
+     -webkit-appearance: none;
+     appearance:none;
+}
+
+.categorie {
+     position: relative;
+}
+
+.categorie::after {
+     content: "";
+     position: absolute;
+     pointer-events: none;
+}
+
+.categorie::after {
+     content: "";
+     background: url(../img/observation/icone-open-list.png);
+     background-size: contain;
+     background-repeat: no-repeat;
+     height: 14px;
+     width: 14px;
+     font-size: .625em;
+     line-height: 1;
+     right: 1em;
+     top: 53%; margin-top: -.5em;
+}
+
+#create_category_quickly_save{
+
+}
+
+@media (max-width: 992px){
+     #writePost form{
+          width: 90%;
+          margin: auto;
+          display: flex;
+          flex-direction: column;
+     }
+
+     div.input.title{
+          width: 100%;
+          margin: auto;
+     }
+
+     div.input.categorie{
+          width: 100%;
+          margin: auto;
+     }
+}

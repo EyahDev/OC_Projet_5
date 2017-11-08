@@ -19,6 +19,7 @@ class AddLocationType extends AbstractType
     {
         $builder
             ->add('location', TextType::class, array(
+                'label' => 'Adresse',
                 'invalid_message' => 'Veuillez saisir un code postal valide.',
                 'required' => false
             ))

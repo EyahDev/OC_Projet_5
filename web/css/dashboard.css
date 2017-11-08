@@ -1,3 +1,87 @@
+h3{
+    margin-top: 40px;
+    font-size: 30px;
+}
+
+td.action{
+    display: flex;
+    justify-content: center;
+}
+td.action a:first-child{
+    margin-right: 30px;
+}
+
+@media (max-width: 420px){
+
+    td.action a:first-child{
+        margin-right: 10px;
+    }
+}
+
+.input .form-control {
+    height: 35px !important;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    width: 100%;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #495057;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid black;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+/*a.collapsed .titre{*/
+    /*position: relative;*/
+/*}*/
+
+/*a.collapsed .fleche{*/
+    /*position: absolute;*/
+    /*left: 90%;*/
+    /*bottom: 10%;*/
+/*}*/
+
+/*.rotate{*/
+    /*transform-origin: 72% 10%;*/
+    /*transform: rotateY( 180deg );*/
+    /*-webkit-transform:rotate(180deg);*/
+    /*-moz-transform:rotate(180deg);*/
+/*}*/
+
+.close img{
+    width: 30px;
+}
+
+.btn {
+    background-color: #333;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+    margin: auto;
+}
+
 /*----------------------------------------------- Header ----------------------------------------------- */
 .jumbotron-dashboard img{
     width : 100%;
@@ -11,6 +95,22 @@
     }
 }
 
+/*----------------------------------------------- quickAccess ----------------------------------------------- */
+
+#buttonSaisieRapide img{
+    max-width: 100px;
+}
+
+a#buttonSaisieRapide p{
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+a#buttonSaisieRapide p:hover{
+    color: #38A5E0;
+}
+
+
 /*----------------------------------------------- Container dashboard ----------------------------------------------- */
 
 #dashboard.container{
@@ -20,9 +120,31 @@
     text-align: center;
 }
 
-#dashboard.container a{
+#dashboard.container {
+    padding: 0;
+}
+
+@media (min-width: 992px){
+    .container {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 768px){
+    .container {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 576px){
+    .container {
+        max-width: 100%;
+    }
+}
+
+.card-header a{
     font-family: 'Raleway', sans-serif;
-    font-size: 45px;
+    font-size: 25px;
     margin-top: 0;
     Color : #444;
 }
@@ -37,24 +159,265 @@
 /*----------------------------------------------- Card ----------------------------------------------- */
 
 .card {
+    width: 100%;
+    align-items: center;
     position: relative;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: column;
     flex-direction: column;
-    max-width: 1000px;
+    max-width: 768px;
     margin: 10px auto 10px auto;
     word-wrap: break-word;
     background-color: white;
     background-clip: border-box;
-    border: 2px solid black;
-    border-radius: 0;
+    border-top: 0 solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    border-radius: 0 0 30px 30px;
 }
 
 .card-header {
+    width: 110%;
     padding: 20px 20px;
     margin-bottom: 0;
     background-color: white;
-    border-bottom: 1px solid rgba(0,0,0,.125);
+    border: 2px solid black;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.4) !important;
 }
 
+/*----------------------------------------------- commonFeatures ----------------------------------------------- */
+#commonFeatures hr{
+    width: 50%;
+}
+
+#commonFeatures h3{
+    margin-top: 50px !important;
+}
+
+/*----------------------------------------------- Modal ----------------------------------------------- */
+
+.modal-content{
+    margin: auto;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0 solid;
+    border-radius: 0;
+    outline: 0;
+}
+
+@media (max-width: 768px){
+    .modal-content{
+        width: 100%;
+    }
+
+    .modal-dialog{
+        margin: 0;
+    }
+
+}
+
+.modal-header {
+    border-bottom: 0;
+}
+
+.modal-footer {
+    border-top: 0;
+}
+
+.photo .control-label {
+    margin: auto;
+    background-color: #333;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+.pagination{
+    display: flex;
+    align-items: center;
+}
+
+/*----------------------------------------------- Gestion Categories ----------------------------------------------- */
+input#create_category_photoPath{
+    display: none;
+}
+
+/*#choiceCategory label, p{*/
+    /*text-align: left;*/
+/*}*/
+
+#choiceCategory form {
+    width: 60%;
+    margin: auto
+}
+#choiceCategory p{
+    font-size: 13px;
+}
+
+#choiceCategory button{
+    margin-top: 10px;
+}
+
+td{
+    text-align: center !important;
+}
+
+.table > thead > tr > th {
+    text-align: center !important;
+}
+
+@media (max-width: 768px){
+    #choiceCategory form {
+        width: 100%;
+    }
+
+    td {
+        text-align: right !important;
+    }
+
+}
+
+/*----------------------------------------------- Gestion Utilisateurs ----------------------------------------------- */
+
+a.btn.btn-default.btn-disable-account{
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+/*----------------------------------------------- FAQ ----------------------------------------------- */
+
+#collapseFaqManagement{
+    width: 100%;
+}
+
+a.btn.btn-default.btn-add-faq{
+    margin-bottom: 20px;
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+button#new_faq_save.btn.btn-primary{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+#collapseFaqManagement form label{
+   text-align: left !important;
+}
+
+
+textarea#new_faq_answer.form-control {
+    height: 100px !important;
+}
+
+a.btn.btn-default.btn-rm-faq{
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}

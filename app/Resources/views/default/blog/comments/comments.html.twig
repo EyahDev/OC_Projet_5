@@ -11,7 +11,7 @@
     </div>
 {% else %}
     {# Sinon on l'invite à se connecter #}
-    <p>Pour rédiger un message, veuillez vous <a href="{{ path('login') }}">connecter</a></p>
+    <p>Pour rédiger un message, veuillez vous <a class="btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">connecter</a></p>
 {% endif %}
 <hr>
     {% include('default/blog/comments/commentsList.html.twig') %}

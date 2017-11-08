@@ -26,9 +26,8 @@
                         {{ post.comments|length }}
                     </td>
 
-                    <td data-title="Action">
+                    <td data-title="Action" class="action">
                         <a href="{{path('edit_post', {'slug' : post.slug }) }}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                        /
                         <a href="{{path('advice_delete_post', {'slug' : post.slug }) }}"><i class="fa fa-times" aria-hidden="true"></i><br/></a>
                     </td>
                 </tr>

@@ -1,0 +1,137 @@
+#collapseMyAccount h6{
+    text-decoration: underline;
+    margin-left: -30%;
+}
+
+
+
+.btn.focus, .btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0;
+}
+
+.perso label {
+    margin-bottom: 0 !important;
+}
+
+.mdp label{
+    margin-bottom: 0 !important;
+}
+
+/*----------------------------------------------- Avatar ----------------------------------------------- */
+.update-avatar-section{
+    width: 60%;
+    margin: 0 auto 0 auto;
+}
+
+div.update-avatar-section form{
+    width: 100%;
+    margin: 15px auto 15px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.update-avatar-section img{
+    margin-bottom: 15px;
+}
+
+.photo{
+    margin-bottom: 15px;
+}
+
+input#update_user_avatar_avatarPath{
+    display: none;
+}
+
+button#update_user_avatar_save.btn.btn-primary.btn-user-update-avatar{
+    margin: auto;
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+/*----------------------------------------------- infos persos ----------------------------------------------- */
+.perso{
+    margin-bottom: 20px;
+}
+
+#collapseMyAccount button{
+    height: 35px !important;
+}
+
+hr{
+    /*margin: 10px auto 10px auto;*/
+}
+
+.perso form{
+    width: 100% !important;
+    max-width: 300px;
+    margin: 0 auto 15px auto;
+    display: flex;
+    flex-direction: row !important;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.newsletter form{
+    align-items: center !important;
+}
+
+.input .form-group{
+    margin: 0 !important
+}
+.input button{
+    margin-left: 10px;
+}
+
+/*----------------------------------------------- Mot de passe ----------------------------------------------- */
+.mdp{
+    display: flex;
+    flex-direction: column;
+    text-align: center !important;
+}
+
+.input{
+    text-align: left !important;
+}
+
+.mdp form{
+    max-width: 300px;
+    width: 100% !important;
+    margin: 0 auto 15px auto;
+}
+
+.mdp button{
+    margin-top: 20px;
+}
+
+@media (max-width: 992px) {
+    #collapseMyAccount h6{
+        margin-left: 0;
+    }
+    .mdp {
+        width: 100% !important;
+    }
+}

@@ -1,4 +1,15 @@
 /*----------------------------------------------- Eléments de base ----------------------------------------------- */
+
+@font-face {
+    font-family:"Small Font Regular";
+    src: url("../fonts/small_font.eot?") format("eot"),
+    url("../fonts/small_font.woff") format("woff"),
+    url("../fonts/small_font.ttf") format("truetype"),
+    url("../fonts/small_font.svg#Small-Font") format("svg");
+    font-weight:normal;
+    font-style:normal;
+}
+
 .container-fluid{
     padding: 0;
 }
@@ -56,14 +67,20 @@ p
   color : #666;
 }
 
-h2, h3{
-  Color : #444 !important;
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Raleway' , sans-serif;
+    Color : #444 !important;
 }
 
 .vertical-center {
   display: flex;
   align-items: center;
 }
+
+:focus {
+    outline: -webkit-focus-ring-color 0 ;
+}
+
 
 /*----------------------------------------------- Header ----------------------------------------------- */
 
@@ -161,7 +178,6 @@ button:focus {
     outline: 0 dotted;
     outline-color: -webkit-focus-ring-color;
     outline-style: auto;
-    outline-width: 0;
     outline: 0 auto -webkit-focus-ring-color;
     outline-color: -webkit-focus-ring-color;
     outline-style: auto;
@@ -201,13 +217,13 @@ button:focus {
   }
 
   #mainNav .navbar-toggler {
-      background-color: white;
+  background-color: white;
   font-size: 12px;
   right: 0;
   padding: 5px 5px 5px 5px;
-      margin-right: 5px;
-      border: 1px solid white;
-      border-radius: 20px;
+  margin-right: 5px;
+  border: 1px solid white;
+  border-radius: 20px;
   color: #333;
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-transform: uppercase; }

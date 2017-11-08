@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 
 class DashboardController extends Controller
@@ -26,8 +27,16 @@ class DashboardController extends Controller
                                     ObservationManager $observationManager, CommentManager $commentManager,
                                     AccountManager $accountManager, UserManager $userManager, FAQManager $FAQManager)
     {
+
+
         /* Utilisateurs */
         $user = $this->getUser();
+
+
+        // Test si l'utilisateur est anonyme et redirige vers une page 403
+        if($user === null) {
+            throw new AccessDeniedHttpException('Vous ne pouvez pas accéder à cette page');
+        }
 
 
         /* Accès rapide */
@@ -188,7 +197,7 @@ class DashboardController extends Controller
         /* Gestion des utilisateurs*/
         $usersList = $userManager->getPaginatedUsersList($user->getId());
 
-        return $this->render("default_integration/dashboard.html.twig", array(
+        return $this->render("default/dashboard.html.twig", array(
             'createCategoryForm' => $createCategory->createView(),
             'categoriesList' => $categoriesList,
             'createCategoryQuickly' => $createCategoryQuickly->createView(),
