@@ -51,9 +51,9 @@ class SpeciesManager
      * @param $id
      * @return \AppBundle\Entity\Species|null|object
      */
-    public function getOneSpecies($id) {
+    public function getOneSpecies($slug) {
         // Récupération de l'espèce demandé
-        $oneSpecies = $this->em->getRepository('AppBundle:Species')->find($id);
+        $oneSpecies = $this->em->getRepository('AppBundle:Species')->findOneBy(array('slug' => $slug));
 
         // Retourne l'espèce recherchée
         return $oneSpecies;

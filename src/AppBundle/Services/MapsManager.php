@@ -114,6 +114,7 @@ class MapsManager
                 $markerNode->setAttribute('user', $marker->getObserver()->getUserName());
                 $markerNode->setAttribute('date', $marker->getObservationDate()->format('d/m/Y à H:i'));
                 $markerNode->setAttribute('reference', $marker->getSpecies()->getReferenceName());
+                $markerNode->setAttribute('slug', $marker->getSpecies()->getSlug());
                 $markerNode->setAttribute('vernacular', $marker->getSpecies()->getVernacularName());
                 $markerNode->setAttribute('birdNumber', $marker->getBirdNumber());
                 $markerNode->setAttribute('eggsNumber', $marker->getEggsNumber());
