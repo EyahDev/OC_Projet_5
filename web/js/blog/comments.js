@@ -247,12 +247,12 @@ $(document).ready(function() {
                 url: url,
                 // en cas de succes de la requete
                 success: function (data) {
-                    formattedData = '<div class="flash-msg alert alert-success">'+data+'</div>';
+                    var formattedData = '<div class="flash-msg alert alert-success">'+data+'</div>';
                     // affiche le formulaire de réponse avant le bouton répondre
-                    $a.parent().parent().prepend(data);
+                    $a.parent().parent().prepend(formattedData);
                     // retire le message flash après 5 secondes
                     function removeFlagMsg(){
-                        $('.flag-msg').replaceWith("");
+                        $('.flash-msg').replaceWith("");
                     }
                     setTimeout(removeFlagMsg, 5000);
                 },
@@ -262,7 +262,7 @@ $(document).ready(function() {
                     $a.parent().prepend('<div class="flash-msg alert alert-success">Une erreur est survenue</div>');
                     // retire le message flash après 5 secondes
                     function removeFlagMsg(){
-                        $('.flag-msg').replaceWith("");
+                        $('.flash-msg').replaceWith("");
                     }
                     setTimeout(removeFlagMsg, 15000);
                 }
@@ -288,12 +288,12 @@ $(document).ready(function() {
                 url: url,
                 // en cas de succes de la requete
                 success: function (data) {
-                    formattedData = '<div class="flash-msg alert alert-success">'+data+'</div>';
+                    var formattedData = '<div class="flash-msg alert alert-success">'+data+'</div>';
                     // affiche le formulaire de réponse avant le bouton répondre
-                    $a.parent().prepend(data);
+                    $a.parent().prepend(formattedData);
                     // retire le message flash après 5 secondes
                     function removeFlagMsg(){
-                        $('.flag-msg').replaceWith("");
+                        $('.flash-msg').replaceWith("");
                     }
                     setTimeout(removeFlagMsg, 5000);
                 },
@@ -303,7 +303,7 @@ $(document).ready(function() {
                     $a.parent().prepend('<div class="flash-msg alert alert-success">Une erreur est survenue</div>');
                     // retire le message flash après 5 secondes
                     function removeFlagMsg(){
-                        $('.flag-msg').replaceWith("");
+                        $('.flash-msg').replaceWith("");
                     }
                     setTimeout(removeFlagMsg, 15000);
                 }
