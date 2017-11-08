@@ -45,49 +45,201 @@ class ObservationManager
         $this->validator = $validator;
     }
 
+    /* Récupération des observations par mois */
+
     /**
-     * Recherche pas nom scientifique
+     * Pour Janvier
+     *
+     * @param $slug
+     * @return int
+     */
+    public function getObservationsForJan($slug) {
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationForJan($slug);
+
+        return count($result);
+    }
+
+    /**
+     * Pour Février
+     *
+     * @param $slug
+     * @return int
+     */
+    public function getObservationsForFev($slug) {
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationForFev($slug);
+
+        return count($result);
+    }
+
+    /**
+     * Pour Mars
+     *
+     * @param $slug
+     * @return int
+     */
+    public function getObservationsForMarch($slug) {
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationForMarch($slug);
+
+        return count($result);
+    }
+
+    /**
+     * Pour Avril
+     *
+     * @param $slug
+     * @return int
+     */
+    public function getObservationsForApril($slug) {
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationForApril($slug);
+
+        return count($result);
+    }
+
+    /**
+     * Pour Mai
+     *
+     * @param $slug
+     * @return int
+     */
+    public function getObservationsForMay($slug) {
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationForMay($slug);
+
+        return count($result);
+    }
+
+    /**
+     * Pour Juin
+     *
+     * @param $slug
+     * @return int
+     */
+    public function getObservationsForJune($slug) {
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationForJune($slug);
+
+        return count($result);
+    }
+
+    /**
+     * Pour Juillet
+     *
+     * @param $slug
+     * @return int
+     */
+    public function getObservationsForJuly($slug) {
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationForJuly($slug);
+
+        return count($result);
+    }
+
+    /**
+     * Pour Aout
+     *
+     * @param $slug
+     * @return int
+     */
+    public function getObservationsForAug($slug) {
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationForAug($slug);
+
+        return count($result);
+    }
+
+    /**
+     * Pour Septembre
+     *
+     * @param $slug
+     * @return int
+     */
+    public function getObservationsForSept($slug) {
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationForSept($slug);
+
+        return count($result);
+    }
+
+    /**
+     * Pour Octobre
+     *
+     * @param $slug
+     * @return int
+     */
+    public function getObservationsForOct($slug) {
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationForOct($slug);
+
+        return count($result);
+    }
+
+    /**
+     * Pour Novembre
+     *
+     * @param $slug
+     * @return int
+     */
+    public function getObservationsForNov($slug) {
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationForNov($slug);
+
+        return count($result);
+    }
+
+    /**
+     * Pour Décembre
+     *
+     * @param $slug
+     * @return int
+     */
+    public function getObservationsForDec($slug) {
+        $result = $this->em->getRepository('AppBundle:Observation')->getObservationForDec($slug);
+
+        return count($result);
+    }
+
+
+    /* Recherche d'une observation */
+
+
+    /**
+     * Recherche par nom scientifique
      *
      * @param $criteria
      * @return array
      */
     public function getObservationsByReferenceName($criteria) {
-        // Récupération des observations pas nom de reference
+        // Récupération des observations pas nom de scientifique
         return $this->em->getRepository('AppBundle:Observation')->getObservationBySpecies($criteria);
     }
 
     /**
-     * Recherche pas nom scientifique
+     * Recherche par nom commun
      *
      * @param $criteria
      * @return array
      */
     public function getObservationsByVernacular($criteria) {
-        // Récupération des observations pas nom de reference
+        // Récupération des observations pas nom commun
         return $this->em->getRepository('AppBundle:Observation')->getObservationByVernacularName($criteria);
     }
 
     /**
-     * Recherche pas nom scientifique
+     * Recherche par ordre
      *
      * @param $criteria
      * @return array
      */
     public function getObservationsByType($criteria) {
-        // Récupération des observations pas nom de reference
+        // Récupération des observations par ordre
         return $this->em->getRepository('AppBundle:Observation')->getObservationByType($criteria);
     }
 
     /**
-     * Recherche pas nom scientifique
+     * Recherche par famille
      *
      * @param $criteria
      * @return array
      */
     public function getObservationsByFamily($criteria) {
-        // Récupération des observations pas nom de reference
+        // Récupération des observations par famille
         return $this->em->getRepository('AppBundle:Observation')->getObservationByFamily($criteria);
     }
+
+    /* Stats utilisateur */
 
     /**
      * Récupération des observations validées pour l'utilisateur classique

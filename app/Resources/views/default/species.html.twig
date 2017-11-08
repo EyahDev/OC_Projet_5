@@ -1,5 +1,283 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_integration.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+
+        /* Responsive */
+        @media (min-width: 992px) {
+            .contentSpeciesCard {
+                padding: 75px;
+            }
+
+            .contentCarousel {
+                width: 50%;
+            }
+        }
+
+        @media (max-width: 992px){
+            .contentSpeciesCard {
+                padding: 10px;
+            }
+
+            .speciesTitle {
+                text-align: center;
+            }
+
+            .contentCarousel {
+                width: 100%;
+            }
+
+            .d-flex {
+                display: block !important;
+            }
+
+            .speciesInfo {
+                padding-left: 10px;
+            }
+
+        }
+
+        .contentSpeciesCard {
+            margin-top: 10px;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 10px;
+            -webkit-box-shadow: -8px 10px 11px 0 rgba(0,0,0,0.75);
+            -moz-box-shadow: -8px 10px 11px 0 rgba(0,0,0,0.75);
+            box-shadow: -8px 10px 11px 0 rgba(0,0,0,0.75);
+        }
+
+        .contentCarousel {
+
+            height: 400px
+        }
+
+        .speciesTitle {
+            margin-bottom: 10px;
+        }
+
+        .speciesCarousel {
+            -webkit-box-shadow: inset -8px 10px 23px 0 rgba(0,0,0,0.75);
+            -moz-box-shadow: inset -8px 10px 23px 0 rgba(0,0,0,0.75);
+            box-shadow: inset -8px 10px 23px 0 rgba(0,0,0,0.75);
+        }
+
+        .speciesCarouselIndicator {
+            cursor: pointer;
+            border: 1px solid black;
+            border-radius: 25px;
+        }
+
+        .speciesCarouselIndicator.active {
+            background-color: grey;
+        }
+
+        .carousel-indicators li {
+            height: 15px;
+            width: 15px;
+        }
+
+        .carouselHeightControl {
+            padding: 28px;
+            min-width: 100%;
+            height: 350px;
+            object-fit: contain;
+        }
+
+        .speciesInfo {
+            padding-left: 10px;
+        }
+
+        .underlineSpecies {
+            text-decoration: underline;
+        }
+
+        .insetShadow {
+            -webkit-box-shadow: inset -8px 10px 14px 0 rgba(0,0,0,0.75);
+            -moz-box-shadow: inset -8px 10px 14px 0 rgba(0,0,0,0.75);
+            box-shadow: inset -8px 10px 14px 0 rgba(0,0,0,0.75);
+        }
+
+        .speciesDescription {
+            padding: 25px 25px 10px 10px;
+            width: 100%;
+            min-height: 75px;
+            height: auto;
+        }
+
+        .speciesLastObservations {
+            padding: 25px 25px 10px 10px;
+            width: 100%;
+            height: 200px;
+            overflow: auto;
+        }
+
+        .ObversationsPeriod {
+            padding: 25px 25px 10px 10px;
+            width: 100%;
+            min-height: 75px;
+            height: auto;
+        }
+
+        /* Table de periode */
+
+        .tablePeriod{
+            margin-left: auto;
+            margin-right: auto;
+            border-spacing: 10px;
+            border-collapse: separate;
+        }
+
+        .period {
+            text-align: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+            margin: 100px;
+            background-color: #0A246A;
+        }
+
+        .emptyPeriod {
+            text-align: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+            margin: 100px;
+
+        }
+
+        th {
+            text-align: center;
+        }
+
+    </style>
+{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-post vertical-center">
+            <div class="container-fluid">
+                <img src="{{ asset('img/blog/image-du-blog.jpg') }}" alt="blog">
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
 
 {% block body %}
-    <h2>Fiche Espece : {{ species }}</h2>
+    <div class="container">
+        <div class="contentSpeciesCard">
+            <section>
+                <h2 class="speciesTitle">{{ species.referenceName }}</h2>
+                <div class="d-flex flex-row">
+                    <div id="carouselExampleIndicators" class="carousel slide contentCarousel" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="speciesCarouselIndicator active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1" class="speciesCarouselIndicator"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2" class="speciesCarouselIndicator"></li>
+                        </ol>
+                        <div class="speciesCarousel carousel-inner" role="listbox">
+                            <div class="carousel-item active">
+                                <img class="d-block img-fluid carouselHeightControl" src="{{ asset('uploads/observations_files/0ba1b1974b8f645aa83a05e636fd333e.png') }}" alt="First slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block img-fluid carouselHeightControl" src="{{ asset('uploads/categories_files/a4a45771e21b210acb67c949928d9082.jpeg') }}" alt="Second slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block img-fluid carouselHeightControl" src="{{ asset('uploads/categories_files/a4a45771e21b210acb67c949928d9082.jpeg') }}" alt="Third slide">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="speciesInfo align-self-center">
+                        <p>
+                            <span class="underlineSpecies">Nom commun</span> :
+                            {% if species.vernacularName == null %}
+                                Non connu
+                            {% else %}
+                                {{ species.vernacularName }}
+                            {% endif %}
+                        </p>
+                        <p><span class="underlineSpecies">Famille</span> : {{ species.family.name }}</p>
+                        <p><span class="underlineSpecies">Ordre</span>: {{ species.type.name }}</p>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h5>Description poussée de l'espèce</h5>
+                <div class="speciesDescription insetShadow">
+                    {% if species.description == null %}
+                        <p>Aucune description n'est disponible</p>
+                    {% else %}
+                        {{ species.description }}
+                    {% endif %}
+                </div>
+            </section>
+            <section>
+                <h5>Dernières observations</h5>
+                <div class="speciesLastObservations insetShadow">
+                    {% if species.observations is empty %}
+                        <p>Aucune observation n'a encore été faite pour cette espèce</p>
+                    {% else %}
+                        {% for speciesObservation in species.observations %}
+                            <p>{{ speciesObservation.birdNumber }} {{ speciesObservation.species.referenceName|lower }}
+
+                                {% if speciesObservation.birdNumber > 1 %}
+                                    ont été observés
+                                {% else %}
+                                    a observé le
+                                {% endif %}
+
+                                {{ speciesObservation.observationDate|date('d/m/Y à H:i')}} par {{ speciesObservation.observer.name }}.</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </section>
+            <section>
+                <h5>Période d'observation</h5>
+                <div class="ObversationsPeriod insetShadow">
+                    <table class="tablePeriod">
+                        <tr>
+                            <th class="monthPeriod">Jan</th>
+                            <th class="monthPeriod">Fev</th>
+                            <th class="monthPeriod">Mars</th>
+                            <th class="monthPeriod">Avril</th>
+                            <th class="monthPeriod">Mai</th>
+                            <th class="monthPeriod">Juin</th>
+                            <th class="monthPeriod">Juil</th>
+                            <th class="monthPeriod">Aout</th>
+                            <th class="monthPeriod">Sept</th>
+                            <th class="monthPeriod">Oct</th>
+                            <th class="monthPeriod">Nov</th>
+                            <th class="monthPeriod">Dec</th>
+                        </tr>
+                        <tr>
+                            {% for month in period %}
+                                {% if month == 0 %}
+                                    <td class="emptyPeriod" data-toggle="tooltip" data-placement="bottom" title="Aucune observations" ></td>
+                                {% elseif month == 1 %}
+                                    <td class="period" data-toggle="tooltip" data-placement="bottom" title="{{ month }} observation" ></td>
+                                {% elseif month >= 2 %}
+                                    <td class="period" data-toggle="tooltip" data-placement="bottom" title="{{ month }} observations" ></td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 {% endblock %}

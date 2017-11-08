@@ -424,6 +424,7 @@
                     var date = markerElem.getAttribute('date');
                     var referenceName = markerElem.getAttribute('reference');
                     var vernacularName = markerElem.getAttribute('vernacular');
+                    var slug = markerElem.getAttribute('slug');
                     var birdNumber = markerElem.getAttribute('birdNumber');
                     var eggsNumber = markerElem.getAttribute('eggsNumber');
                     var photo = markerElem.getAttribute('photo');
@@ -438,6 +439,9 @@
                     } else {
                         nest = 'Oui';
                     }
+
+                    var urlSlug = "{{ path('ficheEspece', {'slug': 'slug_species' }) }}";
+                    urlSlug = urlSlug.replace('slug_species', slug);
 
                     if(user !== null) {
                         // Transmission des resultats en dehors de la map
@@ -459,7 +463,9 @@
                         var table = document.getElementById('resultsNoMaps');
                         table.innerHTML +=
                             '<tr >\n' +
-                            '<td data-title="Espèce observée"><img class="iconResults" src="{{ asset('img/research_observations/icon-maps-results.png')}}" alt="Icone de resultat"> '+ referenceName +'</td>\n' +
+                            '<td data-title="Espèce observée">' +
+                            '<img class="iconResults" src="{{ asset('img/research_observations/icon-maps-results.png')}}" alt="Icone de resultat"><a href="'+ urlSlug +'"> '+ referenceName +'</a>' +
+                            '</td>\n' +
                             '<td data-title="Date d\'observation">'+ date +'</td>\n' +
                             '<td data-title="Aussi observée">+31</td>\n' +
                             '</tr>';
@@ -468,7 +474,7 @@
                     var infowincontent =
                         '<img src="../'+ photo +'" alt="'+ referenceName +'" style="margin-left: auto; margin-right: auto; height: 150px; border: 1px solid black;">' +
                         '<div style="padding: 10px;">\n' +
-                        '<h5 style="margin-top: 0; text-align: center;">'+ referenceName +'</h5>' +
+                        '<a href="'+ urlSlug +'"><h5 style="margin-top: 0; text-align: center;">'+ referenceName +'</h5></a>' +
                         '<p style="color: black">Nom Commun : '+ vernacularName +'</p>' +
                         '<p style="color: black">Observée : '+ birdNumber +'</p>' +
                         '<p style="color: black">Nid(s) : '+ nest +'</p>' +

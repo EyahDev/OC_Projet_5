@@ -143,11 +143,47 @@ class DefaultController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/fiche-espece/{species}", name="ficheEspece")
+     * @Route("/fiche-espece/{slug}", name="ficheEspece")
      */
-    public function speciesAction($species)
+    public function speciesAction($slug, SpeciesManager $speciesManager, ObservationManager $observationManager)
     {
-        return $this->render("default/species.html.twig", array('species' => $species));
+        // Récupération de toutes les informations lié à l'espèce
+        $species = $speciesManager->getOneSpecies($slug);
+
+        // Tableau de période
+        $period = array();
+
+        // Récupération des observations par mois de l'année
+        $janv = $observationManager->getObservationsForJan($slug);
+        array_push($period, $janv);
+        $fev = $observationManager->getObservationsForFev($slug);
+        array_push($period, $fev);
+        $march = $observationManager->getObservationsForMarch($slug);
+        array_push($period, $march);
+        $april = $observationManager->getObservationsForApril($slug);
+        array_push($period, $april);
+        $may =$observationManager->getObservationsForMay($slug);
+        array_push($period, $may);
+        $june =$observationManager->getObservationsForJune($slug);
+        array_push($period, $june);
+        $july = $observationManager->getObservationsForJuly($slug);
+        array_push($period, $july);
+        $aug =$observationManager->getObservationsForAug($slug);
+        array_push($period, $aug);
+        $sept = $observationManager->getObservationsForSept($slug);
+        array_push($period, $sept);
+        $oct = $observationManager->getObservationsForOct($slug);
+        array_push($period, $oct);
+        $nov = $observationManager->getObservationsForNov($slug);
+        array_push($period, $nov);
+        $dec = $observationManager->getObservationsForDec($slug);
+        array_push($period, $dec);
+
+
+        return $this->render("default/species.html.twig", array(
+            'species' => $species,
+            'period' => $period
+        ));
     }
 
     /**

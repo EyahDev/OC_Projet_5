@@ -282,10 +282,12 @@
                 center: {lat: 46.6, lng: 1.9},
                 zoom: 4
             });
+            
             $('#saisieObservationModal').on('shown.bs.modal', function () {
                 google.maps.event.trigger(map, 'resize');
                 map.setCenter({lat: 46.6, lng: 1.9});
             });
+
             var infoWindow = new google.maps.InfoWindow;
             document.getElementById('geoloc').addEventListener('click', function(e) {
                 infoWindow.open(map);
