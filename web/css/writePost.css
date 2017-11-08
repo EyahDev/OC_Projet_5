@@ -29,7 +29,7 @@ input#appbundle_post_imagePath{
 
 #writePost p{
      font-size: 13px;
-     margin-bottom: 5px;
+     margin: 0 auto 5px auto;
 }
 
 #writePost .photo{

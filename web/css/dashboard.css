@@ -19,7 +19,7 @@ td.action a:first-child{
 }
 
 .input .form-control {
-    height: 32px !important;
+    height: 35px !important;
     border-radius: 0;
     box-shadow: none;
     display: block;
@@ -96,20 +96,17 @@ td.action a:first-child{
 }
 
 /*----------------------------------------------- quickAccess ----------------------------------------------- */
-#quickAccess{
-    max-width: 40%;
-}
 
 #buttonSaisieRapide img{
     max-width: 100px;
 }
 
-#quickAccess p{
+a#buttonSaisieRapide p{
     font-size: 18px;
     margin-bottom: 40px;
 }
 
-#quickAccess p:hover{
+a#buttonSaisieRapide p:hover{
     color: #38A5E0;
 }
 
@@ -121,6 +118,28 @@ td.action a:first-child{
     flex-direction: column;
     justify-content: center;
     text-align: center;
+}
+
+#dashboard.container {
+    padding: 0;
+}
+
+@media (min-width: 992px){
+    .container {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 768px){
+    .container {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 576px){
+    .container {
+        max-width: 100%;
+    }
 }
 
 .card-header a{
@@ -180,7 +199,6 @@ td.action a:first-child{
 /*----------------------------------------------- Modal ----------------------------------------------- */
 
 .modal-content{
-    width: 600px;
     margin: auto;
     position: relative;
     display: -ms-flexbox;
@@ -249,9 +267,9 @@ input#create_category_photoPath{
     display: none;
 }
 
-#choiceCategory label, p{
-    text-align: left;
-}
+/*#choiceCategory label, p{*/
+    /*text-align: left;*/
+/*}*/
 
 #choiceCategory form {
     width: 60%;
@@ -284,11 +302,6 @@ td{
 
 }
 
-/*----------------------------------------------- Gestion Commentaires ----------------------------------------------- */
-#collapseCommentsModeration{
-    width: 100%;
-}
-
 /*----------------------------------------------- Gestion Utilisateurs ----------------------------------------------- */
 
 a.btn.btn-default.btn-disable-account{
@@ -317,6 +330,10 @@ a.btn.btn-default.btn-disable-account{
 }
 
 /*----------------------------------------------- FAQ ----------------------------------------------- */
+
+#collapseFaqManagement{
+    width: 100%;
+}
 
 a.btn.btn-default.btn-add-faq{
     margin-bottom: 20px;
