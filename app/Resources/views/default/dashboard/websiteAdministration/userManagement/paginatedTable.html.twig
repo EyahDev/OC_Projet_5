@@ -5,7 +5,7 @@
             <tr>
                 <th>Nom & prénom</th>
                 <th>Date d'inscription</th>
-                <th>nombre d'observations</th>
+                <th>Nombre d'observations</th>
                 <th>Profil</th>
                 <th>Pro</th>
                 <th>Action</th>
@@ -16,15 +16,15 @@
                 <tr>
                     <td data-title="Nom & prénom">{{ user.name }} {{ user.firstname }}</td>
                     <td data-title="Date d'inscription">{{ user.signupDate | date("d/m/Y") }}</td>
-                    <td data-title="Nb d'observations">{{ user.observations | length }}</td>
-                    <td class="row justify-content-sm-between" data-title="Profil">
-                        <div class="role-name">
+                    <td data-title="Nombre d'observations">{{ user.observations | length }}</td>
+                    <td data-title="Profil">
+                        {#<div class="role-name">#}
                             {% for role in user.roles %}
                                 {% if role == 'ROLE_ADMIN' %}Administrateur{% endif %}
                                 {% if role == 'ROLE_PROFESSIONAL' %}Professionnel{% endif %}
                                 {% if role == 'ROLE_USER' %}Particulier{% endif %}
                             {% endfor %}
-                        </div>
+                        {#</div>#}
                     </td>
                     <td data-title="Pro">
                         {% if user.proPermission == true %}

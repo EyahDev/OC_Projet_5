@@ -77,6 +77,10 @@ button#update_user_avatar_save.btn.btn-primary.btn-user-update-avatar{
     margin-bottom: 20px;
 }
 
+#collapseMyAccount button{
+    height: 35px !important;
+}
+
 hr{
     /*margin: 10px auto 10px auto;*/
 }

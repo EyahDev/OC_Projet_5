@@ -14,18 +14,12 @@
     .jumbotron-addObservation {
         height: 200px;
     }
-    /*.research-title img {*/
-        /*margin-top: 20px;*/
-    /*}*/
 }
 
 @media (min-width: 420px) and (max-width: 992px){
     .jumbotron-addObservation {
         height: 400px;
     }
-    /*.research-title img {*/
-    /*margin-top: 20px;*/
-    /*}*/
 }
 
 /*----------------------------------------------- Formulaire ----------------------------------------------- */
@@ -35,6 +29,7 @@ form {
     display: flex;
     flex-direction: column;
 }
+
 .birdNumber{
     display: flex;
     justify-content: flex-end;
