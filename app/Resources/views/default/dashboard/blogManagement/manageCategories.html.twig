@@ -44,7 +44,7 @@
                         {{ category.posts|length }}
                     </td>
                     <td data-title="Photo">
-                        <a href="" data-toggle="modal" data-target="#viewPhoto{{ loop.index }}"><i class="fa fa-eye" aria-hidden="true"></i> Voir</a>
+                        <a href="" data-toggle="modal" data-target="#viewPhoto{{ loop.index }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
 
                         <div class="modal fade " id="viewPhoto{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
@@ -55,14 +55,14 @@
                                         {#</button>#}
                                     {#</div>#}
                                     <div class="modal-body">
-                                        <img style="width: 770px" src="{{ asset(category.photoPath) }}" alt="{{ category.name }}">
+                                        <img class="img-fluid" src="{{ asset(category.photoPath) }}" alt="{{ category.name }}">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </td>
                         <td class="action" data-title="Action">
-                            <a href="{{path('edit_category', {'slug': category.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> /
+                            <a href="{{path('edit_category', {'slug': category.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                             <a href="{{path('advice_delete_category', {'slug': category.slug }) }}"><i class="fa fa-times" aria-hidden="true"></i></a>
                         </td>
                     </tr>

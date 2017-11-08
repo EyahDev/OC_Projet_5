@@ -36,7 +36,7 @@
 {% block body %}
 <div id="dashboard" class="container">
     {% if app.user.enabled == true %}
-        <h2>Tableau de bord</h2>
+        <h1>Tableau de bord</h1>
         {% for message in app.session.flashbag.get('notice') %}
             <div class="alert alert-danger">
                 {{ message }}
@@ -75,7 +75,11 @@
                     <div class="card-header" role="tab" id="headingMyAccount">
                         <h5 class="mb-0">
                             <a class="collapsed" data-toggle="collapse" href="#collapseMyAccount" aria-expanded="false" aria-controls="collapseMyAccount">
+                                <div class="titre">
                                 Mes informations
+                                    {#<div class="fleche"><img style="height: 30px" src="{{ asset('img/dashboard/icone-ouvrir.png') }}" alt="ouverture-fermeture" ></div>#}
+                                </div>
+
                             </a>
                         </h5>
                     </div>
@@ -314,6 +318,7 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNQR3Hw_y1urMSouzdoaVgUESayHjM90g&&callback=initMap" async defer></script>
     <script src="{{ asset('js/menu.js') }}"></script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
 {% endblock %}
 
 

@@ -15,7 +15,7 @@ class ModifObservationByObserverType extends AbstractType
     {
         $builder
             ->add('observationDescription', TextareaType::class, array(
-                'label' => 'Commentaire d\'observation',
+                'label' => 'Commentaire:',
                 'invalid_message' => 'Veuillez saisir une description de l\'observation valide.',
                 'required' => false,
                 'constraints' => array(
@@ -25,7 +25,7 @@ class ModifObservationByObserverType extends AbstractType
                     )),
             )))
             ->add('photoPath', FileType::class, array(
-                'label' => 'Photo(s)',
+                'label' => 'Changer photo',
                 'invalid_message' => 'Veuillez sélectionner une fichier valide.',
                 'data_class' => null,
                 'required' => false

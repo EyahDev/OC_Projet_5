@@ -25,10 +25,9 @@ class CreatePostType extends AbstractType
             ))
             ->add('category', EntityType::class, array(
                 'class' => 'AppBundle:Category',
-                'label' => "Catégorie",
+                'label' => "Sélectionnez une catégorie",
                 'choice_label' => 'name',
                 'invalid_message' => 'Veuillez saisir une catégorie valide.',
-                'placeholder' => '-- Sélectionnez une catégorie -- '
             ))
             ->add('content', TextareaType::class, array(
                 'label' => "Contenu de l'article",

@@ -26,7 +26,7 @@
                         {{ commentFlagged.date|date('d/m/Y à H:m') }}
                     </td>
                     <td class="action" data-title="Action">
-                        <a href="{{ path('view-detail-flagged', {'id' : commentFlagged.id }) }}"><i class="fa fa-eye" aria-hidden="true"></i></a> /
+                        <a href="{{ path('view-detail-flagged', {'id' : commentFlagged.id }) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
                         <a href="{{ path('advice_delete_comment', {'id' : commentFlagged.id }) }}"><i class="fa fa-times" aria-hidden="true"></i></a>
                     </td>
                 </tr>

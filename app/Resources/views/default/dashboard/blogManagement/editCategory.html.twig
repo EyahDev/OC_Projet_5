@@ -10,7 +10,7 @@
 
     {{ form_label(updateCategoryForm.photoPath) }}<br/>
     Image actuel : <br/>
-    <img style="width: 400px;" src="{{ asset(updateCategoryForm.vars.value.photoPath) }}" alt=""> <br/><br/>
+    <img class="img-fluid" src="{{ asset(updateCategoryForm.vars.value.photoPath) }}" alt=""> <br/><br/>
     {{ form_widget(updateCategoryForm.photoPath) }}<br/>
 
     {{ form_widget(updateCategoryForm.save) }}<br/>
