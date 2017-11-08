@@ -10,7 +10,7 @@
     </div>
 {% else %}
     {# Sinon on l'invite à se connecter #}
-    <p>Pour rédiger un message, veuillez vous <a href="{{ path('login') }}">connecter</a></p>
+    <p>Pour rédiger un message, veuillez vous <a class="btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">connecter</a></p>
 {% endif %}
 <hr>
     {# on parcourt les commentaires pour les afficher #}
@@ -42,16 +42,10 @@
                     <i class="fa fa-caret-left pointerAvatar" aria-hidden="true"></i>
                     <p class="commentMessage">{{ child.message }}</p>
                 </div>
-                <a class="d-flex align-items-center" href="{{ path("flag-comm", {'commentId': child.id}) }}"><p>Signaler</p><i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i></a>
+                {% if is_granted('ROLE_USER') %}
+                    <a class="d-flex align-items-center" href="{{ path("flag-comm", {'commentId': child.id}) }}"><p>Signaler</p><i class="fa fa-lightbulb-o fa-2x" aria-hidden="true"></i></a>
+                {% endif %}
             </div>
-                {#<div class="child-div" style="padding-left: 20px;">#}
-                    {#<p>#}
-                        {#{{ child.author.username }}  {{ child.date|date("d/m/Y à H:i", "Europe/Paris") }}#}
-                        {#<a class="btn-flag float-right" href="{{ path("flag-comm", {'commentId': child.id}) }}"><i class="fa fa-flag" aria-hidden="true"></i></a>#}
-                    {#</p>#}
-                    {#<p>{{ child.message }}</p>#}
-                    {#<hr>#}
-                {#</div>#}
             {% endfor %}
         {% endif %}
     {% endfor %}

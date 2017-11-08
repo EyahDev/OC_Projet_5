@@ -16,6 +16,10 @@ class ObservationController extends Controller
      * @Route("/saisie-observation", name="saisieObservation")
      */
     public function addObservationAction(Request $request, ObservationManager $observationManager) {
+        // Test si l'utilisateur est anonyme et si oui redirige vers une page 403
+        if($this->getUser() === null) {
+            throw new AccessDeniedHttpException('Vous ne pouvez pas accéder à cette page');
+        }
         // Récupération du formulaire de création d'observation
         $createObservationForm = $observationManager->getObservationForm();
 
