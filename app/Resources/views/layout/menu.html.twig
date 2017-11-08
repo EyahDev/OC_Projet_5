@@ -21,7 +21,7 @@
                 {% else %}
                     <li class="nav-item dropdown">
                         <div class="btn-group">
-                            <a class="nav-link js-scroll-trigger" href="{{ path("dashboard") }}">Dashboard</a>
+                            <a class="nav-link js-scroll-trigger" href="{{ path("dashboard") }}">{{ app.user.username }}</a>
                             <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
