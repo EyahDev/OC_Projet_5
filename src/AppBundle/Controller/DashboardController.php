@@ -12,7 +12,6 @@ use AppBundle\Services\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 
@@ -65,20 +64,6 @@ class DashboardController extends Controller
         // Récupération du formulaire de contact
         $createContactUs = $contactManager->getFormCreateContactUs();
 
-        // Hydration de l'entitée avec les valeurs du formulaire
-        $createContactUs->handleRequest($request);
-
-        // Soumission du formulaire
-        if ($createContactUs->isSubmitted() && $createContactUs->isValid()) {
-            // Récupération des données du formulaire
-            $data = $createContactUs->getData();
-
-            // Préparation de l'email et envoi
-            $contactManager->sendMailUser($data);
-
-            // Rédirection vers le dashboard
-            return $this->redirectToRoute('dashboard');
-        }
 
         /* Statistiques Utilisateurs */
 
@@ -121,35 +106,6 @@ class DashboardController extends Controller
         // Récupération du formulaire de création rapide d'une catégorie pour la partie article
         $createCategoryQuickly = $blogManager->getFormCreateQuicklyCategory();
 
-        // Hydratation des entitées des valeurs du formulaire
-        $createPost->handleRequest($request);
-        $createCategoryQuickly->handleRequest($request);
-
-        // Soumission du formulaire
-        if ($createPost->isSubmitted() && $createPost->isValid()) {
-
-            // Récupération de l'entitée Post avec les valeurs hydratées
-            $post = $createPost->getData();
-
-            // Enregistrement du nouvel article
-            $blogManager->setPost($post, $user);
-
-            // Rédirection vers le dashboard
-            return $this->redirectToRoute('dashboard');
-        }
-
-        // Soumission du formulaire
-        if ($createCategoryQuickly->isSubmitted() && $createCategoryQuickly->isValid()) {
-
-            // Récupération de l'entitée Post avec les valeurs hydratées
-            $category = $createCategoryQuickly->getData();
-
-            // Enregistrement du nouvel article
-            $blogManager->setCategory($category);
-
-            // Rédirection vers le dashboard
-            return $this->redirectToRoute('dashboard');
-        }
 
         /* Commentaires */
 

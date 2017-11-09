@@ -263,9 +263,9 @@ class BlogController extends Controller
      * @param Request $request
      * @param BlogManager $blogManager
      * @return Response
-     * @Route("/dashboard/rediger-article", name="reload_write_post")
+     * @Route("/dashboard/rediger-article/rechargement", name="reload_write_post")
      */
-    public function reloadWritePost(Request $request, BlogManager $blogManager)
+    public function reloadWritePostAction(Request $request, BlogManager $blogManager)
     {
         if($request->isXmlHttpRequest()) {
             $createCategoryQuickly = $blogManager->getFormCreateQuicklyCategory();
@@ -278,6 +278,47 @@ class BlogController extends Controller
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
+    /**
+     * @param Request $request
+     * @param BlogManager $blogManager
+     * @return Response
+     * @Route("/dashboard/rediger-article", name="write_post")
+     */
+    public function writePostAction(Request $request, BlogManager $blogManager)
+    {
+        if($request->isXmlHttpRequest()) {
+            // Récupération du formulaire de création d'un article
+            $createPost = $blogManager->getFormCreatePost();
+
+            // Récupération de l'utilisateur courant
+            $user = $this->getUser();
+
+            // Hydratation du formulaire
+            $createPost->handleRequest($request);
+
+            // Soumission du formulaire
+            if ($createPost->isSubmitted()) {
+
+                // Récupération de l'entitée Post avec les valeurs hydratées
+                $post = $createPost->getData();
+
+                // récupère le résultat de la validation
+                $validation = $blogManager->validatePost($post);
+
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
+                }
+
+                // Enregistrement du nouvel article
+                $blogManager->setPost($post, $user);
+
+                // Renvoie un message de confirmation
+                return new Response("Article ajouté");
+            }
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
     /**
      * @Route("/dashboard/article/{slug}/edition/", name="edit_post")
      */
@@ -338,7 +379,7 @@ class BlogController extends Controller
     /**
      * @Route("/dashboard/signalement/{id}/detail", name="view-detail-flagged")
      */
-    public function viewDetailsFlagged(CommentManager $commentManager, $id) {
+    public function viewDetailsFlaggedAction(CommentManager $commentManager, $id) {
         // Récupération du commentaire ciblé
         $commentflagged = $commentManager->getCommentFlagged($id);
 
@@ -563,7 +604,7 @@ class BlogController extends Controller
      * @return Response
      * @Route("Blog/{slugPost}/comments", name="reload_comments_list")
      */
-    public function reloadComments(Request $request, $slugPost, BlogManager $blogManager)
+    public function reloadCommentsAction(Request $request, $slugPost, BlogManager $blogManager)
     {
         if ($request->isXmlHttpRequest()) {
             $post = $blogManager->getPost($slugPost);

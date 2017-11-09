@@ -1,4 +1,5 @@
 <div id="collapseWritePostContent" url="{{ path('reload_write_post') }}">
+    <div id="flashMsgWritePost"></div>
     <div id="writePost">
         {{ form_start(createPostForm) }}
         {{ form_errors(createPostForm) }}
@@ -25,7 +26,7 @@
         {{ form_widget(createPostForm.content, {'attr': {'class': 'tinyMCE'}}) }}<br/>
         </div>
 
-        {{ form_widget(createPostForm.save, {'label': 'Publier'}) }}<br/>
+        {{ form_widget(createPostForm.save, {'label': 'Publier', 'attr': { 'class': 'btn-user-write-post', 'url': path('write_post')}}) }}<br/>
         {{ form_end(createPostForm) }}
     </div>
     <!-- Modal -->

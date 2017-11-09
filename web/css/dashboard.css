@@ -262,11 +262,14 @@ a#buttonSaisieRapide p:hover{
     align-items: center;
 }
 
-/*----------------------------------------------- Rédiger Article ----------------------------------------------- */
+/*------------------------------------------------ Rédiger Article ------------------------------------------------- */
 input#create_category_quickly_photoPath{
     display: none;
 }
 
+input#write_post_imagePath{
+    display: none;
+}
 /*----------------------------------------------- Gestion Categories ----------------------------------------------- */
 input#create_category_photoPath{
     display: none;

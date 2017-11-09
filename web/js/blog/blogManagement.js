@@ -238,7 +238,7 @@ $(document).ready(function () {
         })
     }
     /*----------------------------------------COLLAPSE ECRIRE UN ARTICLES--------------------------------------------*/
-    //CREATION D'UNE CATEGORIE
+    //CREATION RAPIDE D'UNE CATEGORIE
     createCategoryQuickly();
 
     function createCategoryQuickly() {
@@ -283,6 +283,46 @@ $(document).ready(function () {
         })
     }
 
+    //CREATION D'UN ARTICLE
+    writePost();
+
+    function writePost() {
+        $('form[name="write_post"]').on('submit', function (e) {
+            e.preventDefault();
+            var $form = $(this);
+            var url = $('.btn-user-write-post').attr('url');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function (data){
+                    reloadWritePost();
+                    // reloadPostsTableAfterAddingOrModifying();
+                    // ajoute un message flash
+                    var appendCode = '<div class="flash-msg alert alert-success">'+data+'</div>';
+                    $('#flashMsgWritePost').prepend(appendCode);
+                    // efface le message flash apres 5 secondes
+                    function removeFlashMsg(){
+                        $('.flash-msg').replaceWith("");
+                    }
+                    setTimeout(removeFlashMsg, 5000);
+                },
+                error: function (jqxhr) {
+                    // ajoute un message flash
+                    var appendCode = '<div class="flash-msg alert alert-danger">'+jqxhr.responseText+'</div>';
+                    $('#flashMsgWritePost').prepend(appendCode);
+                    // efface le message flash apres 15 secondes
+                    function removeFlashMsg(){
+                        $('.flash-msg').replaceWith("");
+                    }
+                    setTimeout(removeFlashMsg, 15000);
+                }
+            })
+        })
+    }
+
     /* RECHARGEMENT */
 
     // fonction permettant de recharger le tableau apres ajout ou modification d'une categories
@@ -293,10 +333,23 @@ $(document).ready(function () {
             type: 'GET',
             url: url,
             success: function (data) {
+                tinymce.remove();
                 // actualise le contenu du collapse writePost
                 $('#collapseWritePostContent').replaceWith(data);
+                $('#write_post_imagePath').css('display', 'none');
+                $('#write_post_content_ifr').css('height', '300');
+                // relance tinyMCE au chargement de la page
+                tinymce.init({
+                    selector: 'textarea.tinyMCE',
+                    setup: function (editor) {
+                        editor.on('change', function (e) {
+                            editor.save();
+                        });
+                    }
+                });
                 // relance les écouteurs d'evenement
                 createCategoryQuickly();
+                writePost();
             }
         })
     }
