@@ -1,0 +1,480 @@
+/*----------------------------------------------- Header ----------------------------------------------- */
+#header{
+    max-width: 1000px;
+    height: 450px;
+    margin: 0 auto 80px auto;
+}
+
+.btn-info:focus {
+    box-shadow: 0 0 0 0 rgba(23,162,184,.5);
+}
+
+#header h1{
+    font-size: 30px;
+}
+
+#header .button {
+    background-color: #333;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin: 0 2px;
+    min-width: 135px;
+    padding: 14px;
+    position: relative;
+    text-transform: uppercase;
+    word-spacing: 1.5px;
+    z-index: 0;
+}
+
+#header .buttonGrey {
+    background-color: grey;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin: 0 30px;
+    min-width: 135px;
+    padding: 14px;
+    position: relative;
+    text-transform: uppercase;
+    word-spacing: 1.5px;
+    z-index: 0;
+}
+
+#header .text{
+    width: 45%;
+}
+
+#header .text h5{
+    margin: 30px 0 30px 0;
+}
+
+@media (max-width: 768px){
+    #header{
+        width: 90%;
+        margin: auto auto 40px auto;
+    }
+
+    #header .text{
+        width: 70%;
+    }
+
+    #header .buttonGrey {
+        margin-left: 5px;
+    }
+}
+
+
+
+
+/*----------------------------------------------- Général----------------------------------------------- */
+
+@media (min-width: 992px){
+    section{
+        max-width: 1000px;
+        margin: auto !important;
+    }
+}
+
+
+
+
+/*----------------------------------------------- Programme de rechcerche ----------------------------------------------- */
+h2 span{
+    color: #38A5E0;
+}
+
+#programme h2{
+    margin-bottom: 30px;
+}
+
+#programme section{
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 350px;
+}
+
+#programme .text{
+    width: 60%;
+    max-width: 500px;
+}
+
+#programme p{
+    font-size: 16px;
+}
+
+#programme .image{
+    display: flex;
+    justify-content: flex-start;
+}
+
+
+#programme img{
+    width: auto;
+    height: 250px;
+    object-fit: contain;
+    margin: 20px 0 20px 0;
+}
+
+#programme{
+    box-shadow:  20px 0px 20px 10px #DCDCDB !important
+}
+
+@media (max-width: 768px){
+    #programme section{
+        width: 90%;
+        margin: auto;
+        height: 600px;
+    }
+
+    #programme .image{
+        display: flex;
+        justify-content: center;
+    }
+
+    #programme img{
+        width: auto;
+        height: 150px;
+        object-fit: contain;
+        text-align: center;
+        margin: 20px 0 20px 0;
+    }
+
+    #programme .text{
+        width: 100%;
+    }
+}
+
+/*----------------------------------------------- Statistics----------------------------------------------- */
+
+.compteur{
+    height: 200px;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.index-line{
+    display: flex;
+    line-height: 50px;
+}
+
+.size37{
+    font-size: 37px;
+}
+
+.size20{
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+@media (max-width: 768px){
+    .compteur{
+        height: 250px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+}
+
+/*----------------------------------------------- Pour qui ----------------------------------------------- */
+#qui section{
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 350px;
+}
+
+#qui .text{
+    width: 60%;
+    max-width: 500px;
+}
+
+#qui .text h2{
+    color: #f9f9f9 !important;
+}
+
+#qui .text p{
+    color: #f9f9f9 !important;
+    font-size: 16px;
+}
+
+#qui .image{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#qui img{
+    width: auto;
+    height: 250px;
+    object-fit: contain;
+    margin: 20px 0 20px 0;
+}
+
+.degrade {
+    background-image:linear-gradient(to right, #0c3475, #1f9b67);
+}
+
+@media (max-width: 768px){
+    #qui section{
+        width: 90%;
+        margin: auto;
+        height: 500px;
+    }
+
+    #qui .image{
+        display: flex;
+        justify-content: center;
+    }
+
+    #qui img{
+        width: auto;
+        height: 150px;
+        object-fit: contain;
+        text-align: center;
+        margin: 20px 0 20px 0;
+    }
+
+    #qui .text{
+        width: 100%;
+    }
+}
+
+/*----------------------------------------------- comment ----------------------------------------------- */
+
+#comment section{
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 400px;
+    text-align: center;
+}
+
+#comment .text{
+    width: 60%;
+    max-width: 500px;
+}
+
+#comment .text p{
+    font-size: 16px;
+}
+
+#comment .text h2{
+    margin-top: 50px;
+}
+
+#comment img{
+    width: auto;
+    max-height: 150px;
+    object-fit: contain;
+    margin: 20px 0 20px 0;
+}
+
+#comment{
+    box-shadow: 0px 10px 20px #DCDCDB !important
+}
+
+.fonctionnement {
+    position: relative;
+    text-align: left !important;
+    width: 200px;
+    bottom: 70px;
+    left: -100px;
+}
+
+.fonctionnement p {
+    font-size: 13px;
+    color: black;
+}
+
+
+@media all and (min-width: 420px) and (max-width: 560px){
+    #comment section{
+        width: 90%;
+        margin: auto;
+        height: 500px;
+    }
+
+    .fonctionnement {
+        position: relative;
+        text-align: left !important;
+        width: 150px;
+        bottom: 50px;
+        left: -60px;
+    }
+}
+
+@media (max-width: 420px){
+    #comment section{
+        width: 90%;
+        margin: auto;
+        height: 600px;
+    }
+
+    #comment .text{
+        width: 90%;
+        max-width: 500px;
+    }
+
+    .fonctionnement {
+        position: relative;
+        text-align: left !important;
+        width: 150px;
+        bottom: 45px;
+        left: -60px;
+    }
+}
+
+/*----------------------------------------------- Gratuit----------------------------------------------- */
+#gratuit section{
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 300px;
+}
+
+@media (max-width: 768px){
+    #gratuit section{
+        width: 100%;
+        margin: auto;
+        height: 300px;
+        text-align: center;
+    }
+}
+
+/*----------------------------------------------- Blog ----------------------------------------------- */
+#blog section{
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 450px;
+}
+
+#blog .text{
+    width: 60%;
+    max-width: 500px;
+}
+
+p span{
+    color: #38A5E0;
+}
+
+#blog p{
+    font-size: 16px;
+}
+
+#blog img{
+    width: auto;
+    height: 500px;
+    margin: 20px 0 20px 0;
+}
+
+#blog{
+    box-shadow:  20px 0px 20px 10px #DCDCDB !important
+}
+
+#blog .mobile{
+    position: relative;
+    bottom: 100px
+}
+
+#blog .bold p{
+    font-weight: bold;
+}
+
+@media (max-width: 768px){
+    #blog section{
+        width: 90%;
+        margin: auto;
+        height: 850px;
+    }
+
+    #blog .mobile{
+        height: 300px;
+        width: 100%;
+        position: static !important;
+        object-fit: contain !important;
+        bottom: 0
+    }
+
+    #blog .text{
+        width: 100%;
+    }
+}
+
+/*----------------------------------------------- Apprendre ----------------------------------------------- */
+#apprendre section{
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 350px;
+}
+
+#apprendre .text{
+    width: 60%;
+    max-width: 500px;
+}
+
+#apprendre .text p{
+    font-size: 13px;
+}
+
+#apprendre img{
+    width: auto;
+    height: 250px;
+    object-fit: contain;
+    margin: 20px 0 20px 0;
+}
+
+
+/*----------------------------------------------- Partenaires ----------------------------------------------- */
+
+#partenaire img{
+    margin: 80px 0 80px 0;
+}
+
+
+#partenaire{
+    box-shadow:  20px 0px 20px 10px #DCDCDB !important
+}
+
+@media (max-width: 768px) {
+    #partenaire img{
+        margin: 80px 0px 80px 20px;
+    }
+}
+
+/*----------------------------------------------- Footer ----------------------------------------------- */
+
+#footer{
+    background-color: #222222;
+}
+
+#footer section {
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 200px;
+}
+
+#footer p{
+    margin-left: 20px;
+    color: #f9f9f9;
+}
+
+.copyright{
+    text-decoration: underline;
+    font-size: 10px;
+}
+
+
+
+

@@ -1,0 +1,208 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>{% block title %}NAO{% endblock %}</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom fonts for this template -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:600" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/table.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/connexion.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/landingPage1.css') }}" rel="stylesheet">
+
+    </head>
+
+    <body>
+
+    <header>
+        <div id="header" class="container d-flex flex-column justify-content-between">
+                <nav role="navigation" class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <img class="logo" src="{{ asset('img/logo-pour-nav.png') }}" style="height:80px">
+                    </div>
+                </nav>
+                <div class="text">
+                    <h1>Ornitolhologues, naturalistes, amoureux de la nature...</h1>
+                    <h5>Ensemble pour protéger la biodiversité et faire avancer la recherche</h5>
+                    <div class="d-flex">
+                    <a class="btn btn-info button" href="{{ path("landingPage") }}">Participer</a>
+                    <a class="btn btn-info buttonGrey" href="{{ path("landingPage") }}">Connexion</a>
+                    </div>
+                </div>
+        </div>
+    </header>
+
+    <div id="programme" class="container-fluid" >
+        <section  class="row d-flex justify-content-between align-items-center">
+            <div class=" image col-sm-6">
+                <img class="img-fluid" src="{{ asset('img/landingPage/image-microscope.png') }}">
+            </div>
+            <div class="col-sm-6 text">
+                <h2>Le Programme de la <span>recherche</span></h2>
+                <p>
+                    Les scientifiques étudient les effets du climat,
+                    de l'urbanisation et de l'agriculture sur la biodiversité.
+                    </p><br />
+                <p>
+                    Le programme de recherche scientifique est fondé sur
+                    vos observations d'oiseaux et de nids dans leur
+                    environnement naturel, effectuées sur tout le territoire
+                    Français et les DOM-TOM.
+
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <div class="container-fluid" >
+        <section class="compteur">
+            <div class="index-line"><p class ="size37">+{{ users|length }}</p><p class="size20">Membres</p></div>
+            <div class="index-line"><p class ="size37">+{{ observations|length }}</p><p class="size20">Observations</p></div>
+            <div class="index-line"><p class ="size37">+{{ differentSpeciesObservations }}</p><p class="size20">Espèces observées</p></div>
+        </section>
+    </div>
+
+    <div id="qui" class="container-fluid degrade" >
+        <section  class="row d-flex justify-content-between align-items-center">
+            <div class="col-sm-6 text">
+                <h2>Pour qui?</h2>
+                <p>
+                    Le projet est ouvert aux ornithologues profesionnels
+                    et amateurs, aux photogaphes, promeneurs et particuliers
+                    amoureux de la nature ou sensibles à la problèmatique
+                    de la préservation de l'envireonnement.
+                </p>
+            </div>
+            <div class="image col-sm-6">
+                <img class="img-fluid" src="{{ asset('img/landingPage/image--pour-vous.png') }}">
+            </div>
+        </section>
+    </div>
+
+    <div id="comment" class="container-fluid" >
+        <section  class="d-flex flex-column justify-content-center align-items-center">
+            <div class="col-sm-6 text">
+                <h2>Comment ça marche?</h2>
+                <p>
+                    Vous apercevez un oiseau, un groupe d'oiseaux ou nid dans leur
+                    environnement naturel?
+                    Saisissez votre observation sur la carte proposez par l'application en indiquant
+                    votre position, le nom de l'espèce et même une photo quand c'est possible.
+                </p>
+            </div>
+            <div class="col-sm-6">
+                <img class="img-fluid" src="{{ asset('img/landingPage/image-comment-ça-marche.2.png') }}">
+            </div>
+            <div class="fonctionnement">
+                <p>Le projet est ouvert aux ornithologues profesionnels
+                    et amateurs, aux photogaphes, promeneurs et particuliers
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <div id="gratuit" class="container-fluid" >
+        <section class="d-flex flex-column justify-content-center align-items-center">
+            <h2>100% <span>Gratuit</span></h2>
+            <h2>sans engamgements et sans</h2>
+            <h2> conditions particulières</h2>
+        </section>
+    </div>
+
+    <div id="blog" class="container-fluid" >
+        <section  class="row d-flex justify-content-between align-items-center">
+            <div class="col-sm-6">
+                <img class="mobile img-fluid" src="{{ asset('img/landingPage/mobile.png') }}">
+            </div>
+            <div class="text col-sm-6">
+                <p>
+                    L'inscription et l'utilisation de l'application sont 100% <span>gratuite</span>.
+                    Vous êtes libre d'adhérer ou non à l'association NAO, en outre
+                    un blog a été crée et mis à votre disposition pour ne rien
+                    manquer de l'actualité du projet.</p><br />
+                <p>
+                    Le programme de recherche scientifique est fondé sur vos
+                    observations d'oiseaux  et de nids dans leur environnement naturel,
+                    effectué sur tout le territoire Français et les DOM-TOM.
+                </p>
+                <div class="bold d-flex align-items-end">
+                    <img style="width: 100px; height: auto; margin-right:5px;"  src="{{ asset('img/landingPage/image-poussin.png') }}">
+                    <p>Ils comptent sur vous!!</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="apprendre" class="container-fluid" >
+        <section  class="d-flex justify-content-between align-items-center">
+            <div class="text">
+                <h2>Explorer & Apprendre</h2>
+                <p>
+                    Contemplez les photos prises par nos participants.
+                    découvrez les espèces d'oiseaux qui vivent autour de
+                    vous ou sur le territoire et approfondissez vos connaissances
+                    avec nos fiches détaillées.
+                </p>
+            </div>
+            <div>
+                <img class="img-fluid" src="{{ asset('img/landingPage/image-apprendre.png') }}">
+            </div>
+        </section>
+    </div>
+
+    <div id="partenaire" class="container-fluid" >
+        <section  class="d-flex flex-column align-items-center">
+            <h2>Nos partenaires</h2>
+            <img class="img-fluid" src="{{ asset('img/landingPage/image-nos-partenaires.jpg') }}">
+            <a href="{{ path("faq") }}">FAQ</a>
+        </section>
+    </div>
+
+    <div id="footer" class="container-fluid" >
+        <section  class="d-flex  justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img class="img-fluid" src="{{ asset('img/landingPage/logo-+-nao.png') }}">
+                <p>Nos amis les oiseaux</p>
+            </div>
+            <a href="https://fr-fr.facebook.com/"><img class="img-fluid" src="{{ asset('img/landingPage/logo-j-aime-facebook.png') }}"></a>
+        </section>
+        <p class="copyright d-flex justify-content-end">Gravity Web copyright 2017</p>
+    </div>
+
+
+    {#<script src="{{ asset('js/landingPageB.js') }}"></script>#}
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    {#<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>#}
+
+    <script src="{{asset('tinyMCE/jquery.tinymce.min.js')}}"></script>
+    <script src="{{asset('tinyMCE/tinymce.js')}}"></script>
+    <script src="{{asset('js/custom.js')}}"></script>
+    <script src="{{asset('SideBarTest/jquery.sidebar.min.js')}}"></script>
+
+    {#Custom scripts for the website#}
+    <script src="{{asset('SideBarTest/jquery.sidebar.min.js')}}"></script>
+    <script src="{{ asset('js/myAccount/myAccount.js') }}"></script>
+    <script src="{{ asset('js/userManagement/userManagement.js') }}"></script>
+    <script src="{{ asset('js/Observations/myObservations.js') }}"></script>
+    <script src="{{ asset('js/blog/comments.js') }}"></script>
+    <script src="{{ asset('js/faq/faq.js') }}"></script>
+    <script src="{{ asset('js/Observations/observationsValidation.js') }}"></script>
+    <script src="{{ asset('js/connexion/connexion.js') }}"></script>
+
+    </body>
+
+</html>

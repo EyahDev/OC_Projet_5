@@ -1,0 +1,101 @@
+/*.jumbotron-landingPageB {*/
+    /*background: url(../img/research/image-header.jpg) 0 0 no-repeat;*/
+    /*height: 100%;*/
+    /*Color : #444;*/
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    /*margin-bottom: 0;*/
+    /*border-radius: 0;*/
+/*}*/
+/*@media (max-width: 420px){*/
+    /*.jumbotron-laRecherche {*/
+        /*height: 400px;*/
+    /*}*/
+    /*.research-title img {*/
+        /*margin-top: 20px;*/
+    /*}*/
+
+
+@import url("https://fonts.googleapis.com/css?family=Homenaje");
+.p-canvas-webgl {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+
+}
+
+.p-summary {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+    color: #111;
+    font-family: "Lucida Console", Monaco, monospace, sans-serif;
+}
+.p-summary h1 {
+    margin: 0 0 0.2em;
+    font-size: 60px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+}
+.p-summary p {
+    margin: 0;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+}
+.p-summary a {
+    color: #111;
+}
+
+#menu
+{
+    font-size:18px;
+    font-weight:normal;
+    letter-spacing:6px;
+}
+
+#menu ul
+{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+#menu ul li
+{
+    cursor:pointer;
+    padding:5px 8px;
+}
+
+#menu ul li:hover
+{
+    background-color:#008ac5;
+    color:gold;
+}
+
+#hamburger
+{
+    display:none;
+    width:100%;
+    height:50px;
+    text-align:center;
+}
+
+@media screen and (max-width: 750px) {
+
+    #menu {
+        display: none;
+    }
+
+    a
+    #hamburger {
+        display: block;
+    }
+
+    .image {
+        size: 10px;
+        background-position: right;
+        margin-left: 900px;
+    }
+}

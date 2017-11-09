@@ -1,256 +1,15 @@
 {% extends 'base_integration.html.twig' %}
 
 {% block stylesheets %}
-    <style>
-
-        /* Responsive */
-
-        @media (max-width: 992px) {
-            /* Maps */
-            #map {
-                height: 600px;
-                width: 100%;
-            }
-
-            /* Recherche */
-
-            .research-sidebar {
-                position: fixed;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                height: 100%;
-                z-index: 1031;
-                width: 100%;
-            }
-
-            .contentResearch {
-                -webkit-box-shadow: none;
-                -moz-box-shadow: none;
-                box-shadow: none;
-                border: none;
-                border-radius: 0;
-                height: 100%;
-                margin-right: 0;
-                margin-top: 0;
-                margin-left: 0;
-            }
-
-            /* Résultat de recherche */
-
-            .result-sidebar {
-                position: fixed;
-                z-index: 1031;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                width: 100%;
-                height: 100%;
-            }
-
-            .contentSideBarResult {
-                -webkit-box-shadow: none;
-                -moz-box-shadow: none;
-                box-shadow: none;
-                border: none;
-                border-radius: 0;
-                height: 100%;
-                margin-right: 0;
-                margin-top: 0;
-                margin-left: 0;
-            }
-
-            .contentResult {
-                margin-left: 20px;
-                height: 80%;
-                width: 85%;
-            }
-
-            .logoResultResearch {
-                display: none;
-            }
-
-        }
-
-        @media (min-width: 992px) {
-            /* Maps */
-            #map {
-                height: 1000px;
-                width: 100%;
-            }
-
-            /* Recherche */
-
-            .research-sidebar {
-                position: absolute;
-                z-index: 2;
-                top: 750px;
-                left: 0;
-                bottom: 0;
-                width: 40%;
-            }
-
-            .contentResearch {
-                -webkit-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
-                -moz-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
-                box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
-                border: 1px solid lightgray;
-                border-radius: 10px;
-                margin-right: 15px;
-                margin-top: 25px;
-                margin-left: 3px;
-            }
-
-            /* Résultat de recherche */
-
-            .result-sidebar {
-                position: absolute;
-                z-index: 2;
-                top: 1350px;
-                left: 0;
-                bottom: 0;
-                width: 50%;
-            }
-
-            .contentSideBarResult {
-                margin-right: 15px;
-                border-radius: 10px;
-                border: 1px solid lightgray;
-                -webkit-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
-                -moz-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
-                box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
-                margin-left: 3px;
-                height: 350px;
-                padding: 10px;
-            }
-
-            .contentResult {
-                height: 75%;
-            }
-        }
-        
-        @media (min-width: 1100px) and (max-width: 1160px) {
-            .research-sidebar {
-                top: 725px;
-            }
-
-            .result-sidebar {
-                top: 1325px;
-            }
-        }
-
-        @media (min-width: 1060px) and (max-width: 1100px) {
-            .research-sidebar {
-                top: 700px;
-                width: 50%;
-            }
-
-            .result-sidebar {
-                top: 1300px;
-                width: 60%;
-            }
-        }
-
-        @media (min-width: 1010px) and (max-width: 1060px) {
-            .research-sidebar {
-                top: 675px;
-                width: 50%;
-            }
-
-            .result-sidebar {
-                top: 1275px;
-                width: 60%;
-            }
-        }
-
-        @media (min-width: 992px) and (max-width: 1010px) {
-            .research-sidebar {
-                top: 660px;
-            }
-
-            .result-sidebar {
-                top: 1260px;
-            }
-        }
-
-
-        /* Global */
-        .container-fluid {
-            padding: 0;
-        }
-
-        .searchBTN {
-            margin-top: 10px;
-        }
-
-        #controls {
-            color: white;
-            background-color: white;
-            border-radius: 0 0 10px 10px;
-            -webkit-box-shadow: 0 3px 5px 0 rgba(0,0,0,0.75);
-            -moz-box-shadow: 0 3px 5px 0 rgba(0,0,0,0.75);
-            box-shadow: 0 3px 5px 0 rgba(0,0,0,0.75);
-            padding: 10px;
-        }
-
-        .presSideBars {
-            font-family: 'Small Font Regular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            color: #fff;
-            margin-left: 25px;
-            margin-bottom: 10px;
-            font-size: 20px;
-            text-shadow: 0 0 2px rgba(0, 0, 0, 1);
-            text-transform: uppercase;
-        }
-
-        .closeSideBar {
-            margin-top: 3px;
-            cursor: pointer;
-        }
-
-        /* Recherche */
-
-        .contentResearch {
-            background-color: white;
-            min-height: 150px;
-            padding: 10px;
-        }
-
-
-        /* Résultat de la recherche */
-
-
-        .contentSideBarResult {
-            background-color: white;
-            padding: 10px;
-        }
-
-        .contentResult {
-            background-color: white;
-            -webkit-box-shadow: inset 0 0 10px -1px rgba(48,48,48,1);
-            -moz-box-shadow: inset 0 0 10px -1px rgba(48,48,48,1);
-            box-shadow: inset 0 0 10px -1px rgba(48,48,48,1);
-            padding: 10px;
-            overflow: auto;
-        }
-
-        .iconResults {
-            height: 20px;
-        }
-
-        .logoResultResearch {
-            margin-top: 6px;
-            height: 40px;
-        }
-
-    </style>
+    <link href="{{ asset('css/searchObservations.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block header %}
     <header>
-        <div class="jumbotron-blog vertical-center">
-            <div class="container-fluid">
-                <img class="img-fluid" src="{{ asset('img/blog/image-du-blog.jpg') }}">
+        <div class="jumbotron-searchObservation vertical-center">
+            <div class="container">
+                {#<h1>Avancée de la recherche</h1>#}
+                {#<p>Devenez un scientifique citoyen en participant à l'observation des oiseaux</p>#}
             </div>
         </div>
         <div class="nao-header-align-left">
@@ -273,39 +32,48 @@
             <div class="contentResearch">
                 <div class="d-flex justify-content-start">
                     <p class="presSideBars">Recherche d'une observation</p>
-                    <p id="closeResearch" class="closeSideBar ml-auto close">&times;</p>
+                    <p id="closeResearch" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></p>
                 </div>
-                <div>
+                <div class="formulaire">
                     {{ form_start(searchObservationForm) }}
                     {{ form_errors(searchObservationForm) }}
 
-                    {{ form_label(searchObservationForm.vernacular) }}
-                    {{ form_widget(searchObservationForm.vernacular) }}
-                    <a href="" class="ml-auto" data-toggle="collapse" data-target='#advancedResearch'>recherche avancée</a>
+                    <span class="custom-dropdown">
+                        {{ form_label(searchObservationForm.vernacular) }}
+                        {{ form_widget(searchObservationForm.vernacular) }}
+                    </span>
+
+                    <a href="" class="btn btn-default" data-toggle="collapse" data-target='#advancedResearch'>recherche avancée</a>
 
                     <br>
                     <div id="advancedResearch" class="collapse">
-                        {{ form_label(searchObservationForm.reference) }}
-                        {{ form_widget(searchObservationForm.reference) }}
+                        <span class="custom-dropdown">
+                            {{ form_label(searchObservationForm.reference) }}
+                            {{ form_widget(searchObservationForm.reference) }}
+                        </span>
 
-                        {{ form_label(searchObservationForm.type) }}
-                        {{ form_widget(searchObservationForm.type) }}
+                        <span class="custom-dropdown">
+                            {{ form_label(searchObservationForm.type) }}
+                            {{ form_widget(searchObservationForm.type) }}
+                        </span>
 
+                        <span class="custom-dropdown">
                         {{ form_label(searchObservationForm.family) }}
                         {{ form_widget(searchObservationForm.family) }}
+                        </span>
 
+                        <span>
                         {{ form_label(searchObservationForm.begin) }}
                         {{ form_widget(searchObservationForm.begin) }}
-
+                        </span>
+                        <span>
                         {{ form_label(searchObservationForm.end) }}
                         {{ form_widget(searchObservationForm.end) }}
-
+                        </span>
                     </div>
-                    <div class="d-flex justify-content-start">
-                        <div class="ml-auto searchBTN">
-                            {{ form_widget(searchObservationForm.Rechercher) }}
-                            {{ form_end(searchObservationForm) }}
-                        </div>
+                    <div class="d-flex justify-content-center" style="margin-top: 10px">
+                        {{ form_widget(searchObservationForm.Rechercher) }}
+                        {{ form_end(searchObservationForm) }}
                     </div>
                 </div>
             </div>
@@ -316,7 +84,7 @@
         <div class="contentSideBarResult">
             <div id="resultsCounter" class="d-flex justify-content-start">
                 <p class="presSideBars">Details de la recherche : 0 resultat</p>
-                <p id="closeResult" class="closeSideBar ml-auto close">&times;</p>
+                <p id="closeResult" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></p>
             </div>
             <div class="contentResult">
                 <div class="table-responsive-vertical shadow-z-1">
@@ -448,11 +216,11 @@
                         if(i > 1) {
                             counter.innerHTML =
                                 '<p>Détails de la recherche : '+ i +' résultats</p>'+
-                                '<p id="closeResult" class="closeSideBar ml-auto close">&times;</i></p>';
+                                '<p id="closeResult" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></i></p>';
                         } else {
                             counter.innerHTML =
                                 '<p>Détails de la recherche : '+ i +' résultat</p>'+
-                                '<p id="closeResult" class="closeSideBar ml-auto close">&times;</i></p>';
+                                '<p id="closeResult" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></i></p>';
                         }
 
                         // Création de la liste des resultat
@@ -470,7 +238,7 @@
                         '<div style="padding: 10px;">\n' +
                         '<h5 style="margin-top: 0; text-align: center;">'+ referenceName +'</h5>' +
                         '<p style="color: black">Nom Commun : '+ vernacularName +'</p>' +
-                        '<p style="color: black">Observée : '+ birdNumber +'</p>' +
+                        '<p style="color: black">Nombre : '+ birdNumber +'</p>' +
                         '<p style="color: black">Nid(s) : '+ nest +'</p>' +
                         '<p style="color: black">Oeuf(s) : '+ eggsNumber +'</p>' +
                         '<p style="color: black">Observé par : '+ user +' le '+ date +'</p>' +
@@ -529,4 +297,5 @@
         function doNothing() {}
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNQR3Hw_y1urMSouzdoaVgUESayHjM90g&&callback=initMap" async defer></script>
+    <script src="{{ asset('js/menu.js') }}"></script>
 {% endblock %}

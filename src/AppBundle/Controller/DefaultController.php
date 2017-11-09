@@ -181,9 +181,40 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/mentions-legales", name="mentionsLegales")
      */
-    public function leagalNoticesAction()
+    public function legalNoticesAction()
     {
         return $this->render("default/legalNotices.html.twig");
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/landing-page-A", name="landingPage1")
+     */
+    public function landingPageAAction(ObservationManager $observationManager, AccountManager $accountManager, SpeciesManager $speciesManager)
+    {
+        /* Statistiques */
+
+        $users = $accountManager->getUsers();
+        $observations = $observationManager->getObservationsValidated();
+        $species = $speciesManager->getSpecies();
+        $differentSpeciesObservations = $observationManager->getSpeciesObserved();
+
+        return $this->render("default/landingPage1.html.twig", array(
+            'users' => $users,
+            'observations' => $observations,
+            'species' => $species,
+            'differentSpeciesObservations' => $differentSpeciesObservations
+        ));
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/landing-page-B", name="landingPage2")
+     */
+    public function landinfPageBAction()
+    {
+
+        return $this->render("default/landingPage2.html.twig");
     }
 
 }
