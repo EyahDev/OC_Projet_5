@@ -104,26 +104,11 @@ class DashboardController extends Controller
         /* Catégories */
 
         // Récupération de la liste des catégories
-        $categoriesList = $blogManager->getCategories();
+        $categoriesList = $blogManager->getPaginatedCategoriesList();
 
         // Récupération du formulaire de création d'une nouvelle catégorie
         $createCategory = $blogManager->getFormCreateCategory();
 
-        // Hydration de l'entitée avec les valeurs du formulaire
-        $createCategory->handleRequest($request);
-
-        // Soumission du formulaire
-        if ($createCategory->isSubmitted() && $createCategory->isValid()) {
-
-            // Récupération de l'entitée Category avec les valeurs hydratées
-            $category = $createCategory->getData();
-
-            // Enregistrement de la nouvelle catégorie
-            $blogManager->setCategory($category);
-
-            // Rédirection vers le dashboard
-            return $this->redirectToRoute('dashboard');
-        }
 
         /* Articles */
 

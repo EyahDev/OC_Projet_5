@@ -119,31 +119,79 @@ class BlogController extends Controller
      */
     public function editCategoryAction($slug, BlogManager $blogManager, Request $request) {
 
-        // Récupération du formulaire de modification de la catégorie
-        $updateCategoryForm = $blogManager->getFormUpdateCategory($slug);
+        // teste si la requete provient bien d'Ajax sinon on génère une exception
+        if($request->isXmlHttpRequest()) {
+            // récupère le formulaire d'ajout d'une question / réponse
+            $updateCategoryForm = $blogManager->getFormUpdateCategory($slug);
 
-        // Récupération du fichier existant
-        $existingFile = $updateCategoryForm->getData()->getPhotoPath();
+            // récupère la categorie
+            $category = $blogManager->getCategory($slug);
 
-        // Hydration de l'entitée avec les valeurs du formulaire
-        $updateCategoryForm->handleRequest($request);
+            // Récupération du fichier existant
+            $existingFile = $updateCategoryForm->getData()->getPhotoPath();
 
-        // Soumission du formulaire
-        if ($updateCategoryForm->isSubmitted() && $updateCategoryForm->isValid()) {
+            // Hydration de l'entitée avec les valeurs du formulaire
+            $updateCategoryForm->handleRequest($request);
+            // teste si la requete est en POST et si les données sont valides
+            if($updateCategoryForm->isSubmitted()) {
+                // Récupération de l'entitée Catégory avec les valeurs hydratées
+                $category = $updateCategoryForm->getData();
 
-            // Récupération de l'entitée Catégory avec les valeurs hydratées
-            $category = $updateCategoryForm->getData();
-
-            // Enregistrement de la nouvelle catégorie
-            $blogManager->setUpdateCategory($category, $existingFile);
-
-            // Rédirection vers le dashboard
-            return $this->redirectToRoute('dashboard');
+                // Valide la question/réponse et récupère les erreurs de formulaire si il y en a
+                $validation = $blogManager->validateCategory($category);
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
+                }
+                // Enregistrement de la nouvelle catégorie
+                $blogManager->setUpdateCategory($category, $existingFile);
+                // renvoie la ligne de tableau pour l'affichage en JS
+                return $this->render('default/dashboard/blogManagement/categoriesManagement/reloadImg.html.twig', array(
+                    'category' => $category,
+                ));
+            }
+            // renvoie le formulaire d'ajout pour l'affichage en JS
+            return $this->render('default/dashboard/blogManagement/categoriesManagement/editCategory.html.twig', array(
+                'updateCategoryForm' => $updateCategoryForm->createView(),
+                'category' => $category
+            ));
         }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
 
-        return $this->render("default/dashboard/blogManagement/editCategory.html.twig", array(
-            'updateCategoryForm' => $updateCategoryForm->createView()
-        ));
+    /**
+     * @Route("/dashboard/creer-categorie", name="create_category")
+     */
+    public function createCategoryAction(Request $request, BlogManager $blogManager)
+    {
+        if($request->isXmlHttpRequest()) {
+            // Récupération du formulaire de création d'une nouvelle catégorie
+            $createCategory = $blogManager->getFormCreateCategory();
+
+            // Hydration de l'entitée avec les valeurs du formulaire
+            $createCategory->handleRequest($request);
+
+            // Soumission du formulaire
+            if ($createCategory->isSubmitted()) {
+
+                // Récupération de l'entitée Category avec les valeurs hydratées
+                $category = $createCategory->getData();
+
+                // récupère le résultat de la validation
+                $validation = $blogManager->validateCategory($category);
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
+                }
+
+                // Enregistrement de la nouvelle catégorie
+                $blogManager->setCategory($category);
+
+                // Rédirection vers le dashboard
+                return new Response("Nouvelle catégorie ajoutée");
+            }
+        }
+        throw new AccessDeniedHttpException('Vous ne pouvez pas acceder a cette page');
     }
 
     /**
@@ -153,7 +201,7 @@ class BlogController extends Controller
         // Récupération des informations lié à la catégorie
         $category = $blogManager->getCategory($slug);
 
-        return $this->render("default/dashboard/blogManagement/deleteCategory.html.twig", array(
+        return $this->render("default/dashboard/blogManagement/categoriesManagement/deleteCategory.html.twig", array(
             'infoCategory' => $category
         ));
     }
@@ -161,12 +209,15 @@ class BlogController extends Controller
     /**
      * @Route("/dashboard/categorie/{slug}/suppression", name="category_delete")
      */
-    public function deleteCategoryAction($slug, BlogManager $blogManager) {
-        // Supression de la catégorie
-        $blogManager->deleteCategory($slug);
-
-        // Rédirection vers le dashboard
-        return $this->redirectToRoute('dashboard');
+    public function deleteCategoryAction(Request $request, $slug, BlogManager $blogManager) {
+        // teste si la requete provient bien d'Ajax sinon on génère une exception
+        if($request->isXmlHttpRequest()) {
+            // Supression de la catégorie
+            $blogManager->deleteCategory($slug);
+            // envoie le message de confirmation pour l'afficher en JS
+            return new Response("Catégorie supprimée");
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /* Gestion des articles */
@@ -398,10 +449,13 @@ class BlogController extends Controller
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
+
+    /* PAGINATEUR */
+
     /**
      * @param Request $request
      * @return Response
-     * @Route("/post-management/pagination", name="pagination_post")
+     * @Route("/articles", name="pagination_post")
      */
     public function paginationPostAction(Request $request, BlogManager $BlogManager)
     {
@@ -417,15 +471,32 @@ class BlogController extends Controller
     /**
      * @param Request $request
      * @return Response
-     * @Route("/postsByCategory-management/pagination", name="pagination_postsCategory")
+     * @Route("/articles-par-categorie", name="pagination_postsCategory")
      */
-    public function paginationCategoryAction(Request $request, BlogManager $BlogManager, $category)
+    public function paginationPostsByCategoryAction(Request $request, BlogManager $BlogManager, $category)
     {
         if($request->isXmlHttpRequest()) {
 
             $paginationPostsCategory = $BlogManager->getPaginatedPostsCategoryList($category);
             return $this->render(':default/blog:categoryBlog.html.twig', array(
                 'paginationPostsCategory' => $paginationPostsCategory
+            ));
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("dashboard/categories", name="pagination_categories")
+     */
+    public function paginationCategoriesAction(Request $request, BlogManager $blogManager)
+    {
+        if($request->isXmlHttpRequest()) {
+
+            // Récupération de la liste des catégories
+            $categoriesList = $blogManager->getPaginatedCategoriesList();
+            return $this->render('default/dashboard/blogManagement/categoriesManagement/paginatedTable.html.twig', array(
+                'categoriesList' => $categoriesList,
             ));
         }
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");

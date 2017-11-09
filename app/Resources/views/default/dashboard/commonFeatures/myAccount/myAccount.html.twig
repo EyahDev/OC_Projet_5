@@ -3,24 +3,8 @@
 <div class="container d-flex flex-column text-left">
     <h6>Vos informations personnelles :</h6>
     {# Avatar de l'utilisateur #}
-    <div class="update-avatar-section">
-        {{ form_start(avatarForm) }}
-        {# Les erreurs générales du formulaire. #}
-        {{ form_errors(avatarForm) }}
-        <div>
-            <img style="height: 150px" src="{{ asset(app.user.avatarPath) }}" alt="{{ app.user.username }}" >
-        </div>
-        <div class="photo">
-            {{ form_label(avatarForm.avatarPath) }}
-            {{ form_widget(avatarForm.avatarPath) }}
-        </div>
-        <div>
-            {{ form_widget(avatarForm.save, {'label': 'Valider',
-                'attr': {'class': 'btn btn-default btn-user-update-avatar',
-                    'url': path('edit_user_avatar')}}) }}
-        </div>
-        {{ form_end(avatarForm) }}
-    </div><hr>
+    {% include('default/dashboard/commonFeatures/myAccount/avatarSection.html.twig') %}
+    <hr>
 
     <div class="perso">
         <div class="input">

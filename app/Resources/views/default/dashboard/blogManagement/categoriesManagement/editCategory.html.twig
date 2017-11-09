@@ -1,0 +1,35 @@
+<div class="modal fade" id="editCategoryModal{{ category.id }}" tabindex="-1" role="dialog" aria-labelledby="editCategoryModal{{ category.id }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCategoryModal{{ category.id }}Label">Edition de la catégorie : {{ category.name }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(updateCategoryForm) }}
+                {{ form_errors(updateCategoryForm) }}
+
+                <div class="input">
+                    {{ form_row(updateCategoryForm.name) }}<br/>
+                </div>
+                <div class="photo">
+                    <div>
+                        <img class="img-fluid img-category-edit" src="{{ asset(category.photoPath) }}" alt="{{ category.name }}"> <br/><br/>
+                        <div class="create">
+                            <div>
+                                {{ form_label(updateCategoryForm.photoPath) }}
+                                {{ form_widget(updateCategoryForm.photoPath) }}
+                            </div>
+                            <div>
+                                {{ form_widget(updateCategoryForm.save, {'label': 'Modifier'}) }}<br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(updateCategoryForm) }}
+            </div>
+        </div>
+    </div>
+</div>
