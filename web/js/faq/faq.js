@@ -80,6 +80,7 @@ $(document).ready(function() {
                     $a.parent().prepend(data);
                     // affiche la modale d'édition
                     $a.prev().modal('show');
+                    $a.css('margin-right', '30px');
                     // en cas de fermeture  de la modale sans modification
                     $a.prev().on('hidden.bs.modal', function (e) {
                         // supprime la modale d'édition
@@ -145,7 +146,7 @@ $(document).ready(function() {
         // crée l'argument pour la requete Get
         var argGet = '?page='+currentPageNb;
         // récupère la route pour la pagination
-        var urlNewRoute = $('#paginationFaq').attr('url');
+        var urlNewRoute = $('.pagination-table-faq').attr('url');
         // concatene la route et l'argument get
         var newUrl = urlNewRoute+argGet;
         $.ajax({
@@ -202,7 +203,7 @@ $(document).ready(function() {
             argGet = '?page='+prevPage.toString();
         }
         // récupère la route pour la pagination
-        var urlNewRoute = $('#paginationFaq').attr('url');
+        var urlNewRoute = $('.pagination-table-faq').attr('url');
         // concatene la route et l'argument get
         var newUrl = urlNewRoute+argGet;
         $.ajax({
@@ -232,7 +233,7 @@ $(document).ready(function() {
             // récupère l'argument passer en get
             var argGet = url.substring(url.lastIndexOf('?'));
             // récupère la route pour la pagination
-            var urlNewRoute = $('#paginationFaq').attr('url');
+            var urlNewRoute = $('.pagination-table-faq').attr('url');
             // concatene la route et l'argument
             var newUrl = urlNewRoute+argGet;
             $.ajax({

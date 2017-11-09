@@ -160,8 +160,8 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/dashboard/creer-categorie", name="create_category")
-     */
+ * @Route("/dashboard/creer-categorie", name="create_category")
+ */
     public function createCategoryAction(Request $request, BlogManager $blogManager)
     {
         if($request->isXmlHttpRequest()) {
@@ -195,6 +195,44 @@ class BlogController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param BlogManager $blogManager
+     * @return Response
+     * @Route("/dashboard/creer-categorie-rapidement", name="create_category_quickly")
+     */
+    public function createCategoryQuicklyAction(Request $request, BlogManager $blogManager)
+    {
+
+            // Récupération du formulaire de création d'une nouvelle catégorie
+            $createCategory = $blogManager->getFormCreateQuicklyCategory();
+
+            // Hydration de l'entitée avec les valeurs du formulaire
+            $createCategory->handleRequest($request);
+
+            // Soumission du formulaire
+            if ($createCategory->isSubmitted()) {
+
+                // Récupération de l'entitée Category avec les valeurs hydratées
+                $category = $createCategory->getData();
+
+                // récupère le résultat de la validation
+                $validation = $blogManager->validateCategory($category);
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
+                }
+
+                // Enregistrement de la nouvelle catégorie
+                $blogManager->setCategory($category);
+
+                // Rédirection vers le dashboard
+                return new Response("Nouvelle catégorie ajoutée");
+            }
+            return new Response('Agnagna a marche pas', 500);
+
+    }
+
+    /**
      * @Route("/dashboard/categorie/{slug}/confirmation-suppression", name="advice_delete_category")
      */
     public function deleteConfirmationCategoryAction($slug, BlogManager $blogManager) {
@@ -221,6 +259,24 @@ class BlogController extends Controller
     }
 
     /* Gestion des articles */
+    /**
+     * @param Request $request
+     * @param BlogManager $blogManager
+     * @return Response
+     * @Route("/dashboard/rediger-article", name="reload_write_post")
+     */
+    public function reloadWritePost(Request $request, BlogManager $blogManager)
+    {
+        if($request->isXmlHttpRequest()) {
+            $createCategoryQuickly = $blogManager->getFormCreateQuicklyCategory();
+            $createPostForm = $blogManager->getFormCreatePost();
+            return $this->render("default/dashboard/blogManagement/writePost/writePost.html.twig", array(
+                'createCategoryQuickly' => $createCategoryQuickly->createView(),
+                'createPostForm' => $createPostForm->createView(),
+            ));
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
 
     /**
      * @Route("/dashboard/article/{slug}/edition/", name="edit_post")

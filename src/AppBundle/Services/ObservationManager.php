@@ -307,7 +307,7 @@ class ObservationManager
         return $paginator->paginate(
             $observations, /* query NOT result */
             $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
-            2/*limit per page*/
+            10/*limit per page*/
         );
 
     }
@@ -579,7 +579,7 @@ class ObservationManager
         return $paginator->paginate(
             $observationList, /* query NOT result */
             $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
-            2/*limit per page*/
+            10/*limit per page*/
         );
     }
     public function validateObservation(Observation $observation)

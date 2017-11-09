@@ -262,6 +262,11 @@ a#buttonSaisieRapide p:hover{
     align-items: center;
 }
 
+/*----------------------------------------------- Rédiger Article ----------------------------------------------- */
+input#create_category_quickly_photoPath{
+    display: none;
+}
+
 /*----------------------------------------------- Gestion Categories ----------------------------------------------- */
 input#create_category_photoPath{
     display: none;

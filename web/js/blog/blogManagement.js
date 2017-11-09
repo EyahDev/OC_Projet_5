@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    /*----------------------------------------COLLAPSE GERER LES CATEGORIES------------------------------------------*/
+
     // fonction permettant d'ajouter un message flash dynamiquement avec un message
     // et une couleur (couleur bootstrap (danger,primary...)) variables
     function addFlashMsgManageCategories(type, message) {
@@ -27,7 +29,7 @@ $(document).ready(function () {
             // récupère l'argument passer en get
             var argGet = url.substring(url.lastIndexOf('?'));
             // récupère la route pour la pagination
-            var urlNewRoute = $('#paginationCategories').attr('url');
+            var urlNewRoute = $('.pagination-table-categories').attr('url');
             // concatene la route et l'argument
             var newUrl = urlNewRoute+argGet;
             $.ajax({
@@ -58,7 +60,7 @@ $(document).ready(function () {
         // crée l'argument pour la requete Get
         var argGet = '?page='+currentPageNb;
         // récupère la route pour la pagination
-        var urlNewRoute = $('#paginationCategories').attr('url');
+        var urlNewRoute = $('.pagination-table-categories').attr('url');
         // concatene la route et l'argument get
         var newUrl = urlNewRoute+argGet;
         $.ajax({
@@ -90,7 +92,7 @@ $(document).ready(function () {
             argGet = '?page='+prevPage.toString();
         }
         // récupère la route pour la pagination
-        var urlNewRoute = $('#paginationCategories').attr('url');
+        var urlNewRoute = $('.pagination-table-categories').attr('url');
         // concatene la route et l'argument get
         var newUrl = urlNewRoute+argGet;
         $.ajax({
@@ -149,6 +151,7 @@ $(document).ready(function () {
                     $a.parent().prepend(data);
                     $('#update_category_photoPath').css('display', 'none');
                     $('#update_category_save').css('margin-top', '10px');
+                    $a.css('margin-right', '30px');
                     // affiche la modale d'édition
                     $a.prev().modal('show');
                     // en cas de fermeture  de la modale sans modification
@@ -234,6 +237,67 @@ $(document).ready(function () {
             })
         })
     }
+    /*----------------------------------------COLLAPSE ECRIRE UN ARTICLES--------------------------------------------*/
+    //CREATION D'UNE CATEGORIE
+    createCategoryQuickly();
 
+    function createCategoryQuickly() {
+        $('form[name="create_category_quickly"]').on('submit', function (e) {
+            e.preventDefault();
+            var $form = $(this);
+            var url = $('.btn-user-create-category-quickly').attr('url');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function (data){
+                    $('#create_category_quickly_name').val('');
+                    $('#create_category_quickly_photoPath').val('');
+                    // ajoute un message flash
+                    var appendCode = '<div class="flash-msg alert alert-success">Catégorie ajoutée</div>';
+                    $form.parent().prepend(appendCode);
+                    // efface le message flash apres 5 secondes
+                    function removeFlashMsg(){
+                        $('.flash-msg').replaceWith("");
+                    }
+                    setTimeout(removeFlashMsg, 5000);
+                    // a la fermeture de la modale
+                    $('#quickCategoryModal').on('hidden.bs.modal', function (e) {
+                        reloadWritePost();
+                        reloadCategoriesTableAfterAddingOrModifying();
+                    });
+                },
+                error: function (jqxhr) {
+                    // ajoute un message flash
+                    var appendCode = '<div class="flash-msg alert alert-danger">'+jqxhr.responseText+'</div>';
+                    $form.parent().prepend(appendCode);
+                    // efface le message flash apres 15 secondes
+                    function removeFlashMsg(){
+                        $('.flash-msg').replaceWith("");
+                    }
+                    setTimeout(removeFlashMsg, 15000);
+                }
+            })
+        })
+    }
 
+    /* RECHARGEMENT */
+
+    // fonction permettant de recharger le tableau apres ajout ou modification d'une categories
+    function reloadWritePost() {
+        // récupère la route
+        var url = $('#collapseWritePostContent').attr('url');
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (data) {
+                // actualise le contenu du collapse writePost
+                $('#collapseWritePostContent').replaceWith(data);
+                // relance les écouteurs d'evenement
+                createCategoryQuickly();
+            }
+        })
+    }
 });

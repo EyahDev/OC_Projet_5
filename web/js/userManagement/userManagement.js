@@ -24,7 +24,7 @@ $(document).ready(function() {
         // crée l'argument pour la requete Get
         var argGet = '?page='+currentPageNb;
         // récupère la route pour la pagination
-        var urlNewRoute = $('#paginationUsersManagement').attr('url');
+        var urlNewRoute = $('.pagination-table-users-management').attr('url');
         // concatene la route et l'argument get
         var newUrl = urlNewRoute+argGet;
         $.ajax({
@@ -103,6 +103,7 @@ $(document).ready(function() {
                 success: function(data) {
                     // ajoute la modale
                     $a.parent().prepend(data);
+                    $a.css('margin-right', '30px');
                     // affiche la modale
                     $a.prev().modal('show');
                     // en cas de fermeture  de la modale sans modification
@@ -162,7 +163,7 @@ $(document).ready(function() {
             // récupère l'argument passer en get
             var argGet = url.substring(url.lastIndexOf('?'));
             // récupère la route pour la pagination
-            var urlNewRoute = $('#paginationUsersManagement').attr('url');
+            var urlNewRoute = $('.pagination-table-users-management').attr('url');
             // concatene la route et l'argument
             var newUrl = urlNewRoute+argGet;
             $.ajax({
