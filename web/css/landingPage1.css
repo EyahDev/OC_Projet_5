@@ -109,7 +109,7 @@ h2 span{
 }
 
 #programme p{
-    font-size: 16px;
+    font-size: 13px;
 }
 
 #programme .image{
@@ -209,7 +209,7 @@ h2 span{
 
 #qui .text p{
     color: #f9f9f9 !important;
-    font-size: 16px;
+    font-size: 13px;
 }
 
 #qui .image{
@@ -219,7 +219,7 @@ h2 span{
 
 #qui img{
     width: auto;
-    height: 250px;
+    max-height: 150px;
     object-fit: contain;
     margin: 20px 0 20px 0;
 }
@@ -268,7 +268,7 @@ h2 span{
 }
 
 #comment .text p{
-    font-size: 16px;
+    font-size: 13px;
 }
 
 #comment .text h2{
@@ -295,7 +295,7 @@ h2 span{
 }
 
 .fonctionnement p {
-    font-size: 13px;
+    font-size: 10px;
     color: black;
 }
 
@@ -320,7 +320,7 @@ h2 span{
     #comment section{
         width: 90%;
         margin: auto;
-        height: 600px;
+        height: 500px;
     }
 
     #comment .text{
@@ -370,7 +370,7 @@ p span{
 }
 
 #blog p{
-    font-size: 16px;
+    font-size: 13px;
 }
 
 #blog img{
@@ -396,7 +396,7 @@ p span{
     #blog section{
         width: 90%;
         margin: auto;
-        height: 850px;
+        height: 700px;
     }
 
     #blog .mobile{
@@ -449,7 +449,7 @@ p span{
 
 @media (max-width: 768px) {
     #partenaire img{
-        margin: 80px 0px 80px 20px;
+        margin: 80px 0px 80px 30px;
     }
 }
 

@@ -198,13 +198,14 @@ class DefaultController extends Controller
         $observations = $observationManager->getObservationsValidated();
         $species = $speciesManager->getSpecies();
         $differentSpeciesObservations = $observationManager->getSpeciesObserved();
-
+        
         return $this->render("default/landingPage1.html.twig", array(
             'users' => $users,
             'observations' => $observations,
             'species' => $species,
             'differentSpeciesObservations' => $differentSpeciesObservations
         ));
+        
     }
 
     /**
@@ -213,7 +214,7 @@ class DefaultController extends Controller
      */
     public function landinfPageBAction()
     {
-
+                
         return $this->render("default/landingPage2.html.twig");
     }
 

@@ -1,3 +1,4 @@
+<!-- version 2 date 08/11/2017-->
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6,7 +7,7 @@ var ConsoleSignature = function () {
   function ConsoleSignature() {
     _classCallCheck(this, ConsoleSignature);
 
-    this.message = 'created by Nao';
+    this.message = 'created by Gravity web and yoichi kobayashi';
     this.url = 'http://www.nao.org';
     this.show();
   }
@@ -101,8 +102,8 @@ var vectorTouchStart = new THREE.Vector2();
 var vectorTouchMove = new THREE.Vector2();
 var vectorTouchEnd = new THREE.Vector2();
 
-var CAMERA_SIZE_X = 640;
-var CAMERA_SIZE_Y = 480;
+var CAMERA_SIZE_X = 900;
+var CAMERA_SIZE_Y = 740;
 
 var BUTTERFLY_NUM = 7;
 var butterflies = [];
@@ -148,7 +149,7 @@ var init = function init() {
   camera.lookAt(new THREE.Vector3());
 
   loader.crossOrigin = 'anonymous';
-  loader.load('https://static.wixstatic.com/media/9dd9e5_c0ee883c0fd6404b98170d41e734d894~mv2.png/v1/fill/w_375,h_279,al_c,usm_0.66_1.00_0.01/9dd9e5_c0ee883c0fd6404b98170d41e734d894~mv2.png', function (texture) {
+  loader.load('https://static.wixstatic.com/media/9dd9e5_625e18b2ad0a4ceba3bff37d4e37abe7~mv2.png/v1/fill/w_531,h_359,al_c,usm_0.66_1.00_0.01/9dd9e5_625e18b2ad0a4ceba3bff37d4e37abe7~mv2.png', function (texture) {
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
 
@@ -163,14 +164,3 @@ var init = function init() {
 init();
 
 new ConsoleSignature();
-
-
-
-function hamburger_click()
-{
-  var hamburgerElement = document.getElementById("hamburger");
-  var menuElement = document.getElementById("menu");
- 
-  hamburgerElement.style.display = "none";
-  menuElement.style.display = "block";
-}
