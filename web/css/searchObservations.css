@@ -3,12 +3,31 @@
     background-position: center;
     background-size: contain;
     height: 600px;
-    Color : #444;
+    Color: #444;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 0;
     border-radius: 0;
 }
+
+.contentSideBarResult a{
+    font-family: "Montserrat", sans-serif;
+    color: #444 !important;
+    font-size: 13px;
+    text-decoration: underline;
+}
+
+.contentSideBarResult td{
+    font-family: "Montserrat", sans-serif;
+    color: #666 !important;
+    font-size: 13px;
+}
+
+.contentSideBarResult a:hover{
+    color: #38A5E0 !important;
+    text-decoration: none;
+}
+
 @media (max-width: 420px){
     .jumbotron-searchObservation{
         height: 200px;
@@ -95,7 +114,7 @@
 @media (min-width: 992px) {
     /* Maps */
     #map {
-        height: 1000px;
+        height: 1020px;
         width: 100%;
     }
 
@@ -149,13 +168,23 @@
     }
 }
 
-@media (min-width: 1100px) and (max-width: 1160px) {
+@media (min-width: 1160px) {
     .research-sidebar {
-        top: 725px;
+        top: 700px;
     }
 
     .result-sidebar {
-        top: 1325px;
+        top: 1330px;
+    }
+}
+
+@media (min-width: 1100px) and (max-width: 1160px) {
+    .research-sidebar {
+        top: 700px;
+    }
+
+    .result-sidebar {
+        top: 1330px;
     }
 }
 
@@ -166,30 +195,30 @@
     }
 
     .result-sidebar {
-        top: 1300px;
+        top: 1330px;
         width: 60%;
     }
 }
 
 @media (min-width: 1010px) and (max-width: 1060px) {
     .research-sidebar {
-        top: 675px;
+        top: 700px;
         width: 50%;
     }
 
     .result-sidebar {
-        top: 1275px;
+        top: 1330px;
         width: 60%;
     }
 }
 
 @media (min-width: 992px) and (max-width: 1010px) {
     .research-sidebar {
-        top: 660px;
+        top: 700px;
     }
 
     .result-sidebar {
-        top: 1260px;
+        top: 1330px;
     }
 }
 
@@ -396,7 +425,7 @@ select.form-control {
 
 .custom-dropdown {
     position: relative;
-    display: inline-block;
+    display: block;
     vertical-align: middle;
 }
 
@@ -460,4 +489,8 @@ select.form-control {
 }
 .contentResult::-webkit-scrollbar-corner {
     background: transparent;
+}
+
+select#search_observation_type.form-control{
+    width: 100%;
 }
