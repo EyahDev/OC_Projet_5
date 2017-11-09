@@ -18,8 +18,8 @@ class UpdateCategoryType extends AbstractType
                     'invalid_message' => 'Veuillez saisir une catégorie valide.'
                 ))
                 ->add('photoPath', FileType::class, array(
-                    'label' => 'Modifiez l\'image représantant la catégorie',
-                    'invalid_message' => 'Veuillez sélectionner une fichier valide.',
+                    'label' => 'selectionner une image',
+                    'invalid_message' => 'Veuillez sélectionner un fichier valide.',
                     'data_class' => null,
                     'required' => false
                 ))

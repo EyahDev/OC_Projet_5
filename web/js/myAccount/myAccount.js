@@ -132,13 +132,3 @@ $(document).ready(function () {
     }
 });
 
-// $(document).ready(function(){
-//     $('a').click(function() {
-//         if($(".card").css('border') == '2px solid transparent') {
-//             $(".card").css('border', '2px solid black');
-//         }
-//         else{
-//             $(".card").css('border', '2px solid black');
-//         }
-//     });
-// });

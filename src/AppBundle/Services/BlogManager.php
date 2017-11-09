@@ -428,12 +428,14 @@ class BlogManager
         return $message;
     }
 
+    /* VALIDATEURS */
+
     /**
-     * Valide l'utilisateur
+     * Valide le commentaire
      * @param Comment $comment
      * @return bool|string
      */
-    public function validateComment (Comment $comment)
+    public function validateComment(Comment $comment)
     {
         $errors = $this->validator->validate($comment);
         if (count($errors) > 0) {
@@ -446,6 +448,47 @@ class BlogManager
         return true;
     }
 
+    /**
+     * Valide la category
+     * @param Category $category
+     * @return bool|string
+     */
+    public function validateCategory(Category $category)
+    {
+        $errors = $this->validator->validate($category);
+        if (count($errors) > 0) {
+            $errorsString = "";
+            foreach ($errors as $error) {
+                $errorsString .=$error->getmessage().'<br>';
+            }
+            return $errorsString;
+        }
+        return true;
+    }
+
+    /**
+     * Valide l'article
+     * @return bool|string
+     */
+    public function validatePost(Post $post)
+    {
+        $errors = $this->validator->validate($post);
+        if (count($errors) > 0) {
+            $errorsString = "";
+            foreach ($errors as $error) {
+                $errorsString .=$error->getmessage().'<br>';
+            }
+            return $errorsString;
+        }
+        return true;
+    }
+
+    /* PAGINATEUR */
+
+    /**
+     * Pagine la liste de tous les articles
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+     */
     public function getPaginatedPostList()
     {
         // récupère la liste des questions/réponses
@@ -460,6 +503,11 @@ class BlogManager
         );
     }
 
+    /**
+     * Pagine la liste de tous les articles d'une catégories
+     * @param Category $category
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+     */
     public function getPaginatedPostsCategoryList($category)
     {
         // récupère la liste des questions/réponses
@@ -469,6 +517,24 @@ class BlogManager
         // retourne les questions /réponse paginé selon la page passé en get
         return $paginator->paginate(
             $postsListCategory/*$query*/, /* query NOT result */
+            $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
+    }
+
+    /**
+     * pagine la liste de toutes les catégories
+     * @return \Knp\Component\Pager\Pagination\PaginationInterface
+     */
+    public function getPaginatedCategoriesList()
+    {
+        // récupère la liste des questions/réponses
+        $categoriesList = $this->getCategories();
+        // récupère le service knp paginator
+        $paginator  = $this->container->get('knp_paginator');
+        // retourne les questions /réponse paginé selon la page passé en get
+        return $paginator->paginate(
+            $categoriesList/*$query*/, /* query NOT result */
             $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
             5/*limit per page*/
         );
