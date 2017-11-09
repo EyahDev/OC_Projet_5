@@ -4,21 +4,43 @@
 
 {% block header %}
     <header>
-        <div class="jumbotron-index vertical-center">
-            <img class="logo-mobile" src="{{ asset('img/logo-pour-mobile.png') }}" alt="logo-nao-mobile">
-            <div class="container">
-                <h1>Programme de recherche scientifique</h1>
-                <p>Devenez un scientifique citoyen en participant à l'observation des oiseaux</p>
-                <a class="btn btn-info button-participer" href="{{ path("landingPage") }}">Participer</a>
+        <div id="desktop">
+            <div  class="jumbotron-index">
+                <video autoplay loop>
+                <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
+                <source src="{{ asset('img/cinémagraphe-page-accueil-Nao-2.mp4') }}" type="video/mp4">
+                </video>
+                <div id="text">
+                    <h1>Programme de recherche scientifique</h1>
+                    <p>Devenez un scientifique citoyen en participant à l'observation des oiseaux</p>
+                    <a class="btn btn-info button-participer" href="{{ path("landingPage") }}">Participer</a>
+                </div>
+            </div>
+            <div class="nao-header-align-left">
+                <div class="nao-header">
+                    <p class="nao-header-size1">Nao</p>
+                    <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+                </div>
             </div>
         </div>
-        <div class="nao-header-align-left">
-            <div class="nao-header">
-                <p class="nao-header-size1">Nao</p>
-                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+        <div id="mobile">
+            <div class="jumbotron-index vertical-center">
+                <img class="logo-mobile" src="{{ asset('img/logo-pour-mobile.png') }}" alt="logo-nao-mobile">
+                <div class="container">
+                    <h1>Programme de recherche scientifique</h1>
+                    <p>Devenez un scientifique citoyen en participant à l'observation des oiseaux</p>
+                    <a class="btn btn-info button-participer" href="{{ path("landingPage") }}">Participer</a>
+                </div>
+            </div>
+            <div class="nao-header-align-left">
+                <div class="nao-header">
+                    <p class="nao-header-size1">Nao</p>
+                    <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+                </div>
             </div>
         </div>
     </header>
+
 {% endblock %}
 
 {% block body %}

@@ -18,6 +18,10 @@ td.action a:first-child{
     }
 }
 
+.card-body p{
+    font-size: 13px;
+}
+
 .input .form-control {
     height: 35px !important;
     border-radius: 0;
