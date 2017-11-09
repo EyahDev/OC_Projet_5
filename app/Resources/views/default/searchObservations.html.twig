@@ -36,7 +36,18 @@
                 </div>
                 <div class="formulaire">
                     {{ form_start(searchObservationForm) }}
-                    {{ form_errors(searchObservationForm) }}
+
+                    {% if not searchObservationForm.vars.valid %}
+                        <div class="alert alert-danger formError">
+                            {{ form_errors(searchObservationForm) }}
+                            {{ form_errors(searchObservationForm.vernacular) }}
+                            {{ form_errors(searchObservationForm.reference) }}
+                            {{ form_errors(searchObservationForm.type) }}
+                            {{ form_errors(searchObservationForm.family) }}
+                            {{ form_errors(searchObservationForm.begin) }}
+                            {{ form_errors(searchObservationForm.end) }}
+                        </div>
+                    {% endif %}
 
                     <span class="custom-dropdown">
                         {{ form_label(searchObservationForm.vernacular) }}
@@ -47,14 +58,15 @@
 
                     <br>
                     <div id="advancedResearch" class="collapse">
+
                         <span class="custom-dropdown">
-                            {{ form_label(searchObservationForm.reference) }}
-                            {{ form_widget(searchObservationForm.reference) }}
+                        {{ form_label(searchObservationForm.reference) }}
+                        {{ form_widget(searchObservationForm.reference) }}
                         </span>
 
                         <span class="custom-dropdown">
-                            {{ form_label(searchObservationForm.type) }}
-                            {{ form_widget(searchObservationForm.type) }}
+                        {{ form_label(searchObservationForm.type) }}
+                        {{ form_widget(searchObservationForm.type) }}
                         </span>
 
                         <span class="custom-dropdown">
@@ -62,15 +74,17 @@
                         {{ form_widget(searchObservationForm.family) }}
                         </span>
 
-                        <span>
+                        <span >
                         {{ form_label(searchObservationForm.begin) }}
                         {{ form_widget(searchObservationForm.begin) }}
                         </span>
+
                         <span>
                         {{ form_label(searchObservationForm.end) }}
                         {{ form_widget(searchObservationForm.end) }}
                         </span>
                     </div>
+
                     <div class="d-flex justify-content-center" style="margin-top: 10px">
                         {{ form_widget(searchObservationForm.Rechercher) }}
                         {{ form_end(searchObservationForm) }}

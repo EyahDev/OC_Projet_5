@@ -189,7 +189,7 @@ select.form-control {
     font-size: .625em;
     line-height: 1;
     right: 1.5em;
-    top: 50%; margin-top: -.5em;
+    top: 70%; margin-top: -.5em;
 }
 
 /*----------------------------------------------- Spinner ----------------------------------------------- */
@@ -248,7 +248,7 @@ textarea#create_observation_eggsDescription.form-control{
 
 /*----------------------------------------------- Photo ---------------------------------------------- */
 .photo .control-label {
-    margin: auto;
+    margin: 10px auto 0 auto;
     background-color: #333;
     color: #f9f9f9;
     font-family: 'Montserrat', sans-serif;
@@ -323,14 +323,14 @@ textarea#create_observation_eggsDescription.form-control{
 @media (min-width: 992px) {
     /* Maps */
     #map {
-        height: 1000px;
+        height: 1210px;
         width: 100%;
     }
 
     .addObservation-sidebar {
         position: absolute;
         z-index: 2;
-        top: 830px;
+        top: 630px;
         bottom: 0;
         width: 45%;
     }
@@ -385,6 +385,10 @@ textarea#create_observation_eggsDescription.form-control{
     line-height: 20px;
 }
 
+
+form[name="create_observation"] label{
+    margin-top: 10px;
+}
 
 
 
