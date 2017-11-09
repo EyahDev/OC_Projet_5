@@ -42,10 +42,11 @@ class DefaultController extends Controller
         if ($createContact->isSubmitted() && $createContact->isValid()) {
             // Récupération des données du formulaire
             $data = $createContact->getData();
-            dump($data);
 
             // Préparation de l'email et envoi
             $contactManager->sendMail($data);
+
+            return $this->redirectToRoute('homepage');
         }
 
         // replace this example code with whatever you need
