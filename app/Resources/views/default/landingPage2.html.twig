@@ -1,0 +1,78 @@
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>{% block title %}NAO{% endblock %}</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom fonts for this template -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:600" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <!--========== favicon / image ============-->
+        <link rel="shortcut icon" href="https://scripteden.com/eden-ui-2-landing-pages/images/logo/eden-ui-2-logo-only.png">
+
+        <!-- Custom styles for this template -->
+        <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/table.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/connexion.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/landingPage2.css') }}" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <header>
+            <canvas class="p-canvas-webgl" id="canvas-webgl" style="z-index:-99 "></canvas>
+            <div id="header" class="container d-flex flex-column justify-content-around">
+                <nav role="navigation" class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <img class="logo" src="{{ asset('img/logo-pour-nav.png') }}" style="height:80px">
+                    </div>
+                </nav>
+                <div class="text">
+                    <h1>Ensemble pour pour protéger
+                    la biodiversité et faire avancer la recherche</h1>
+                    <h5>Inscrivez vous gratuitement.</h5>
+                    <div class="d-flex">
+                        <a class="btn btn-info button" href="{{ path("landingPage") }}">Participer</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        {#<script src="{{ asset('js/landingPageB.js') }}"></script>#}
+        <!-- Bootstrap core JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+        {#<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>#}
+
+        <script src="{{asset('tinyMCE/jquery.tinymce.min.js')}}"></script>
+        <script src="{{asset('tinyMCE/tinymce.js')}}"></script>
+        <script src="{{asset('js/custom.js')}}"></script>
+        <script src="{{asset('SideBarTest/jquery.sidebar.min.js')}}"></script>
+
+        {#Custom scripts for the website#}
+        <script src="{{asset('SideBarTest/jquery.sidebar.min.js')}}"></script>
+        <script src="{{ asset('js/myAccount/myAccount.js') }}"></script>
+        <script src="{{ asset('js/userManagement/userManagement.js') }}"></script>
+        <script src="{{ asset('js/Observations/myObservations.js') }}"></script>
+        <script src="{{ asset('js/blog/comments.js') }}"></script>
+        <script src="{{ asset('js/faq/faq.js') }}"></script>
+        <script src="{{ asset('js/Observations/observationsValidation.js') }}"></script>
+        <script src="{{ asset('js/connexion/connexion.js') }}"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.min.js"></script>
+        <script src="{{ asset('js/landingPage2.js') }}"></script>
+    </body>
+
+
+
+</html>

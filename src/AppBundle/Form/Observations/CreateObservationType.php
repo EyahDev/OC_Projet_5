@@ -120,7 +120,7 @@ class CreateObservationType extends AbstractType
                     )),
             )))
             ->add('photoPath', FileType::class, array(
-                'label' => 'Changer photo',
+                'label' => 'Photo',
                 'invalid_message' => 'Veuillez sélectionner une fichier valide.',
                 'constraints' => array(
                     new Image(array(

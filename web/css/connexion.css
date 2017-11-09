@@ -29,3 +29,14 @@
     border: 1px solid transparent;
     border-radius: 0;
 }
+
+#connexionModal .modal-body {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 15px;
+    padding-top: 0;
+    padding-right: 15px;
+    padding-bottom: 0;
+    padding-left: 15px;
+}

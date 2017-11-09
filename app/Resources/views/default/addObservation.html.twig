@@ -21,19 +21,18 @@
             <div class="contentAddObservation">
                 <div class="d-flex justify-content-start">
                     <p class="presSideBars">Saisissez votre observation</p>
-                    <p id="closeAddObs" class="closeSideBar ml-auto close">&times;</p>
+                    <p id="closeAddObs" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></p>
                 </div>
-                <div>
+                <div class="formulaire">
                     {{ form_start(createObservationForm) }}
+                    {{ form_errors(createObservationForm) }}
+
+                    <span class="custom-dropdown" style="margin-bottom: 10px">
+                        {{ form_row(createObservationForm.species )}}
+                    </span>
 
                     <span class="custom-dropdown">
-                        {{ form_row(createObservationForm.species )}}<br/>
-                        {{ form_errors(createObservationForm.species) }}
-                    </span>
-                    
-                    <span class="custom-dropdown">
                         {{ form_row(createObservationForm.vernacularName) }}<br/>
-                        {{ form_errors(createObservationForm.vernacularName) }}
                     </span>
 
                     <div class="birdNumber">
@@ -42,7 +41,7 @@
                         </span>
 
                         <span class="custom-spinner">
-                            {{ form_widget(createObservationForm.birdNumber) }}
+                            {{ form_widget(createObservationForm.birdNumber) }}<br/>
                             {{ form_errors(createObservationForm.birdNumber) }}
                         </span>
                     </div>
@@ -56,30 +55,33 @@
                             {{ form_errors(createObservationForm.eggsNumber) }}
                         </span>
                     </div>
-
-
-                    {{ form_row(createObservationForm.eggsDescription) }}<br/>
+                    {{ form_label(createObservationForm.eggsDescription) }}
+                    {{ form_widget(createObservationForm.eggsDescription) }}<br/>
                     {{ form_errors(createObservationForm.eggsDescription) }}
 
-                    <button type="button" class="btn-default btn" id="geoloc">Géolocaliser</button>
+                    <a type="button" class="btn-default btn" id="geoloc">Géolocaliser</a>
 
-                    {{ form_row(createObservationForm.latitude) }}<br/>
+                    {{ form_label(createObservationForm.latitude) }}
+                    {{ form_widget(createObservationForm.latitude) }}<br/>
                     {{ form_errors(createObservationForm.latitude) }}
 
-                    {{ form_row(createObservationForm.longitude) }}<br/>
+                    {{ form_label(createObservationForm.longitude) }}
+                    {{ form_widget(createObservationForm.longitude) }}<br/>
                     {{ form_errors(createObservationForm.longitude) }}
 
-                    {{ form_row(createObservationForm.altitude) }}<br/>
+                    {{ form_label(createObservationForm.altitude) }}
+                    {{ form_widget(createObservationForm.altitude) }}<br/>
                     {{ form_errors(createObservationForm.altitude) }}
 
-                    {{ form_row(createObservationForm.observationDescription) }}<br/>
+                    {{ form_label(createObservationForm.observationDescription) }}
+                    {{ form_widget(createObservationForm.observationDescription) }}<br/>
                     {{ form_errors(createObservationForm.observationDescription) }}
 
-                    {{ form_row(createObservationForm.altitude) }}<br/>
-                    {{ form_errors(createObservationForm.altitude) }}
-
-                    {{ form_widget(createObservationForm.photoPath) }}<br/>
-                    {{ form_errors(createObservationForm.photoPath) }}
+                    <div class="photo">
+                        {{ form_label(createObservationForm.photoPath) }}
+                        {{ form_widget(createObservationForm.photoPath) }}<br/>
+                        {{ form_errors(createObservationForm.photoPath) }}
+                    </div>
 
                     {{ form_widget(createObservationForm.Envoyer) }}
 
@@ -88,6 +90,9 @@
                     {{ form_end(createObservationForm) }}
                 </div>
             </div>
+        </div>
+
+    </div>
         </div>
 
         <div id="map"></div>
