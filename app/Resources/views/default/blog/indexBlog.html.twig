@@ -18,26 +18,9 @@
 
 {% block contentBlog %}
     <div class="container">
-
+        <div id="flashMsgIndexBlog"></div>
         <section class="posts">
-            {% for post in paginationPosts %}
-                <h4>{{ post.title }}</h4>
-                <div class="posts-infos">
-                    <p><i class="fa fa-calendar-o" aria-hidden="true"></i>{{ post.publishedDate|date("d/m/Y à H:i", "Europe/Paris") }}</p>
-                    <p><i class="fa fa-user" aria-hidden="true"></i>{{ post.author.username }}</p>
-                    <p><i class="fa fa-tag" aria-hidden="true"></i>{{ post.category.name}}</p>
-                    <p><i class="fa fa-comments" aria-hidden="true"></i>{{ post.comments|length }}</p>
-                </div>
-                <p>{{ post.content|slice(0, 800)|purify }}{% if post.content|length > 800 %}...{% endif %}</p>
-                <a href="{{ path('view-post', {'slugCat' : post.category.slug ,'slugPost' : post.slug }) }}"><button type="button" class="btn-default btn">Lire la suite</button></a>
-            {% endfor %}
-            {# div englobant le paginator et contenant la route à prendre pour la requete Ajax de pagination#}
-            <div id="paginationPost" url="{{ path('pagination_post') }}" class="row">
-                {# display navigation #}
-                <div class="navigation mx-auto">
-                    {{ knp_pagination_render(paginationPosts) }}
-                </div>
-            </div>
+            {% include('default/blog/Pagination/paginatedIndex.html.twig') %}
         </section>
 
         <section class="rightMenu">

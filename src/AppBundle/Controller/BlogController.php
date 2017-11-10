@@ -575,7 +575,7 @@ class BlogController extends Controller
     {
         if($request->isXmlHttpRequest()) {
             $paginationPosts = $BlogManager->getPaginatedPostList();
-            return $this->render(':default/blog:indexBlog.html.twig', array(
+            return $this->render('default/blog/Pagination/paginatedIndex.html.twig', array(
                 'paginationPosts' => $paginationPosts
             ));
         }
@@ -585,15 +585,16 @@ class BlogController extends Controller
     /**
      * @param Request $request
      * @return Response
-     * @Route("/articles-par-categorie", name="pagination_postsCategory")
+     * @Route("/articles-par-categorie/{category}", name="pagination_postsCategory")
      */
     public function paginationPostsByCategoryAction(Request $request, BlogManager $BlogManager, $category)
     {
         if($request->isXmlHttpRequest()) {
-
+            $category = $BlogManager->getCategory($category);
             $paginationPostsCategory = $BlogManager->getPaginatedPostsCategoryList($category);
-            return $this->render(':default/blog:categoryBlog.html.twig', array(
-                'paginationPostsCategory' => $paginationPostsCategory
+            return $this->render('default/blog/Pagination/paginatedCategory.html.twig', array(
+                'paginationPostsCategory' => $paginationPostsCategory,
+                'category' => $category
             ));
         }
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
