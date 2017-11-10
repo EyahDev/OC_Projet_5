@@ -146,13 +146,19 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/fiche-espece/{slug}", name="ficheEspece")
      */
-    public function speciesAction($slug, SpeciesManager $speciesManager, ObservationManager $observationManager)
+    public function speciesAction($slug, SpeciesManager $speciesManager, ObservationManager $observationManager, Request $request)
     {
         // Récupération de toutes les informations lié à l'espèce
         $species = $speciesManager->getOneSpecies($slug);
 
+        // Récupération du formulaire de modification de l'observation
+        $speciesDescriptionForm = $speciesManager->getSpeciesDescriptionForm($slug);
+
         // Tableau de période
         $period = array();
+
+        // Tableau des mois
+        $months = array('Jan', 'Fev', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil', 'Aout', 'Sept', 'Oct', 'Nov', 'Dec');
 
         // Récupération des observations par mois de l'année
         $janv = $observationManager->getObservationsForJan($slug);
@@ -180,10 +186,21 @@ class DefaultController extends Controller
         $dec = $observationManager->getObservationsForDec($slug);
         array_push($period, $dec);
 
+        $speciesDescriptionForm->handleRequest($request);
+
+        if ($speciesDescriptionForm->isSubmitted() && $speciesDescriptionForm->isValid()) {
+            $species = $speciesDescriptionForm->getData();
+
+            $speciesManager->setSpeciesDescriptionForm($species);
+
+            return $this->redirectToRoute('ficheEspece', array('slug' => $slug));
+        }
 
         return $this->render("default/species.html.twig", array(
             'species' => $species,
-            'period' => $period
+            'period' => $period,
+            'months' => $months,
+            'speciesDescriptionForm' => $speciesDescriptionForm->createView()
         ));
     }
 
