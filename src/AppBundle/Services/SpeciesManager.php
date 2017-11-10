@@ -78,4 +78,27 @@ class SpeciesManager
         // Enregistrement de la description
         $this->em->flush();
     }
+
+    public function getPhotosPath($slug) {
+        // Récupération des observations
+        $observations = $this->getOneSpecies($slug)->getObservations();
+
+        $photos = array();
+
+        $noPhotoCount = 0;
+
+        foreach ($observations as $observation) {
+            if ($observation->getPhotoPath() === null) {
+                $noPhotoCount++;
+            } else {
+                array_push($photos, $observation->getPhotoPath());
+            }
+        }
+
+        if ($noPhotoCount === count($observations)) {
+            return false;
+        } else {
+            return $photos;
+        }
+    }
 }
