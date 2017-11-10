@@ -289,7 +289,7 @@ class DefaultController extends Controller
             $user->setAvatarPath("img/default/avatar_default.png");
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('dashboard');
+            return $this->redirectToRoute('homepage');
         }
         return $this->render("default/landingPage2.html.twig", array(
             'title' => 'Nouvel utilisateur',

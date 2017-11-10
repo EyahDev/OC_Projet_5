@@ -49,6 +49,14 @@
         height: 600px;
     }
 
+    .jumbotron-index h1{
+        color: rgb(56, 57, 58) !important;
+    }
+
+    .jumbotron-index p{
+        color: black !important;
+    }
+
     .logo-mobile {
         display: block;
         position: absolute;

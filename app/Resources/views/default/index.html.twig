@@ -6,7 +6,7 @@
     <header>
         <div id="desktop">
             <div  class="jumbotron-index">
-                <video autoplay loop>
+                <video autoplay loop muted>
                 <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
                 <source src="{{ asset('img/cinémagraphe-page-accueil-Nao-2.mp4') }}" type="video/mp4">
                 </video>
@@ -62,8 +62,8 @@
                 <div class="position">
                     <h3>10% disparaissent</h3>
                     <p>
-                        Pour cela, notre association NOA a décidé de lancer une étude scientifique d’envergure
-                        afin d’étudier les effets du climats et l’impact des activités humaines sur la biodiversité.
+                        Hélas de nombreuses espèces sont menacées de disparitions.
+                        Chez NAO la protection des oiseaux est une priorité.
                     </p>
                 </div>
             </div>
@@ -94,11 +94,14 @@
                         <div class="single-content">
                             <h3>Nos actions</h3>
                             <p>
-                                Lorem enim exquisitaque, eram incididunt distin guantur. Tractavissent o quid
-                                laboris imitarentur ab de ipsum ubi multos de est sed quorum fugiat multos. O
-                                illum eiusmod distinguantur.
+                                Afin d’assurer la protection des oiseaux et la préservation de la biodiversité,
+                                notre association d’ornithologie lance un pro-gramme de recherche à l’échelle nationale
+                                incluant les DOM-TOM.
+                                Avec nos partenaires comme la LPO nous menons également des actions d’information,
+                                de formation et de sensibilisation tout au long de l’année.
+
                             </p>
-                            <a class="btn btn-info button" href="#">Voir plus</a>
+                            <a class="btn btn-info button" href="{{ path("avanceeRecherche") }}">Voir plus</a>
                         </div>
                     </div>
                 </div>
@@ -107,9 +110,10 @@
                         <div class="single-content">
                             <h3>Le programme de recherche</h3>
                             <p>
-                                Lorem enim exquisitaque, eram incididunt distin guantur. Tractavissent o quid
-                                laboris imitarentur ab de ipsum ubi multos de est sed quorum fugiat multos. O
-                                illum eiusmod distinguantur.
+                                Il vise à étudier les effets du climat, de l’urbanisation et de l’agriculture sur la biodiversité.
+                                Ornithologues professionnels ou amateurs, naturaliste, amou-reux de la nature …
+                                C’est de vos observations sur le terrain que dépendent la qualité et l’impact du programme sur la protec-tion des oiseaux.
+
                             </p>
                             <a class="btn btn-info button" href="{{ path("landingPage1") }}">Voir plus</a>
                         </div>
