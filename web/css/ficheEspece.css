@@ -1,0 +1,171 @@
+.jumbotron-species img {
+    width: 100%;
+    height: 800px;
+    object-fit: cover;
+}
+
+    /* Responsive */
+
+@media (min-width: 992px) {
+    .contentSpeciesCard {
+        padding: 75px;
+    }
+
+    .contentCarousel {
+        width: 50%;
+    }
+
+    .defaultBird {
+        height: 350px;
+    }
+}
+
+@media (max-width: 992px){
+    .contentSpeciesCard {
+        padding: 10px;
+    }
+
+    .defaultBird {
+        height: 200px;
+    }
+
+    .speciesTitle {
+        text-align: center;
+    }
+
+    .contentCarousel {
+        width: 100%;
+    }
+
+    .d-flex {
+        display: block !important;
+    }
+
+    .speciesInfo {
+        padding-left: 10px;
+    }
+
+}
+
+.contentSpeciesCard {
+    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    -webkit-box-shadow: -8px 10px 11px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: -8px 10px 11px 0 rgba(0,0,0,0.75);
+    box-shadow: -8px 10px 11px 0 rgba(0,0,0,0.75);
+}
+
+.contentCarousel{
+    height: 400px
+}
+
+.speciesTitle {
+    margin-bottom: 10px;
+}
+
+.defaultBirdContent {
+    text-align: center;
+    padding: 25px;
+}
+
+.speciesCarousel, .defaultBirdContent {
+    -webkit-box-shadow: inset -8px 10px 23px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: inset -8px 10px 23px 0 rgba(0,0,0,0.75);
+    box-shadow: inset -8px 10px 23px 0 rgba(0,0,0,0.75);
+}
+
+.speciesCarouselIndicator {
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 25px;
+}
+
+.speciesCarouselIndicator.active {
+    background-color: grey;
+}
+
+.carousel-indicators li {
+    height: 15px;
+    width: 15px;
+}
+
+.carouselHeightControl {
+    padding: 28px;
+    min-width: 100%;
+    height: 350px;
+    object-fit: contain;
+}
+
+.speciesInfo {
+    padding-left: 10px;
+}
+
+.underlineSpecies {
+    text-decoration: underline;
+}
+
+.insetShadow {
+    -webkit-box-shadow: inset -8px 10px 14px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: inset -8px 10px 14px 0 rgba(0,0,0,0.75);
+    box-shadow: inset -8px 10px 14px 0 rgba(0,0,0,0.75);
+}
+
+.speciesDescription {
+    padding: 25px 25px 10px 10px;
+    width: 100%;
+    min-height: 75px;
+    height: auto;
+}
+
+.speciesLastObservations {
+    padding: 25px 25px 10px 10px;
+    width: 100%;
+    height: 200px;
+    overflow: auto;
+}
+
+.observationsPeriod {
+    padding: 25px 25px 10px 10px;
+    width: 100%;
+    min-height: 75px;
+    height: auto;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+/* Table de periode */
+
+.month {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    background-color: #0A246A;
+}
+
+.emptyMonth {
+
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+
+}
+.test {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.test p{
+    margin-top: 16px;
+}
+
+.modifyDescription {
+    margin: auto 0;
+    cursor: pointer;
+}
+
+.btnDescriptionSub {
+    margin-top: 10px;
+}
