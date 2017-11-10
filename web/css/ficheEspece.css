@@ -18,6 +18,10 @@
     .defaultBird {
         height: 350px;
     }
+
+    .jumbotron-species img {
+        margin-top: 74px;
+    }
 }
 
 @media (max-width: 992px){

@@ -99,6 +99,7 @@ class DefaultController extends Controller
     {
         // Reset des markers
         if ($session->get('search') == false){
+            $session->set('nbResults', 0);
             $maps->resetMarkersXML();
         }
 

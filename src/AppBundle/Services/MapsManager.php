@@ -121,6 +121,7 @@ class MapsManager
                 $markerNode->setAttribute('photo', $marker->getPhotoPath());
                 $markerNode->setAttribute('lat', $marker->getLatitude());
                 $markerNode->setAttribute('lng', $marker->getLongitude());
+                $markerNode->setAttribute('seeToo', $marker->getSeeToo());
                 $markerNode->setAttribute('type', 'bird');
                 $markersNode->appendChild($markerNode);
             }

@@ -92,7 +92,11 @@
                                     a observé le
                                 {% endif %}
 
-                                {{ speciesObservation.observationDate|date('d/m/Y à H:i')}} par {{ speciesObservation.observer.name }}.</p>
+                                {{ speciesObservation.observationDate|date('d/m/Y à H:i')}} par {{ speciesObservation.observer.name }}.
+                                {% if speciesObservation.seeToo != null %}
+                                    Observation confirmée par {{speciesObservation.seeToo}} utilisateur(s)
+                                {% endif %}
+                            </p>
                         {% endfor %}
                     {% endif %}
                 </div>
@@ -175,4 +179,5 @@
             }
         });
     </script>
+    <script src="{{ asset('js/menu.js') }}"></script>
 {% endblock %}
