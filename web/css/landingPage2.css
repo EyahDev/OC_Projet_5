@@ -83,9 +83,10 @@
 }
 
 /*----------------------------------------------- Header ----------------------------------------------- */
+
 #header{
-    margin: 0 80px 0 auto;
-    height: 100%;
+    margin-left: 80px;
+    /*height: 2000px;*/
 }
 /*h1{*/
     /*margin-top: 200px;*/
@@ -136,25 +137,64 @@
     z-index: 0;
 }
 
+label{
+    font-family: 'Montserrat', sans-serif;
+    color : #444;
+    font-size: 13px;
+    line-height: 1;
+    margin-top: 10px;
+}
+
 #header .text{
-    width: 45%;
+    width: 80%;
 }
 
 #header .text h5{
     margin: 30px 0 30px 0;
 }
 
+.text{
+    margin-top: 80px;
+}
+
+div.well.row{
+    height: 100%;
+}
+
 @media (max-width: 768px){
-    #header{
-        width: 90%;
-        margin: auto auto 40px auto;
+    header{
+       flex-wrap: wrap;
     }
 
-    #header .text{
-        width: 70%;
+    canvas{
+        display: none;
     }
 
-    #header .buttonGrey {
-        margin-left: 5px;
+    #inscription{
+        width: 100% !important;
     }
+
+    .text{
+        margin-top: 10px;
+    }
+
+    body{
+        background-color: #e5e7ea;
+    }
+}
+
+#inscription{
+    width: 50%;
+    right: 0;
+    top:0;
+    bottom: 0;
+}
+
+form{
+    width: 90%;
+    margin: auto;
+}
+
+#appbundle_user_save{
+    margin-top: 50px;
 }

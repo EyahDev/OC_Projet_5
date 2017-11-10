@@ -1,6 +1,5 @@
 /*----------------------------------------------- Header ----------------------------------------------- */
-
-@media (min-width: 420px) and (max-width: 1980px){
+@media (min-width: 420px){
 
     .jumbotron-index {
         Color : #444;
@@ -14,7 +13,7 @@
     }
 
     video {
-        height: 1000px;
+        height: 1200px;
         width: 100%;
         object-fit: cover;
         z-index: -1000;
@@ -37,7 +36,6 @@
     #mobile{
         display: none;
     }
-
 }
 
 

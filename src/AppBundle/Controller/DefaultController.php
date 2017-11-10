@@ -266,10 +266,30 @@ class DefaultController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/landing-page-B", name="landingPage2")
      */
-    public function landinfPageBAction()
+    public function landinfPageBAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
-                
-        return $this->render("default/landingPage2.html.twig");
+        $em = $this->getDoctrine()->getManager();
+        $user = new User();
+        $role = $em->getRepository('AppBundle:Role')->findOneBy(array('name' => "ROLE_USER"));
+        $userForm = $this->get('form.factory')->create(SignupType::class, $user);
+        $userForm->handleRequest($request);
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+            // generate a random salt value
+            $salt = substr(md5(time()), 0, 23);
+            $user->setSalt($salt);
+            $plainPassword = $user->getPassword();
+            $password = $encoder->encodePassword($user, $plainPassword);
+            $user->setPassword($password);
+            // select default user role
+            $user->setRoles($role);
+            $user->setSignupDate(new \DateTime());
+            $user->setAvatarPath("img/default/avatar_default.png");
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('dashboard');
+        }
+        return $this->render("default/landingPage2.html.twig", array(
+            'title' => 'Nouvel utilisateur',
+            'form' => $userForm->createView()));
     }
-
 }
