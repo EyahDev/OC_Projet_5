@@ -24,8 +24,7 @@
         </div>
 </div>
 <br/>
-{% if categoriesList|length != 0 %}
+
+
     {% include("default/dashboard/blogManagement/categoriesManagement/paginatedTable.html.twig") %}
-{% else %}
-    Aucune catégorie n'existe pour l'instant, créez en une !
-{% endif %}
+

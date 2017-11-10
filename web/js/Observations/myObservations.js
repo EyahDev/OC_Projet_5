@@ -11,7 +11,7 @@ $(document).ready(function() {
             // récupère l'argument passer en get
             var argGet = url.substring(url.lastIndexOf('?'));
             // récupère la route pour la pagination
-            var urlNewRoute = $('#paginationMyObservations').attr('url');
+            var urlNewRoute = $('.pagination-table-my-observations').attr('url');
             // concatene la route et l'argument
             var newUrl = urlNewRoute + argGet;
             $.ajax({
@@ -112,7 +112,7 @@ $(document).ready(function() {
         // crée l'argument pour la requete Get
         var argGet = '?page='+currentPageNb;
         // récupère la route pour la pagination
-        var urlNewRoute = $('#paginationMyObservations').attr('url');
+        var urlNewRoute = $('.pagination-table-my-observations').attr('url');
         // concatene la route et l'argument get
         var newUrl = urlNewRoute+argGet;
         $.ajax({

@@ -11,7 +11,7 @@ $(document).ready(function() {
             // récupère l'argument passer en get
             var argGet = url.substring(url.lastIndexOf('?'));
             // récupère la route pour la pagination
-            var urlNewRoute = $('#paginationObservationsValidation').attr('url');
+            var urlNewRoute = $('.pagination-table-observations-validation').attr('url');
             // concatene la route et l'argument
             var newUrl = urlNewRoute + argGet;
             $.ajax({

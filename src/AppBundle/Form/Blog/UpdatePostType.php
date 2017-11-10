@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreatePostType extends AbstractType
+class UpdatePostType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -57,6 +57,6 @@ class CreatePostType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'write_post';
+        return 'update_post';
     }
 }

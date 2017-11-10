@@ -9,6 +9,7 @@ use AppBundle\Form\Blog\CreateCategoryQuicklyType;
 use AppBundle\Form\Blog\CreateCategoryType;
 use AppBundle\Form\Blog\CreatePostType;
 use AppBundle\Form\Blog\UpdateCategoryType;
+use AppBundle\Form\Blog\UpdatePostType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -236,7 +237,7 @@ class BlogManager
         $post = $this->getPost($slug);
 
         // Création du formulaire
-        $form = $this->formBuilder->create(CreatePostType::class, $post);
+        $form = $this->formBuilder->create(UpdatePostType::class, $post);
 
         return $form;
     }
@@ -499,7 +500,7 @@ class BlogManager
         return $paginator->paginate(
             $postList/*$query*/, /* query NOT result */
             $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
-            5/*limit per page*/
+            1/*limit per page*/
         );
     }
 
@@ -518,7 +519,7 @@ class BlogManager
         return $paginator->paginate(
             $postsListCategory/*$query*/, /* query NOT result */
             $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
-            5/*limit per page*/
+            1/*limit per page*/
         );
     }
 

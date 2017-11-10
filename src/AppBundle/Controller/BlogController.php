@@ -160,8 +160,8 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/dashboard/creer-categorie", name="create_category")
-     */
+ * @Route("/dashboard/creer-categorie", name="create_category")
+ */
     public function createCategoryAction(Request $request, BlogManager $blogManager)
     {
         if($request->isXmlHttpRequest()) {
@@ -195,16 +195,43 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/dashboard/categorie/{slug}/confirmation-suppression", name="advice_delete_category")
+     * @param Request $request
+     * @param BlogManager $blogManager
+     * @return Response
+     * @Route("/dashboard/creer-categorie-rapidement", name="create_category_quickly")
      */
-    public function deleteConfirmationCategoryAction($slug, BlogManager $blogManager) {
-        // Récupération des informations lié à la catégorie
-        $category = $blogManager->getCategory($slug);
+    public function createCategoryQuicklyAction(Request $request, BlogManager $blogManager)
+    {
 
-        return $this->render("default/dashboard/blogManagement/categoriesManagement/deleteCategory.html.twig", array(
-            'infoCategory' => $category
-        ));
+            // Récupération du formulaire de création d'une nouvelle catégorie
+            $createCategory = $blogManager->getFormCreateQuicklyCategory();
+
+            // Hydration de l'entitée avec les valeurs du formulaire
+            $createCategory->handleRequest($request);
+
+            // Soumission du formulaire
+            if ($createCategory->isSubmitted()) {
+
+                // Récupération de l'entitée Category avec les valeurs hydratées
+                $category = $createCategory->getData();
+
+                // récupère le résultat de la validation
+                $validation = $blogManager->validateCategory($category);
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
+                }
+
+                // Enregistrement de la nouvelle catégorie
+                $blogManager->setCategory($category);
+
+                // Rédirection vers le dashboard
+                return new Response("Nouvelle catégorie ajoutée");
+            }
+            return new Response('Agnagna a marche pas', 500);
+
     }
+
 
     /**
      * @Route("/dashboard/categorie/{slug}/suppression", name="category_delete")
@@ -221,108 +248,156 @@ class BlogController extends Controller
     }
 
     /* Gestion des articles */
+    /**
+     * @param Request $request
+     * @param BlogManager $blogManager
+     * @return Response
+     * @Route("/dashboard/rediger-article/rechargement", name="reload_write_post")
+     */
+    public function reloadWritePostAction(Request $request, BlogManager $blogManager)
+    {
+        if($request->isXmlHttpRequest()) {
+            $createCategoryQuickly = $blogManager->getFormCreateQuicklyCategory();
+            $createPostForm = $blogManager->getFormCreatePost();
+            return $this->render("default/dashboard/blogManagement/writePost/writePost.html.twig", array(
+                'createCategoryQuickly' => $createCategoryQuickly->createView(),
+                'createPostForm' => $createPostForm->createView(),
+            ));
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
 
+    /**
+     * @param Request $request
+     * @param BlogManager $blogManager
+     * @return Response
+     * @Route("/dashboard/rediger-article", name="write_post")
+     */
+    public function writePostAction(Request $request, BlogManager $blogManager)
+    {
+        if($request->isXmlHttpRequest()) {
+            // Récupération du formulaire de création d'un article
+            $createPost = $blogManager->getFormCreatePost();
+
+            // Récupération de l'utilisateur courant
+            $user = $this->getUser();
+
+            // Hydratation du formulaire
+            $createPost->handleRequest($request);
+
+            // Soumission du formulaire
+            if ($createPost->isSubmitted()) {
+
+                // Récupération de l'entitée Post avec les valeurs hydratées
+                $post = $createPost->getData();
+
+                // récupère le résultat de la validation
+                $validation = $blogManager->validatePost($post);
+
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
+                }
+
+                // Enregistrement du nouvel article
+                $blogManager->setPost($post, $user);
+
+                // Renvoie un message de confirmation
+                return new Response("Article ajouté");
+            }
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
     /**
      * @Route("/dashboard/article/{slug}/edition/", name="edit_post")
      */
     public function editPostAction($slug, BlogManager $blogManager, Request $request) {
 
-        // Récupération du formulaire de modification de l'article
-        $updatePostForm = $blogManager->getUpdatePostForm($slug);
+        // teste si la requete provient bien d'Ajax sinon on génère une exception
+        if($request->isXmlHttpRequest()) {
+            // Récupération du formulaire de modification de l'article
+            $updatePostForm = $blogManager->getUpdatePostForm($slug);
 
-        // Récupération du fichier d'origine
-        $existingFile = $updatePostForm->getData()->getImagePath();
+            // récupère la categorie
+            $post = $blogManager->getPost($slug);
 
-        // Hydration de l'entitée avec les valeurs du formulaire
-        $updatePostForm->handleRequest($request);
+            // Récupération du fichier d'origine
+            $existingFile = $updatePostForm->getData()->getImagePath();
 
-        // Soumission du formulaire
-        if ($updatePostForm->isSubmitted() && $updatePostForm->isValid()) {
+            // Hydration de l'entitée avec les valeurs du formulaire
+            $updatePostForm->handleRequest($request);
 
-            // Récupération de l'entitée Post avec les valeurs hydratées
-            $post = $updatePostForm->getData();
+            // teste si la requete est en POST et si les données sont valides
+            if($updatePostForm->isSubmitted()) {
+                // Récupération de l'entitée Post avec les valeurs hydratées
+                $post = $updatePostForm->getData();
 
-            // Enregistrement du nouvel article
-            $blogManager->updatePost($post, $existingFile);
-
-            // Rédirection vers le dashboard
-            return $this->redirectToRoute('dashboard');
+                // Valide la question/réponse et récupère les erreurs de formulaire si il y en a
+                $validation = $blogManager->validatePost($post);
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
+                }
+                // Enregistrement du nouvel article
+                $blogManager->updatePost($post, $existingFile);
+                // renvoie la ligne de tableau pour l'affichage en JS
+                return $this->render('default/dashboard/blogManagement/postsManagement/reloadPostImg.html.twig', array(
+                    'post' => $post,
+                ));
+            }
+            // renvoie le formulaire d'ajout pour l'affichage en JS
+            return $this->render('default/dashboard/blogManagement/postsManagement/editPost.html.twig', array(
+                'updatePostForm' => $updatePostForm->createView(),
+                'post' => $post
+            ));
         }
-
-        return $this->render("default/dashboard/blogManagement/editPost.html.twig", array(
-            'updatePostForm' => $updatePostForm->createView()
-        ));
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
-    /**
-     * @Route("/dashboard/article/{slug}/confirmation-suppression", name="advice_delete_post")
-     */
-    public function deleteConfirmationPostAction($slug, BlogManager $blogManager) {
-        // Récupération des informations lié au post
-        $post = $blogManager->getPost($slug);
-
-        return $this->render("default/dashboard/blogManagement/deletePost.html.twig", array(
-            'infoPost' => $post
-        ));
-    }
 
     /**
      * @Route("/dashboard/article/{slug}/suppression", name="post_delete")
      */
-    public function deletePostAction($slug, BlogManager $blogManager) {
-        // Supression de l'article
-        $blogManager->deletePost($slug);
-
-        // Rédirection vers le dashboard
-        return $this->redirectToRoute('dashboard');
+    public function deletePostAction($slug, BlogManager $blogManager, Request $request) {
+        // teste si la requete provient bien d'Ajax sinon on génère une exception
+        if($request->isXmlHttpRequest()) {
+            // Supression de l'article
+            $blogManager->deletePost($slug);
+            // envoie le message de confirmation pour l'afficher en JS
+            return new Response("Catégorie supprimée");
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /* Commentaires */
 
-    /**
-     * @Route("/dashboard/signalement/{id}/detail", name="view-detail-flagged")
-     */
-    public function viewDetailsFlagged(CommentManager $commentManager, $id) {
-        // Récupération du commentaire ciblé
-        $commentflagged = $commentManager->getCommentFlagged($id);
-
-        return $this->render('default/dashboard/blogManagement/viewDetailFlagged.html.twig', array(
-            'commentFlagged' => $commentflagged
-        ));
-    }
-
-    /**
-     * @Route("/dashboard/signalement/{id}/confirmation-suppression", name="advice_delete_comment")
-     */
-    public function deleteConfirmationCommentAction($id, CommentManager $commentManager) {
-        // Récupération des informations lié au post
-        $comment = $commentManager->getCommentFlagged($id);
-
-        return $this->render(":default/dashboard/blogManagement:deleteConfirmationFlagged.html.twig", array(
-            'infoComment' => $comment
-        ));
-    }
 
     /**
      * @Route("/dashboard/signalement/{id}/approbation", name="comment_approuved")
      */
-    public function approuvedCommentAction($id, CommentManager $commentManager) {
-        // Supression de l'article
-        $commentManager->approuvedComment($id);
-
-        // Rédirection vers le dashboard
-        return $this->redirectToRoute('dashboard');
+    public function approuvedCommentAction($id, CommentManager $commentManager, Request $request) {
+        // teste si la requete provient bien d'Ajax sinon on génère une exception
+        if($request->isXmlHttpRequest()) {
+            // Supression de l'article
+            $commentManager->approuvedComment($id);
+            // envoie le message de confirmation pour l'afficher en JS
+            return new Response("Commentaire approuvé");
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
      * @Route("/dashboard/signalement/{id}/suppression", name="comment_delete")
      */
-    public function deleteCommentAction($id, CommentManager $commentManager) {
-        // Supression de l'article
-        $commentManager->deleteComment($id);
-
-        // Rédirection vers le dashboard
-        return $this->redirectToRoute('dashboard');
+    public function deleteCommentAction($id, CommentManager $commentManager, Request $request) {
+        // teste si la requete provient bien d'Ajax sinon on génère une exception
+        if($request->isXmlHttpRequest()) {
+            /// Supression de l'article
+            $commentManager->deleteComment($id);
+            // envoie le message de confirmation pour l'afficher en JS
+            return new Response("Commentaire supprimé");
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
@@ -461,7 +536,7 @@ class BlogController extends Controller
     {
         if($request->isXmlHttpRequest()) {
             $paginationPosts = $BlogManager->getPaginatedPostList();
-            return $this->render(':default/blog:indexBlog.html.twig', array(
+            return $this->render('default/blog/Pagination/paginatedIndex.html.twig', array(
                 'paginationPosts' => $paginationPosts
             ));
         }
@@ -471,19 +546,37 @@ class BlogController extends Controller
     /**
      * @param Request $request
      * @return Response
-     * @Route("/articles-par-categorie", name="pagination_postsCategory")
+     * @Route("/articles-par-categorie/{category}", name="pagination_postsCategory")
      */
     public function paginationPostsByCategoryAction(Request $request, BlogManager $BlogManager, $category)
     {
         if($request->isXmlHttpRequest()) {
-
+            $category = $BlogManager->getCategory($category);
             $paginationPostsCategory = $BlogManager->getPaginatedPostsCategoryList($category);
-            return $this->render(':default/blog:categoryBlog.html.twig', array(
-                'paginationPostsCategory' => $paginationPostsCategory
+            return $this->render('default/blog/Pagination/paginatedCategory.html.twig', array(
+                'paginationPostsCategory' => $paginationPostsCategory,
+                'category' => $category
             ));
         }
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/dashboard/articles", name="pagination_management_posts")
+     */
+    public function paginationPostManagementAction(Request $request, BlogManager $blogManager)
+    {
+        if($request->isXmlHttpRequest()) {
+            $postsList = $blogManager->getPaginatedPostList();
+            return $this->render('default/dashboard/blogManagement/postsManagement/paginatedTable.html.twig', array(
+                'postsList' => $postsList
+            ));
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
+
     /**
      * @param Request $request
      * @return Response
@@ -505,9 +598,27 @@ class BlogController extends Controller
     /**
      * @param Request $request
      * @return Response
+     * @Route("dashboard/moderation-commentaires", name="pagination_comments_moderation")
+     */
+    public function paginationCommentsModerationAction(Request $request, CommentManager $commentManager)
+    {
+        if($request->isXmlHttpRequest()) {
+
+            // Récupération de la liste des catégories
+            $commentsFlagged = $commentManager->getPaginatedCommentsFlaggedList();
+            return $this->render('default/dashboard/blogManagement/commentsModeration/paginatedTable.html.twig', array(
+                'commentsFlagged' => $commentsFlagged,
+            ));
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
      * @Route("Blog/{slugPost}/comments", name="reload_comments_list")
      */
-    public function reloadComments(Request $request, $slugPost, BlogManager $blogManager)
+    public function reloadCommentsAction(Request $request, $slugPost, BlogManager $blogManager)
     {
         if ($request->isXmlHttpRequest()) {
             $post = $blogManager->getPost($slugPost);

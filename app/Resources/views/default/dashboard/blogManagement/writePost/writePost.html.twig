@@ -1,0 +1,71 @@
+<div id="collapseWritePostContent" url="{{ path('reload_write_post') }}">
+    <div id="flashMsgWritePost"></div>
+    <div id="writePost">
+        {{ form_start(createPostForm) }}
+        {{ form_errors(createPostForm) }}
+
+        <div class="input title">
+        {{ form_label(createPostForm.title) }}<br/>
+        {{ form_widget(createPostForm.title) }}<br/>
+        </div>
+        <div class="input categorie">
+        {{ form_label(createPostForm.category) }}<br/>
+        {{ form_widget(createPostForm.category) }}<br/>
+        </div>
+
+        <p>Vous n'avez pas de catégorie,  </p>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#quickCategoryModal">Créez en une</button>
+
+        <div class="photo">
+        {{ form_label(createPostForm.imagePath) }}<br/>
+        {{ form_widget(createPostForm.imagePath) }}<br/>
+        </div>
+
+        <div class="input">
+        {{ form_label(createPostForm.content) }}<br/>
+        {{ form_widget(createPostForm.content, {'attr': {'class': 'tinyMCE'}}) }}<br/>
+        </div>
+
+        {{ form_widget(createPostForm.save, {'label': 'Publier', 'attr': { 'class': 'btn-user-write-post', 'url': path('write_post')}}) }}<br/>
+        {{ form_end(createPostForm) }}
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="quickCategoryModal" tabindex="-1" role="dialog" aria-labelledby="quickCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quickCategoryModalLabel">Créez votre catégorie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="choiceCategory">
+                        {{ form_start(createCategoryQuickly) }}
+                        {{ form_errors(createCategoryQuickly) }}
+
+                        {{ form_errors(createCategoryQuickly.name) }}
+                        <div class="input">
+                            {{ form_row(createCategoryQuickly.name) }}<br/>
+                        </div>
+                        <div class="photo">
+                            <div>
+                                <p>Sélectionnez une image répresantant la catégorie (si aucune image n'est sélectionnée, une image par défaut sera ajoutée)</p>
+                                <div class="create">
+                                    <div>
+                                        {{ form_label(createCategoryQuickly.photoPath) }}
+                                        {{ form_widget(createCategoryQuickly.photoPath) }}
+                                    </div>
+                                    <div>
+                                        {{ form_widget(createCategoryQuickly.save, {'label': 'Créer', 'attr': { 'class': 'btn-user-create-category-quickly', 'url': path('create_category_quickly')}}) }}<br/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(createCategoryQuickly) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

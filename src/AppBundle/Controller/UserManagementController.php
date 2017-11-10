@@ -113,7 +113,7 @@ class UserManagementController extends Controller
      * @Route("dashboard/user-management", name="pagination_user_management")
      * @return Response
      */
-    public function paginateUserManagement(Request $request, UserManager $userManager)
+    public function paginateUserManagementAction(Request $request, UserManager $userManager)
     {
         if($request->isXmlHttpRequest()) {
             $usersList = $userManager->getPaginatedUsersList($this->getUser()->getId());
