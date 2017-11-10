@@ -12,11 +12,19 @@
             .contentCarousel {
                 width: 50%;
             }
+
+            .defaultBird {
+                height: 350px;
+            }
         }
 
         @media (max-width: 992px){
             .contentSpeciesCard {
                 padding: 10px;
+            }
+
+            .defaultBird {
+                height: 200px;
             }
 
             .speciesTitle {
@@ -52,19 +60,13 @@
             height: 400px
         }
 
-        .defaultBird {
-            margin-bottom: 25px;
-            margin-top: 25px;
-
-            height: 350px;
-        }
-
         .speciesTitle {
             margin-bottom: 10px;
         }
 
         .defaultBirdContent {
             text-align: center;
+            padding: 25px;
         }
 
         .speciesCarousel, .defaultBirdContent {
@@ -123,7 +125,7 @@
             overflow: auto;
         }
 
-        .ObversationsPeriod {
+        .observationsPeriod {
             padding: 25px 25px 10px 10px;
             width: 100%;
             min-height: 75px;
@@ -192,8 +194,8 @@
             <section>
                 <h2 class="speciesTitle">{{ species.referenceName }}</h2>
                 <div class="d-flex flex-row">
-                    <div id="carouselExampleIndicators" class="carousel slide contentCarousel" data-ride="carousel">
                         {% if photos != false  %}
+                            <div id="carouselExampleIndicators" class="carousel slide contentCarousel" data-ride="carousel">
                                 <ol class="carousel-indicators">
                             {% for photo in photos  %}
                                     <li data-target="#carouselExampleIndicators" data-slide-to="{{loop.index - 1}}" class="speciesCarouselIndicator"></li>
@@ -206,12 +208,12 @@
                                     </div>
                             {% endfor %}
                                 </div>
+                            </div>
                         {% else %}
                             <div class="defaultBirdContent">
                                 <img class="defaultBird" src="{{ asset('img/default/bird_default.png') }}" alt="Oiseau vectorisé">
                             </div>
                         {% endif %}
-                    </div>
                     <div class="speciesInfo align-self-center">
                         <p>
                             <span class="underlineSpecies">Nom commun</span> :
@@ -266,7 +268,7 @@
             <section>
                 <h5>Période d'observation</h5>
                 <div>
-                    <div class="ObversationsPeriod insetShadow row">
+                    <div class="observationsPeriod insetShadow row">
                         <div class="periodContent mx-auto" >
                             <div class="row mx-auto">
 
