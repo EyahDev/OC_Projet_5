@@ -232,17 +232,6 @@ class BlogController extends Controller
 
     }
 
-    /**
-     * @Route("/dashboard/categorie/{slug}/confirmation-suppression", name="advice_delete_category")
-     */
-    public function deleteConfirmationCategoryAction($slug, BlogManager $blogManager) {
-        // Récupération des informations lié à la catégorie
-        $category = $blogManager->getCategory($slug);
-
-        return $this->render("default/dashboard/blogManagement/categoriesManagement/deleteCategory.html.twig", array(
-            'infoCategory' => $category
-        ));
-    }
 
     /**
      * @Route("/dashboard/categorie/{slug}/suppression", name="category_delete")
@@ -365,17 +354,6 @@ class BlogController extends Controller
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
-    /**
-     * @Route("/dashboard/article/{slug}/confirmation-suppression", name="advice_delete_post")
-     */
-    public function deleteConfirmationPostAction($slug, BlogManager $blogManager) {
-        // Récupération des informations lié au post
-        $post = $blogManager->getPost($slug);
-
-        return $this->render("default/dashboard/blogManagement/deletePost.html.twig", array(
-            'infoPost' => $post
-        ));
-    }
 
     /**
      * @Route("/dashboard/article/{slug}/suppression", name="post_delete")
@@ -393,50 +371,33 @@ class BlogController extends Controller
 
     /* Commentaires */
 
-    /**
-     * @Route("/dashboard/signalement/{id}/detail", name="view-detail-flagged")
-     */
-    public function viewDetailsFlaggedAction(CommentManager $commentManager, $id) {
-        // Récupération du commentaire ciblé
-        $commentflagged = $commentManager->getCommentFlagged($id);
-
-        return $this->render('default/dashboard/blogManagement/viewDetailFlagged.html.twig', array(
-            'commentFlagged' => $commentflagged
-        ));
-    }
-
-    /**
-     * @Route("/dashboard/signalement/{id}/confirmation-suppression", name="advice_delete_comment")
-     */
-    public function deleteConfirmationCommentAction($id, CommentManager $commentManager) {
-        // Récupération des informations lié au post
-        $comment = $commentManager->getCommentFlagged($id);
-
-        return $this->render(":default/dashboard/blogManagement:deleteConfirmationFlagged.html.twig", array(
-            'infoComment' => $comment
-        ));
-    }
 
     /**
      * @Route("/dashboard/signalement/{id}/approbation", name="comment_approuved")
      */
-    public function approuvedCommentAction($id, CommentManager $commentManager) {
-        // Supression de l'article
-        $commentManager->approuvedComment($id);
-
-        // Rédirection vers le dashboard
-        return $this->redirectToRoute('dashboard');
+    public function approuvedCommentAction($id, CommentManager $commentManager, Request $request) {
+        // teste si la requete provient bien d'Ajax sinon on génère une exception
+        if($request->isXmlHttpRequest()) {
+            // Supression de l'article
+            $commentManager->approuvedComment($id);
+            // envoie le message de confirmation pour l'afficher en JS
+            return new Response("Commentaire approuvé");
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
      * @Route("/dashboard/signalement/{id}/suppression", name="comment_delete")
      */
-    public function deleteCommentAction($id, CommentManager $commentManager) {
-        // Supression de l'article
-        $commentManager->deleteComment($id);
-
-        // Rédirection vers le dashboard
-        return $this->redirectToRoute('dashboard');
+    public function deleteCommentAction($id, CommentManager $commentManager, Request $request) {
+        // teste si la requete provient bien d'Ajax sinon on génère une exception
+        if($request->isXmlHttpRequest()) {
+            /// Supression de l'article
+            $commentManager->deleteComment($id);
+            // envoie le message de confirmation pour l'afficher en JS
+            return new Response("Commentaire supprimé");
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
@@ -629,6 +590,24 @@ class BlogController extends Controller
             $categoriesList = $blogManager->getPaginatedCategoriesList();
             return $this->render('default/dashboard/blogManagement/categoriesManagement/paginatedTable.html.twig', array(
                 'categoriesList' => $categoriesList,
+            ));
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("dashboard/moderation-commentaires", name="pagination_comments_moderation")
+     */
+    public function paginationCommentsModerationAction(Request $request, CommentManager $commentManager)
+    {
+        if($request->isXmlHttpRequest()) {
+
+            // Récupération de la liste des catégories
+            $commentsFlagged = $commentManager->getPaginatedCommentsFlaggedList();
+            return $this->render('default/dashboard/blogManagement/commentsModeration/paginatedTable.html.twig', array(
+                'commentsFlagged' => $commentsFlagged,
             ));
         }
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");

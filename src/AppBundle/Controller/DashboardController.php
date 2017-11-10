@@ -110,7 +110,7 @@ class DashboardController extends Controller
         /* Commentaires */
 
         // Récupération des commentaires signalés
-        $commentsFlagged = $commentManager->getCommentsFlagged();
+        $commentsFlagged = $commentManager->getPaginatedCommentsFlaggedList();
 
 
         /* Gestion de la FAQ */

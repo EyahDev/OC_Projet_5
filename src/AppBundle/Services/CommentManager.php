@@ -5,6 +5,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CommentManager
 {
@@ -12,13 +13,16 @@ class CommentManager
     private $em;
     private $request;
     private $session;
+    private $container;
 
-    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em, RequestStack $request, SessionInterface $session)
+    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em, RequestStack $request,
+                                SessionInterface $session, ContainerInterface $container)
     {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
         $this->session = $session;
+        $this->container = $container;
     }
 
     public function getCommentsFlagged() {
@@ -56,5 +60,19 @@ class CommentManager
         // Supression de la catégorie
         $this->em->remove($commentFlagged);
         $this->em->flush();
+    }
+
+    public function getPaginatedCommentsFlaggedList()
+    {
+        // récupère la liste des questions/réponses
+        $commentsFlagged = $this->getCommentsFlagged();
+        // récupère le service knp paginator
+        $paginator  = $this->container->get('knp_paginator');
+        // retourne les questions /réponse paginé selon la page passé en get
+        return $paginator->paginate(
+            $commentsFlagged/*$query*/, /* query NOT result */
+            $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
     }
 }
