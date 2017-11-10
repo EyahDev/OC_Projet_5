@@ -324,31 +324,45 @@ class BlogController extends Controller
      */
     public function editPostAction($slug, BlogManager $blogManager, Request $request) {
 
-        // Récupération du formulaire de modification de l'article
-        $updatePostForm = $blogManager->getUpdatePostForm($slug);
+        // teste si la requete provient bien d'Ajax sinon on génère une exception
+        if($request->isXmlHttpRequest()) {
+            // Récupération du formulaire de modification de l'article
+            $updatePostForm = $blogManager->getUpdatePostForm($slug);
 
-        // Récupération du fichier d'origine
-        $existingFile = $updatePostForm->getData()->getImagePath();
+            // récupère la categorie
+            $post = $blogManager->getPost($slug);
 
-        // Hydration de l'entitée avec les valeurs du formulaire
-        $updatePostForm->handleRequest($request);
+            // Récupération du fichier d'origine
+            $existingFile = $updatePostForm->getData()->getImagePath();
 
-        // Soumission du formulaire
-        if ($updatePostForm->isSubmitted() && $updatePostForm->isValid()) {
+            // Hydration de l'entitée avec les valeurs du formulaire
+            $updatePostForm->handleRequest($request);
 
-            // Récupération de l'entitée Post avec les valeurs hydratées
-            $post = $updatePostForm->getData();
+            // teste si la requete est en POST et si les données sont valides
+            if($updatePostForm->isSubmitted()) {
+                // Récupération de l'entitée Post avec les valeurs hydratées
+                $post = $updatePostForm->getData();
 
-            // Enregistrement du nouvel article
-            $blogManager->updatePost($post, $existingFile);
-
-            // Rédirection vers le dashboard
-            return $this->redirectToRoute('dashboard');
+                // Valide la question/réponse et récupère les erreurs de formulaire si il y en a
+                $validation = $blogManager->validatePost($post);
+                // si la validation n'est pas ok on renvoie les erreurs du validateur
+                if($validation !== true) {
+                    return new Response($validation,500);
+                }
+                // Enregistrement du nouvel article
+                $blogManager->updatePost($post, $existingFile);
+                // renvoie la ligne de tableau pour l'affichage en JS
+                return $this->render('default/dashboard/blogManagement/postsManagement/reloadPostImg.html.twig', array(
+                    'post' => $post,
+                ));
+            }
+            // renvoie le formulaire d'ajout pour l'affichage en JS
+            return $this->render('default/dashboard/blogManagement/postsManagement/editPost.html.twig', array(
+                'updatePostForm' => $updatePostForm->createView(),
+                'post' => $post
+            ));
         }
-
-        return $this->render("default/dashboard/blogManagement/editPost.html.twig", array(
-            'updatePostForm' => $updatePostForm->createView()
-        ));
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /**
@@ -366,12 +380,15 @@ class BlogController extends Controller
     /**
      * @Route("/dashboard/article/{slug}/suppression", name="post_delete")
      */
-    public function deletePostAction($slug, BlogManager $blogManager) {
-        // Supression de l'article
-        $blogManager->deletePost($slug);
-
-        // Rédirection vers le dashboard
-        return $this->redirectToRoute('dashboard');
+    public function deletePostAction($slug, BlogManager $blogManager, Request $request) {
+        // teste si la requete provient bien d'Ajax sinon on génère une exception
+        if($request->isXmlHttpRequest()) {
+            // Supression de l'article
+            $blogManager->deletePost($slug);
+            // envoie le message de confirmation pour l'afficher en JS
+            return new Response("Catégorie supprimée");
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
 
     /* Commentaires */
@@ -581,6 +598,23 @@ class BlogController extends Controller
         }
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/dashboard/articles", name="pagination_management_posts")
+     */
+    public function paginationPostManagementAction(Request $request, BlogManager $blogManager)
+    {
+        if($request->isXmlHttpRequest()) {
+            $postsList = $blogManager->getPaginatedPostList();
+            return $this->render('default/dashboard/blogManagement/postsManagement/paginatedTable.html.twig', array(
+                'postsList' => $postsList
+            ));
+        }
+        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+    }
+
     /**
      * @param Request $request
      * @return Response

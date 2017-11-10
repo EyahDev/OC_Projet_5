@@ -14,7 +14,9 @@
             <tbody>
             {% for user in usersList %}
                 <tr>
-                    <td data-title="Nom & prénom">{{ user.name }} {{ user.firstname }}</td>
+                    <td data-title="Nom & prénom">
+                        {{ user.name|slice(0,8) }}{% if user.name|length > 8 %}...{% endif %} {{ user.firstname|slice(0,8) }}{% if user.firstname|length > 8 %}...{% endif %}
+                    </td>
                     <td data-title="Date d'inscription">{{ user.signupDate | date("d/m/Y") }}</td>
                     <td data-title="Nombre d'observations">{{ user.observations | length }}</td>
                     <td data-title="Profil">

@@ -353,4 +353,225 @@ $(document).ready(function () {
             }
         })
     }
+
+    /*----------------------------------------COLLAPSE GERER LES ARTICLES-------------------------------------------*/
+
+        // fonction permettant d'ajouter un message flash dynamiquement avec un message
+        // et une couleur (couleur bootstrap (danger,primary...)) variables
+        function addFlashMsgManagePosts(type, message) {
+            // construit le html pour le message flash
+            var appendCode = '<div class="flash-msg alert alert-'+type+'">'+message+'</div>';
+            // ajoute le message flash dans la div dédiée
+            $('#flashMsgManagePosts').html(appendCode);
+            if(type != 'danger') {
+                // efface le message flash apres 5 secondes
+                function removeFlashMsg(){
+                    $('.flash-msg').replaceWith("");
+                }
+                setTimeout(removeFlashMsg, 5000);
+            }
+        }
+        // PAGINATION
+        paginatePosts();
+
+        //fonction permettant de traiter la pagination
+        function paginatePosts() {
+            $('#paginationPosts').find('a').on('click', function(e) {
+                e.preventDefault();
+
+                var $a = $(this);
+                var url = $a.attr('href');
+                // récupère l'argument passer en get
+                var argGet = url.substring(url.lastIndexOf('?'));
+                // récupère la route pour la pagination
+                var urlNewRoute = $('.pagination-table-posts').attr('url');
+                // concatene la route et l'argument
+                var newUrl = urlNewRoute+argGet;
+                $.ajax({
+                    type: 'GET',
+                    url: newUrl,
+                    success: function (data) {
+                        // recharge le tableau
+                        $('.pagination-table-posts').replaceWith(data);
+                        // réactive les écouteurs
+                        removePost();
+                        editPost();
+                        paginatePosts();
+                    }, error: function() {
+                        addFlashMsgManagePosts('danger', 'Une erreur est survenue')
+                    }
+                })
+            });
+        }
+        // RECHARGEMENT
+
+        // fonction permettant de recharger le tableau apres ajout ou modification d'une categories
+        function reloadPostsTableAfterAddingOrModifying() {
+            // récupère le num de la page courante
+            var currentPageNb = $('#paginationPosts').find('.current').text();
+            if (currentPageNb == '') {
+                currentPageNb = '1';
+            }
+            // crée l'argument pour la requete Get
+            var argGet = '?page='+currentPageNb;
+            // récupère la route pour la pagination
+            var urlNewRoute = $('.pagination-table-posts').attr('url');
+            // concatene la route et l'argument get
+            var newUrl = urlNewRoute+argGet;
+            $.ajax({
+                type: 'GET',
+                url: newUrl,
+                success: function (data) {
+                    // actualise le tableau
+                    $('.pagination-table-posts').replaceWith(data);
+                    // relance les écouteurs d'evenement
+                    removePost();
+                    editPost();
+                    paginatePosts();
+                }
+            })
+        }
+
+        //fonction permettant de recharger le tableau après la suppression d'une categorie
+        function reloadPostsTableAfterRemoving() {
+            // récupère le num de la page courante
+            var currentPageNb = $('#paginationPosts').find('.current').text();
+            if (currentPageNb == '') {
+                currentPageNb = '1';
+            }
+            // crée l'argument pour la requete Get
+            var argGet = '?page='+currentPageNb;
+            // change le numéro de page si la suppression vide le tableau de la page courrante
+            if ($('.table-line-posts').length == 1 && parseInt(currentPageNb) > 1) {
+                var prevPage = parseInt(currentPageNb)-1;
+                argGet = '?page='+prevPage.toString();
+            }
+            // récupère la route pour la pagination
+            var urlNewRoute = $('.pagination-table-posts').attr('url');
+            // concatene la route et l'argument get
+            var newUrl = urlNewRoute+argGet;
+            $.ajax({
+                type: 'GET',
+                url: newUrl,
+                success: function (data) {
+                    // actualise le tableau
+                    $('.pagination-table-posts').replaceWith(data);
+                    // relance les écouteurs d'evenement
+                    removePost();
+                    editPost();
+                    paginatePosts();
+                }
+            })
+        }
+
+        // SUPPRESSION D'UN ARTICLE
+        removePost();
+
+        // fonction permettant de traiter la suppression d'un article
+        function removePost() {
+            $('.btn-rm-post').on('click', function(e) {
+                e.preventDefault();
+                var $a = $(this);
+                var url = $a.attr('href');
+                $.ajax({
+                    type:'GET',
+                    url: url,
+                    success: function (data) {
+                        // recharge le tableau apres suppression
+                        reloadPostsTableAfterRemoving();
+                        // ajoute le message flash
+                        addFlashMsgManagePosts('success', data);
+                    },
+                    error: function (jqxhr) {
+                        addFlashMsgManagePosts('danger', "Une erreur est survenue")
+                    }
+                })
+            });
+        }
+
+        // EDITION D'UN ARTICLE
+        editPost();
+
+        // fonction permettant de traiter la modification d'un article
+        function editPost() {
+            $('.btn-edit-post').on('click', function edit(e){
+                e.preventDefault();
+                var $a = $(this);
+                var url = $a.attr('href');
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function(data) {
+                        // ajoute la modale d'edition
+                        $a.parent().prepend(data);
+                        $('#update_post_imagePath').css('display', 'none');
+                        $('#update_post_save').css('margin-top', '10px');
+                        $a.css('margin-right', '30px');
+                        // relance tinyMCE au chargement de la page
+                        tinymce.init({
+                            selector: 'textarea.tinyMCE',
+                            setup: function (editor) {
+                                editor.on('change', function (e) {
+                                    editor.save();
+                                });
+                            }
+                        });
+                        $('#update_post_content_ifr').css('height', '300');
+                        // affiche la modale d'édition
+                        $a.prev().modal('show');
+                        // en cas de fermeture  de la modale sans modification
+                        $a.prev().on('hidden.bs.modal', function (e) {
+                            // supprime la modale d'édition
+                            $a.prev().replaceWith('');
+                        });
+                        // A la soumission du formulaire d'édition
+                        $('form[name="update_post"]').on('submit', function(e){
+                            e.preventDefault();
+                            var $form = $(this);
+                            url = $a.attr('href');
+                            $.ajax({
+                                type: 'POST',
+                                url: url,
+                                data: new FormData(this),
+                                processData: false,
+                                contentType: false,
+                                success: function (data, text, jqxhr) {
+                                    $('.img-post-edit').replaceWith(data);
+                                    // ajoute un message flash
+                                    var appendCode = '<div class="flash-msg alert alert-success">Article mis à jour</div>';
+                                    $form.parent().prepend(appendCode);
+                                    // efface le message flash apres 5 secondes
+                                    function removeFlashMsg(){
+                                        $('.flash-msg').replaceWith("");
+                                    }
+                                    setTimeout(removeFlashMsg, 5000);
+                                    // a la fermeture de la modale
+                                    $a.prev().on('hidden.bs.modal', function (e) {
+                                        // efface la modale d'édition
+                                        $a.prev().replaceWith('');
+                                        // modifie la ligne du tableau qui vient d'etre modifié
+                                        reloadPostsTableAfterAddingOrModifying();
+                                        // retire l'ecoute de l'évenement clic sur un bouton edit
+                                        $('.btn-edit-post').off('click', edit);
+                                    });
+                                },
+                                error: function (jqxhr) {
+                                    var appendCode = '<div class="flash-msg alert alert-danger">'+jqxhr.responseText+'</div>';
+                                    $form.parent().prepend(appendCode);
+                                    // efface le message flash apres 5 secondes
+                                    function removeFlashMsg(){
+                                        $('.flash-msg').replaceWith("");
+                                    }
+                                    setTimeout(removeFlashMsg, 15000);
+                                }
+                            })
+                        })
+
+                    },
+                    error: function() {
+                        addFlashMsgManagePosts('danger', "Une erreur est survenue")
+                    }
+                });
+            });
+        }
 });

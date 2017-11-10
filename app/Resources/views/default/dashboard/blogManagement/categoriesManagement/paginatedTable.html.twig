@@ -14,7 +14,7 @@
                 {% for category in categoriesList %}
                     <tr class="table-line-categories">
                         <td data-title="Titre de la catégorie">
-                            {{ category.name }}
+                            {{ category.name|slice(0,20) }}{% if category.name|length > 20 %}...{% endif %}
                         </td>
                         <td data-title="Articles associés">
                             {{ category.posts|length }}
@@ -33,7 +33,6 @@
                             </div>
                         </td>
                         <td class="action" data-title="Action">
-                            {#<a href="{{path('edit_category', {'slug': category.slug }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>#}
                             <a href="{{path('edit_category', {'slug': category.slug }) }}" id="btnEditCategory{{ category.id }}"
                                class="btn-edit-category" data-toggle="modal" data-target="#editCategoryModal{{ category.id }}">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

@@ -13,10 +13,10 @@
                 {% for faq in paginationFaq %}
                     <tr class="table-line-faq">
                         <td data-title="Question">
-                            {{ faq.question |slice(0, 50) }}
+                            {{ faq.question |slice(0, 18) }}{% if faq.question|length > 18 %}...{% endif %}
                         </td>
                         <td data-title="Réponse">
-                            {{ faq.answer |slice(0, 50)}}
+                            {{ faq.answer |slice(0, 18)}}{% if faq.answer|length > 18 %}...{% endif %}
                         </td>
                         <td data-title="Action" class="action">
                             <a href="{{ path('edit-faq', {'faqId': faq.id}) }}" id="btnEditFaq{{ faq.id }}" class="btn-edit-faq" data-toggle="modal" data-target="#editFaqModal{{ faq.id }}">

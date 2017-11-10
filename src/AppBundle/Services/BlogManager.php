@@ -9,6 +9,7 @@ use AppBundle\Form\Blog\CreateCategoryQuicklyType;
 use AppBundle\Form\Blog\CreateCategoryType;
 use AppBundle\Form\Blog\CreatePostType;
 use AppBundle\Form\Blog\UpdateCategoryType;
+use AppBundle\Form\Blog\UpdatePostType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -236,7 +237,7 @@ class BlogManager
         $post = $this->getPost($slug);
 
         // Création du formulaire
-        $form = $this->formBuilder->create(CreatePostType::class, $post);
+        $form = $this->formBuilder->create(UpdatePostType::class, $post);
 
         return $form;
     }

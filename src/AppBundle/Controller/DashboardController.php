@@ -98,7 +98,7 @@ class DashboardController extends Controller
         /* Articles */
 
         // Récupération de la liste des articles
-        $postsList = $blogManager->getPosts();
+        $postsList = $blogManager->getPaginatedPostList();
 
         // Récupération du formulaire de création d'un article
         $createPost = $blogManager->getFormCreatePost();

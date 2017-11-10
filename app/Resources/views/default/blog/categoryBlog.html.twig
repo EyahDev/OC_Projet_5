@@ -29,7 +29,7 @@
                     <p><i class="fa fa-comments" aria-hidden="true"></i> {{ post.comments|length }}</p>
                 </div>
 
-                <p>{{ post.content|slice(0, 800)|purify }}...</p>
+                <p>{{ post.content|slice(0, 800)|purify }}{% if post.content|length > 800 %}...{% endif %}</p>
 
                 <a href="{{ path('view-post', {'slugCat' : post.category.slug ,'slugPost' : post.slug }) }}"><button type="button" class="btn btn-primary">Lire la suite</button></a>
             {% endfor %}
