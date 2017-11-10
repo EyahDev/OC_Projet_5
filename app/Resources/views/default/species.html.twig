@@ -118,38 +118,44 @@
             width: 100%;
             min-height: 75px;
             height: auto;
+            margin-right: 0;
+            margin-left: 0;
         }
 
         /* Table de periode */
 
-        .tablePeriod{
-            margin-left: auto;
-            margin-right: auto;
-            border-spacing: 10px;
-            border-collapse: separate;
-        }
-
-        .period {
-            text-align: center;
+        .month {
             width: 40px;
             height: 40px;
             border: 1px solid black;
-            margin: 100px;
             background-color: #0A246A;
         }
 
-        .emptyPeriod {
-            text-align: center;
+        .emptyMonth {
+
             width: 40px;
             height: 40px;
             border: 1px solid black;
-            margin: 100px;
 
         }
+         .test {
+             margin-right: 5px;
+             margin-left: 5px;
+         }
 
-        th {
-            text-align: center;
+        .test p{
+            margin-top: 16px;
         }
+
+        .modifyDescription {
+            margin: auto 0;
+            cursor: pointer;
+        }
+
+        .btnDescriptionSub {
+            margin-top: 10px;
+        }
+
 
     </style>
 {% endblock %}
@@ -208,14 +214,21 @@
                     </div>
                 </div>
             </section>
-            <section>
-                <h5>Description poussée de l'espèce</h5>
-                <div class="speciesDescription insetShadow">
-                    {% if species.description == null %}
-                        <p>Aucune description n'est disponible</p>
-                    {% else %}
-                        {{ species.description }}
-                    {% endif %}
+            <section id="addDescription">
+                <div id="forUser">
+                    <div class="d-flex justify-content-start">
+                        <h5>Description poussée de l'espèce</h5>
+                        {% if is_granted('ROLE_PROFESSIONAL') %}
+                            <i id="modifyDescription" class="modifyDescription ml-auto fa fa-pencil-square-o" aria-hidden="true"></i>
+                        {% endif %}
+                    </div>
+                    <div class="speciesDescription insetShadow">
+                        {% if species.description == null %}
+                            <p>Aucune description n'est disponible</p>
+                        {% else %}
+                            {{ species.description|purify }}
+                        {% endif %}
+                    </div>
                 </div>
             </section>
             <section>
@@ -240,34 +253,32 @@
             </section>
             <section>
                 <h5>Période d'observation</h5>
-                <div class="ObversationsPeriod insetShadow">
-                    <table class="tablePeriod">
-                        <tr>
-                            <th class="monthPeriod">Jan</th>
-                            <th class="monthPeriod">Fev</th>
-                            <th class="monthPeriod">Mars</th>
-                            <th class="monthPeriod">Avril</th>
-                            <th class="monthPeriod">Mai</th>
-                            <th class="monthPeriod">Juin</th>
-                            <th class="monthPeriod">Juil</th>
-                            <th class="monthPeriod">Aout</th>
-                            <th class="monthPeriod">Sept</th>
-                            <th class="monthPeriod">Oct</th>
-                            <th class="monthPeriod">Nov</th>
-                            <th class="monthPeriod">Dec</th>
-                        </tr>
-                        <tr>
-                            {% for month in period %}
-                                {% if month == 0 %}
-                                    <td class="emptyPeriod" data-toggle="tooltip" data-placement="bottom" title="Aucune observations" ></td>
-                                {% elseif month == 1 %}
-                                    <td class="period" data-toggle="tooltip" data-placement="bottom" title="{{ month }} observation" ></td>
-                                {% elseif month >= 2 %}
-                                    <td class="period" data-toggle="tooltip" data-placement="bottom" title="{{ month }} observations" ></td>
-                                {% endif %}
-                            {% endfor %}
-                        </tr>
-                    </table>
+                <div>
+                    <div class="ObversationsPeriod insetShadow row">
+                        <div class="periodContent mx-auto" >
+                            <div class="row mx-auto">
+
+                                {% for month in period %}
+                                    {% if month == 0 %}
+                                        <div class="text-center test">
+                                            <p>{{ months[loop.index - 1] }}</p>
+                                            <div class="emptyMonth" data-toggle="tooltip" data-placement="bottom" title="Aucune observations" ></div>
+                                        </div>
+                                    {% elseif month == 1 %}
+                                        <div class="text-center test">
+                                            <p>{{ months[loop.index - 1] }}</p>
+                                            <div class="month" data-toggle="tooltip" data-placement="bottom" title="{{ month }} observation" ></div>
+                                        </div>
+                                    {% elseif month >= 2 %}
+                                        <div class="text-center test">
+                                            <p>{{ months[loop.index - 1] }}</p>
+                                            <div class="month" data-toggle="tooltip" data-placement="bottom" title="{{ month }} observations" ></div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
@@ -276,8 +287,41 @@
 
 {% block javascripts %}
     <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
+        $(document).ready(function() {
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            });
+
+            modifyDescription();
+            function modifyDescription() {
+                $('#modifyDescription').click(function () {
+                    $('#forUser').hide();
+                    $('#addDescription').append("{{ include('default/modifySpeciesDescription.html.twig')|e('js') }}");
+
+                    tinymce.init({
+                        selector: 'textarea.tinyMCE',
+                        setup: function (editor) {
+                            editor.on('change', function (e) {
+                                editor.save();
+                            });
+                        }
+                    });
+                    $('#modifyDescription').off('click');
+                    cancelDescription();
+                });
+
+            }
+
+            function cancelDescription() {
+                $('#cancelDescription').click(function () {
+                    tinymce.remove();
+                    $('#forPro').replaceWith('');
+                    $('#forUser').show();
+                    $('#cancelDescription').off('click');
+                    modifyDescription();
+                });
+            }
+        });
     </script>
 {% endblock %}
