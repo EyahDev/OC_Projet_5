@@ -174,6 +174,13 @@ class Observation
      */
     private $editObservation;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="see_too", type="integer", nullable=true)
+     */
+    private $seeToo;
+
 
     /**
      * Get id
@@ -615,5 +622,29 @@ class Observation
     public function getEditObservation()
     {
         return $this->editObservation;
+    }
+
+    /**
+     * Set seeToo
+     *
+     * @param integer $seeToo
+     *
+     * @return Observation
+     */
+    public function setSeeToo($seeToo)
+    {
+        $this->seeToo = $seeToo;
+
+        return $this;
+    }
+
+    /**
+     * Get seeToo
+     *
+     * @return integer
+     */
+    public function getSeeToo()
+    {
+        return $this->seeToo;
     }
 }

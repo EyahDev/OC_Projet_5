@@ -99,6 +99,7 @@ class DefaultController extends Controller
     {
         // Reset des markers
         if ($session->get('search') == false){
+            $session->set('nbResults', 0);
             $maps->resetMarkersXML();
         }
 
@@ -150,6 +151,7 @@ class DefaultController extends Controller
     {
         // Récupération de toutes les informations lié à l'espèce
         $species = $speciesManager->getOneSpecies($slug);
+        $photos = $speciesManager->getPhotosPath($slug);
 
         // Récupération du formulaire de modification de l'observation
         $speciesDescriptionForm = $speciesManager->getSpeciesDescriptionForm($slug);
@@ -200,6 +202,7 @@ class DefaultController extends Controller
             'species' => $species,
             'period' => $period,
             'months' => $months,
+            'photos' => $photos,
             'speciesDescriptionForm' => $speciesDescriptionForm->createView()
         ));
     }

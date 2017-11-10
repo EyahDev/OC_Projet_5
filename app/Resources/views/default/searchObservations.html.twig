@@ -176,6 +176,8 @@
             }
         });
 
+        var markerArray = [];
+
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 4,
@@ -198,10 +200,11 @@
             downloadUrl("{{ asset('markers/markers.xml') }}", function(data) {
                 var xml = data.responseXML;
                 var markers = xml.documentElement.getElementsByTagName('marker');
-                var markerArray = [];
-                var i= 0;
+                var i = 0;
                 var nest;
+                var indexLoop = 0;
                 Array.prototype.forEach.call(markers, function(markerElem) {
+                    indexLoop++;
                     var user = markerElem.getAttribute('user');
                     var date = markerElem.getAttribute('date');
                     var referenceName = markerElem.getAttribute('reference');
@@ -209,11 +212,16 @@
                     var slug = markerElem.getAttribute('slug');
                     var birdNumber = markerElem.getAttribute('birdNumber');
                     var eggsNumber = markerElem.getAttribute('eggsNumber');
+                    var seeToo = markerElem.getAttribute('seeToo');
                     var photo = markerElem.getAttribute('photo');
                     var type = markerElem.getAttribute('type');
                     var point = new google.maps.LatLng(
                         parseFloat(markerElem.getAttribute('lat')),
                         parseFloat(markerElem.getAttribute('lng')));
+
+                    if (seeToo !== '') {
+                        seeToo = '+'+seeToo;
+                    }
 
                     if (eggsNumber === '' || eggsNumber === 0) {
                         nest = 'Non';
@@ -228,6 +236,7 @@
                     if(user !== null) {
                         // Transmission des resultats en dehors de la map
                         i++;
+
                         // Compteur de resultat
                         var counter = document.getElementById('resultsCounter');
 
@@ -244,12 +253,12 @@
                         // Création de la liste des resultat
                         var table = document.getElementById('resultsNoMaps');
                         table.innerHTML +=
-                            '<tr >\n' +
+                            '<tr onclick="myClick('+indexLoop+')" >\n' +
                             '<td data-title="Espèce observée">' +
                             '<img class="iconResults" src="{{ asset('img/research_observations/icon-maps-results.png')}}" alt="Icone de resultat"><a href="'+ urlSlug +'"> '+ referenceName +'</a>' +
                             '</td>\n' +
                             '<td data-title="Date d\'observation">'+ date +'</td>\n' +
-                            '<td data-title="Aussi observée">+31</td>\n' +
+                            '<td data-title="Aussi observée">'+seeToo+'</td>\n' +
                             '</tr>';
                     }
 
@@ -266,6 +275,7 @@
 
                     var icon = icons[type].icon || {};
                     var marker;
+
                     {% if not is_granted('ROLE_PROFESSIONAL') %}
                         marker = new google.maps.Circle({
                             strokeColor: '#FF0000',
@@ -277,6 +287,7 @@
                             center: point,
                             radius: 10000
                         });
+
                     {% else %}
                         marker = new google.maps.Marker({
                             map: map,
@@ -292,11 +303,13 @@
                             infoWindow.open(map, marker);
                         });
 
-
                     {% endif %}
+
                 });
+
             });
         }
+
 
         function downloadUrl(url, callback) {
             var request = window.ActiveXObject ?
@@ -315,6 +328,10 @@
         }
 
         function doNothing() {}
+
+        function myClick(id) {
+            google.maps.event.trigger(markerArray[id -1], 'click');
+        }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNQR3Hw_y1urMSouzdoaVgUESayHjM90g&&callback=initMap" async defer></script>
     <script src="{{ asset('js/menu.js') }}"></script>
