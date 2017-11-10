@@ -1,86 +1,98 @@
-{% extends 'base_integration.html.twig' %}
+{% extends 'base_detailObservation.html.twig' %}
 
+{% block stylesheets %}
+    <link href="{{ asset('css/detailObservation.css') }}" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
-<h2>Détail de l'observation</h2>
+<div id="detailObservation">
 
-<div class="d-flex flex-row">
-    <div class="d-inline-flex">
-        <img style="width: 450px; height: 350px"
-             src="{{ asset(observationDetailForm.vars.value.photoPath) }}"
-             alt="{% if observationDetailForm.vars.value.species != null %}{{ observationDetailForm.vars.value.species.vernacularName }} {% else %}Espece inconnu{% endif %}">
+    <div class="d-flex justify-content-between" style="padding: 10px 10px 0 10px;">
+        <h5>Détail de l'observation</h5>
+        <a class="close" href="{{ path("dashboard") }}">
+            <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+        </a>
     </div>
 
-    {{ form_start(observationDetailForm) }}
-    {{ form_errors(observationDetailForm) }}
+    <div style="padding: 10px">
+        <div class="modifInfos d-flex flex-row">
+            <img
+                 src="{{ asset(observationDetailForm.vars.value.photoPath) }}"
+                 alt="{% if observationDetailForm.vars.value.species != null %}{{ observationDetailForm.vars.value.species.vernacularName }} {% else %}Espece inconnu{% endif %}">
 
-    <div class="d-flex">
-        <div style="margin-left: 15px">
-            {{ form_label(observationDetailForm.species) }}
-            {{ form_widget(observationDetailForm.species) }}
-            <p style="margin-top: 15px;"> Nombre d'oiseaux </p>
-            <p style="border: 1px solid lightgray; padding: 5px"> {{ observationDetailForm.vars.value.birdNumber}}</p>
-            <p style="margin-top: 15px;"> Nombre d'oeufs </p>
-            <p style="border: 1px solid lightgray; padding: 5px">
-                {% if observationDetailForm.vars.value.eggsNumber != null %}{{ observationDetailForm.vars.value.eggsNumber }} {% else %}Aucun observé{% endif %}</p>
+                {{ form_start(observationDetailForm) }}
+                {{ form_errors(observationDetailForm) }}
+
+                <div class="d-flex">
+                    <div style="margin-left: 15px">
+                        <span class="custom-dropdown">
+                        {{ form_label(observationDetailForm.species) }}
+                        {{ form_widget(observationDetailForm.species) }}
+                        </span>
+                        <p style="margin: 15px 0 5px 0;"> Nombre d'oiseaux </p>
+                        <p style="border: 1px solid black; padding: 5px"> {{ observationDetailForm.vars.value.birdNumber}}</p>
+                        <p style="margin: 15px 0 5px 0;"> Nombre d'oeufs </p>
+                        <p style="border: 1px solid black; padding: 5px">
+                            {% if observationDetailForm.vars.value.eggsNumber != null %}{{ observationDetailForm.vars.value.eggsNumber }} {% else %}Aucun observé{% endif %}</p>
+                    </div>
+                </div>
+        </div>
+
+        <div class="d-flex flex-row" style="padding: 0 5px 0 5px">
+            <div class="d-flex" style="width: 100%">
+                <div style="width: 100%">
+                    <p style="margin: 15px 0 5px 0;">Description des oeufs</p>
+                    <p style="width: 100%; height: 150px; border: 1px solid black; padding: 5px">
+                        {% if observationDetailForm.vars.value.eggsDescription != null %}
+                        {{ observationDetailForm.vars.value.eggsDescription }}
+                        {% else %}
+                        Aucune description
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="d-flex flex-row">
-    <div class="d-flex" style="width: 100%">
-        <div style="width: 100%">
-            <p style="margin-top: 15px;">Description des oeufs</p>
-            <p style="width: 100%; height: 150px; border: 1px solid lightgray; padding: 5px">
-                {% if observationDetailForm.vars.value.eggsDescription != null %}
-                {{ observationDetailForm.vars.value.eggsDescription }}
-                {% else %}
-                Aucune description
-                {% endif %}
-            </p>
+    <div style="height: 400px; margin-top: 15px" id="map"></div>
+    <div class="d-flex flex-row" style="padding: 0 10px 0 10px">
+        <div style="width: 28%;">
+            <p style="margin: 15px 0 5px 0;">Latitude</p>
+            <p style="border: 1px solid black; padding: 5px"> {{ observationDetailForm.vars.value.latitude}}</p>
+
+            <p style="margin: 15px 0 5px 0;">Longitude</p>
+            <p style="border: 1px solid black; padding: 5px"> {{ observationDetailForm.vars.value.longitude}}</p>
+
+            <p style="margin: 15px 0 5px 0;">Altitude</p>
+            <p style="border: 1px solid black; padding: 5px; min-height: 32px"> {{ observationDetailForm.vars.value.altitude}}</p>
+        </div>
+        <div style="width: 70%; margin-left: 25px;">
+            <p style="margin: 15px 0 5px 0;"> Commentaire d'observation </p>
+            <p style="border: 1px solid black; padding: 5px; height: 240px;"> {{ observationDetailForm.vars.value.observationDescription}}</p>
         </div>
     </div>
-</div>
 
-<div style="height: 400px; margin-top: 15px" id="map"></div>
-<div class="d-flex flex-row">
-    <div style="width: 28%;">
-        <p style="margin-top: 15px;">Latitude</p>
-        <p style="border: 1px solid lightgray; padding: 5px"> {{ observationDetailForm.vars.value.latitude}}</p>
-
-        <p style="margin-top: 15px;">Longitude</p>
-        <p style="border: 1px solid lightgray; padding: 5px"> {{ observationDetailForm.vars.value.longitude}}</p>
-
-        <p style="margin-top: 15px;">Altitude</p>
-        <p style="border: 1px solid lightgray; padding: 5px"> {{ observationDetailForm.vars.value.altitude}}</p>
-    </div>
-    <div style="width: 70%; margin-left: 25px;">
-        <p style="margin-top: 15px;"> Commentaire d'observation </p>
-        <p style="border: 1px solid lightgray; padding: 5px; height: 240px;"> {{ observationDetailForm.vars.value.observationDescription}}</p>
-    </div>
-</div>
-
-<div class="d-flex flex-row">
-    <div class="d-flex" style="width: 100%">
-        <div style="width: 100%;">
-            {{ form_label(observationDetailForm.validation_comment) }}
-            {{ form_widget(observationDetailForm.validation_comment) }}
+    <div class="d-flex flex-row" style="padding: 0 10px 0 10px">
+        <div class="d-flex" style="width: 100%">
+            <div style="width: 100%;">
+                {{ form_label(observationDetailForm.validation_comment) }}
+                {{ form_widget(observationDetailForm.validation_comment) }}
+            </div>
         </div>
     </div>
-</div>
 
-<div class="d-flex flex-row" style="margin-top: 20px">
+    <div class="d-flex flex-row justify-content-around" style="margin-top: 20px" style="padding: 0 10px 0 10px">
 
-    <div class="mr-auto">
-        {{ form_widget(observationDetailForm.Refuser) }}
+        <div style="margin-bottom: 20px">
+            {{ form_widget(observationDetailForm.Refuser) }}
+        </div>
+        <div >
+            {{ form_widget(observationDetailForm.Valider) }}
+        </div>
     </div>
-    <div class="ml-auto">
-        {{ form_widget(observationDetailForm.Valider) }}
-    </div>
+
+    {{ form_end(observationDetailForm) }}
 </div>
-
-{{ form_end(observationDetailForm) }}
-
 {% endblock %}
 
 {% block javascripts %}
