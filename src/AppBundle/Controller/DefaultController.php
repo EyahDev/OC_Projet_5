@@ -99,7 +99,7 @@ class DefaultController extends Controller
     public function searchObservationsAction(Request $request, MapsManager $maps, SessionInterface $session)
     {
         // Reset des markers
-        if ($session->get('search') == false){
+        if ($session->get('search') === false){
             $session->set('nbResults', 0);
             $maps->resetMarkersXML();
         }

@@ -421,7 +421,7 @@ class ObservationManager
         // Récupération du nouveau fichier
         $newFile = $observation->getPhotoPath();
 
-        if ($newFile == null) {
+        if ($newFile === null) {
             // Ajout de l'image par défault
             $observation->setPhotoPath($existingFile);
 
@@ -489,7 +489,7 @@ class ObservationManager
         $observation->setValidator($user);
 
         // Remplissage du ordre et de la famille si il est null
-        if ($observation->getType() == null && $observation->getFamily() == null) {
+        if ($observation->getType() === null && $observation->getFamily() === null) {
             $observation->setType($observation->getSpecies()->getType());
             $observation->setFamily($observation->getSpecies()->getFamily());
         }
@@ -524,7 +524,7 @@ class ObservationManager
         // Définition de la date de la nouvelle observation
         $newObservation->setObservationDate(new \DateTime());
 
-        if ($observation['photoPath'] != null) {
+        if ($observation['photoPath'] !== null) {
             // Récupération du fichier original
             $file = $observation['photoPath'];
 
@@ -545,13 +545,13 @@ class ObservationManager
         }
 
         // Vérification si le nom commun ou le nom scientifique a été choisi
-        if ($observation['vernacularName'] != null) {
+        if ($observation['vernacularName'] !== null) {
             $newObservation->setSpecies($observation['vernacularName']);
-        } elseif ($observation['species'] != null) {
+        } elseif ($observation['species'] !== null) {
             $newObservation->setSpecies($observation['species']);
         }
 
-        if ($newObservation->getSpecies() != null) {
+        if ($newObservation->getSpecies() !== null) {
             // Ajout du type dans l'observation
             $newObservation->setType($newObservation->getSpecies()->getType());
 

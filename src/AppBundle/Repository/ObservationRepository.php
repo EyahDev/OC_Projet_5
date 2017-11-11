@@ -334,7 +334,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         // Création de l'alias
         $qb = $this->createQueryBuilder('o');
 
-        if ($criteria['begin'] == null) {
+        if ($criteria['begin'] === null) {
             $qb->where('o.species = :criteria')
                 ->andWhere('o.validate = true')
                 ->orderBy('o.observationDate', 'DESC')
@@ -357,7 +357,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         // Création de l'alias
         $qb = $this->createQueryBuilder('o');
 
-        if ($criteria['begin'] == null) {
+        if ($criteria['begin'] === null) {
             $qb->where('o.species = :criteria')
                 ->andWhere('o.validate = true')
                 ->orderBy('o.observationDate', 'DESC')
@@ -380,7 +380,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         // Création de l'alias
         $qb = $this->createQueryBuilder('o');
 
-        if ($criteria['begin'] == null) {
+        if ($criteria['begin'] === null) {
             $qb->where('o.type = :criteria')
                 ->andWhere('o.validate = true')
                 ->orderBy('o.observationDate', 'DESC')
@@ -404,7 +404,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         // Création de l'alias
         $qb = $this->createQueryBuilder('o');
 
-        if ($criteria['begin'] == null) {
+        if ($criteria['begin'] === null) {
             $qb->where('o.family = :criteria')
                 ->andWhere('o.validate = true')
                 ->orderBy('o.observationDate', 'DESC')

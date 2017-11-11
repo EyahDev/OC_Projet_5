@@ -75,7 +75,7 @@ class SecurityManager
         // récupère l'utilisateur grace a son mail
         $user = $this->em->getRepository('AppBundle:User')->findOneBy(array('email' => $email));
         // teste si l'utilisateur existe
-        if ($user != false) {
+        if ($user !== false) {
             // teste si le compte est actif
             if($user->getEnabled()) {
                 // retourne l'utilisateur

@@ -103,7 +103,7 @@ class BlogManager
         // Récupération du nouveau fichier
         $newFile = $category->getPhotoPath();
 
-        if ($newFile == null) {
+        if ($newFile === null) {
             // Ajout de l'image par défault
             $category->setPhotoPath('img/default/category_default.jpg');
 
@@ -135,7 +135,7 @@ class BlogManager
         // Récupération du nouveau fichier
         $newFile = $category->getPhotoPath();
 
-        if ($newFile == null) {
+        if ($newFile === null) {
             // Ajout de l'image par défault
             $category->setPhotoPath($existingFile);
 
@@ -260,7 +260,7 @@ class BlogManager
         // Récupération du chemin du dossier de stockage
         $path = $this->container->getParameter('posts_directory');
 
-        if ($newFile == null) {
+        if ($newFile === null) {
             // Ajout de l'image par défault
             $post->setImagePath('img/default/post_default.jpg');
 
@@ -292,7 +292,7 @@ class BlogManager
         // Récupération du nouveau fichier
         $newFile = $post->getImagePath();
 
-        if ($newFile == null) {
+        if ($newFile === null) {
             // Ajout de l'image par défault
             $post->setImagePath($existingFile);
 

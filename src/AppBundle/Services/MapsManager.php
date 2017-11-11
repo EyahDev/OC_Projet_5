@@ -31,7 +31,7 @@ class MapsManager
         $results = array();
 
         // Recherche par nom de reference
-        if ($criteria['reference'] != null) {
+        if ($criteria['reference'] !== null) {
             // Récupération de la recherche
             $queryReference = $this->observationManager->getObservationsByReferenceName($criteria);
 
@@ -42,7 +42,7 @@ class MapsManager
         }
 
         // Recherche par nom commun
-        if ($criteria['vernacular'] != null) {
+        if ($criteria['vernacular'] !== null) {
             // Récupération de la recherche
             $queryVernacular = $this->observationManager->getObservationsByVernacular($criteria);
 
@@ -53,7 +53,7 @@ class MapsManager
         }
 
         // Recherche par ordre
-        if ($criteria['type'] != null) {
+        if ($criteria['type'] !== null) {
             // Récupération de la recherche
             $queryType = $this->observationManager->getObservationsByType($criteria);
 
@@ -64,7 +64,7 @@ class MapsManager
         }
 
         // Recherche par famille
-        if ($criteria['family'] != null) {
+        if ($criteria['family'] !== null) {
             // Récupération de la recherche
             $queryFamily = $this->observationManager->getObservationsByFamily($criteria);
 

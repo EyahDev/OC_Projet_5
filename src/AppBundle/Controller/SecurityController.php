@@ -22,7 +22,7 @@ class SecurityController extends Controller
     {
         // récupération des erreurs si il y en a
         $error = $authUtils->getLastAuthenticationError();
-        if($error != null){
+        if($error !== null){
             $response = '<div class="alert alert-danger justify-content-center">Nom d\'utilisateur ou mot de passe invalide</div>';
             return new Response($response, 500);
         }
@@ -44,7 +44,7 @@ class SecurityController extends Controller
     public function lostPasswordAction(Request $request, SecurityManager $securityManager)
     {
         // Teste si l'utilisateur n'est pas anonyme et redirige vers le dashboard
-        if($this->getUser() != null) {
+        if($this->getUser() !== null) {
             return $this->redirectToRoute('dashboard');
         }
         // récupère le formulaire pour mot de passe oublié
@@ -56,7 +56,7 @@ class SecurityController extends Controller
             $data = $form->getData();
             $user = $securityManager->getUserWithEmailAdress($data['email']);
             // recherche l'utilisateur correspondant au mail et si le compte est actif si ko flashbag
-             if( $user != false ) {
+             if( $user !== false ) {
                  // cree un token et sa date d'expiration et l'ajoute a l'utilisateur
                  $securityManager->addTokenToUser($user);
                  // envoie le mail avec le lien de récupération
@@ -79,7 +79,7 @@ class SecurityController extends Controller
     {
         // récupere l'user correspondant au token
         $user = $securityManager->getUserWithToken($token);
-        if($user != false) {
+        if($user !== false) {
             // vérifie si le token est valide
             if ($securityManager->isTokenValide($user)) {
                 // récupère le formulaire pour mot de passe oublié

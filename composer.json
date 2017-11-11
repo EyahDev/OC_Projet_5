@@ -1,5 +1,6 @@
 {
-    "name": "adrien/projet_5",
+    "name": "oc/nao",
+    "description": "Projet 4 pour OpenClassrooms",
     "license": "proprietary",
     "type": "project",
     "autoload": {
