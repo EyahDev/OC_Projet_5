@@ -9,7 +9,6 @@ use AppBundle\Services\ObservationManager;
 use AppBundle\Services\SpeciesManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -21,7 +20,9 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request, ContactManager $contactManager, ObservationManager $observationManager, AccountManager $accountManager, SpeciesManager $speciesManager)
+    public function indexAction(Request $request, ContactManager $contactManager,
+                                ObservationManager $observationManager, AccountManager $accountManager,
+                                SpeciesManager $speciesManager)
     {
         /* Statistiques */
 

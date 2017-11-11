@@ -5,11 +5,13 @@ namespace AppBundle\Services;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
-use AppBundle\Form\Blog\CreateCategoryQuicklyType;
-use AppBundle\Form\Blog\CreateCategoryType;
-use AppBundle\Form\Blog\CreatePostType;
-use AppBundle\Form\Blog\UpdateCategoryType;
-use AppBundle\Form\Blog\UpdatePostType;
+use AppBundle\Form\Type\Blog\CreateCategoryQuicklyType;
+use AppBundle\Form\Type\Blog\CreateCategoryType;
+use AppBundle\Form\Type\Blog\CreatePostType;
+use AppBundle\Form\Type\Blog\NewCommentType;
+use AppBundle\Form\Type\Blog\ReplyCommentType;
+use AppBundle\Form\Type\Blog\UpdateCategoryType;
+use AppBundle\Form\Type\Blog\UpdatePostType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -347,7 +349,7 @@ class BlogManager
         $comment = new Comment();
 
         // Récupération du formulaire de création d'un commentaire
-        $form = $this->formBuilder->create('AppBundle\Form\Blog\NewCommentType', $comment);
+        $form = $this->formBuilder->create(NewCommentType::class, $comment);
 
         // Retourne le formulaire
         return $form;
@@ -391,7 +393,7 @@ class BlogManager
         $comment = new Comment();
 
         // Récupération du formulaire de réponse à un commentaire
-        $form = $this->formBuilder->create('AppBundle\Form\Blog\ReplyCommentType', $comment);
+        $form = $this->formBuilder->create(ReplyCommentType::class, $comment);
 
         // Retourne le formulaire
         return $form;
@@ -540,5 +542,4 @@ class BlogManager
             5/*limit per page*/
         );
     }
-
 }

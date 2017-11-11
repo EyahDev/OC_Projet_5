@@ -1,8 +1,6 @@
 <?php
 
-
 namespace AppBundle\DataFixtures\ORM;
-
 
 use AppBundle\Entity\Role;
 use Doctrine\Bundle\FixturesBundle\Fixture;

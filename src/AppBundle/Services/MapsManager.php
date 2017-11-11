@@ -2,7 +2,7 @@
 
 namespace AppBundle\Services;
 
-use AppBundle\Entity\Observation;
+use AppBundle\Form\Type\Observations\SearchObservationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
@@ -20,7 +20,7 @@ class MapsManager
 
     public function searchObservationsForm() {
         // Récupération du formulaire de recherche
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\SearchObservationType');
+        $form = $this->formBuilder->create(SearchObservationType::class);
 
         // Retourne le formulaire
         return $form;

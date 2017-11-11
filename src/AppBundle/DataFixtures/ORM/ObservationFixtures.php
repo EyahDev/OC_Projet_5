@@ -1,10 +1,11 @@
 <?php
+
 namespace AppBundle\DataFixtures\ORM;
+
 use AppBundle\Entity\Observation;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\DataFixtures\ORM\UserFixtures;
-use AppBundle\DataFixtures\ORM\SpeciesFixtures;
+
 class ObservationFixtures extends Fixture
 {
     /**

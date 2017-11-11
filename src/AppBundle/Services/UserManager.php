@@ -3,7 +3,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\User;
-use AppBundle\Form\UserManagement\ChangeRoleType;
+use AppBundle\Form\Type\UserManagement\ChangeRoleType;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Form\FormFactoryInterface;

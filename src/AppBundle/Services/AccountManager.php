@@ -3,11 +3,12 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\User;
-use AppBundle\Form\Account\UpdateNameType;
-use AppBundle\Form\Account\UpdateFirstNameType;
-use AppBundle\Form\Account\AddLocationType;
-use AppBundle\Form\Account\UpdateNewsletterType;
-use AppBundle\Form\Account\UpdatePasswordType;
+use AppBundle\Form\Type\Account\UpdateAvatarType;
+use AppBundle\Form\Type\Account\UpdateNameType;
+use AppBundle\Form\Type\Account\UpdateFirstNameType;
+use AppBundle\Form\Type\Account\AddLocationType;
+use AppBundle\Form\Type\Account\UpdateNewsletterType;
+use AppBundle\Form\Type\Account\UpdatePasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -96,7 +97,7 @@ class AccountManager
      * @return \Symfony\Component\Form\FormInterface
      */
     public function getFormUpdateAvatar($user) {
-        $form = $this->formBuilder->create('AppBundle\Form\Account\UpdateAvatarType', $user);
+        $form = $this->formBuilder->create(UpdateAvatarType::class, $user);
 
         return $form;
     }

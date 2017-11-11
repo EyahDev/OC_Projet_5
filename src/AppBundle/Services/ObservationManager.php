@@ -4,6 +4,9 @@ namespace AppBundle\Services;
 
 use AppBundle\Entity\Observation;
 use AppBundle\Entity\User;
+use AppBundle\Form\Type\Observations\CreateObservationType;
+use AppBundle\Form\Type\Observations\ModifObservationByObserverType;
+use AppBundle\Form\Type\Observations\ModifObservationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -368,7 +371,7 @@ class ObservationManager
      */
     public function getObservationForm() {
         // Récupération du formulaire de saisie d'observaition
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\CreateObservationType');
+        $form = $this->formBuilder->create(CreateObservationType::class);
 
         // Retourne le formulaire
         return $form;
@@ -384,7 +387,7 @@ class ObservationManager
         $observation = $this->getObservation($id);
 
         // Récupération du formulaire de saisie d'observaition
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\ModifObservationType', $observation);
+        $form = $this->formBuilder->create(ModifObservationType::class, $observation);
 
         // Retourne le formulaire
         return $form;
@@ -400,7 +403,7 @@ class ObservationManager
         $observation = $this->getObservation($id);
 
         // Récupération du formulaire de saisie d'observaition
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\ModifObservationByObserverType', $observation);
+        $form = $this->formBuilder->create(ModifObservationByObserverType::class, $observation);
 
         // Retourne le formulaire
         return $form;

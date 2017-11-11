@@ -2,14 +2,11 @@
 
 namespace AppBundle\Services;
 
-
 use AppBundle\Entity\User;
-
-use AppBundle\Form\Security\LostPasswordType;
-use AppBundle\Form\Security\ResetPasswordType;
+use AppBundle\Form\Type\Security\LostPasswordType;
+use AppBundle\Form\Type\Security\ResetPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;

@@ -2,9 +2,8 @@
 
 namespace AppBundle\Services;
 
-
-use AppBundle\Form\Contact\ContactType;
-use AppBundle\Form\Contact\ContactUsType;
+use AppBundle\Form\Type\Contact\ContactType;
+use AppBundle\Form\Type\Contact\ContactUsType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;

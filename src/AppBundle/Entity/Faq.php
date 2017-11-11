@@ -110,4 +110,3 @@ class Faq
         return $this->answer;
     }
 }
-

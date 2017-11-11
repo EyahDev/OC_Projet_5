@@ -3,8 +3,8 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Faq;
-use AppBundle\Form\Faq\EditFaqType;
-use AppBundle\Form\Faq\NewFaqType;
+use AppBundle\Form\Type\Faq\EditFaqType;
+use AppBundle\Form\Type\Faq\NewFaqType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormFactoryInterface;

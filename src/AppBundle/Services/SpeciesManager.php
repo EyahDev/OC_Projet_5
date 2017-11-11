@@ -3,6 +3,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Species;
+use AppBundle\Form\Type\Species\SpeciesDescriptionType;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -65,7 +66,7 @@ class SpeciesManager
         $species = $this->em->getRepository('AppBundle:Species')->findOneBy(array('slug' => $slug));
 
         // Récupération du formulaire de modification de description
-        $form = $this->formBuilder->create("AppBundle\Form\Species\SpeciesDescriptionType", $species);
+        $form = $this->formBuilder->create(SpeciesDescriptionType::class, $species);
 
         // Retourne le formulaire
         return $form;

@@ -2,10 +2,6 @@
 
 namespace AppBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
-use Symfony\Component\Validator\Constraints\DateTime;
-
 /**
  * ObservationRepository
  *
