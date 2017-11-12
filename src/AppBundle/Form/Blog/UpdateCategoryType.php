@@ -14,11 +14,11 @@ class UpdateCategoryType extends AbstractType
     {
         $builder
                 ->add('name', TextType::class, array(
-                    'label' => 'Modifier le nom de votre catégorie',
+                    'label' => 'Modifiez le nom de votre catégorie',
                     'invalid_message' => 'Veuillez saisir une catégorie valide.'
                 ))
                 ->add('photoPath', FileType::class, array(
-                    'label' => 'selectionnez une image',
+                    'label' => 'selectionner une image',
                     'invalid_message' => 'Veuillez sélectionner un fichier valide.',
                     'data_class' => null,
                     'required' => false

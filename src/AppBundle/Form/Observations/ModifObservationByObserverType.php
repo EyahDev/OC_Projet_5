@@ -25,7 +25,7 @@ class ModifObservationByObserverType extends AbstractType
                     )),
             )))
             ->add('photoPath', FileType::class, array(
-                'label' => 'Changer photo',
+                'label' => 'Sélectionner une photo',
                 'invalid_message' => 'Veuillez sélectionner une fichier valide.',
                 'data_class' => null,
                 'required' => false

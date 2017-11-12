@@ -61,38 +61,6 @@ class DefaultController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/landing-page", name="landingPage")
-     */
-    public function landingPageAction(Request $request, UserPasswordEncoderInterface $encoder)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $user = new User();
-        $role = $em->getRepository('AppBundle:Role')->findOneBy(array('name' => "ROLE_USER"));
-        $userForm = $this->get('form.factory')->create(SignupType::class, $user);
-        $userForm->handleRequest($request);
-        if ($userForm->isSubmitted() && $userForm->isValid()) {
-            // generate a random salt value
-            $salt = substr(md5(time()), 0, 23);
-            $user->setSalt($salt);
-            $plainPassword = $user->getPassword();
-            $password = $encoder->encodePassword($user, $plainPassword);
-            $user->setPassword($password);
-            // select default user role
-            $user->setRoles($role);
-            $user->setSignupDate(new \DateTime());
-            $user->setAvatarPath("img/default/avatar_default.png");
-            $em->persist($user);
-            $em->flush();
-            return $this->redirectToRoute('dashboard');
-        }
-        return $this->render("default/landingPage.html.twig", array(
-            'title' => 'Nouvel utilisateur',
-            'form' => $userForm->createView()));
-    }
-
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/recherche-observations", name="rechercheObservations")
      */
     public function searchObservationsAction(Request $request, MapsManager $maps, SessionInterface $session)
@@ -256,7 +224,7 @@ class DefaultController extends Controller
         $species = $speciesManager->getSpecies();
         $differentSpeciesObservations = $observationManager->getSpeciesObserved();
         
-        return $this->render("default/landingPage1.html.twig", array(
+        return $this->render("default/landingPageA.html.twig", array(
             'users' => $users,
             'observations' => $observations,
             'species' => $species,
@@ -291,7 +259,7 @@ class DefaultController extends Controller
             $em->flush();
             return $this->redirectToRoute('homepage');
         }
-        return $this->render("default/landingPage2.html.twig", array(
+        return $this->render("default/landingPageB.html.twig", array(
             'title' => 'Nouvel utilisateur',
             'form' => $userForm->createView()));
     }
