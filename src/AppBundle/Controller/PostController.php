@@ -8,13 +8,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class PostController extends Controller
 {
     /* Affichage des articles */
 
     /**
+     * @param BlogManager $blogManager
+     * @return Response
+     *
      * @Route("/blog", name="blog")
+     * @Method("GET")
      */
     public function indexBlogAction(BlogManager $blogManager)
     {
@@ -39,7 +44,14 @@ class PostController extends Controller
     }
 
     /**
+     * @param $slugPost
+     * @param $slugCat
+     * @param BlogManager $blogManager
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
      * @Route("/blog/{slugCat}/{slugPost}", name="view-post")
+     * @Method({"GET", "POST"})
      */
     public function viewPostAction($slugPost, $slugCat, BlogManager $blogManager, Request $request) {
         // Récupération de l'article via son slug
@@ -88,7 +100,12 @@ class PostController extends Controller
     }
 
     /**
+     * @param $categorySlug
+     * @param BlogManager $blogManager
+     * @return Response
+     *
      * @Route("blog/{categorySlug}", name="view-posts-by-category")
+     * @Method("GET")
      */
     public function viewPostsByCategoryAction($categorySlug, BlogManager $blogManager) {
         // Récupération du nom de la catégorie à afficher
@@ -117,7 +134,9 @@ class PostController extends Controller
      * @param Request $request
      * @param BlogManager $blogManager
      * @return Response
+     *
      * @Route("/dashboard/rediger-article/rechargement", name="reload_write_post")
+     * @Method("GET")
      */
     public function reloadWritePostAction(Request $request, BlogManager $blogManager)
     {
@@ -136,7 +155,9 @@ class PostController extends Controller
      * @param Request $request
      * @param BlogManager $blogManager
      * @return Response
+     *
      * @Route("/dashboard/rediger-article", name="write_post")
+     * @Method("POST")
      */
     public function writePostAction(Request $request, BlogManager $blogManager)
     {
@@ -173,8 +194,16 @@ class PostController extends Controller
         }
         throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
     }
+
+
     /**
+     * @param $slug
+     * @param BlogManager $blogManager
+     * @param Request $request
+     * @return Response
+     *
      * @Route("/dashboard/article/{slug}/edition/", name="edit_post")
+     * @Method({"GET", "POST"})
      */
     public function editPostAction($slug, BlogManager $blogManager, Request $request) {
 
@@ -221,7 +250,13 @@ class PostController extends Controller
 
 
     /**
+     * @param $slug
+     * @param BlogManager $blogManager
+     * @param Request $request
+     * @return Response
+     *
      * @Route("/dashboard/article/{slug}/suppression", name="post_delete")
+     * @Method("GET")
      */
     public function deletePostAction($slug, BlogManager $blogManager, Request $request) {
         // teste si la requete provient bien d'Ajax sinon on génère une exception
@@ -238,8 +273,11 @@ class PostController extends Controller
 
     /**
      * @param Request $request
+     * @param BlogManager $BlogManager
      * @return Response
+     *
      * @Route("/articles", name="pagination_post")
+     * @Method("GET")
      */
     public function paginationPostAction(Request $request, BlogManager $BlogManager)
     {
@@ -254,8 +292,12 @@ class PostController extends Controller
 
     /**
      * @param Request $request
+     * @param BlogManager $BlogManager
+     * @param $category
      * @return Response
+     *
      * @Route("/articles-par-categorie/{category}", name="pagination_postsCategory")
+     * @Method("GET")
      */
     public function paginationPostsByCategoryAction(Request $request, BlogManager $BlogManager, $category)
     {
@@ -272,8 +314,11 @@ class PostController extends Controller
 
     /**
      * @param Request $request
+     * @param BlogManager $blogManager
      * @return Response
+     *
      * @Route("/dashboard/articles", name="pagination_management_posts")
+     * @Method("GET")
      */
     public function paginationPostManagementAction(Request $request, BlogManager $blogManager)
     {

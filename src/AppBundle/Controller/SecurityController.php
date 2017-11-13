@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class SecurityController extends Controller
 {
@@ -17,6 +18,7 @@ class SecurityController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/connexion", name="login")
+     * @Method({"GET", "POST"})
      */
     public function loginAction(AuthenticationUtils $authUtils, Request $request)
     {
@@ -36,9 +38,12 @@ class SecurityController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @param SecurityManager $securityManager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      *
      * @Route("/mot-de-passe-oublie", name="lostPassword")
+     * @Method({"GET", "POST"})
      */
     public function lostPasswordAction(Request $request, SecurityManager $securityManager)
     {
@@ -69,10 +74,15 @@ class SecurityController extends Controller
             'form' => $form->createView()
         ));
     }
+
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @param SecurityManager $securityManager
+     * @param $token
+     * @return Response
      *
      * @Route("/reinitialisation-mot-de-passe/{token}", name="resetPassword")
+     * @Method({"GET", "POST"})
      */
     public function resetPasswordAction(Request $request, SecurityManager $securityManager, $token)
     {

@@ -201,7 +201,7 @@ class AccountManager
     public function validatePassword($data, $user)
     {
         if(isset($data['password'])) {
-            if ($this->encoder->isPasswordValid($user, $data["password"])) {
+            if (!$this->encoder->isPasswordValid($user, $data["password"])) {
                 return 'Mot de passe actuel invalide';
             }
         } else {

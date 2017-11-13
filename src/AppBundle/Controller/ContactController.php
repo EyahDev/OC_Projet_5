@@ -9,12 +9,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class ContactController extends Controller
 {
     /**
+     * @param Request $request
+     * @param ContactManager $contactManager
+     * @param ValidatorInterface $validator
+     * @return Response
+     *
      * @Route("/dashboard-nous-ecrire", name="contact_us")
+     * @Method("POST")
      */
     public function contactUsAction(Request $request, ContactManager $contactManager, ValidatorInterface $validator)
     {

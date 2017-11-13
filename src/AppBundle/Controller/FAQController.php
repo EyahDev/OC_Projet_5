@@ -8,14 +8,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class FAQController extends Controller
 {
     /**
-     * Génere la vue front-office de la FAQ
+     * @return Response
      *
-     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/faq", name="faq")
+     * @Method("GET")
      */
     public function faqAction()
     {
@@ -35,6 +36,7 @@ class FAQController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      * @route("/faq-management/new-faq", name="new-faq")
+     * @Method({"GET", "POST"})
      */
     public function newFaqAction(Request $request, FAQManager $faqManager)
     {
@@ -68,13 +70,13 @@ class FAQController extends Controller
     }
 
     /**
-     * gestion de l'ajout de question/réponse
-     *
      * @param Request $request
      * @param FAQManager $faqManager
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @param $faqId
+     * @return Response
+     *
      * @route("/faq-management/edit/{faqId}", name="edit-faq")
+     * @Method({"GET", "POST"})
      */
     public function editFaqAction(Request $request, FAQManager $faqManager, $faqId)
     {
@@ -118,6 +120,7 @@ class FAQController extends Controller
      * @throws \Exception
      *
      * @Route("/faq-management/remove/{faqId}", name="remove-faq")
+     * @Method("GET")
      */
     public function removeFaqAction(Request $request, FAQManager $faqManager, $faqId)
     {
@@ -133,8 +136,11 @@ class FAQController extends Controller
 
     /**
      * @param Request $request
+     * @param FAQManager $FAQManager
      * @return Response
+     *
      * @Route("/faq-management/pagination", name="pagination_faq")
+     * @Method("GET")
      */
     public function paginationFaqAction(Request $request, FAQManager $FAQManager)
     {

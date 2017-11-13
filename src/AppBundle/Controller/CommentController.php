@@ -9,11 +9,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 
 class CommentController extends Controller
 {
     /**
+     * @param $id
+     * @param CommentManager $commentManager
+     * @param Request $request
+     * @return Response
+     *
      * @Route("/dashboard/signalement/{id}/approbation", name="comment_approuved")
+     * @Method("GET")
      */
     public function approuvedCommentAction($id, CommentManager $commentManager, Request $request) {
         // teste si la requete provient bien d'Ajax sinon on génère une exception
@@ -27,7 +35,13 @@ class CommentController extends Controller
     }
 
     /**
+     * @param $id
+     * @param CommentManager $commentManager
+     * @param Request $request
+     * @return Response
+     *
      * @Route("/dashboard/signalement/{id}/suppression", name="comment_delete")
+     * @Method("GET")
      */
     public function deleteCommentAction($id, CommentManager $commentManager, Request $request) {
         // teste si la requete provient bien d'Ajax sinon on génère une exception
@@ -41,15 +55,13 @@ class CommentController extends Controller
     }
 
     /**
-     * Ajoute un commentaire dynamiquement (AJAX)
-     *
      * @param BlogManager $blogManager
      * @param Request $request
      * @param $slugPost
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @return Response
      *
      * @Route("/create-comm/{slugPost}", name="create-comm")
+     * @Method({"GET", "POST"})
      */
     public function createCommentAction( BlogManager $blogManager, Request $request, $slugPost) {
         if ($request->isXmlHttpRequest()) {
@@ -100,6 +112,7 @@ class CommentController extends Controller
      * @throws \Exception
      *
      * @Route("/reply-com/{slugPost}/{parentId}", name="reply-com")
+     * @Method({"GET", "POST"})
      */
     public function createReplyAction( BlogManager $blogManager, Request $request, $slugPost, $parentId) {
         // Verification de la provenance de la requete, est-ce de l'ajax?
@@ -151,6 +164,7 @@ class CommentController extends Controller
      * @throws \Exception
      *
      * @Route("/flag-comm/{commentId}", name="flag-comm")
+     * @Method("GET")
      */
     public function addflagAction(Request $request, BlogManager $blogManager, $commentId)
     {
@@ -167,8 +181,11 @@ class CommentController extends Controller
 
     /**
      * @param Request $request
+     * @param CommentManager $commentManager
      * @return Response
+     *
      * @Route("dashboard/moderation-commentaires", name="pagination_comments_moderation")
+     * @Method("GET")
      */
     public function paginationCommentsModerationAction(Request $request, CommentManager $commentManager)
     {
@@ -185,8 +202,12 @@ class CommentController extends Controller
 
     /**
      * @param Request $request
+     * @param $slugPost
+     * @param BlogManager $blogManager
      * @return Response
+     *
      * @Route("Blog/{slugPost}/comments", name="reload_comments_list")
+     * @Method("GET")
      */
     public function reloadCommentsAction(Request $request, $slugPost, BlogManager $blogManager)
     {

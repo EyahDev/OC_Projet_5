@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ObservationManager
@@ -30,12 +30,12 @@ class ObservationManager
      * @param FormFactoryInterface $formBuilder
      * @param EntityManagerInterface $em
      * @param RequestStack $request
-     * @param AuthorizationChecker $security
+     * @param AuthorizationCheckerInterface $security
      * @param Filesystem $filesystem
      * @param ValidatorInterface $validator
      */
     public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
-                                RequestStack $request, $observationsDirectory, $paginator, AuthorizationChecker $security, Filesystem $filesystem,
+                                RequestStack $request, $observationsDirectory, $paginator, AuthorizationCheckerInterface $security, Filesystem $filesystem,
                                 ValidatorInterface $validator)
     {
         $this->formBuilder = $formBuilder;

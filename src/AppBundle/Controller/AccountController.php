@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class AccountController extends Controller
 {
@@ -16,7 +16,13 @@ class AccountController extends Controller
     /* Gestion du profil utilisateur */
 
     /**
+     * @param AccountManager $accountManager
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     *
      * @Route("/dasboard/user/edition/name", name="edit_user_name")
+     * @Method("POST")
      */
     public function editNameAction(AccountManager $accountManager, Request $request) {
         if($request->isXmlHttpRequest()) {
@@ -50,7 +56,13 @@ class AccountController extends Controller
     }
 
     /**
+     * @param AccountManager $accountManager
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     *
      * @Route("/dasboard/user/edition/firstname", name="edit_user_firstname")
+     * @Method("POST")
      */
     public function editFirstNameAction(AccountManager $accountManager, Request $request) {
         if($request->isXmlHttpRequest()) {
@@ -84,7 +96,13 @@ class AccountController extends Controller
     }
 
     /**
+     * @param AccountManager $accountManager
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     *
      * @Route("/dasboard/user/edition/location", name="edit_user_location")
+     * @Method("POST")
      */
     public function editLocationAction(AccountManager $accountManager, Request $request) {
         if($request->isXmlHttpRequest()) {
@@ -118,7 +136,13 @@ class AccountController extends Controller
     }
 
     /**
+     * @param AccountManager $accountManager
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     *
      * @Route("/dasboard/user/edition/avatar", name="edit_user_avatar")
+     * @Method("POST")
      */
     public function editAvatarAction(AccountManager $accountManager, Request $request) {
         if($request->isXmlHttpRequest()) {
@@ -158,7 +182,13 @@ class AccountController extends Controller
     }
 
     /**
+     * @param AccountManager $accountManager
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     *
      * @Route("/dasboard/user/edition/newsletter", name="edit_user_newsletter")
+     * @Method("POST")
      */
     public function editNewsletterAction(AccountManager $accountManager, Request $request) {
         if($request->isXmlHttpRequest()) {
@@ -192,7 +222,13 @@ class AccountController extends Controller
     }
 
     /**
+     * @param AccountManager $accountManager
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     *
      * @Route("/dasboard/user/edition/mot-de-passe", name="edit_user_password")
+     * @Method("POST")
      */
     public function editPasswordAction( AccountManager $accountManager, Request $request) {
 

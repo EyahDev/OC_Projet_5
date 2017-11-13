@@ -8,14 +8,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class CategoryController extends Controller
 {
     /* Gestion des catégories */
 
     /**
+     * @param $slug
+     * @param BlogManager $blogManager
+     * @param Request $request
+     * @return Response
+     *
      * @Route("/dashboard/categorie/{slug}/edition/", name="edit_category")
+     * @Method({"GET", "POST"})
      */
     public function editCategoryAction($slug, BlogManager $blogManager, Request $request) {
 
@@ -60,7 +66,12 @@ class CategoryController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param BlogManager $blogManager
+     * @return Response
+     *
      * @Route("/dashboard/creer-categorie", name="create_category")
+     * @Method("POST")
      */
     public function createCategoryAction(Request $request, BlogManager $blogManager)
     {
@@ -98,7 +109,9 @@ class CategoryController extends Controller
      * @param Request $request
      * @param BlogManager $blogManager
      * @return Response
+     *
      * @Route("/dashboard/creer-categorie-rapidement", name="create_category_quickly")
+     * @Method("POST")
      */
     public function createCategoryQuicklyAction(Request $request, BlogManager $blogManager)
     {
@@ -134,7 +147,13 @@ class CategoryController extends Controller
 
 
     /**
+     * @param Request $request
+     * @param $slug
+     * @param BlogManager $blogManager
+     * @return Response
+     *
      * @Route("/dashboard/categorie/{slug}/suppression", name="category_delete")
+     * @Method("GET")
      */
     public function deleteCategoryAction(Request $request, $slug, BlogManager $blogManager) {
         // teste si la requete provient bien d'Ajax sinon on génère une exception
@@ -151,8 +170,11 @@ class CategoryController extends Controller
 
     /**
      * @param Request $request
+     * @param BlogManager $blogManager
      * @return Response
+     *
      * @Route("dashboard/categories", name="pagination_categories")
+     * @Method("GET")
      */
     public function paginationCategoriesAction(Request $request, BlogManager $blogManager)
     {

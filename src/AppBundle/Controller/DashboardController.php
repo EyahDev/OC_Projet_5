@@ -13,15 +13,25 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
 class DashboardController extends Controller
 {
     /**
+     * @param Request $request
+     * @param ContactManager $contactManager
+     * @param BlogManager $blogManager
+     * @param ObservationManager $observationManager
+     * @param CommentManager $commentManager
+     * @param AccountManager $accountManager
+     * @param UserManager $userManager
+     * @param FAQManager $FAQManager
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/dashboard", name="dashboard")
+     * @Method({"GET", "POST"})
      */
-
     public function dashboardAction(Request $request, ContactManager $contactManager, BlogManager $blogManager,
                                     ObservationManager $observationManager, CommentManager $commentManager,
                                     AccountManager $accountManager, UserManager $userManager, FAQManager $FAQManager)

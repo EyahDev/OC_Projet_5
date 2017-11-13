@@ -12,13 +12,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use AppBundle\Form\Signup\SignupType;
+use AppBundle\Form\Type\Signup\SignupType;
 use AppBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class DefaultController extends Controller
 {
     /**
+     * @param Request $request
+     * @param ContactManager $contactManager
+     * @param ObservationManager $observationManager
+     * @param AccountManager $accountManager
+     * @param SpeciesManager $speciesManager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/", name="homepage")
+     * @Method({"GET", "POST"})
      */
     public function indexAction(Request $request, ContactManager $contactManager,
                                 ObservationManager $observationManager, AccountManager $accountManager,
@@ -61,8 +70,12 @@ class DefaultController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/landing-page", name="landingPage")
+     * @Method({"GET", "POST"})
      */
     public function landingPageAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
@@ -93,8 +106,13 @@ class DefaultController extends Controller
 
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @param MapsManager $maps
+     * @param SessionInterface $session
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/recherche-observations", name="rechercheObservations")
+     * @Method({"GET", "POST"})
      */
     public function searchObservationsAction(Request $request, MapsManager $maps, SessionInterface $session)
     {
@@ -145,8 +163,14 @@ class DefaultController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param $slug
+     * @param SpeciesManager $speciesManager
+     * @param ObservationManager $observationManager
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/fiche-espece/{slug}", name="ficheEspece")
+     * @Method({"GET", "POST"})
      */
     public function speciesAction($slug, SpeciesManager $speciesManager, ObservationManager $observationManager, Request $request)
     {
@@ -208,18 +232,12 @@ class DefaultController extends Controller
         ));
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/blog/categorie/{category}", name="categoryBlog")
-     */
-    public function categoryBlogAction($category)
-    {
-        return $this->render("default/blog/categoryBlog.html.twig", array('category' => $category));
-    }
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/avancee-recherche", name="avanceeRecherche")
+     * @Method("GET")
      */
     public function researchAction()
     {
@@ -228,16 +246,10 @@ class DefaultController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/faq", name="faq")
-     */
-    public function faqAction()
-    {
-        return $this->render("default/faq.html.twig");
-    }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     *
      * @Route("/mentions-legales", name="mentionsLegales")
+     * @Method("GET")
      */
     public function legalNoticesAction()
     {
@@ -245,8 +257,13 @@ class DefaultController extends Controller
     }
 
     /**
+     * @param ObservationManager $observationManager
+     * @param AccountManager $accountManager
+     * @param SpeciesManager $speciesManager
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/landing-page-A", name="landingPage1")
+     * @Method("GET")
      */
     public function landingPageAAction(ObservationManager $observationManager, AccountManager $accountManager, SpeciesManager $speciesManager)
     {
@@ -267,10 +284,14 @@ class DefaultController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/landing-page-B", name="landingPage2")
+     * @Method({"GET", "POST"})
      */
-    public function landinfPageBAction(Request $request, UserPasswordEncoderInterface $encoder)
+    public function landingPageBAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $em = $this->getDoctrine()->getManager();
         $user = new User();
