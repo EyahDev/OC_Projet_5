@@ -13,8 +13,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -22,22 +20,26 @@ class AccountManager
 {
     private $formBuilder;
     private $em;
-    private $request;
-    private $session;
     private $validator;
     private $encoder;
     private $container;
     private $filesystem;
 
+    /**
+     * AccountManager constructor.
+     * @param FormFactoryInterface $formBuilder
+     * @param EntityManagerInterface $em
+     * @param ValidatorInterface $validator
+     * @param UserPasswordEncoderInterface $encoder
+     * @param ContainerInterface $container
+     * @param Filesystem $filesystem
+     */
     public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
-                                RequestStack $request, SessionInterface $session,
                                 ValidatorInterface $validator, UserPasswordEncoderInterface $encoder,ContainerInterface $container,
                                 Filesystem $filesystem) {
 
         $this->formBuilder = $formBuilder;
         $this->em = $em;
-        $this->request = $request;
-        $this->session = $session;
         $this->validator = $validator;
         $this->encoder = $encoder;
         $this->container = $container;

@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class FAQManager
@@ -17,7 +16,6 @@ class FAQManager
     private $formBuilder;
     private $em;
     private $request;
-    private $session;
     private $validator;
     private $container;
 
@@ -26,16 +24,14 @@ class FAQManager
      * @param FormFactoryInterface $formBuilder
      * @param EntityManagerInterface $em
      * @param RequestStack $request
-     * @param SessionInterface $session
      * @param ValidatorInterface $validator
+     * @param ContainerInterface $container
      */
     public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
-                                RequestStack $request, SessionInterface $session,
-                                ValidatorInterface $validator, ContainerInterface $container) {
+                                RequestStack $request, ValidatorInterface $validator, ContainerInterface $container) {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
-        $this->session = $session;
         $this->validator = $validator;
         $this->container = $container;
     }

@@ -12,7 +12,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ObservationManager
@@ -20,7 +19,6 @@ class ObservationManager
     private $formBuilder;
     private $em;
     private $request;
-    private $session;
     private $container;
     private $filesystem;
     private $validator;
@@ -30,14 +28,12 @@ class ObservationManager
      * @param FormFactoryInterface $formBuilder
      * @param EntityManagerInterface $em
      * @param RequestStack $request
-     * @param SessionInterface $session
      * @param ContainerInterface $container
      * @param Filesystem $filesystem
      * @param ValidatorInterface $validator
      */
     public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
-                                RequestStack $request, SessionInterface $session,
-                                ContainerInterface $container, Filesystem $filesystem,
+                                RequestStack $request, ContainerInterface $container, Filesystem $filesystem,
                                 ValidatorInterface $validator) {
         $this->formBuilder = $formBuilder;
         $this->em = $em;

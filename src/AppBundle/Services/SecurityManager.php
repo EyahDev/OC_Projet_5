@@ -16,19 +16,26 @@ class SecurityManager
 {
     private $formBuilder;
     private $em;
-    private $request;
     private $session;
     private $mailer;
     private $env;
     private $encoder;
 
+    /**
+     * SecurityManager constructor.
+     * @param FormFactoryInterface $formBuilder
+     * @param EntityManagerInterface $em
+     * @param Session $session
+     * @param \Swift_Mailer $mailer
+     * @param Environment $env
+     * @param UserPasswordEncoderInterface $encoder
+     */
     public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
-                                RequestStack $request, Session $session, \Swift_Mailer $mailer,
+                                Session $session, \Swift_Mailer $mailer,
                                 Environment $env, UserPasswordEncoderInterface $encoder) {
 
         $this->formBuilder = $formBuilder;
         $this->em = $em;
-        $this->request = $request;
         $this->session = $session;
         $this->mailer = $mailer;
         $this->env = $env;

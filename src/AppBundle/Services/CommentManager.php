@@ -2,26 +2,25 @@
 namespace AppBundle\Services;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CommentManager
 {
-    private $formBuilder;
     private $em;
     private $request;
-    private $session;
     private $container;
 
-    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em, RequestStack $request,
-                                SessionInterface $session, ContainerInterface $container)
+    /**
+     * CommentManager constructor.
+     * @param EntityManagerInterface $em
+     * @param RequestStack $request
+     * @param ContainerInterface $container
+     */
+    public function __construct(EntityManagerInterface $em, RequestStack $request, ContainerInterface $container)
     {
-        $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
-        $this->session = $session;
         $this->container = $container;
     }
 

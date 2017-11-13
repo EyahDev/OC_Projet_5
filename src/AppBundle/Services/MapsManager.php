@@ -3,17 +3,19 @@
 namespace AppBundle\Services;
 
 use AppBundle\Form\Type\Observations\SearchObservationType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
 class MapsManager
 {
-    private $em;
     private $formBuilder;
     private $observationManager;
 
-    public function __construct(EntityManagerInterface $entityManager, FormFactoryInterface $formFactory, ObservationManager $observationManager) {
-        $this->em = $entityManager;
+    /**
+     * MapsManager constructor.
+     * @param FormFactoryInterface $formFactory
+     * @param ObservationManager $observationManager
+     */
+    public function __construct( FormFactoryInterface $formFactory, ObservationManager $observationManager) {
         $this->formBuilder = $formFactory;
         $this->observationManager = $observationManager;
     }
