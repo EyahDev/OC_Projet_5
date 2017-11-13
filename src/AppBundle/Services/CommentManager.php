@@ -3,25 +3,25 @@ namespace AppBundle\Services;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+
 
 class CommentManager
 {
     private $em;
     private $request;
-    private $container;
+    private $paginator;
 
     /**
      * CommentManager constructor.
      * @param EntityManagerInterface $em
      * @param RequestStack $request
-     * @param ContainerInterface $container
+     * @param $paginator
      */
-    public function __construct(EntityManagerInterface $em, RequestStack $request, ContainerInterface $container)
+    public function __construct(EntityManagerInterface $em, RequestStack $request, $paginator)
     {
         $this->em = $em;
         $this->request = $request;
-        $this->container = $container;
+        $this->paginator = $paginator;
     }
 
     public function getCommentsFlagged() {
@@ -66,7 +66,7 @@ class CommentManager
         // récupère la liste des questions/réponses
         $commentsFlagged = $this->getCommentsFlagged();
         // récupère le service knp paginator
-        $paginator  = $this->container->get('knp_paginator');
+        $paginator  = $this->paginator;
         // retourne les questions /réponse paginé selon la page passé en get
         return $paginator->paginate(
             $commentsFlagged/*$query*/, /* query NOT result */

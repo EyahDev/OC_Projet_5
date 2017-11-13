@@ -10,7 +10,6 @@ use AppBundle\Form\Type\Account\AddLocationType;
 use AppBundle\Form\Type\Account\UpdateNewsletterType;
 use AppBundle\Form\Type\Account\UpdatePasswordType;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Container\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -22,27 +21,27 @@ class AccountManager
     private $em;
     private $validator;
     private $encoder;
-    private $container;
     private $filesystem;
+    private $avatarsDirectory;
 
     /**
      * AccountManager constructor.
+     * @param $avatarsDirectory
      * @param FormFactoryInterface $formBuilder
      * @param EntityManagerInterface $em
      * @param ValidatorInterface $validator
      * @param UserPasswordEncoderInterface $encoder
-     * @param ContainerInterface $container
      * @param Filesystem $filesystem
      */
-    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
-                                ValidatorInterface $validator, UserPasswordEncoderInterface $encoder, ContainerInterface $container,
+    public function __construct($avatarsDirectory, FormFactoryInterface $formBuilder, EntityManagerInterface $em,
+                                ValidatorInterface $validator, UserPasswordEncoderInterface $encoder,
                                 Filesystem $filesystem) {
 
+        $this->avatarsDirectory = $avatarsDirectory;
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->validator = $validator;
         $this->encoder = $encoder;
-        $this->container = $container;
         $this->filesystem = $filesystem;
     }
 
@@ -108,10 +107,11 @@ class AccountManager
      * Mise à jour de l'avatar de l'utilisateur
      *
      * @param User $user
+     * @param $existingFile
      */
     public function updateAvatar(User $user, $existingFile) {
         // Récupération du chemin du dossier de stockage
-        $path = $this->container->getParameter('avatars_directory');
+        $path = $this->avatarsDirectory;
 
         // Récupération du nouveau fichier
         $newFile = $user->getAvatarPath();
@@ -164,6 +164,8 @@ class AccountManager
 
     /**
      * renvoie le formulaire de mot de passe
+     *
+     * @return \Symfony\Component\Form\FormInterface
      */
     public function getFormUpdatePassword()
     {
@@ -172,6 +174,9 @@ class AccountManager
 
     /**
      * teste le mot de passe actuel
+     *
+     * @param User $user
+     * @param $plainPassword
      */
     public function updatePassword(User $user,$plainPassword)
     {

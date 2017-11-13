@@ -6,7 +6,6 @@ use AppBundle\Entity\Faq;
 use AppBundle\Form\Type\Faq\EditFaqType;
 use AppBundle\Form\Type\Faq\NewFaqType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -17,7 +16,7 @@ class FAQManager
     private $em;
     private $request;
     private $validator;
-    private $container;
+    private $paginator;
 
     /**
      * FAQManager constructor.
@@ -25,15 +24,15 @@ class FAQManager
      * @param EntityManagerInterface $em
      * @param RequestStack $request
      * @param ValidatorInterface $validator
-     * @param ContainerInterface $container
+     * @param $paginator
      */
     public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
-                                RequestStack $request, ValidatorInterface $validator, ContainerInterface $container) {
+                                RequestStack $request, ValidatorInterface $validator, $paginator) {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
         $this->validator = $validator;
-        $this->container = $container;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -108,7 +107,7 @@ class FAQManager
         // récupère la liste des questions/réponses
         $faqList = $this->em->getRepository('AppBundle:Faq')->findAll();
         // récupère le service knp paginator
-        $paginator  = $this->container->get('knp_paginator');
+        $paginator  = $this->paginator;
         // retourne les questions /réponse paginé selon la page passé en get
         return $paginator->paginate(
             $faqList/*$query*/, /* query NOT result */
