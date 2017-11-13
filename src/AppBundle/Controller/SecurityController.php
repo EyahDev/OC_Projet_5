@@ -29,7 +29,6 @@ class SecurityController extends Controller
 
         // dernier nom d'utilisateur saisie par l'utilisateur
         $lastUsername = $authUtils->getLastUsername();
-        $user = $this->get('doctrine')->getManager()->getRepository('AppBundle:User')->findOneBy(array('username' => $lastUsername));
         return $this->render('default/security/login.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,

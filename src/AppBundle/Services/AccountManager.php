@@ -10,7 +10,7 @@ use AppBundle\Form\Type\Account\AddLocationType;
 use AppBundle\Form\Type\Account\UpdateNewsletterType;
 use AppBundle\Form\Type\Account\UpdatePasswordType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -35,7 +35,7 @@ class AccountManager
      * @param Filesystem $filesystem
      */
     public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
-                                ValidatorInterface $validator, UserPasswordEncoderInterface $encoder,ContainerInterface $container,
+                                ValidatorInterface $validator, UserPasswordEncoderInterface $encoder, ContainerInterface $container,
                                 Filesystem $filesystem) {
 
         $this->formBuilder = $formBuilder;

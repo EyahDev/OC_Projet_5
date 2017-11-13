@@ -47,8 +47,6 @@ class ImportCommand extends ContainerAwareCommand
 
         // Détermine la taille du tableau, la fréquence des flush et la position actuelle dans le tableau
         $size = count($data);
-        $batchSize = 20;
-        $i = 1;
 
         // Démarre la barre de progression
         $progress = new ProgressBar($output, $size);
