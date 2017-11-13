@@ -21,7 +21,7 @@ class CreateCategoryQuicklyType extends AbstractType
                 'invalid_message' => 'Veuillez saisir un nom de catégorie valide.',
             ))
             ->add('photoPath', FileType::class, array(
-                'label' => 'Sélectionnez une image',
+                'label' => 'Sélectionner une image',
                 'invalid_message' => 'Veuillez sélectionner un fichier valide.',
                 'required' => false
             ))

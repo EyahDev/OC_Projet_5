@@ -18,10 +18,10 @@ class CreateCategoryType extends AbstractType
         $builder
             ->add('name', TextType::class, array(
             'label' => 'Définissez le nom de votre catégorie',
-            'invalid_message' => 'Veuillez saisir un nom catégorie valide.'
+            'invalid_message' => 'Veuillez saisir un nom de catégorie valide.'
         ))
             ->add('photoPath', FileType::class, array(
-                'label' => 'Sélectionnez une image',
+                'label' => 'Sélectionner une image',
                 'invalid_message' => 'Veuillez sélectionner un fichier valide.',
                 'required' => false
             ))

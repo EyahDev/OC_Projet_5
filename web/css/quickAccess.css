@@ -135,6 +135,10 @@ input#create_observation_photoPath{
     text-align: center;
 }
 
+form[name="create_observation"] label.control-label{
+    margin-top: 10px;
+}
+
 /*----------------------------------------------- Liste déroulante ----------------------------------------------- */
 
 select.form-control {
@@ -165,7 +169,7 @@ select.form-control {
     font-size: .625em;
     line-height: 1;
     right: 1.5em;
-    top: 50%; margin-top: -.5em;
+    top: 70% !important; margin-top: -.5em;
 }
 
 /*----------------------------------------------- Spinner ----------------------------------------------- */
@@ -202,8 +206,12 @@ select.form-control {
 }
 
 @media (max-width: 420px) {
-    #quickAccess {
-        max-width: 100%;
+    #saisieObservationModal .modal-content {
+        width: 100% !important;
+    }
+
+    #saisieObservationModal .modal-body {
+        padding: 0 !important;
     }
 
     #quickAccess p {
@@ -213,6 +221,10 @@ select.form-control {
 
     #quickAccess h3 {
         margin-top: 10px;
+    }
+
+    #create_observation_Envoyer{
+        margin-bottom: 15px;
     }
 }
 

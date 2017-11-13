@@ -44,6 +44,11 @@ body{
     margin: auto;
 }
 
+.btn.focus, .btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0 rgba(0,123,255,.25);
+}
+
 [placeholder]{
     font-family: 'Montserrat', sans-serif;
     color : #444 !important;

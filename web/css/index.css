@@ -1,45 +1,150 @@
 /*----------------------------------------------- Header ----------------------------------------------- */
-@media (min-width: 420px){
+.jumbotron-index {
+    Color : #444;
+    margin-bottom: 0;
+    border-radius: 0;
+    margin-top: 0;
+}
 
-    .jumbotron-index {
-        Color : #444;
-        margin-bottom: 0;
-        border-radius: 0;
-        margin-top: 0;
-    }
+.jumbotron-index h1{
+    font-family: 'Raleway', sans-serif;
+    font-size: 45px;
+    margin-top: 0;
+}
+
+/*this css is nessary*/
+.object-fit{
+&__container{   }
+&__cover{      object-fit: cover;      }
+&__fill{       object-fit: fill;       }
+&__contain{    object-fit: contain;    }
+&__none{       object-fit: none;       }
+&__scale-down{ object-fit: scale-down; }
+}
+
+video{
+    height: 100%;
+    width:  100%;
+}
+
+@media (min-width: 1280px){
 
     #mobile{
         display: none
     }
 
-    video {
-        height: 1200px;
-        width: 100%;
-        object-fit: cover;
-        z-index: -1000;
-        transition: 1s opacity;
+    #text{
+        position: absolute;
+        width: 50%;
+        left: 20%;
+        top: 25%;
+    }
+}
+
+@media (min-width: 1100px) and (max-width: 1280px){
+
+    #mobile{
+        display: none
     }
 
     #text{
         position: absolute;
-        left: 10%;
-        top: 50%;
+        width: 40%;
+        left: 20%;
+        top: 20%;
+    }
+
+    .jumbotron-index h1{
+        color: rgb(56, 57, 58) !important;
+    }
+
+    .jumbotron-index p{
+        color: black !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1100px){
+
+    #text{
+        position: absolute;
+        width: 50%;
+        left: 20%;
+        top: 20%;
     }
 
     .jumbotron-index h1{
         font-family: 'Raleway', sans-serif;
-        font-size: 45px;
+        font-size: 35px;
         margin-top: 0;
-
     }
 
     #mobile{
         display: none;
     }
+    .jumbotron-index h1{
+        color: rgb(56, 57, 58) !important;
+    }
+
+    .jumbotron-index p{
+        color: black !important;
+    }
 }
 
+@media (min-width: 768px) and (max-width: 992px){
 
-@media (max-width: 420px)
+    #text{
+        position: absolute;
+        width: 50%;
+        left: 20%;
+        top: 10%;
+    }
+
+    .jumbotron-index h1{
+        font-family: 'Raleway', sans-serif;
+        font-size: 35px;
+        margin-top: 0;
+    }
+
+    #mobile{
+        display: none;
+    }
+    .jumbotron-index h1{
+        color: rgb(56, 57, 58) !important;
+    }
+
+    .jumbotron-index p{
+        color: black !important;
+    }
+}
+
+@media (min-width: 560px) and (max-width: 768px){
+
+    #text{
+        position: absolute;
+        width: 80%;
+        left: 15%;
+        top: 5%;
+    }
+
+    .jumbotron-index h1{
+        font-family: 'Raleway', sans-serif;
+        font-size: 35px;
+        margin-top: 0;
+    }
+
+    #mobile{
+        display: none;
+    }
+    .jumbotron-index h1{
+        color: rgb(56, 57, 58) !important;
+    }
+
+    .jumbotron-index p{
+        color: black !important;
+    }
+}
+
+@media (max-width: 560px)
 {
     .jumbotron-index{
         margin-top: 200px;
@@ -73,7 +178,7 @@
     }
 }
 
-@media (min-width: 1200px){
+@media (min-width: 1280px){
     .container-body {
         max-width: 1200px;
     }
@@ -420,7 +525,7 @@ h2{
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
-form .btn {
+#contact form .btn {
     background-color: #333;
     color: #f9f9f9;
     font-family: 'Montserrat', sans-serif;

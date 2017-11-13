@@ -276,8 +276,7 @@ h2 span{
 }
 
 #comment img{
-    width: auto;
-    max-height: 150px;
+    height: 150px !important;
     object-fit: contain;
     margin: 20px 0 20px 0;
 }
@@ -299,24 +298,8 @@ h2 span{
     color: black;
 }
 
+@media (max-width: 768px){
 
-@media all and (min-width: 420px) and (max-width: 560px){
-    #comment section{
-        width: 90%;
-        margin: auto;
-        height: 500px;
-    }
-
-    .fonctionnement {
-        position: relative;
-        text-align: left !important;
-        width: 150px;
-        bottom: 50px;
-        left: -60px;
-    }
-}
-
-@media (max-width: 420px){
     #comment section{
         width: 90%;
         margin: auto;
@@ -392,11 +375,45 @@ p span{
     font-weight: bold;
 }
 
-@media (max-width: 768px){
+@media (min-width: 575px) and (max-width: 992px){
+    #blog img {
+        width: auto;
+        height: 450px;
+        margin: 20px 0 -50px 0;
+    }
+
     #blog section{
         width: 90%;
         margin: auto;
-        height: 700px;
+        height: 500px;
+    }
+}
+
+@media (min-width: 420px) and (max-width: 575px){
+    #blog section{
+        width: 90%;
+        margin: auto;
+        height: 750px;
+    }
+
+    #blog .mobile{
+        height: 300px;
+        width: 100%;
+        position: static !important;
+        object-fit: contain !important;
+        bottom: 0
+    }
+
+    #blog .text{
+        width: 100%;
+    }
+}
+
+@media (max-width: 420px){
+    #blog section{
+        width: 90%;
+        margin: auto;
+        height: 750px;
     }
 
     #blog .mobile{

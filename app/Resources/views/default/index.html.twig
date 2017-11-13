@@ -1,11 +1,11 @@
-{% extends 'base_integration.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block stylesheets %}<link href="{{ asset('css/index.css') }}" rel="stylesheet">{% endblock %}
 
 {% block header %}
     <header>
         <div id="desktop">
-            <div  class="jumbotron-index">
+            <div  class="jumbotron-index object-fit__container object-fit__container--large">
                 <video autoplay loop muted>
                 <!-- WCAG general accessibility recommendation is that media such as background video play through only once. Loop turned on for the purposes of illustration; if removed, the end of the video will fade in the same way created by pressing the "Pause" button  -->
                 <source src="{{ asset('img/cinémagraphe-page-accueil-Nao-2.mp4') }}" type="video/mp4">
