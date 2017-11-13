@@ -41,3 +41,13 @@ services:
         class: AppBundle\Services\Security\BanListener
         tags:
             - { name: kernel.event_listener, event: security.authentication.success, method: generateExceptionBan}
+
+    appbundle.services.account_manager:
+        class: AppBundle\Services\AccountManager
+        arguments:
+            - '@Symfony\Component\Form\FormFactoryInterface'
+            - '@Doctrine\ORM\EntityManagerInterface'
+            - '@Symfony\Component\Validator\Validator\ValidatorInterface'
+            - '@Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface'
+            - '@Symfony\Component\DependencyInjection\ContainerInterface'
+
