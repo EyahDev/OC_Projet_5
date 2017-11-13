@@ -9,6 +9,7 @@ use AppBundle\Form\Type\Account\UpdateFirstNameType;
 use AppBundle\Form\Type\Account\AddLocationType;
 use AppBundle\Form\Type\Account\UpdateNewsletterType;
 use AppBundle\Form\Type\Account\UpdatePasswordType;
+use AppBundle\Form\Type\Signup\SignupType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -43,6 +44,52 @@ class AccountManager
         $this->validator = $validator;
         $this->encoder = $encoder;
         $this->filesystem = $filesystem;
+    }
+
+
+    public function getSignUpForm() {
+        // Création d'un nouvel utilisateur
+        $user = new User();
+
+        // Récupération du formulaire d'inscription
+        $userForm = $this->formBuilder->create(SignupType::class, $user);
+
+        // Retourne le formulaire d'inscription
+        return $userForm;
+    }
+
+    public function setNewUser(User $user) {
+
+        // Récupération du roles USER par défaut
+        $role = $this->em->getRepository('AppBundle:Role')->findOneBy(array('name' => "ROLE_USER"));
+
+        // Génération d'un salt aléatoire
+        $salt = substr(md5(time()), 0, 23);
+
+        // Ajout du salt pour l'utilisateu
+        $user->setSalt($salt);
+
+        // Récupération du mot de passe
+        $plainPassword = $user->getPassword();
+
+        // Encodage du mot de passe
+        $password = $this->encoder->encodePassword($user, $plainPassword);
+
+        // Ajout du mot de passe encodé pour l'utilisateur
+        $user->setPassword($password);
+
+        // Ajout du role pas défaut
+        $user->setRoles($role);
+
+        // Ajout de la date d'inscription
+        $user->setSignupDate(new \DateTime());
+
+        // Ajout de l'avatar par défaut
+        $user->setAvatarPath("img/default/avatar_default.png");
+
+        // Enregistrement et sauvegarde en base de données
+        $this->em->persist($user);
+        $this->em->flush();
     }
 
     /**

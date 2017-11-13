@@ -12,8 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use AppBundle\Form\Type\Signup\SignupType;
-use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class DefaultController extends Controller
@@ -71,37 +69,36 @@ class DefaultController extends Controller
 
     /**
      * @param Request $request
-     * @param UserPasswordEncoderInterface $encoder
+     * @param AccountManager $accountManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/landing-page", name="landingPage")
      * @Method({"GET", "POST"})
      */
-    public function landingPageAction(Request $request, UserPasswordEncoderInterface $encoder)
+    public function SignUpLandingPageAAction(Request $request, AccountManager $accountManager)
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = new User();
-        $role = $em->getRepository('AppBundle:Role')->findOneBy(array('name' => "ROLE_USER"));
-        $userForm = $this->get('form.factory')->create(SignupType::class, $user);
-        $userForm->handleRequest($request);
-        if ($userForm->isSubmitted() && $userForm->isValid()) {
-            // generate a random salt value
-            $salt = substr(md5(time()), 0, 23);
-            $user->setSalt($salt);
-            $plainPassword = $user->getPassword();
-            $password = $encoder->encodePassword($user, $plainPassword);
-            $user->setPassword($password);
-            // select default user role
-            $user->setRoles($role);
-            $user->setSignupDate(new \DateTime());
-            $user->setAvatarPath("img/default/avatar_default.png");
-            $em->persist($user);
-            $em->flush();
+        // Récupération du formulaire d'inscription la landing page A
+        $landingPageSignUpForm = $accountManager->getSignUpForm();
+
+        // Hydration des valeurs
+        $landingPageSignUpForm->handleRequest($request);
+
+        // Soumission du formulaire
+        if ($landingPageSignUpForm->isSubmitted() && $landingPageSignUpForm->isValid()) {
+
+            // Récupération des valeurs du formulaire
+            $user = $landingPageSignUpForm->getData();
+
+            // Création du nouvel utilisateur
+            $accountManager->setNewUser($user);
+
+            // Rédirection vers la page de dashboard utilisateur
             return $this->redirectToRoute('dashboard');
         }
+
         return $this->render("default/landingPage.html.twig", array(
             'title' => 'Nouvel utilisateur',
-            'form' => $userForm->createView()));
+            'form' => $landingPageSignUpForm->createView()));
     }
 
 
@@ -285,36 +282,35 @@ class DefaultController extends Controller
 
     /**
      * @param Request $request
-     * @param UserPasswordEncoderInterface $encoder
+     * @param AccountManager $accountManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/landing-page-B", name="landingPage2")
      * @Method({"GET", "POST"})
      */
-    public function landingPageBAction(Request $request, UserPasswordEncoderInterface $encoder)
+    public function landingPageBAction(Request $request, AccountManager $accountManager)
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = new User();
-        $role = $em->getRepository('AppBundle:Role')->findOneBy(array('name' => "ROLE_USER"));
-        $userForm = $this->get('form.factory')->create(SignupType::class, $user);
-        $userForm->handleRequest($request);
-        if ($userForm->isSubmitted() && $userForm->isValid()) {
-            // generate a random salt value
-            $salt = substr(md5(time()), 0, 23);
-            $user->setSalt($salt);
-            $plainPassword = $user->getPassword();
-            $password = $encoder->encodePassword($user, $plainPassword);
-            $user->setPassword($password);
-            // select default user role
-            $user->setRoles($role);
-            $user->setSignupDate(new \DateTime());
-            $user->setAvatarPath("img/default/avatar_default.png");
-            $em->persist($user);
-            $em->flush();
+        // Récupération du formulaire d'inscription de la landing page B
+        $landingPageBSignUpForm = $accountManager->getSignUpForm();
+
+        // Hydration des valeurs
+        $landingPageBSignUpForm->handleRequest($request);
+
+        // Soumission du formulaire
+        if ($landingPageBSignUpForm->isSubmitted() && $landingPageBSignUpForm->isValid()) {
+
+            // Récupération des valeurs du formulaire
+            $user = $landingPageBSignUpForm->getData();
+
+            // Création du nouvel utilisateur
+            $accountManager->setNewUser($user);
+
+            // Rédirection vers la page d'accueil
             return $this->redirectToRoute('homepage');
         }
         return $this->render("default/landingPage2.html.twig", array(
+
             'title' => 'Nouvel utilisateur',
-            'form' => $userForm->createView()));
+            'form' => $landingPageBSignUpForm->createView()));
     }
 }
