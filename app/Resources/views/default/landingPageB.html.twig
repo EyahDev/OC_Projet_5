@@ -1,141 +1,138 @@
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Projet Openclassrooms : gestion de projet en équipe">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="author" content="Adrien Desmet, Loïc Hay, Benoît Dumas-Chaumette, Philippe Riedemann, Jérôme Soucille">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Projet Openclassrooms : gestion de projet en équipe">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="author" content="Adrien Desmet, Loïc Hay, Benoît Dumas-Chaumette, Philippe Riedemann, Jérôme Soucille">
 
-    {# Chargement du favicon #}
-    <link rel="icon" href="{{ asset('favicon.ico') }}">
+        {# Chargement du favicon #}
+        <link rel="icon" href="{{ asset('favicon.ico') }}">
 
-    <title>{% block title %}NAO{% endblock %}</title>
+        <title>{% block title %}NAO{% endblock %}</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:600" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Custom fonts for this template -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:600" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/table.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/inscription.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/landingPageB.css') }}" rel="stylesheet">
-</head>
+        <!-- Custom styles for this template -->
+        <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/table.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/inscription.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/landingPageB.css') }}" rel="stylesheet">
+    </head>
 
-<body>
-    <header class="container-fluid d-flex">
-        <canvas class="p-canvas-webgl" id="canvas-webgl" style="z-index:-99 "></canvas>
-        <img class="logo-mobile" src="{{ asset('img/logo-pour-mobile.png') }}" alt="logo-nao-mobile">
-        <div id="header" class="d-flex flex-column justify-content-start">
-            <div class="text">
-                <h1>Ensemble pour pour protéger
-                    la biodiversité et faire avancer la recherche</h1>
-                <h5>Inscrivez vous gratuitement.</h5>
-            </div>
-        </div>
-
-
-        <div id="inscription" class="d-flex">
-            <div class="cnx-infos-section d-flex flex-column justify-content-between">
-                <div class="logo">
-                    <img src="{{ asset('img/logo-footer.png') }}" />
-                    <p class="nao">Nao</p>
-                </div>
-                <div class="infos">
-                    <h4 style="margin-bottom: 40px">Contact & Infos</h4>
-                    <div><i class="fa fa-phone-square" aria-hidden="true"></i><p>01 75 72 15 18</p></div>
-                    <div><i class="fa fa-home" aria-hidden="true"></i><p>5 rue des pardrix, 75002 Paris</p></div>
-                    <div><i class="fa fa-envelope" aria-hidden="true"></i><p>infos@nao.org</p></div>
+    <body>
+        <header class="container-fluid d-flex">
+            <canvas class="p-canvas-webgl" id="canvas-webgl" style="z-index:-99 "></canvas>
+            <img class="logo-mobile" src="{{ asset('img/logo-pour-mobile.png') }}" alt="logo-nao-mobile">
+            <div id="header" class="d-flex flex-column justify-content-start">
+                <div class="text">
+                    <h1>Ensemble pour pour protéger
+                        la biodiversité et faire avancer la recherche</h1>
+                    <h5>Inscrivez vous gratuitement.</h5>
                 </div>
             </div>
-            <div class="formulaire cnx-form-section">
-                <div class="align-items-center">
-                    <h3 style="text-align: center; margin-top: 30px">INSCRIPTION</h3>
-                    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-                    {% if not form.vars.valid %}
-                        <div class="alert alert-danger formError">
-                            {{ form_errors(form) }}
-                            {{ form_errors(form.name)}}
-                            {{ form_errors(form.firstname) }}
-                            {{ form_errors(form.username) }}
-                            {{ form_errors(form.email) }}
-                            {{ form_errors(form.password) }}
-                            {{ form_errors(form.proPermission) }}
-                            {{ form_errors(form.newsletter) }}
-                            {{ form_errors(form.proPermission) }}
-                        </div>
-                    {% endif %}
 
-                    {# Génération du label + error + widget pour un champ. #}
-                    <div class="form-group">
-                        <div class="input">
-                            {{ form_label(form.name) }}
-                            {{ form_widget(form.name) }}
-                        </div>
-                        <div class="input">
-                            {{ form_label(form.firstname) }}
-                            {{ form_widget(form.firstname) }}
-                        </div>
-                        <div class="input">
-                            {{ form_label(form.username) }}
-                            {{ form_widget(form.username) }}
-                        </div>
-                        <div class="input">
-                            {{ form_label(form.email) }}
-                            {{ form_widget(form.email) }}
-                        </div>
-                        <div class="input">
-                            {{ form_label(form.password) }}
-                            {{ form_widget(form.password) }}
-                        </div>
-                        <div class="input">
-                            {{ form_label(form.proPermission) }}
-                            {{ form_widget(form.proPermission) }}
+            <div id="inscription" class="d-flex">
+                <div class="cnx-infos-section d-flex flex-column justify-content-between">
+                    <div class="logo">
+                        <img src="{{ asset('img/logo-footer.png') }}" />
+                        <p class="nao">Nao</p>
+                    </div>
+                    <div class="infos">
+                        <h4 style="margin-bottom: 40px">Contact & Infos</h4>
+                        <div><i class="fa fa-phone-square" aria-hidden="true"></i><p>01 75 72 15 18</p></div>
+                        <div><i class="fa fa-home" aria-hidden="true"></i><p>5 rue des pardrix, 75002 Paris</p></div>
+                        <div><i class="fa fa-envelope" aria-hidden="true"></i><p>infos@nao.org</p></div>
+                    </div>
+                </div>
+                <div class="formulaire cnx-form-section">
+                    <div class="align-items-center">
+                        <h3 style="text-align: center; margin-top: 30px">INSCRIPTION</h3>
+                        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-                            {{ form_label(form.proPermission) }}
-                            {{ form_widget(form.newsletter) }}
-                            <div style="text-align: center; margin-bottom: 50px">
-                            {{ form_widget(form.save, {'label': 'S\'inscrire', 'attr': {'class': 'btn btn-default'}}) }}
+                        {% if not form.vars.valid %}
+                            <div class="alert alert-danger formError">
+                                {{ form_errors(form) }}
+                                {{ form_errors(form.name)}}
+                                {{ form_errors(form.firstname) }}
+                                {{ form_errors(form.username) }}
+                                {{ form_errors(form.email) }}
+                                {{ form_errors(form.password) }}
+                                {{ form_errors(form.proPermission) }}
+                                {{ form_errors(form.newsletter) }}
+                                {{ form_errors(form.proPermission) }}
                             </div>
+                        {% endif %}
+
+                        {# Génération du label + error + widget pour un champ. #}
+                        <div class="form-group">
+                            <div class="input">
+                                {{ form_label(form.name) }}
+                                {{ form_widget(form.name) }}
+                            </div>
+                            <div class="input">
+                                {{ form_label(form.firstname) }}
+                                {{ form_widget(form.firstname) }}
+                            </div>
+                            <div class="input">
+                                {{ form_label(form.username) }}
+                                {{ form_widget(form.username) }}
+                            </div>
+                            <div class="input">
+                                {{ form_label(form.email) }}
+                                {{ form_widget(form.email) }}
+                            </div>
+                            <div class="input">
+                                {{ form_label(form.password) }}
+                                {{ form_widget(form.password) }}
+                            </div>
+                            <div class="input">
+                                {{ form_label(form.proPermission) }}
+                                {{ form_widget(form.proPermission) }}
+
+                                {{ form_label(form.proPermission) }}
+                                {{ form_widget(form.newsletter) }}
+                                <div style="text-align: center; margin-bottom: 50px">
+                                {{ form_widget(form.save, {'label': 'S\'inscrire', 'attr': {'class': 'btn btn-default'}}) }}
+                                </div>
+                            </div>
+                            {{ form_rest(form) }}
+                            {{ form_end(form) }}
                         </div>
-                        {{ form_rest(form) }}
-                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-    {#<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>#}
+        <!-- Bootstrap core JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+        {#<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>#}
 
-    <script src="{{asset('tinyMCE/jquery.tinymce.min.js')}}"></script>
-    <script src="{{asset('tinyMCE/tinymce.js')}}"></script>
-    <script src="{{asset('js/custom.js')}}"></script>
-    <script src="{{asset('SideBarTest/jquery.sidebar.min.js')}}"></script>
+        <script src="{{asset('tinyMCE/jquery.tinymce.min.js')}}"></script>
+        <script src="{{asset('tinyMCE/tinymce.js')}}"></script>
+        <script src="{{asset('js/custom.js')}}"></script>
+        <script src="{{asset('SideBarTest/jquery.sidebar.min.js')}}"></script>
 
-    {#Custom scripts for the website#}
-    <script src="{{asset('SideBarTest/jquery.sidebar.min.js')}}"></script>
-    <script src="{{ asset('js/myAccount/myAccount.js') }}"></script>
-    <script src="{{ asset('js/userManagement/userManagement.js') }}"></script>
-    <script src="{{ asset('js/Observations/myObservations.js') }}"></script>
-    <script src="{{ asset('js/blog/comments.js') }}"></script>
-    <script src="{{ asset('js/faq/faq.js') }}"></script>
-    <script src="{{ asset('js/Observations/observationsValidation.js') }}"></script>
-    <script src="{{ asset('js/connexion/connexion.js') }}"></script>
+        {#Custom scripts for the website#}
+        <script src="{{asset('SideBarTest/jquery.sidebar.min.js')}}"></script>
+        <script src="{{ asset('js/myAccount/myAccount.js') }}"></script>
+        <script src="{{ asset('js/userManagement/userManagement.js') }}"></script>
+        <script src="{{ asset('js/Observations/myObservations.js') }}"></script>
+        <script src="{{ asset('js/blog/comments.js') }}"></script>
+        <script src="{{ asset('js/faq/faq.js') }}"></script>
+        <script src="{{ asset('js/Observations/observationsValidation.js') }}"></script>
+        <script src="{{ asset('js/connexion/connexion.js') }}"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.min.js"></script>
-    <script src="{{ asset('js/landingPageB.js') }}"></script>
-</body>
-
-
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.min.js"></script>
+        <script src="{{ asset('js/landingPageB.js') }}"></script>
+    </body>
 </html>

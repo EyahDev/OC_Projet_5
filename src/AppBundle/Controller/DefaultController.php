@@ -67,9 +67,7 @@ class DefaultController extends Controller
     }
 
     /**
-<<<<<<< HEAD
      * @return \Symfony\Component\HttpFoundation\Response
-=======
      * @param Request $request
      * @param AccountManager $accountManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -77,7 +75,7 @@ class DefaultController extends Controller
      * @Route("/landing-page", name="landingPage")
      * @Method({"GET", "POST"})
      */
-    public function SignUpLandingPageAAction(Request $request, AccountManager $accountManager)
+    public function signUpLandingPageAAction(Request $request, AccountManager $accountManager)
     {
         // Récupération du formulaire d'inscription la landing page A
         $landingPageSignUpForm = $accountManager->getSignUpForm();
