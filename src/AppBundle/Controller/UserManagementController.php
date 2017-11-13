@@ -1,10 +1,6 @@
 <?php
 
-
 namespace AppBundle\Controller;
-
-
-
 
 use AppBundle\Services\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class UserManagementController extends Controller
 {
@@ -22,7 +18,9 @@ class UserManagementController extends Controller
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      * @throws \Exception
+     *
      * @Route("user-management/change-role/{id}", name="change_role")
+     * @Method({"GET", "POST"})
      */
     public function changeRoleAction(Request $request, UserManager $userManager, $id)
     {
@@ -69,7 +67,9 @@ class UserManagementController extends Controller
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      * @throws \Exception
+     *
      * @Route("user-management/disable/{id}", name="disable_account")
+     * @Method("GET")
      */
     public function disableAccountAction(Request $request,UserManager $userManager, $id)
     {
@@ -91,7 +91,9 @@ class UserManagementController extends Controller
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      * @throws \Exception
+     *
      * @Route("user-management/enable/{id}", name="enable_account")
+     * @Method("GET")
      */
     public function enableAccountAction(Request $request, UserManager $userManager, $id)
     {
@@ -110,8 +112,10 @@ class UserManagementController extends Controller
     /**
      * @param Request $request
      * @param UserManager $userManager
-     * @Route("dashboard/user-management", name="pagination_user_management")
      * @return Response
+     *
+     * @Route("dashboard/user-management", name="pagination_user_management")
+     * @Method("GET")
      */
     public function paginateUserManagementAction(Request $request, UserManager $userManager)
     {

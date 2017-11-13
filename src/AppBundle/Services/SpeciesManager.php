@@ -3,34 +3,23 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Species;
+use AppBundle\Form\Type\Species\SpeciesDescriptionType;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Container\ContainerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SpeciesManager
 {
     private $formBuilder;
     private $em;
-    private $request;
-    private $session;
-    private $container;
 
     /**
-     * ObservationManager constructor.
+     * SpeciesManager constructor.
      * @param FormFactoryInterface $formBuilder
      * @param EntityManagerInterface $em
-     * @param RequestStack $request
-     * @param SessionInterface $session
-     * @param ContainerInterface $container
      */
-    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em, RequestStack $request, SessionInterface $session, ContainerInterface $container) {
+    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em) {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
-        $this->request = $request;
-        $this->session = $session;
-        $this->container = $container;
     }
 
     /**
@@ -65,7 +54,7 @@ class SpeciesManager
         $species = $this->em->getRepository('AppBundle:Species')->findOneBy(array('slug' => $slug));
 
         // Récupération du formulaire de modification de description
-        $form = $this->formBuilder->create("AppBundle\Form\Species\SpeciesDescriptionType", $species);
+        $form = $this->formBuilder->create(SpeciesDescriptionType::class, $species);
 
         // Retourne le formulaire
         return $form;

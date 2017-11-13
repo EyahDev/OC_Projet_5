@@ -3,13 +3,9 @@
 
 namespace AppBundle\Services\Security;
 
-
-
 use Doctrine\ORM\EntityManagerInterface;
-
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Event\AuthenticationEvent;
-
 
 class BanListener
 {
@@ -25,9 +21,9 @@ class BanListener
     public function generateExceptionBan(AuthenticationEvent $event)
     {
         $userLogged = $event->getAuthenticationToken()->getUsername();
-        if ($userLogged != 'anon.') {
+        if ($userLogged !== 'anon.') {
             $user = $this->em->getRepository('AppBundle:User')->findOneBy(array("username" => $userLogged));
-            if ($user->getEnabled() == false) {
+            if ($user->getEnabled() === false) {
                 throw new AccessDeniedHttpException('Compte desactivé');
             }
         }

@@ -13,7 +13,7 @@ class ContainsBothNameValidator extends ConstraintValidator
         $referenceName = $this->context->getRoot()->getData()['species'];
 
         // Vérification si le champs de fin de période est vide
-        if ($value != null && !empty($referenceName)) {
+        if ($value !== null && !empty($referenceName)) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

@@ -3,13 +3,11 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Faq;
-use AppBundle\Form\Faq\EditFaqType;
-use AppBundle\Form\Faq\NewFaqType;
+use AppBundle\Form\Type\Faq\EditFaqType;
+use AppBundle\Form\Type\Faq\NewFaqType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class FAQManager
@@ -17,27 +15,24 @@ class FAQManager
     private $formBuilder;
     private $em;
     private $request;
-    private $session;
     private $validator;
-    private $container;
+    private $paginator;
 
     /**
      * FAQManager constructor.
      * @param FormFactoryInterface $formBuilder
      * @param EntityManagerInterface $em
      * @param RequestStack $request
-     * @param SessionInterface $session
      * @param ValidatorInterface $validator
+     * @param $paginator
      */
     public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
-                                RequestStack $request, SessionInterface $session,
-                                ValidatorInterface $validator, ContainerInterface $container) {
+                                RequestStack $request, ValidatorInterface $validator, $paginator) {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
-        $this->session = $session;
         $this->validator = $validator;
-        $this->container = $container;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -112,7 +107,7 @@ class FAQManager
         // récupère la liste des questions/réponses
         $faqList = $this->em->getRepository('AppBundle:Faq')->findAll();
         // récupère le service knp paginator
-        $paginator  = $this->container->get('knp_paginator');
+        $paginator  = $this->paginator;
         // retourne les questions /réponse paginé selon la page passé en get
         return $paginator->paginate(
             $faqList/*$query*/, /* query NOT result */

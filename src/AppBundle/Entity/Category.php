@@ -57,6 +57,16 @@ class Category
      * @var string
      *
      * @ORM\Column(name="photoPath", type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *     maxSize="4M",
+     *     allowPortrait = false,
+     *     minWidth="800",
+     *     minHeight="600",
+     *     maxSizeMessage="Votre image doit ne peut pas faire plus de 4Mo.",
+     *     minHeightMessage="Votre image doit faire minimun 800x600px. (Hauteur de {{ height }}px actuellement)",
+     *     minWidthMessage="Votre image doit faire minimun 800x600px. (Largeur de {{ width }}px actuellement)",
+     *     allowPortraitMessage="Votre image doit être au format paysage. (Format portrait actuellement)"
+     * )
      */
     private $photoPath;
 

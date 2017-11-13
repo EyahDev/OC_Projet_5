@@ -5,13 +5,15 @@ namespace AppBundle\Services;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
-use AppBundle\Form\Blog\CreateCategoryQuicklyType;
-use AppBundle\Form\Blog\CreateCategoryType;
-use AppBundle\Form\Blog\CreatePostType;
-use AppBundle\Form\Blog\UpdateCategoryType;
-use AppBundle\Form\Blog\UpdatePostType;
+use AppBundle\Form\Type\Blog\CreateCategoryQuicklyType;
+use AppBundle\Form\Type\Blog\CreateCategoryType;
+use AppBundle\Form\Type\Blog\CreatePostType;
+use AppBundle\Form\Type\Blog\NewCommentType;
+use AppBundle\Form\Type\Blog\ReplyCommentType;
+use AppBundle\Form\Type\Blog\UpdateCategoryType;
+use AppBundle\Form\Type\Blog\UpdatePostType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -24,25 +26,31 @@ class BlogManager
     private $em;
     private $request;
     private $session;
-    private $container;
     private $fileSystem;
     private $validator;
+    private $categoriesDirectory;
+    private $postsDirectory;
+    private $paginator;
 
     public function __construct(FormFactoryInterface $formBuilder,
                                 EntityManagerInterface $em,
                                 RequestStack $request,
                                 SessionInterface $session,
-                                ContainerInterface $container,
                                 Filesystem $filesystem,
-                                ValidatorInterface $validator)
+                                ValidatorInterface $validator,
+                                $categoriesDirectory,
+                                $postsDirectory,
+                                $paginator)
     {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
         $this->session = $session;
-        $this->container = $container;
         $this->fileSystem = $filesystem;
         $this->validator = $validator;
+        $this->categoriesDirectory = $categoriesDirectory;
+        $this->postsDirectory = $postsDirectory;
+        $this->paginator = $paginator;
     }
 
     /* Gestion des catégories */
@@ -96,12 +104,12 @@ class BlogManager
 
     public function setCategory(Category $category) {
         // Récupération du chemin du dossier de stockage
-        $path = $this->container->getParameter('categories_directory');
+        $path = $this->categoriesDirectory;
 
         // Récupération du nouveau fichier
         $newFile = $category->getPhotoPath();
 
-        if ($newFile == null) {
+        if ($newFile === null) {
             // Ajout de l'image par défault
             $category->setPhotoPath('img/default/category_default.jpg');
 
@@ -128,12 +136,12 @@ class BlogManager
 
     public function setUpdateCategory(Category $category, $existingFile) {
         // Récupération du chemin du dossier de stockage
-        $path = $this->container->getParameter('categories_directory');
+        $path = $this->categoriesDirectory;
 
         // Récupération du nouveau fichier
         $newFile = $category->getPhotoPath();
 
-        if ($newFile == null) {
+        if ($newFile === null) {
             // Ajout de l'image par défault
             $category->setPhotoPath($existingFile);
 
@@ -196,7 +204,7 @@ class BlogManager
         return $post;
     }
 
-    public function getPostsByCategory($category) {
+    public function getPostsByCategory(Category $category) {
         // Récupération des articles par sa catégorie
         $posts = $this->em->getRepository('AppBundle:Post')->findByCategory($category->getId());
         // Retourne les articles associés à la catégorie
@@ -256,9 +264,9 @@ class BlogManager
         $newFile = $post->getImagePath();
 
         // Récupération du chemin du dossier de stockage
-        $path = $this->container->getParameter('posts_directory');
+        $path = $this->postsDirectory;
 
-        if ($newFile == null) {
+        if ($newFile === null) {
             // Ajout de l'image par défault
             $post->setImagePath('img/default/post_default.jpg');
 
@@ -285,12 +293,12 @@ class BlogManager
 
     public function updatePost(Post $post, $existingFile) {
         // Récupération du chemin du dossier de stockage
-        $path = $this->container->getParameter('posts_directory');
+        $path = $this->postsDirectory;
 
         // Récupération du nouveau fichier
         $newFile = $post->getImagePath();
 
-        if ($newFile == null) {
+        if ($newFile === null) {
             // Ajout de l'image par défault
             $post->setImagePath($existingFile);
 
@@ -347,7 +355,7 @@ class BlogManager
         $comment = new Comment();
 
         // Récupération du formulaire de création d'un commentaire
-        $form = $this->formBuilder->create('AppBundle\Form\Blog\NewCommentType', $comment);
+        $form = $this->formBuilder->create(NewCommentType::class, $comment);
 
         // Retourne le formulaire
         return $form;
@@ -391,7 +399,7 @@ class BlogManager
         $comment = new Comment();
 
         // Récupération du formulaire de réponse à un commentaire
-        $form = $this->formBuilder->create('AppBundle\Form\Blog\ReplyCommentType', $comment);
+        $form = $this->formBuilder->create(ReplyCommentType::class, $comment);
 
         // Retourne le formulaire
         return $form;
@@ -495,7 +503,8 @@ class BlogManager
         // récupère la liste des questions/réponses
         $postList = $this->getPosts();
         // récupère le service knp paginator
-        $paginator  = $this->container->get('knp_paginator');
+        $paginator  = $this->paginator;
+
         // retourne les questions /réponse paginé selon la page passé en get
         return $paginator->paginate(
             $postList/*$query*/, /* query NOT result */
@@ -514,7 +523,8 @@ class BlogManager
         // récupère la liste des questions/réponses
         $postsListCategory = $this->getPostsByCategory($category);
         // récupère le service knp paginator
-        $paginator  = $this->container->get('knp_paginator');
+        $paginator  = $this->paginator;
+
         // retourne les questions /réponse paginé selon la page passé en get
         return $paginator->paginate(
             $postsListCategory/*$query*/, /* query NOT result */
@@ -532,7 +542,7 @@ class BlogManager
         // récupère la liste des questions/réponses
         $categoriesList = $this->getCategories();
         // récupère le service knp paginator
-        $paginator  = $this->container->get('knp_paginator');
+        $paginator  = $this->paginator;
         // retourne les questions /réponse paginé selon la page passé en get
         return $paginator->paginate(
             $categoriesList/*$query*/, /* query NOT result */
@@ -540,5 +550,4 @@ class BlogManager
             5/*limit per page*/
         );
     }
-
 }

@@ -1,0 +1,323 @@
+{% extends 'base_integration.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('css/table.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-dashboard vertical-center">
+            <div class="container-fluid">
+                <img src="{{ asset('img/dashboard/image-header.png') }}">
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <div id="dashboard" class="container">
+    {% if app.user.enabled == true %}
+        <h2>Tableau de bord</h2>
+        {% for message in app.session.flashbag.get('notice') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div id="quickAccess" class="container">
+            <h3>Accès rapide</h3>
+
+            <p><a class="btn btn-primary" id="buttonSaisieRapide" href="{{ path('saisieObservation') }}" role="button" data-toggle="modal" data-target="#saisieObservation" >Saisie d'une observation</a></p>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="saisieObservation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Saisie rapide d'une observation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="modalSaisieRapide">
+                            {{ include(':default/dashboard/quickAcces:addObservationForm.html.twig')}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# accordéon particulier et professionnel #}
+        <section id="commonFeatures" class="container">
+            <div id="accordionUserAndPro" role="tablist">
+                {# collapse mes informations #}
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingMyAccount">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" href="#collapseMyAccount" aria-expanded="false" aria-controls="collapseMyAccount">
+                                Mes informations
+                            </a>
+                        </h5>
+                    </div>
+
+                    <div id="collapseMyAccount" class="collapse" role="tabpanel" aria-labelledby="headingMyAccount" data-parent="#accordionUserAndPro">
+                        <div class="card-body">
+                            {% include 'default/dashboard/commonFeatures/myAccount/myAccount.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+                {# collapse mes observations #}
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingMyObservations">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" href="#collapseMyObservations" aria-expanded="false" aria-controls="collapseMyObservations">
+                                Mes observations
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseMyObservations" class="collapse" role="tabpanel" aria-labelledby="headingMyObservations" data-parent="#accordionUserAndPro">
+                        <div class="card-body">
+                            {% include 'default/dashboard/commonFeatures/myObservations/myObservations.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+
+                {# partie accessible uniquement pour les professionnels #}
+                {% if is_granted('ROLE_PROFESSIONAL') %}
+                {# collapse validation d'observations (profil pro et admin) #}
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingValidation">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" href="#collapseValidation" aria-expanded="false" aria-controls="collapseValidation">
+                                Validation d'observations
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseValidation" class="collapse" role="tabpanel" aria-labelledby="headingValidation" data-parent="#accordionUserAndPro">
+                        <div class="card-body">
+                            {% include 'default/dashboard/commonFeatures/observationsValidation/observationsValidation.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {# collapse mes statistiques #}
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingMyStatistics">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" href="#collapseMyStatistics" aria-expanded="false" aria-controls="collapseMyStatistics">
+                                Mes statistiques
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseMyStatistics" class="collapse" role="tabpanel" aria-labelledby="headingMyStatistics" data-parent="#accordionUserAndPro">
+                        <div class="card-body">
+                            {% include 'default/dashboard/commonFeatures/myStatistics.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+
+                {# partie accessible pour les non admin #}
+                {% if not is_granted('ROLE_ADMIN') %}
+                {# collapse nous écrire (profil user et pro) #}
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingContactUs">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" href="#collapseContactUs" aria-expanded="false" aria-controls="collapseContactUs">
+                                Nous écrire
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseContactUs" class="collapse" role="tabpanel" aria-labelledby="headingContactUs" data-parent="#accordionUserAndPro">
+                        <div class="card-body">
+                            {% include 'default/dashboard/commonFeatures/contactUs.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        {# partie accessible uniquement avec un role admin #}
+        {% if is_granted('ROLE_ADMIN') %}
+            {# accordéon gestion du blog #}
+            <div id="blogManagement" class="container">
+                <h3>Gestion du blog</h3>
+                <div id="accordionBlogManagement" role="tablist">
+                    {# collapse Rédiger un article #}
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingWritePost">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseWritePost" aria-expanded="false" aria-controls="collapseWritePost">
+                                    Rédiger un article
+                                </a>
+                            </h5>
+                        </div>
+
+                        <div id="collapseWritePost" class="collapse" role="tabpanel" aria-labelledby="headingWritePost" data-parent="#accordionBlogManagement">
+                            <div class="card-body">
+                                {% include 'default/dashboard/blogManagement/writePost.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                    {# collapse Gérer les articles #}
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingManagePosts">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseManagePosts" aria-expanded="false" aria-controls="collapseManagePosts">
+                                    Gérer les articles
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapseManagePosts" class="collapse" role="tabpanel" aria-labelledby="headingManagePosts" data-parent="#accordionBlogManagement">
+                            <div class="card-body">
+                                {% include 'default/dashboard/blogManagement/managePosts.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                    {# collapse Gérer les catégories #}
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingManageCategories">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseManageCategories" aria-expanded="false" aria-controls="collapseManageCategories">
+                                    Gérer les catégories
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapseManageCategories" class="collapse" role="tabpanel" aria-labelledby="headingManageCategories" data-parent="#accordionBlogManagement">
+                            <div class="card-body">
+                                {% include 'default/dashboard//blogManagement/manageCategories.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                    {# collapse Modération des commentaires #}
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingCommentsModeration">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseCommentsModeration" aria-expanded="false" aria-controls="collapseCommentsModeration">
+                                    Modération des commentaires
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapseCommentsModeration" class="collapse" role="tabpanel" aria-labelledby="headingCommentsModeration" data-parent="#accordionBlogManagement">
+                            <div class="card-body">
+                                {% include 'default/dashboard/blogManagement/commentsModeration.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# accordéon administration du site #}
+            <div id="websiteAdministration" class="container">
+            <h3>Administration du site</h3>
+            <div id="accordionWebsiteAdministration" role="tablist">
+                {# collapse Gestion des utilsateurs #}
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingUsersManagement">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" href="#collapseUsersManagement" aria-expanded="false" aria-controls="collapseUsersManagement">
+                                Gestion des utilisateurs
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseUsersManagement" class="collapse" role="tabpanel" aria-labelledby="headingUsersManagement" data-parent="#accordionWebsiteAdministration">
+                        <div class="card-body">
+                            {% include 'default/dashboard/websiteAdministration/userManagement/usersManagement.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+                {# collapse Gestion de la FAQ #}
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingFaqManagement">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" href="#collapseFaqManagement" aria-expanded="false" aria-controls="collapseFaqManagement">
+                                Gestion de la FAQ
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseFaqManagement" class="collapse" role="tabpanel" aria-labelledby="headingFaqManagement" data-parent="#accordionWebsiteAdministration">
+                        <div class="card-body">
+                            {% include 'default/dashboard/websiteAdministration/faq/faqManagement.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-danger">
+            Compte desactivé : contactez nous ou créez un nouveau compte
+        </div>
+    {% endif %}
+    </div>
+{% endblock %}
+{% block javascripts %}
+<script>
+        // Chargement GoogleMaps
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 46.6, lng: 1.9},
+                zoom: 4
+            });
+
+            $('#saisieObservation').on('shown.bs.modal', function () {
+                google.maps.event.trigger(map, 'resize');
+                map.setCenter({lat: 46.6, lng: 1.9});
+            });
+
+            var infoWindow = new google.maps.InfoWindow;
+
+            document.getElementById('geoloc').addEventListener('click', function(e) {
+                infoWindow.open(map);
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+
+                        document.getElementById('create_observation_latitude').value = position.coords.latitude;
+                        document.getElementById('create_observation_longitude').value = position.coords.longitude;
+
+
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent('Vous êtes ici');
+                        map.setCenter(pos);
+
+                    }, function() {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    });
+                } else {
+                    // Browser doesn't support Geolocation
+                    handleLocationError(false, infoWindow, map.getCenter());
+                }
+            })
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Erreur : Impossible de vous localiser, vous pouvez entrer manuellement les coordonnées de votre observation.' :
+                'Erreur : Votre navigateur ne supporte pas la géolocalisation, veuillez entrer manuellement les coordonnées GPS de votre observation');
+        }
+
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNQR3Hw_y1urMSouzdoaVgUESayHjM90g&&callback=initMap" async defer></script>
+    <script src="{{ asset('js/menu.js') }}"></script>
+    <script src="{{ asset('js/faq/faq.js') }}"></script>
+    <script src="{{ asset('js/myAccount/myAccount.js') }}"></script>
+    <script src="{{ asset('js/userManagement/userManagement.js') }}"></script>
+    <script src="{{ asset('js/Observations/myObservations.js') }}"></script>
+    <script src="{{ asset('js/Observations/observationsValidation.js') }}"></script>
+    <script src="{{ asset('js/contact/contactUs.js') }}"></script>
+    <script src="{{ asset('js/table.js') }}"></script>
+{% endblock %}

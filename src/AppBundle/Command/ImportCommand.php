@@ -1,13 +1,11 @@
 <?php
 
-
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Species;
 use AppBundle\Entity\SpeciesFamily;
 use AppBundle\Entity\SpeciesType;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -49,8 +47,6 @@ class ImportCommand extends ContainerAwareCommand
 
         // Détermine la taille du tableau, la fréquence des flush et la position actuelle dans le tableau
         $size = count($data);
-        $batchSize = 20;
-        $i = 1;
 
         // Démarre la barre de progression
         $progress = new ProgressBar($output, $size);

@@ -8,12 +8,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class ObservationController extends Controller
 {
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @param ObservationManager $observationManager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
      * @Route("/saisie-observation", name="saisieObservation")
+     * @Method({"GET", "POST"})
      */
     public function addObservationAction(Request $request, ObservationManager $observationManager) {
         // Test si l'utilisateur est anonyme et si oui redirige vers une page 403
@@ -52,7 +57,13 @@ class ObservationController extends Controller
     }
 
     /**
+     * @param $id
+     * @param ObservationManager $observationManager
+     * @param Request $request
+     * @return Response
+     *
      * @Route("/dashboard/observation/{id}/modification", name="modify-observation")
+     * @Method({"GET", "POST"})
      */
     public function modifyObservationAction($id, ObservationManager $observationManager, Request $request)
     {
@@ -95,8 +106,13 @@ class ObservationController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param $id
+     * @param ObservationManager $observationManager
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
      * @Route("/dashboard/observation/{id}/detail", name="observation-detail")
+     * @Method({"GET", "POST"})
      */
     public function observationDetailAction($id, ObservationManager $observationManager, Request $request) {
         // Récupération de l'utilisateur courant
@@ -136,8 +152,10 @@ class ObservationController extends Controller
     /**
      * @param Request $request
      * @param ObservationManager $observationManager
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
+     *
      * @Route("/dashboard/myObservations/pagination", name="pagination_my_observations")
+     * @Method("GET")
      */
     public function paginationMyObservationsAction(Request $request, ObservationManager $observationManager)
     {
@@ -154,7 +172,9 @@ class ObservationController extends Controller
      * @param Request $request
      * @param ObservationManager $observationManager
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/dashboard/observationsValidation/pagination", name="pagination_observations_validation")
+     * @Method("GET")
      */
     public function paginationObservationsValidationAction(Request $request, ObservationManager $observationManager)
     {

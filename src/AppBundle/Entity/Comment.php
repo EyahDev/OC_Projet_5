@@ -168,7 +168,7 @@ class Comment
      *
      * @return Comment
      */
-    public function setParent($parent)
+    public function setParent(Comment $parent)
     {
         $this->parent = $parent;
         $parent->addChild($this);

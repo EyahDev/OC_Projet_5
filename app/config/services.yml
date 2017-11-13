@@ -41,3 +41,26 @@ services:
         class: AppBundle\Services\Security\BanListener
         tags:
             - { name: kernel.event_listener, event: security.authentication.success, method: generateExceptionBan}
+
+    AppBundle\Services\AccountManager:
+        arguments:
+            $avatarsDirectory: '%avatars_directory%'
+
+    AppBundle\Services\BlogManager:
+            arguments:
+                $postsDirectory: '%posts_directory%'
+                $categoriesDirectory: '%categories_directory%'
+                $paginator: '@knp_paginator'
+
+    AppBundle\Services\CommentManager:
+            arguments:
+                $paginator: '@knp_paginator'
+
+    AppBundle\Services\FAQManager:
+            arguments:
+                $paginator: '@knp_paginator'
+#
+    AppBundle\Services\ObservationManager:
+            arguments:
+                $observationsDirectory: '%observations_directory%'
+                $paginator: '@knp_paginator'

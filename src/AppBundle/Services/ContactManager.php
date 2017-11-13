@@ -2,31 +2,27 @@
 
 namespace AppBundle\Services;
 
-
-use AppBundle\Form\Contact\ContactType;
-use AppBundle\Form\Contact\ContactUsType;
-use Doctrine\ORM\EntityManagerInterface;
+use AppBundle\Form\Type\Contact\ContactType;
+use AppBundle\Form\Type\Contact\ContactUsType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Twig\Environment;
 
 class ContactManager
 {
     private $formBuilder;
-    private $em;
-    private $request;
-    private $session;
     private $mailer;
     private $env;
 
-    public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em, RequestStack $request, SessionInterface $session, \Swift_Mailer $mailer, Environment $env) {
+    /**
+     * ContactManager constructor.
+     * @param FormFactoryInterface $formBuilder
+     * @param \Swift_Mailer $mailer
+     * @param Environment $env
+     */
+    public function __construct(FormFactoryInterface $formBuilder, \Swift_Mailer $mailer, Environment $env) {
 
         $this->formBuilder = $formBuilder;
-        $this->em = $em;
-        $this->request = $request;
-        $this->session = $session;
         $this->mailer = $mailer;
         $this->env = $env;
     }

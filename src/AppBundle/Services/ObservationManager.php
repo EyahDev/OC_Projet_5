@@ -4,12 +4,14 @@ namespace AppBundle\Services;
 
 use AppBundle\Entity\Observation;
 use AppBundle\Entity\User;
+use AppBundle\Form\Type\Observations\CreateObservationType;
+use AppBundle\Form\Type\Observations\ModifObservationByObserverType;
+use AppBundle\Form\Type\Observations\ModifObservationType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ObservationManager
@@ -17,8 +19,9 @@ class ObservationManager
     private $formBuilder;
     private $em;
     private $request;
-    private $session;
-    private $container;
+    private $observationsDirectory;
+    private $paginator;
+    private $security;
     private $filesystem;
     private $validator;
 
@@ -27,20 +30,20 @@ class ObservationManager
      * @param FormFactoryInterface $formBuilder
      * @param EntityManagerInterface $em
      * @param RequestStack $request
-     * @param SessionInterface $session
-     * @param ContainerInterface $container
+     * @param AuthorizationCheckerInterface $security
      * @param Filesystem $filesystem
      * @param ValidatorInterface $validator
      */
     public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
-                                RequestStack $request, SessionInterface $session,
-                                ContainerInterface $container, Filesystem $filesystem,
-                                ValidatorInterface $validator) {
+                                RequestStack $request, $observationsDirectory, $paginator, AuthorizationCheckerInterface $security, Filesystem $filesystem,
+                                ValidatorInterface $validator)
+    {
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
-        $this->session = $session;
-        $this->container = $container;
+        $this->observationsDirectory = $observationsDirectory;
+        $this->paginator = $paginator;
+        $this->security = $security;
         $this->filesystem = $filesystem;
         $this->validator = $validator;
     }
@@ -53,7 +56,8 @@ class ObservationManager
      * @param $slug
      * @return int
      */
-    public function getObservationsForJan($slug) {
+    public function getObservationsForJan($slug)
+    {
         $result = $this->em->getRepository('AppBundle:Observation')->getObservationForJan($slug);
 
         return count($result);
@@ -65,7 +69,8 @@ class ObservationManager
      * @param $slug
      * @return int
      */
-    public function getObservationsForFev($slug) {
+    public function getObservationsForFev($slug)
+    {
         $result = $this->em->getRepository('AppBundle:Observation')->getObservationForFev($slug);
 
         return count($result);
@@ -77,7 +82,8 @@ class ObservationManager
      * @param $slug
      * @return int
      */
-    public function getObservationsForMarch($slug) {
+    public function getObservationsForMarch($slug)
+    {
         $result = $this->em->getRepository('AppBundle:Observation')->getObservationForMarch($slug);
 
         return count($result);
@@ -89,7 +95,8 @@ class ObservationManager
      * @param $slug
      * @return int
      */
-    public function getObservationsForApril($slug) {
+    public function getObservationsForApril($slug)
+    {
         $result = $this->em->getRepository('AppBundle:Observation')->getObservationForApril($slug);
 
         return count($result);
@@ -101,7 +108,8 @@ class ObservationManager
      * @param $slug
      * @return int
      */
-    public function getObservationsForMay($slug) {
+    public function getObservationsForMay($slug)
+    {
         $result = $this->em->getRepository('AppBundle:Observation')->getObservationForMay($slug);
 
         return count($result);
@@ -113,7 +121,8 @@ class ObservationManager
      * @param $slug
      * @return int
      */
-    public function getObservationsForJune($slug) {
+    public function getObservationsForJune($slug)
+    {
         $result = $this->em->getRepository('AppBundle:Observation')->getObservationForJune($slug);
 
         return count($result);
@@ -125,7 +134,8 @@ class ObservationManager
      * @param $slug
      * @return int
      */
-    public function getObservationsForJuly($slug) {
+    public function getObservationsForJuly($slug)
+    {
         $result = $this->em->getRepository('AppBundle:Observation')->getObservationForJuly($slug);
 
         return count($result);
@@ -137,7 +147,8 @@ class ObservationManager
      * @param $slug
      * @return int
      */
-    public function getObservationsForAug($slug) {
+    public function getObservationsForAug($slug)
+    {
         $result = $this->em->getRepository('AppBundle:Observation')->getObservationForAug($slug);
 
         return count($result);
@@ -149,7 +160,8 @@ class ObservationManager
      * @param $slug
      * @return int
      */
-    public function getObservationsForSept($slug) {
+    public function getObservationsForSept($slug)
+    {
         $result = $this->em->getRepository('AppBundle:Observation')->getObservationForSept($slug);
 
         return count($result);
@@ -161,7 +173,8 @@ class ObservationManager
      * @param $slug
      * @return int
      */
-    public function getObservationsForOct($slug) {
+    public function getObservationsForOct($slug)
+    {
         $result = $this->em->getRepository('AppBundle:Observation')->getObservationForOct($slug);
 
         return count($result);
@@ -173,7 +186,8 @@ class ObservationManager
      * @param $slug
      * @return int
      */
-    public function getObservationsForNov($slug) {
+    public function getObservationsForNov($slug)
+    {
         $result = $this->em->getRepository('AppBundle:Observation')->getObservationForNov($slug);
 
         return count($result);
@@ -185,7 +199,8 @@ class ObservationManager
      * @param $slug
      * @return int
      */
-    public function getObservationsForDec($slug) {
+    public function getObservationsForDec($slug)
+    {
         $result = $this->em->getRepository('AppBundle:Observation')->getObservationForDec($slug);
 
         return count($result);
@@ -201,7 +216,8 @@ class ObservationManager
      * @param $criteria
      * @return array
      */
-    public function getObservationsByReferenceName($criteria) {
+    public function getObservationsByReferenceName($criteria)
+    {
         // Récupération des observations pas nom de scientifique
         return $this->em->getRepository('AppBundle:Observation')->getObservationBySpecies($criteria);
     }
@@ -212,7 +228,8 @@ class ObservationManager
      * @param $criteria
      * @return array
      */
-    public function getObservationsByVernacular($criteria) {
+    public function getObservationsByVernacular($criteria)
+    {
         // Récupération des observations pas nom commun
         return $this->em->getRepository('AppBundle:Observation')->getObservationByVernacularName($criteria);
     }
@@ -223,7 +240,8 @@ class ObservationManager
      * @param $criteria
      * @return array
      */
-    public function getObservationsByType($criteria) {
+    public function getObservationsByType($criteria)
+    {
         // Récupération des observations par ordre
         return $this->em->getRepository('AppBundle:Observation')->getObservationByType($criteria);
     }
@@ -234,7 +252,8 @@ class ObservationManager
      * @param $criteria
      * @return array
      */
-    public function getObservationsByFamily($criteria) {
+    public function getObservationsByFamily($criteria)
+    {
         // Récupération des observations par famille
         return $this->em->getRepository('AppBundle:Observation')->getObservationByFamily($criteria);
     }
@@ -247,10 +266,11 @@ class ObservationManager
      * @param $user
      * @return array
      */
-    public function validatedObservationsByUser($user) {
+    public function validatedObservationsByUser($user)
+    {
         // Récupération des observations validées pour l'utilisateur classique
         $validatedObservationsByUser = $this->em->getRepository('AppBundle:Observation')->getValidatedObservationsByUser($user);
-    
+
         return $validatedObservationsByUser;
     }
 
@@ -260,7 +280,8 @@ class ObservationManager
      * @param $user
      * @return array
      */
-    public function refusedObservationsByUser($user) {
+    public function refusedObservationsByUser($user)
+    {
         // Récupération des Observations refusées pour l'utilisateur classique
         $refusedObservationsByUser = $this->em->getRepository('AppBundle:Observation')->getRefusedObservationsByUser($user);
 
@@ -273,7 +294,8 @@ class ObservationManager
      * @param $user
      * @return array
      */
-    public function refusedObservationsByValidator($user) {
+    public function refusedObservationsByValidator($user)
+    {
         // Récupération des Observations refusées par l'utilisateur pro
         $refusedObservationsByValidator = $this->em->getRepository('AppBundle:Observation')->getRefusedObservationsByValidator($user);
 
@@ -286,23 +308,25 @@ class ObservationManager
      * @param $user
      * @return array
      */
-    public function validatedObservationsByValidator($user) {
+    public function validatedObservationsByValidator($user)
+    {
         // Récupération des Observations validées par l'utilisateur pro
         $validatedObservationsByValidator = $this->em->getRepository('AppBundle:Observation')->getValidatedObservationsByValidator($user);
 
         return $validatedObservationsByValidator;
     }
-    
+
     /**
      * Récupération de toutes les observations non validées
      *
      * @return Observation[]|array
      */
-    public function getObservationsUnvalidated() {
+    public function getObservationsUnvalidated()
+    {
         // Récupération de toutes observations existantes
         $observations = $this->em->getRepository('AppBundle:Observation')->findBy(array('validate' => null));
         // récupère le service knp paginator
-        $paginator  = $this->container->get('knp_paginator');
+        $paginator = $this->paginator;
         // retourne les observations paginées selon la page passée en get
         return $paginator->paginate(
             $observations, /* query NOT result */
@@ -317,7 +341,8 @@ class ObservationManager
      *
      * @return Observation[]|array
      */
-    public function getObservationsValidated() {
+    public function getObservationsValidated()
+    {
         // Récupération de toutes les observations validées
         $observations = $this->em->getRepository('AppBundle:Observation')->findBy(array('validate' => true));
 
@@ -325,7 +350,8 @@ class ObservationManager
         return $observations;
     }
 
-    public function getSpeciesObserved() {
+    public function getSpeciesObserved()
+    {
         // Récupération du nombre d'espèces observées
         $speciesObserved = $this->em->getRepository('AppBundle:Observation')->getSpeciesObserved();
 
@@ -339,7 +365,8 @@ class ObservationManager
      * @param $id
      * @return Observation|null|object
      */
-    public function getObservation($id) {
+    public function getObservation($id)
+    {
         // Récupération d'une observation par son id
         $observation = $this->em->getRepository('AppBundle:Observation')->find($id);
 
@@ -353,7 +380,8 @@ class ObservationManager
      * @param $user
      * @return Observation[]|array
      */
-    public function getObservationsByUser($user) {
+    public function getObservationsByUser($user)
+    {
         // Récupération des observation par utilisateur
         $observations = $this->em->getRepository('AppBundle:Observation')->findBy(array('observer' => $user));
 
@@ -366,9 +394,10 @@ class ObservationManager
      *
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function getObservationForm() {
+    public function getObservationForm()
+    {
         // Récupération du formulaire de saisie d'observaition
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\CreateObservationType');
+        $form = $this->formBuilder->create(CreateObservationType::class);
 
         // Retourne le formulaire
         return $form;
@@ -380,11 +409,12 @@ class ObservationManager
      * @param $id
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function getObservationForValidationForm($id) {
+    public function getObservationForValidationForm($id)
+    {
         $observation = $this->getObservation($id);
 
         // Récupération du formulaire de saisie d'observaition
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\ModifObservationType', $observation);
+        $form = $this->formBuilder->create(ModifObservationType::class, $observation);
 
         // Retourne le formulaire
         return $form;
@@ -396,11 +426,12 @@ class ObservationManager
      * @param $id
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function getObservationForModifyForm($id) {
+    public function getObservationForModifyForm($id)
+    {
         $observation = $this->getObservation($id);
 
         // Récupération du formulaire de saisie d'observaition
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\ModifObservationByObserverType', $observation);
+        $form = $this->formBuilder->create(ModifObservationByObserverType::class, $observation);
 
         // Retourne le formulaire
         return $form;
@@ -411,14 +442,15 @@ class ObservationManager
      *
      * @param Observation $observation
      */
-    public function setUpdatedObservation(Observation $observation, $existingFile) {
+    public function setUpdatedObservation(Observation $observation, $existingFile)
+    {
         // Récupération du chemin du dossier de stockage
-        $path = $this->container->getParameter('observations_directory');
+        $path = $this->observationsDirectory;
 
         // Récupération du nouveau fichier
         $newFile = $observation->getPhotoPath();
 
-        if ($newFile == null) {
+        if ($newFile === null) {
             // Ajout de l'image par défault
             $observation->setPhotoPath($existingFile);
 
@@ -429,20 +461,20 @@ class ObservationManager
             }
 
             // Renommage du fichier
-            $fileName = md5(uniqid()).'.'.$newFile->guessExtension();
+            $fileName = md5(uniqid()) . '.' . $newFile->guessExtension();
 
             // Déplacement du fichier dans le dossier des observations
             $newFile->move($path, $fileName);
 
             // Récupération du nouveau chemin
-            $filePath = "uploads/observations_files/".$fileName;
+            $filePath = "uploads/observations_files/" . $fileName;
 
             // Ajout des images
             $observation->setPhotoPath($filePath);
         }
 
         // Vérification du role de l'utilsateur qui modifie l'observation
-        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_PROFESSIONAL')) {
+        if ($this->security->isGranted('ROLE_PROFESSIONAL')) {
             // Nouvelle date de validation suite à la modification par un pro ou un admin
             $observation->setValidateDate(new \DateTime());
         } else {
@@ -462,7 +494,8 @@ class ObservationManager
      * @param Observation $observation
      * @param User $user
      */
-    public function setRefusedObservation(Observation $observation, User $user) {
+    public function setRefusedObservation(Observation $observation, User $user)
+    {
         // Hydratation des valeurs de refus
         $observation->setValidateDate(new \DateTime());
         $observation->setValidate(false);
@@ -479,14 +512,15 @@ class ObservationManager
      * @param Observation $observation
      * @param User $user
      */
-    public function setAcceptedObservation(Observation $observation, User $user) {
+    public function setAcceptedObservation(Observation $observation, User $user)
+    {
         // Hydratation des valeurs d'acceptation
         $observation->setValidateDate(new \DateTime());
         $observation->setValidate(true);
         $observation->setValidator($user);
 
         // Remplissage du ordre et de la famille si il est null
-        if ($observation->getType() == null && $observation->getFamily() == null) {
+        if ($observation->getType() === null && $observation->getFamily() === null) {
             $observation->setType($observation->getSpecies()->getType());
             $observation->setFamily($observation->getSpecies()->getFamily());
         }
@@ -502,7 +536,8 @@ class ObservationManager
      * @param $observation
      * @param User $user
      */
-    public function setNewObservation($observation, User $user) {
+    public function setNewObservation($observation, User $user)
+    {
         // Création d'une nouvelle Observation
         $newObservation = new Observation();
 
@@ -521,34 +556,34 @@ class ObservationManager
         // Définition de la date de la nouvelle observation
         $newObservation->setObservationDate(new \DateTime());
 
-        if ($observation['photoPath'] != null) {
+        if ($observation['photoPath'] !== null) {
             // Récupération du fichier original
             $file = $observation['photoPath'];
 
             // Récupération du chemin du dossier de stockage
-            $path = $this->container->getParameter('observations_directory');
+            $path = $this->observationsDirectory;
 
             // Renommage du fichier
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
             // Déplacement du fichier dans le dossiers des observations
             $file->move($path, $fileName);
 
             // Ajout de l'image dans l'observation
-            $filePath = "uploads/observations_files/".$fileName;
+            $filePath = "uploads/observations_files/" . $fileName;
 
             // Ajout des images
             $newObservation->setPhotoPath($filePath);
         }
 
         // Vérification si le nom commun ou le nom scientifique a été choisi
-        if ($observation['vernacularName'] != null) {
+        if ($observation['vernacularName'] !== null) {
             $newObservation->setSpecies($observation['vernacularName']);
-        } elseif ($observation['species'] != null) {
+        } elseif ($observation['species'] !== null) {
             $newObservation->setSpecies($observation['species']);
         }
 
-        if ($newObservation->getSpecies() != null) {
+        if ($newObservation->getSpecies() !== null) {
             // Ajout du type dans l'observation
             $newObservation->setType($newObservation->getSpecies()->getType());
 
@@ -559,7 +594,7 @@ class ObservationManager
             $newObservation->getSpecies()->addObservation($newObservation);
 
             // Autovalidation pour les pro et admin
-            if ($this->container->get('security.authorization_checker')->isGranted('ROLE_PROFESSIONAL')) {
+            if ($this->security->isGranted('ROLE_PROFESSIONAL')) {
                 $newObservation->setValidate(true);
                 $newObservation->setValidateDate(new \DateTime());
                 $newObservation->setValidator($user);
@@ -569,12 +604,13 @@ class ObservationManager
         $this->em->persist($newObservation);
         $this->em->flush();
     }
+
     public function getCurrentUserPaginatedObservationsList(User $user)
     {
         // récupère la liste des observations
         $observationList = $user->getObservations();
         // récupère le service knp paginator
-        $paginator  = $this->container->get('knp_paginator');
+        $paginator = $this->paginator;
         // retourne les observations paginées selon la page passée en get
         return $paginator->paginate(
             $observationList, /* query NOT result */
@@ -582,13 +618,14 @@ class ObservationManager
             5/*limit per page*/
         );
     }
+
     public function validateObservation(Observation $observation)
     {
         $errors = $this->validator->validate($observation);
         if (count($errors) > 0) {
             $errorsString = "";
             foreach ($errors as $error) {
-                $errorsString .=$error->getmessage().'<br>';
+                $errorsString .= $error->getmessage() . '<br>';
             }
             return $errorsString;
         }

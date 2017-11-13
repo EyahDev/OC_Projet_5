@@ -2,25 +2,27 @@
 
 namespace AppBundle\Services;
 
-use AppBundle\Entity\Observation;
-use Doctrine\ORM\EntityManagerInterface;
+use AppBundle\Form\Type\Observations\SearchObservationType;
 use Symfony\Component\Form\FormFactoryInterface;
 
 class MapsManager
 {
-    private $em;
     private $formBuilder;
     private $observationManager;
 
-    public function __construct(EntityManagerInterface $entityManager, FormFactoryInterface $formFactory, ObservationManager $observationManager) {
-        $this->em = $entityManager;
+    /**
+     * MapsManager constructor.
+     * @param FormFactoryInterface $formFactory
+     * @param ObservationManager $observationManager
+     */
+    public function __construct( FormFactoryInterface $formFactory, ObservationManager $observationManager) {
         $this->formBuilder = $formFactory;
         $this->observationManager = $observationManager;
     }
 
     public function searchObservationsForm() {
         // Récupération du formulaire de recherche
-        $form = $this->formBuilder->create('AppBundle\Form\Observations\SearchObservationType');
+        $form = $this->formBuilder->create(SearchObservationType::class);
 
         // Retourne le formulaire
         return $form;
@@ -31,7 +33,7 @@ class MapsManager
         $results = array();
 
         // Recherche par nom de reference
-        if ($criteria['reference'] != null) {
+        if ($criteria['reference'] !== null) {
             // Récupération de la recherche
             $queryReference = $this->observationManager->getObservationsByReferenceName($criteria);
 
@@ -42,7 +44,7 @@ class MapsManager
         }
 
         // Recherche par nom commun
-        if ($criteria['vernacular'] != null) {
+        if ($criteria['vernacular'] !== null) {
             // Récupération de la recherche
             $queryVernacular = $this->observationManager->getObservationsByVernacular($criteria);
 
@@ -53,7 +55,7 @@ class MapsManager
         }
 
         // Recherche par ordre
-        if ($criteria['type'] != null) {
+        if ($criteria['type'] !== null) {
             // Récupération de la recherche
             $queryType = $this->observationManager->getObservationsByType($criteria);
 
@@ -64,7 +66,7 @@ class MapsManager
         }
 
         // Recherche par famille
-        if ($criteria['family'] != null) {
+        if ($criteria['family'] !== null) {
             // Récupération de la recherche
             $queryFamily = $this->observationManager->getObservationsByFamily($criteria);
 

@@ -2,14 +2,11 @@
 
 namespace AppBundle\Services;
 
-
 use AppBundle\Entity\User;
-
-use AppBundle\Form\Security\LostPasswordType;
-use AppBundle\Form\Security\ResetPasswordType;
+use AppBundle\Form\Type\Security\LostPasswordType;
+use AppBundle\Form\Type\Security\ResetPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -19,19 +16,26 @@ class SecurityManager
 {
     private $formBuilder;
     private $em;
-    private $request;
     private $session;
     private $mailer;
     private $env;
     private $encoder;
 
+    /**
+     * SecurityManager constructor.
+     * @param FormFactoryInterface $formBuilder
+     * @param EntityManagerInterface $em
+     * @param Session $session
+     * @param \Swift_Mailer $mailer
+     * @param Environment $env
+     * @param UserPasswordEncoderInterface $encoder
+     */
     public function __construct(FormFactoryInterface $formBuilder, EntityManagerInterface $em,
-                                RequestStack $request, Session $session, \Swift_Mailer $mailer,
+                                Session $session, \Swift_Mailer $mailer,
                                 Environment $env, UserPasswordEncoderInterface $encoder) {
 
         $this->formBuilder = $formBuilder;
         $this->em = $em;
-        $this->request = $request;
         $this->session = $session;
         $this->mailer = $mailer;
         $this->env = $env;
@@ -78,7 +82,7 @@ class SecurityManager
         // récupère l'utilisateur grace a son mail
         $user = $this->em->getRepository('AppBundle:User')->findOneBy(array('email' => $email));
         // teste si l'utilisateur existe
-        if ($user != false) {
+        if ($user !== false) {
             // teste si le compte est actif
             if($user->getEnabled()) {
                 // retourne l'utilisateur

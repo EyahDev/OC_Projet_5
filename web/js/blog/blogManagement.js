@@ -521,6 +521,7 @@ $(document).ready(function () {
                     $a.prev().modal('show');
                     // en cas de fermeture  de la modale sans modification
                     $a.prev().on('hidden.bs.modal', function (e) {
+                        tinymce.remove();
                         // supprime la modale d'édition
                         $a.prev().replaceWith('');
                     });
@@ -547,6 +548,7 @@ $(document).ready(function () {
                                 setTimeout(removeFlashMsg, 5000);
                                 // a la fermeture de la modale
                                 $a.prev().on('hidden.bs.modal', function (e) {
+                                    tinymce.remove();
                                     // efface la modale d'édition
                                     $a.prev().replaceWith('');
                                     // modifie la ligne du tableau qui vient d'etre modifié
