@@ -38,7 +38,6 @@ class ObservationManager
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->request = $request;
-        $this->session = $session;
         $this->container = $container;
         $this->filesystem = $filesystem;
         $this->validator = $validator;

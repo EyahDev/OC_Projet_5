@@ -198,7 +198,7 @@ class BlogManager
         return $post;
     }
 
-    public function getPostsByCategory($category) {
+    public function getPostsByCategory(Category $category) {
         // Récupération des articles par sa catégorie
         $posts = $this->em->getRepository('AppBundle:Post')->findByCategory($category->getId());
         // Retourne les articles associés à la catégorie
