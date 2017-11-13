@@ -13,35 +13,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UpdatePostType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function getParent()
     {
-        $builder
-            ->add('title', TextType::class, array(
-                'label' => "Titre de l'article",
-                'invalid_message' => 'Veuillez saisir un titre d\'article valide.'
-            ))
-            ->add('category', EntityType::class, array(
-                'class' => 'AppBundle:Category',
-                'label' => "Sélectionnez une catégorie",
-                'choice_label' => 'name',
-                'invalid_message' => 'Veuillez saisir une catégorie valide.',
-            ))
-            ->add('content', TextareaType::class, array(
-                'label' => "Contenu de l'article",
-                'invalid_message' => 'Veuillez saisir un contenu valide.'
-            ))
-            ->add('imagePath', FileType::class, array(
-                'label' => 'Sélectionner une image',
-                'invalid_message' => 'Veuillez sélectionner un fichier valide.',
-                'data_class' => null,
-                'required' => false
-            ))
-            ->add('save', SubmitType::class);
+        return CreatePostType::class;
     }
-    
+
     /**
      * {@inheritdoc}
      */
