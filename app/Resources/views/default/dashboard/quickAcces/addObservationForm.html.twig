@@ -1,14 +1,31 @@
 <div class="container-fluid">
     <div class="formulaire">
             {{ form_start(createObservationForm) }}
-            {{ form_errors(createObservationForm) }}
 
-        <span class="custom-dropdown" style="margin-bottom: 10px">
-            {{ form_row(createObservationForm.species )}}
+        {% if not createObservationForm.vars.valid %}
+            <div class="alert alert-danger formError">
+                {{ form_errors(createObservationForm) }}
+                {{ form_errors(createObservationForm.species )}}
+                {{ form_errors(createObservationForm.vernacularName) }}
+                {{ form_errors(createObservationForm.birdNumber) }}
+                {{ form_errors(createObservationForm.eggsNumber) }}
+                {{ form_errors(createObservationForm.eggsDescription) }}
+                {{ form_errors(createObservationForm.latitude) }}
+                {{ form_errors(createObservationForm.longitude) }}
+                {{ form_errors(createObservationForm.altitude) }}
+                {{ form_errors(createObservationForm.observationDescription) }}
+                {{ form_errors(createObservationForm.photoPath) }}
+            </div>
+        {% endif %}
+
+        <span class="custom-dropdown">
+            {{ form_label(createObservationForm.species )}}
+            {{ form_widget(createObservationForm.species )}}
         </span>
 
         <span class="custom-dropdown">
-            {{ form_row(createObservationForm.vernacularName) }}<br/>
+            {{ form_label(createObservationForm.vernacularName) }}
+            {{ form_widget(createObservationForm.vernacularName) }}
         </span>
 
         <div class="birdNumber">
@@ -18,7 +35,6 @@
 
             <span class="custom-spinner">
                 {{ form_widget(createObservationForm.birdNumber) }}<br/>
-                {{ form_errors(createObservationForm.birdNumber) }}
             </span>
         </div>
 
@@ -28,12 +44,10 @@
             </span>
             <span class="custom-spinner">
                 {{ form_widget(createObservationForm.eggsNumber) }}<br/>
-                {{ form_errors(createObservationForm.eggsNumber) }}
             </span>
         </div>
         {{ form_label(createObservationForm.eggsDescription) }}
         {{ form_widget(createObservationForm.eggsDescription) }}<br/>
-        {{ form_errors(createObservationForm.eggsDescription) }}
 
         <div id="map" style="width: 100%; height: 250px"></div>
 
@@ -41,24 +55,19 @@
 
         {{ form_label(createObservationForm.latitude) }}
         {{ form_widget(createObservationForm.latitude) }}<br/>
-        {{ form_errors(createObservationForm.latitude) }}
 
         {{ form_label(createObservationForm.longitude) }}
         {{ form_widget(createObservationForm.longitude) }}<br/>
-        {{ form_errors(createObservationForm.longitude) }}
 
         {{ form_label(createObservationForm.altitude) }}
         {{ form_widget(createObservationForm.altitude) }}<br/>
-        {{ form_errors(createObservationForm.altitude) }}
 
         {{ form_label(createObservationForm.observationDescription) }}
         {{ form_widget(createObservationForm.observationDescription) }}<br/>
-        {{ form_errors(createObservationForm.observationDescription) }}
 
         <div class="photo">
         {{ form_label(createObservationForm.photoPath) }}
         {{ form_widget(createObservationForm.photoPath) }}<br/>
-        {{ form_errors(createObservationForm.photoPath) }}
         </div>
 
         {{ form_widget(createObservationForm.Envoyer) }}
