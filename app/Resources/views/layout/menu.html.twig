@@ -13,23 +13,6 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="{{ path("homepage") }}">Accueil</a>
                 </li>
-                {% if not is_granted('ROLE_USER') %}
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">connexion</a>
-
-                    </li>
-                {% else %}
-                    <li class="nav-item dropdown">
-                        <div class="btn-group">
-                            <a class="nav-link js-scroll-trigger" href="{{ path("dashboard") }}">{{ app.user.username }}</a>
-                            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{ path('logout') }}">Déconnexion</a>
-                            </div>
-                        </div>
-                    </li>
-                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="{{ path("blog") }}">Blog</a>
                 </li>
@@ -52,6 +35,23 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="{{ path("homepage") }}#contact">Contact</a>
                 </li>
+                {% if not is_granted('ROLE_USER') %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">connexion</a>
+
+                    </li>
+                {% else %}
+                    <li class="nav-item dropdown">
+                        <div class="btn-group">
+                            <a class="nav-link js-scroll-trigger" href="{{ path("dashboard") }}">{{ app.user.username }}</a>
+                            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ path('logout') }}">Déconnexion</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

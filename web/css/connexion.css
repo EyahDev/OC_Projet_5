@@ -5,8 +5,14 @@
     font-size: 13px;
 }
 
-.close img{
+#connexionModal .close img{
+    margin-top: 10px;
+    margin-right: 10px;
     width: 30px;
+}
+
+#connexionModal a.btn.btn-default{
+    margin-bottom: 30px !important;
 }
 
 #connexionModal .btn {
@@ -16,7 +22,7 @@
     word-spacing: 1.5px;
     z-index: 0;
     padding: 6px 12px;
-    margin: auto;
+    margin: 0 2px 0 0 !important;
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 1px;
@@ -33,7 +39,6 @@
     background-image: none;
     border: 1px solid transparent;
     border-radius: 0;
-    box-shadow: 6px 8px 10px #DCDCDB !important;
 }
 
 #connexionModal form{
@@ -89,6 +94,10 @@
     padding-left: 15px;
 }
 
+#connexionModal p{
+    font-size: 13px;
+}
+
 #connexionModal h4{
     color: #f9f9f9 !important;
     font-family: 'Montserrat', sans-serif;
@@ -118,4 +127,10 @@
     color: #f9f9f9;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
+}
+
+@media (max-width: 420px){
+    #connexionModal .modal-dialog{
+        margin: 0;
+    }
 }
