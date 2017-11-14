@@ -24,7 +24,7 @@ class BanListener
         if ($userLogged !== 'anon.') {
             $user = $this->em->getRepository('AppBundle:User')->findOneBy(array("username" => $userLogged));
             if ($user->getEnabled() === false) {
-                throw new AccessDeniedHttpException('Compte desactivé');
+                throw new \Exception('Compte desactivé');
             }
         }
     }

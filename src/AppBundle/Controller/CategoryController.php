@@ -7,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class CategoryController extends Controller
@@ -19,6 +18,7 @@ class CategoryController extends Controller
      * @param BlogManager $blogManager
      * @param Request $request
      * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard/categorie/{slug}/edition/", name="edit_category")
      * @Method({"GET", "POST"})
@@ -62,13 +62,14 @@ class CategoryController extends Controller
                 'category' => $category
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
      * @param Request $request
      * @param BlogManager $blogManager
      * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard/creer-categorie", name="create_category")
      * @Method("POST")
@@ -102,7 +103,7 @@ class CategoryController extends Controller
                 return new Response("Nouvelle catégorie ajoutée");
             }
         }
-        throw new AccessDeniedHttpException('Vous ne pouvez pas acceder a cette page');
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -151,6 +152,7 @@ class CategoryController extends Controller
      * @param $slug
      * @param BlogManager $blogManager
      * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard/categorie/{slug}/suppression", name="category_delete")
      * @Method("GET")
@@ -163,7 +165,7 @@ class CategoryController extends Controller
             // envoie le message de confirmation pour l'afficher en JS
             return new Response("Catégorie supprimée");
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /* PAGINATEUR */
@@ -172,6 +174,7 @@ class CategoryController extends Controller
      * @param Request $request
      * @param BlogManager $blogManager
      * @return Response
+     * @throws \Exception
      *
      * @Route("dashboard/categories", name="pagination_categories")
      * @Method("GET")
@@ -186,6 +189,6 @@ class CategoryController extends Controller
                 'categoriesList' => $categoriesList,
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 }

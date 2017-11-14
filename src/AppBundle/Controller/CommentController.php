@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
@@ -19,6 +18,7 @@ class CommentController extends Controller
      * @param CommentManager $commentManager
      * @param Request $request
      * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard/signalement/{id}/approbation", name="comment_approuved")
      * @Method("GET")
@@ -31,7 +31,7 @@ class CommentController extends Controller
             // envoie le message de confirmation pour l'afficher en JS
             return new Response("Commentaire approuvé");
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -39,6 +39,7 @@ class CommentController extends Controller
      * @param CommentManager $commentManager
      * @param Request $request
      * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard/signalement/{id}/suppression", name="comment_delete")
      * @Method("GET")
@@ -51,7 +52,7 @@ class CommentController extends Controller
             // envoie le message de confirmation pour l'afficher en JS
             return new Response("Commentaire supprimé");
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -59,6 +60,7 @@ class CommentController extends Controller
      * @param Request $request
      * @param $slugPost
      * @return Response
+     * @throws \Exception
      *
      * @Route("/create-comm/{slugPost}", name="create-comm")
      * @Method({"GET", "POST"})
@@ -98,7 +100,7 @@ class CommentController extends Controller
                 'commentForm' => $commentForm->createView()
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -153,7 +155,7 @@ class CommentController extends Controller
                 'replyForm' => $replyForm->createView()
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -175,7 +177,7 @@ class CommentController extends Controller
             // Envoi le message flash pour l'affichage en JS
             return new Response($message);
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
 
@@ -183,6 +185,7 @@ class CommentController extends Controller
      * @param Request $request
      * @param CommentManager $commentManager
      * @return Response
+     * @throws \Exception
      *
      * @Route("dashboard/moderation-commentaires", name="pagination_comments_moderation")
      * @Method("GET")
@@ -197,7 +200,7 @@ class CommentController extends Controller
                 'commentsFlagged' => $commentsFlagged,
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -205,6 +208,7 @@ class CommentController extends Controller
      * @param $slugPost
      * @param BlogManager $blogManager
      * @return Response
+     * @throws \Exception
      *
      * @Route("Blog/{slugPost}/comments", name="reload_comments_list")
      * @Method("GET")
@@ -219,6 +223,6 @@ class CommentController extends Controller
                 'commentsList' => $commentsList
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 }

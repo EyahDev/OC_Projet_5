@@ -7,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class FAQController extends Controller
@@ -35,6 +34,7 @@ class FAQController extends Controller
      * @param FAQManager $faqManager
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
+     *
      * @route("/faq-management/new-faq", name="new-faq")
      * @Method({"GET", "POST"})
      */
@@ -66,7 +66,7 @@ class FAQController extends Controller
                 'newFaqForm' => $newFaqForm->createView()
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -74,6 +74,7 @@ class FAQController extends Controller
      * @param FAQManager $faqManager
      * @param $faqId
      * @return Response
+     * @throws \Exception
      *
      * @route("/faq-management/edit/{faqId}", name="edit-faq")
      * @Method({"GET", "POST"})
@@ -107,7 +108,7 @@ class FAQController extends Controller
                 'faqId' => $faqId
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -131,13 +132,14 @@ class FAQController extends Controller
             // envoie le message de confirmation pour l'afficher en JS
             return new Response($message);
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
      * @param Request $request
      * @param FAQManager $FAQManager
      * @return Response
+     * @throws \Exception
      *
      * @Route("/faq-management/pagination", name="pagination_faq")
      * @Method("GET")
@@ -150,6 +152,6 @@ class FAQController extends Controller
                 'paginationFaq' => $paginationFaq
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 }

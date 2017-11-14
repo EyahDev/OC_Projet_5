@@ -7,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
@@ -18,6 +17,7 @@ class ContactController extends Controller
      * @param ContactManager $contactManager
      * @param ValidatorInterface $validator
      * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard-nous-ecrire", name="contact_us")
      * @Method("POST")
@@ -51,6 +51,6 @@ class ContactController extends Controller
             }
             return new Response("Une erreur est survenue, veuillez réessayer", 500);
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 }

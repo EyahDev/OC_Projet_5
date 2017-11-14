@@ -108,7 +108,6 @@ class DefaultController extends Controller
      * @param SessionInterface $session
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
->>>>>>> debuggage
      * @Route("/recherche-observations", name="rechercheObservations")
      * @Method({"GET", "POST"})
      */
