@@ -1,7 +1,27 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link href="{{ asset('css/error.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-error403 vertical-center">
+            <div class="container">
+                {#<img src="{{ asset('img/error/erreur404.gif') }}" alt="error404">#}
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
 {% block body %}
-    <div class="text-center alert alert-danger">
+    <div class="container text-center alert alert-danger">
         <h1>Accès non autorisé</h1>
 
         {% if exception.message == 'Compte desactivé' %}
@@ -11,6 +31,10 @@
         {% else %}
             <h2>Vous ne pouvez pas accéder à cette page.</h2>
         {% endif %}
-    </div>
     <p class="text-center"><a href="{{ path('homepage') }}">Retour à l'accueil</a></p>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/menu.js') }}"></script>
 {% endblock %}

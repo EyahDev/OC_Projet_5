@@ -39,16 +39,6 @@ td.action a:first-child{
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
-/*a.collapsed .titre{*/
-    /*position: relative;*/
-/*}*/
-
-/*a.collapsed .fleche{*/
-    /*position: absolute;*/
-    /*left: 90%;*/
-    /*bottom: 10%;*/
-/*}*/
-
 .card-header::after {
     content: "";
     position: absolute;
@@ -68,12 +58,11 @@ td.action a:first-child{
     top: 30px;
 }
 
-/*.rotate{*/
-    /*transform-origin: 72% 10%;*/
-    /*transform: rotateY( 180deg );*/
-    /*-webkit-transform:rotate(180deg);*/
-    /*-moz-transform:rotate(180deg);*/
-/*}*/
+@media (max-width: 560px){
+    .card-header::after {
+        display: none;
+    }
+}
 
 .close img{
     width: 30px;
@@ -298,7 +287,7 @@ input#write_post_imagePath{
     display: none;
 }
 
-/*----------------------------------------------- Gestion Categories ----------------------------------------------- */
+/*----------------------------------------------- Gestion Articles ----------------------------------------------- */
 #editPost form{
     width: 80%;
     margin: auto;
@@ -370,6 +359,14 @@ select.form-control {
     top: 53%; margin-top: -.5em;
 }
 
+textarea#update_post_content{
+    height: 200px !important;
+}
+
+#collapseManagePosts .modal-body{
+    text-align: center !important;
+}
+
 @media (max-width: 992px){
     #editPost form{
         width: 90%;
@@ -418,6 +415,10 @@ td{
     text-align: center !important;
 }
 
+#collapseManageCategories .modal-body{
+    text-align: center !important;
+}
+
 @media (max-width: 768px){
     #choiceCategory form {
         width: 100%;
@@ -456,10 +457,22 @@ a.btn.btn-default.btn-disable-account{
     border-radius: 0;
 }
 
+button#change_role_save{
+    margin-top: 20px;
+}
+
+#collapseUsersManagement .modal-body{
+    text-align: center !important;
+}
+
 /*----------------------------------------------- FAQ ----------------------------------------------- */
 
 #collapseFaqManagement{
     width: 100%;
+}
+
+#collapseFaqManagement .modal-body{
+    text-align: center !important;
 }
 
 a.btn.btn-default.btn-add-faq{
@@ -515,10 +528,45 @@ button#new_faq_save.btn.btn-primary{
     border-radius: 0;
 }
 
+button#edit_faq_save.btn.btn-primary{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
 #collapseFaqManagement form label{
    text-align: left !important;
 }
 
+#collapseFaqManagement .modal-body label{
+    text-align: left !important;
+    margin-top: 10px;
+}
+
+textarea#edit_faq_answer.form-control {
+    height: 100px !important;
+}
 
 textarea#new_faq_answer.form-control {
     height: 100px !important;
