@@ -22,15 +22,12 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container text-center alert alert-danger">
-        <h1>Oups ! Une erreur est survenue !</h1>
-        <h2>Le serveur a retourné l'erreur suivante :</h2>
-        <h2>"{{ status_code }} {{ status_text }}".</h2>
-        <h3>Message d'erreur : {{ exception.message }}</h3>
-        <p>
-            Veuillez nous excuser pour la gêne occasionnée. Si le problème persiste, n'hesitez pas à nous contacter pour nous signaler cette erreur.
-        </p>
-        <p class="text-center"><a href="{{ path('homepage') }}">Retour à l'accueil</a></p>
+    <div class="container text-center">
+        <h5>Une erreur est survenue.</h5>
+        <h5>Message d'erreur : {{ exception.message }}</h5>
+        <h5>Nous vous prions de nous excuser pour la gêne occassionnée.</h5>
+        <p>Si le problème persiste n'hésitez pas à nous signaler cette erreur.</p>
+        <p>Nous vous invitons à revenir sur  <a href="{{ path('homepage') }}">la page d'accueil</a>.</p>
     </div>
 
 {% endblock %}

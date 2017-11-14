@@ -22,14 +22,10 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            {# ... #}
-        {% endif %}
-        <p style="text-align: center">
-            Cette page n'existe plus ou bien n'a pas encore été crée.</br>
-            Nous vous prions de nous excuser pour la gène occasionnée.</br>
-            Nous vous invitons à revenir sur <a href="{{ path('homepage') }}">la page d'accueil</a>.
+    <div class="container text-center">
+        <h5>Cette page n'existe plus ou bien n'a pas été créée.</h5>
+        <h5>Nous vous prions de nous excuser pour la gêne occassionnée.</h5>
+        <p>Nous vous invitons à revenir sur  <a href="{{ path('homepage') }}">la page d'accueil</a>.</p>
         </p>
     </div>
 {% endblock %}

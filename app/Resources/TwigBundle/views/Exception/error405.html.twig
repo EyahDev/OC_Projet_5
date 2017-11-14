@@ -6,7 +6,7 @@
 
 {% block header %}
     <header>
-        <div class="jumbotron-error403 vertical-center">
+        <div class="jumbotron-error405 vertical-center">
             <img class="logo-mobile" src="{{ asset('img/logo-pour-mobile.png') }}" alt="logo-nao-mobile">
             <div class="container">
                 {#<img src="{{ asset('img/error/erreur404.gif') }}" alt="error404">#}
@@ -22,17 +22,10 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container text-center alert alert-danger">
-        <h1>Accès non autorisé</h1>
-
-        {% if exception.message == 'Compte desactivé' %}
-            <h2>Compte désactivé</h2>
-            <p>Ce compte a été désactivé par l'administrateur. pour en savoir plus, <a href="{{ path('homepage', {'_fragment': 'contact'}) }}">contactez nous</a></p>
-            <p>ou <a class="btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">connectez vous avec un autre compte</a></p>
-        {% else %}
-            <h2>Vous ne pouvez pas accéder à cette page.</h2>
-        {% endif %}
-    <p class="text-center"><a href="{{ path('homepage') }}">Retour à l'accueil</a></p>
+    <div class="container text-center">
+        <h5>Vous ne pouvez pas accéder à cette page.</h5>
+        <h5>Nous vous prions de nous excuser pour la gêne occassionnée.</h5>
+        <p>Nous vous invitons à revenir sur  <a href="{{ path('homepage') }}">la page d'accueil</a>.</p>
     </div>
 {% endblock %}
 
