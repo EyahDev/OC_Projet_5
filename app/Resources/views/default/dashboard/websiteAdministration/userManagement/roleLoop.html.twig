@@ -1,0 +1,5 @@
+{% for role in user.roles %}
+    {% if role == 'ROLE_ADMIN' %}Administrateur{% endif %}
+    {% if role == 'ROLE_PROFESSIONAL' %}Professionnel{% endif %}
+    {% if role == 'ROLE_USER' %}Particulier{% endif %}
+{% endfor %}

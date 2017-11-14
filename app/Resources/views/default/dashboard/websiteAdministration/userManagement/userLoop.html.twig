@@ -6,13 +6,9 @@
         <td data-title="Date d'inscription">{{ user.signupDate | date("d/m/Y") }}</td>
         <td data-title="Nombre d'observations">{{ user.observations | length }}</td>
         <td data-title="Profil">
-            {#<div class="role-name">#}
-            {% for role in user.roles %}
-                {% if role == 'ROLE_ADMIN' %}Administrateur{% endif %}
-                {% if role == 'ROLE_PROFESSIONAL' %}Professionnel{% endif %}
-                {% if role == 'ROLE_USER' %}Particulier{% endif %}
-            {% endfor %}
-            {#</div>#}
+
+            {{ include(':default/dashboard/websiteAdministration/userManagement:roleLoop.html.twig') }}
+
         </td>
         <td data-title="Pro">
             {% if user.proPermission == true %}
