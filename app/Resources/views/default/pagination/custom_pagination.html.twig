@@ -1,4 +1,3 @@
-
 {% if pageCount > 1 %}
     <nav>
         <ul class="pagination">
@@ -23,12 +22,7 @@
                 </li>
             {% endif %}
 
-
-            {% for page in pagesInRange %}
-                <li class="page-item active">
-                    <span class="page-link current">{{ page }}</span>
-                </li>
-            {% endfor %}
+            {{ include(':default/pagination:currentPage.html.twig') }}
 
             {% if next is defined %}
                 <li class="page-item">

@@ -1,0 +1,101 @@
+{# accordéon particulier et professionnel #}
+<div id="commonFeatures" class="container"><hr>
+    <h3>Gestion de mon compte</h3>
+    <div id="accordionUserAndPro" role="tablist">
+        {# collapse mes informations #}
+        <div class="card">
+            <div class="card-header" role="tab" id="headingMyAccount">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" href="#collapseMyAccount" aria-expanded="false" aria-controls="collapseMyAccount">
+                        <div class="titre">
+                            Mes informations
+                        </div>
+
+                    </a>
+                </h5>
+            </div>
+
+            <div id="collapseMyAccount" class="collapse" role="tabpanel" aria-labelledby="headingMyAccount" data-parent="#accordionUserAndPro">
+                <div class="card-body">
+                    {% include 'default/dashboard/commonFeatures/myAccount/myAccount.html.twig' %}
+                </div>
+            </div>
+        </div>
+        {# collapse mes observations #}
+        <div class="card">
+            <div class="card-header" role="tab" id="headingMyObservations">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" href="#collapseMyObservations" aria-expanded="false" aria-controls="collapseMyObservations">
+                        <div class="titre">
+                            Mes observations
+                        </div>
+                    </a>
+                </h5>
+            </div>
+            <div id="collapseMyObservations" class="collapse" role="tabpanel" aria-labelledby="headingMyObservations" data-parent="#accordionUserAndPro">
+                <div class="card-body">
+                    {% include 'default/dashboard/commonFeatures/myObservations/myObservations.html.twig' %}
+                </div>
+            </div>
+        </div>
+
+        {# partie accessible uniquement pour les professionnels #}
+        {% if is_granted('ROLE_PROFESSIONAL') %}
+            {# collapse validation d'observations (profil pro et admin) #}
+            <div class="card">
+                <div class="card-header" role="tab" id="headingValidation">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseValidation" aria-expanded="false" aria-controls="collapseValidation">
+                            <div class="titre">
+                                Validation d'observations
+                            </div>
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseValidation" class="collapse" role="tabpanel" aria-labelledby="headingValidation" data-parent="#accordionUserAndPro">
+                    <div class="card-body">
+                        {% include 'default/dashboard/commonFeatures/observationsValidation/observationsValidation.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {# collapse mes statistiques #}
+        <div class="card">
+            <div class="card-header" role="tab" id="headingMyStatistics">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" href="#collapseMyStatistics" aria-expanded="false" aria-controls="collapseMyStatistics">
+                        <div class="titre">
+                            Mes statistiques
+                        </div>
+                    </a>
+                </h5>
+            </div>
+            <div id="collapseMyStatistics" class="collapse" role="tabpanel" aria-labelledby="headingMyStatistics" data-parent="#accordionUserAndPro">
+                <div class="card-body">
+                    {% include 'default/dashboard/commonFeatures/myStatistics.html.twig' %}
+                </div>
+            </div>
+        </div>
+
+        {# partie accessible pour les non admin #}
+        {% if not is_granted('ROLE_ADMIN') %}
+            {# collapse nous écrire (profil user et pro) #}
+            <div class="card">
+                <div class="card-header" role="tab" id="headingContactUs">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapseContactUs" aria-expanded="false" aria-controls="collapseContactUs">
+                            <div class="titre">
+                                Nous écrire
+                            </div>
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseContactUs" class="collapse" role="tabpanel" aria-labelledby="headingContactUs" data-parent="#accordionUserAndPro">
+                    <div class="card-body">
+                        {% include 'default/dashboard/commonFeatures/contactUs.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>

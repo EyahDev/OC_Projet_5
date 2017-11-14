@@ -1,0 +1,146 @@
+{% for observation in currentUserObservations %}
+    <tr>
+        {% if observation.editObservation is same as(null) %}
+            <td data-title="Modification">
+                <a href="{{path('modify-observation', {'id': observation.id }) }}" class="btn-edit-current-user-observation" data-toggle="modal" data-target="#modifyObservationModal{{ observation.id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+
+                <div class="modal fade" id="statusDetail{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="statusDetail{{ loop.index }}Label" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="statusDetail{{ loop.index }}Label">Statut de l'observation validée</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                                </button>
+                            </div>
+                            <div class="modal-body status text-left">
+                                <h6>Votre observation a été validée, voici le commentaire du naturaliste</h6>
+                                {% if observation.validationComment != null %}
+                                    <div class="border">
+                                        <p>{{ observation.validationComment }}</p>
+                                    </div>
+                                {% else %}
+                                    <div class="border">
+                                        <p>Le validateur n'a laissé aucun commentaire.</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
+        {% else %}
+            <td data-title="Modification">Aucune action possible</td>
+        {% endif %}
+        <td data-title="Détails">
+            <a href="" data-toggle="modal" data-target="#observation{{ observation.id }}DetailModal">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+            </a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="observation{{ observation.id }}DetailModal" tabindex="-1" role="dialog" aria-labelledby="observation{{ observation.id }}DetailModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="observation{{ observation.id }}DetailModalLabel">Détails de l'obersevation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% include('default/dashboard/ObservationManagement/ObservationDetail.html.twig') %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td data-title="Espèces observées">
+            {% if observation.species != null %}
+                {{ observation.species.referenceName }}
+            {% else %}
+                Espèce inconnu
+            {% endif %}
+        </td>
+        <td data-title="Date d'observation">
+            {{ observation.observationDate|date('d/m/Y') }}
+        </td>
+        <td data-title="Statut">
+            {% if observation.validate is same as(true) %}
+                <a href="" data-toggle="modal" data-target="#statusDetail{{ loop.index }}"><P> Validée</P><i  class="fa fa-check" aria-hidden="true"></i></a>
+
+                <div class="modal fade" id="statusDetail{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="statusDetail{{ loop.index }}Label" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="statusDetail{{ loop.index }}Label">Statut de l'observation validée</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                                </button>
+                            </div>
+                            <div class="modal-body status text-left">
+                                <h6>Votre observation a été validée, voici le commentaire du naturaliste</h6>
+                                {% if observation.validationComment != null %}
+                                    <div class="border">
+                                        <p>{{ observation.validationComment }}</p>
+                                    </div>
+                                {% else %}
+                                    <div class="border">
+                                        <p>Le validateur n'a laissé aucun commentaire.</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% elseif observation.validate is same as(false) %}
+                <a href="" data-toggle="modal" data-target="#statusDetail{{ loop.index }}"><p>Refusée</p><i class="fa fa-times" aria-hidden="true"></i></a>
+
+                <div class="modal fade" id="statusDetail{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Statut de l'observation refusée</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                                </button>
+                            </div>
+                            <div class="modal-body status text-left">
+                                <h6>Votre observation a été refusée, voici le commentaire du naturaliste</h6>
+                                {% if observation.validationComment != null %}
+                                    <div class="border">
+                                        <p>{{ observation.validationComment }}</p>
+                                    </div>
+                                {% else %}
+                                    <div class="border">
+                                        <p>Le validateur n'a laissé aucun commentaire.</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% elseif observation.validate is same as(null) %}
+                <a href="" data-toggle="modal" data-target="#statusDetail{{ loop.index }}"><p>En attente  </p><i class="fa fa-coffee" aria-hidden="true"></i></a>
+
+                <div class="modal fade" id="statusDetail{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Statut de l'observation en attente</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                                </button>
+                            </div>
+                            <div class="modal-body status text-left">
+                                <div class="border">
+                                    <p>Votre observation n'a pas encore été traitée, veuillez patienter.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}

@@ -1,0 +1,23 @@
+<div class="periodContent mx-auto" >
+    <div class="row mx-auto">
+
+        {% for month in period %}
+            {% if month == 0 %}
+                <div class="text-center test">
+                    <p>{{ months[loop.index - 1] }}</p>
+                    <div class="emptyMonth" data-toggle="tooltip" data-placement="bottom" title="Aucune observations" ></div>
+                </div>
+            {% elseif month == 1 %}
+                <div class="text-center test">
+                    <p>{{ months[loop.index - 1] }}</p>
+                    <div class="month" data-toggle="tooltip" data-placement="bottom" title="{{ month }} observation" ></div>
+                </div>
+            {% elseif month >= 2 %}
+                <div class="text-center test">
+                    <p>{{ months[loop.index - 1] }}</p>
+                    <div class="month" data-toggle="tooltip" data-placement="bottom" title="{{ month }} observations" ></div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
