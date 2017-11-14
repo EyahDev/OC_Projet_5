@@ -12,7 +12,6 @@ use AppBundle\Services\UserManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
@@ -28,6 +27,7 @@ class DashboardController extends Controller
      * @param UserManager $userManager
      * @param FAQManager $FAQManager
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      *
      * @Route("/dashboard", name="dashboard")
      * @Method({"GET", "POST"})
@@ -44,7 +44,7 @@ class DashboardController extends Controller
 
         // Test si l'utilisateur est anonyme et redirige vers une page 403
         if($user === null) {
-            throw new AccessDeniedHttpException('Vous ne pouvez pas accéder à cette page');
+            throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
         }
 
 

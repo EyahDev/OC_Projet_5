@@ -7,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class AccountController extends Controller
@@ -21,7 +20,7 @@ class AccountController extends Controller
      * @return Response
      * @throws \Exception
      *
-     * @Route("/dasboard/user/edition/name", name="edit_user_name")
+     * @Route("/dashboard/user/edition/name", name="edit_user_name")
      * @Method("POST")
      */
     public function editNameAction(AccountManager $accountManager, Request $request) {
@@ -52,7 +51,7 @@ class AccountController extends Controller
 
             throw new \Exception('Une erreur est survenue');
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -61,7 +60,7 @@ class AccountController extends Controller
      * @return Response
      * @throws \Exception
      *
-     * @Route("/dasboard/user/edition/firstname", name="edit_user_firstname")
+     * @Route("/dashboard/user/edition/firstname", name="edit_user_firstname")
      * @Method("POST")
      */
     public function editFirstNameAction(AccountManager $accountManager, Request $request) {
@@ -92,7 +91,7 @@ class AccountController extends Controller
 
             throw new \Exception('Une erreur est survenue');
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -101,7 +100,7 @@ class AccountController extends Controller
      * @return Response
      * @throws \Exception
      *
-     * @Route("/dasboard/user/edition/location", name="edit_user_location")
+     * @Route("/dashboard/user/edition/location", name="edit_user_location")
      * @Method("POST")
      */
     public function editLocationAction(AccountManager $accountManager, Request $request) {
@@ -132,7 +131,7 @@ class AccountController extends Controller
             }
             throw new \Exception('Une erreur est survenue');
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -141,7 +140,7 @@ class AccountController extends Controller
      * @return Response
      * @throws \Exception
      *
-     * @Route("/dasboard/user/edition/avatar", name="edit_user_avatar")
+     * @Route("/dashboard/user/edition/avatar", name="edit_user_avatar")
      * @Method("POST")
      */
     public function editAvatarAction(AccountManager $accountManager, Request $request) {
@@ -178,7 +177,7 @@ class AccountController extends Controller
             }
             throw new \Exception('Une erreur est survenue');
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -187,7 +186,7 @@ class AccountController extends Controller
      * @return Response
      * @throws \Exception
      *
-     * @Route("/dasboard/user/edition/newsletter", name="edit_user_newsletter")
+     * @Route("/dashboard/user/edition/newsletter", name="edit_user_newsletter")
      * @Method("POST")
      */
     public function editNewsletterAction(AccountManager $accountManager, Request $request) {
@@ -218,7 +217,7 @@ class AccountController extends Controller
             }
             throw new \Exception('Une erreur est survenue');
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -227,7 +226,7 @@ class AccountController extends Controller
      * @return Response
      * @throws \Exception
      *
-     * @Route("/dasboard/user/edition/mot-de-passe", name="edit_user_password")
+     * @Route("/dashboard/user/edition/mot-de-passe", name="edit_user_password")
      * @Method("POST")
      */
     public function editPasswordAction( AccountManager $accountManager, Request $request) {
@@ -258,6 +257,6 @@ class AccountController extends Controller
             }
             throw new \Exception('Une erreur est survenue');
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 }

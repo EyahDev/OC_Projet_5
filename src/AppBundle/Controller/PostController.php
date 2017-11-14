@@ -7,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class PostController extends Controller
@@ -134,6 +133,7 @@ class PostController extends Controller
      * @param Request $request
      * @param BlogManager $blogManager
      * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard/rediger-article/rechargement", name="reload_write_post")
      * @Method("GET")
@@ -148,13 +148,14 @@ class PostController extends Controller
                 'createPostForm' => $createPostForm->createView(),
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
      * @param Request $request
      * @param BlogManager $blogManager
      * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard/rediger-article", name="write_post")
      * @Method("POST")
@@ -192,7 +193,7 @@ class PostController extends Controller
                 return new Response("Article ajouté");
             }
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
 
@@ -201,6 +202,7 @@ class PostController extends Controller
      * @param BlogManager $blogManager
      * @param Request $request
      * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard/article/{slug}/edition/", name="edit_post")
      * @Method({"GET", "POST"})
@@ -245,7 +247,7 @@ class PostController extends Controller
                 'post' => $post
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
 
@@ -254,6 +256,7 @@ class PostController extends Controller
      * @param BlogManager $blogManager
      * @param Request $request
      * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard/article/{slug}/suppression", name="post_delete")
      * @Method("GET")
@@ -266,7 +269,7 @@ class PostController extends Controller
             // envoie le message de confirmation pour l'afficher en JS
             return new Response("Catégorie supprimée");
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /* PAGINATEUR */
@@ -275,6 +278,7 @@ class PostController extends Controller
      * @param Request $request
      * @param BlogManager $BlogManager
      * @return Response
+     * @throws \Exception
      *
      * @Route("/articles", name="pagination_post")
      * @Method("GET")
@@ -287,7 +291,7 @@ class PostController extends Controller
                 'paginationPosts' => $paginationPosts
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -295,6 +299,7 @@ class PostController extends Controller
      * @param BlogManager $BlogManager
      * @param $category
      * @return Response
+     * @throws \Exception
      *
      * @Route("/articles-par-categorie/{category}", name="pagination_postsCategory")
      * @Method("GET")
@@ -309,13 +314,14 @@ class PostController extends Controller
                 'category' => $category
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
      * @param Request $request
      * @param BlogManager $blogManager
      * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard/articles", name="pagination_management_posts")
      * @Method("GET")
@@ -328,6 +334,6 @@ class PostController extends Controller
                 'postsList' => $postsList
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 }

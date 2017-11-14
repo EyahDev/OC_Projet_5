@@ -7,7 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class UserManagementController extends Controller
@@ -58,7 +57,7 @@ class UserManagementController extends Controller
                 'user' => $user
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -82,7 +81,7 @@ class UserManagementController extends Controller
 
             return new Response("Le compte de l'utilisateur : ".$user->getUsername()." a été désactivé");
         }
-        throw new AccessDeniedHttpException('Vous ne pouvez pas accéder à cette page.');
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -106,13 +105,14 @@ class UserManagementController extends Controller
 
             return new Response("Le compte de l'utilisateur : ".$user->getUsername()." a été réactivé");
         }
-        throw new AccessDeniedHttpException('Vous ne pouvez pas accéder à cette page.');
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
      * @param Request $request
      * @param UserManager $userManager
      * @return Response
+     * @throws \Exception
      *
      * @Route("dashboard/user-management", name="pagination_user_management")
      * @Method("GET")
@@ -125,6 +125,6 @@ class UserManagementController extends Controller
                 'usersList' => $usersList
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 }

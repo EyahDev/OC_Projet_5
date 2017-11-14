@@ -34,7 +34,11 @@ $(document).ready(function () {
                                 location.reload(true);
                             },
                             error: function (jqxhr) {
-                                $('#connexionModal').find('.modal-body').prepend(jqxhr.responseText);
+                                if(jqxhr.status === 500) {
+                                    $('.flash-msg-cnx').replaceWith('<div class="alert alert-danger justify-content-center flash-msg-cnx">Compte désactivé, contactez l\'administrateur pour plus d\'informations.</div>');
+                                }else {
+                                    $('.flash-msg-cnx').replaceWith(jqxhr.responseText);
+                                }
                             }
                         })
                     })
@@ -46,4 +50,4 @@ $(document).ready(function () {
             });
         });
     }
-})
+});

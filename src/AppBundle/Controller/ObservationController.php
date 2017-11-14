@@ -7,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class ObservationController extends Controller
@@ -16,6 +15,7 @@ class ObservationController extends Controller
      * @param Request $request
      * @param ObservationManager $observationManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @throws \Exception
      *
      * @Route("/saisie-observation", name="saisieObservation")
      * @Method({"GET", "POST"})
@@ -23,7 +23,7 @@ class ObservationController extends Controller
     public function addObservationAction(Request $request, ObservationManager $observationManager) {
         // Test si l'utilisateur est anonyme et si oui redirige vers une page 403
         if($this->getUser() === null) {
-            throw new AccessDeniedHttpException('Vous ne pouvez pas accéder à cette page');
+            throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
         }
         // Récupération du formulaire de création d'observation
         $createObservationForm = $observationManager->getObservationForm();
@@ -61,6 +61,7 @@ class ObservationController extends Controller
      * @param ObservationManager $observationManager
      * @param Request $request
      * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard/observation/{id}/modification", name="modify-observation")
      * @Method({"GET", "POST"})
@@ -102,7 +103,7 @@ class ObservationController extends Controller
                 'observation' => $observation
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
@@ -153,6 +154,7 @@ class ObservationController extends Controller
      * @param Request $request
      * @param ObservationManager $observationManager
      * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard/myObservations/pagination", name="pagination_my_observations")
      * @Method("GET")
@@ -165,13 +167,14 @@ class ObservationController extends Controller
                 'currentUserObservations' => $currentUserObservations
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 
     /**
      * @param Request $request
      * @param ObservationManager $observationManager
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
+     * @throws \Exception
      *
      * @Route("/dashboard/observationsValidation/pagination", name="pagination_observations_validation")
      * @Method("GET")
@@ -184,6 +187,6 @@ class ObservationController extends Controller
                 'observations' => $observations
             ));
         }
-        throw new AccessDeniedHttpException("Vous ne pouvez pas accéder à cette page");
+        throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
 }

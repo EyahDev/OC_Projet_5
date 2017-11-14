@@ -25,8 +25,8 @@ class SecurityController extends Controller
         // récupération des erreurs si il y en a
         $error = $authUtils->getLastAuthenticationError();
         if($error !== null){
-            $response = '<div class="alert alert-danger justify-content-center">Nom d\'utilisateur ou mot de passe invalide</div>';
-            return new Response($response, 500);
+            $response = '<div class="alert alert-danger justify-content-center flash-msg-cnx">Nom d\'utilisateur ou mot de passe invalide</div>';
+            return new Response($response, 400);
         }
 
         // dernier nom d'utilisateur saisie par l'utilisateur
