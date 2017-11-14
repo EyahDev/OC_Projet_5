@@ -1,0 +1,235 @@
+@import url("https://fonts.googleapis.com/css?family=Homenaje");
+
+.p-canvas-webgl {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+/*----------------------------------------------- Header ----------------------------------------------- */
+#header{
+    margin-left: 80px;
+    width: 50%;
+}
+
+.cnx-infos-section{
+    height: 100% !important;
+}
+
+.formulaire{
+    width: 90%;
+    margin: auto;
+}
+
+#inscription{
+    background-color: white;
+    width: 50%;
+    }
+
+.infos{
+    width: 90%;
+    text-align: center;
+}
+
+header.container-fluid{
+    padding: 0 !important;
+}
+
+.logo{
+    margin-top: 80px;
+    text-align: center;
+}
+
+.btn-info:focus {
+    box-shadow: 0 0 0 0 rgba(23,162,184,.5);
+}
+
+#header h1{
+    font-size: 30px;
+}
+
+#header .button {
+    background-color: #333;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin: 0 2px;
+    min-width: 135px;
+    padding: 14px;
+    position: relative;
+    text-transform: uppercase;
+    word-spacing: 1.5px;
+    z-index: 0;
+}
+
+#header .buttonGrey {
+    background-color: grey;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin: 0 30px;
+    min-width: 135px;
+    padding: 14px;
+    position: relative;
+    text-transform: uppercase;
+    word-spacing: 1.5px;
+    z-index: 0;
+}
+
+label{
+    font-family: 'Montserrat', sans-serif;
+    color : #444;
+    font-size: 13px;
+    line-height: 1;
+    margin-top: 10px;
+}
+
+
+
+#header .text{
+    width: 80%;
+}
+
+#header .text h5{
+    margin: 30px 0 30px 0;
+}
+
+.text{
+    margin-top: 80px;
+}
+
+form{
+    width: 90%;
+    margin: auto;
+}
+
+#appbundle_user_save{
+    margin-top: 50px;
+}
+
+@media (min-width: 992px){
+    .logo-mobile{
+        display: none;
+    }
+}
+
+
+@media (min-width: 420px) and (max-width: 992px){
+
+    header{
+        flex-wrap: wrap;
+    }
+
+    .logo-mobile{
+        display: none;
+    }
+
+    .container{
+        padding: 30px !important;
+    }
+
+    #header{
+        margin-left: 20px !important;
+    }
+
+    #inscription{
+       width: 100% !important;
+    }
+
+    .text{
+        margin-top: 10px;
+    }
+
+    body{
+        background-color: #e5e7ea;
+    }
+}
+
+@media (max-width: 420px){
+
+    .cnx-infos-section:nth-child(1)
+    {
+        order: 2;
+    }
+
+    .cnx-infos-section{
+        height: auto !important;
+    }
+
+    .logo{
+        margin: 40px !important;
+    }
+
+    canvas{
+        display: none;
+    }
+
+    #inscription{
+        display: flex;
+        flex-direction: column;
+        width: 100% !important;
+    }
+
+    header{
+        flex-wrap: wrap;
+    }
+
+    .text{
+        margin-top: 10px;
+    }
+
+    body{
+        background-color: #e5e7ea;
+    }
+
+    #header{
+        margin-top: 200px;
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .logo-mobile {
+    display: block;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    margin-top: -50px; /* Half the height */
+    margin-left: -50px; /* Half the width */
+    }
+
+
+    #inscription{
+        width: 100% !important;
+    }
+
+    .text{
+        width: 90% !important;
+        margin: 20px auto;
+    }
+
+    #header .text{
+        width: 100%;
+    }
+
+    #header{
+        box-shadow:  5px 0px 20px 0px #aaacaf !important;
+    }
+
+    body{
+        background-color: #e5e7ea;
+    }
+}
+
