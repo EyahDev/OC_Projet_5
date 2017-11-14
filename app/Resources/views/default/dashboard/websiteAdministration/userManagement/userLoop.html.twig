@@ -11,11 +11,9 @@
 
         </td>
         <td data-title="Pro">
-            {% if user.proPermission == true %}
-                Oui
-            {% else %}
-                Non
-            {% endif %}
+
+            {{ include(':default/dashboard/websiteAdministration/userManagement:proUser.html.twig') }}
+
         </td>
         <td data-title="Action" class="action">
             <a href="{{ path('change_role', {'id': user.id}) }}" id="btnChangeRole{{ user.id }}" class="btn-change-role-modal" data-toggle="modal" data-target="#ChangeRoleModal{{ user.id }}">
