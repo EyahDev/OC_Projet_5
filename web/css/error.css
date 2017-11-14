@@ -1,0 +1,82 @@
+.jumbotron-error {
+    background: url(../img/error/erreur.jpg) 0 0 no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 400px;
+    Color : #444;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.jumbotron-error404 {
+    background: url(../img/error/erreur-404.gif) 0 0 no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 400px;
+    Color : #444;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.jumbotron-error403 {
+    background: url(../img/error/erreur-403.jpg) 0 0 no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 400px;
+    Color : #444;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.logo, .logo-mobile{
+    display: none;
+}
+body{
+    padding-bottom: 0 !important;
+}
+
+header {
+    background-color: white;
+    color: white;
+    font-size: 13px;
+    height: auto;
+    padding: 0;
+}
+
+@media (max-width: 420px){
+    .jumbotron-error404 {
+        height: 200px;
+        margin-top: 150px;
+    }
+
+    .jumbotron-error {
+        height: 200px;
+        margin-top: 150px;
+    }
+
+    .jumbotron-error403 {
+        height: 200px;
+        margin-top: 150px;
+    }
+
+    .alert-danger{
+        margin-top: 50px;
+    }
+
+    .logo-mobile {
+        display: block;
+        position: absolute;
+        top: 100px;
+        left: 50%;
+        width: 100px;
+        height: 100px;
+        margin-top: -50px; /* Half the height */
+        margin-left: -50px; /* Half the width */
+    }
+}

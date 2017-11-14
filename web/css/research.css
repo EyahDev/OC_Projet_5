@@ -503,7 +503,7 @@
     .odd-after-jum p{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(270px) translateX(-130px)  !important;
+        transform: rotate(90deg) translateY(155px) translateX(-15px)  !important;
         max-width: 100px;
     }
 
@@ -536,7 +536,7 @@
     .odd-after-micro p{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(187px) translateX(-103px)  !important;
+        transform: rotate(90deg) translateY(180px) translateX(-95px)  !important;
         max-width: 100px;
     }
 
@@ -570,7 +570,7 @@
     .odd-after-graph p{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(232px) translateX(-152px)  !important;
+        transform: rotate(90deg) translateY(170px) translateX(-85px)  !important;
         max-width: 100px;
     }
 
@@ -604,7 +604,7 @@
     .odd-after-goel p{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(232px) translateX(-92px)  !important;
+        transform: rotate(90deg) translateY(190px) translateX(-45px)  !important;
         max-width: 100px;
     }
 
@@ -640,7 +640,7 @@
     .even-after-mol p{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(184px) translateX(40px)  !important;
+        transform: rotate(90deg) translateY(180px) translateX(50px)  !important;
         max-width: 100px;
     }
 
@@ -707,7 +707,7 @@
     .even-after-erlen p{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(184px) translateX(40px)  !important;
+        transform: rotate(90deg) translateY(180px) translateX(50px)  !important;
         max-width: 100px;
     }
 
@@ -741,7 +741,7 @@
     .even-after-stat p{
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-        transform: rotate(90deg) translateY(231px) translateX(-7px)  !important;
+        transform: rotate(90deg) translateY(215px) translateX(10px)  !important;
         max-width: 100px;
     }
 
