@@ -14,12 +14,26 @@
 }
 
 .cnx-infos-section{
-    height: 100% !important;
+    height: 600px !important;
 }
 
 .formulaire{
     width: 90%;
     margin: auto;
+    height: 590px !important;
+}
+
+#inscription{
+    height: 600px !important;
+    margin: 80px 0 80px 0;
+    border: 1.5px solid black;
+    border-right: 1.5px solid white;"
+    background-color: white !important;
+    width: 50%;
+}
+
+#header img{
+    margin-top: 100px;
 }
 
 .infos{
@@ -29,11 +43,6 @@
 
 header.container-fluid{
     padding: 0 !important;
-}
-
-#inscription{
-    background-color: white;
-    width: 50%;
 }
 
 .logo{
@@ -105,7 +114,11 @@ label{
 }
 
 .text{
-    margin-top: 80px;
+    margin-top: 0;
+}
+
+#header a{
+    margin-left: 0 !important
 }
 
 form{
@@ -121,6 +134,10 @@ form{
     .logo-mobile{
         display: none;
     }
+
+    #inscription{
+        background-color: white;
+    }
 }
 
 
@@ -128,6 +145,16 @@ form{
 
     header{
         flex-wrap: wrap;
+    }
+
+    #inscription{
+        margin: 0 !important;
+        width: 100% !important;
+        background-color: white;
+    }
+
+    .formulaire{
+        width: 70%;
     }
 
     .logo-mobile{
@@ -140,11 +167,7 @@ form{
 
     #header{
         margin-left: 20px !important;
-    }
-
-
-    #inscription{
-        width: 100% !important;
+        width: 90% !important;
     }
 
     .text{
@@ -179,6 +202,11 @@ form{
         display: flex;
         flex-direction: column;
         width: 100% !important;
+        background-color: white;
+        border-left: 0;
+        border-top: 0;
+        border-bottom: 1.5px solid black;
+        margin-top: 0;
     }
 
     header{
@@ -198,6 +226,7 @@ form{
         margin-left: 0 !important;
         width: 100% !important;
         padding: 0 !important;
+        margin-bottom: 0;
     }
 
     .logo-mobile {
@@ -214,7 +243,16 @@ form{
 
     #inscription{
         width: 100% !important;
+        margin-bottom: 0 !important;
     }
+
+    #header img{
+        display: none;
+    }
+
+   #header{
+       height: 350px !important;
+   }
 
     .text{
         width: 90% !important;
@@ -231,5 +269,21 @@ form{
 
     body{
         background-color: #e5e7ea;
+    }
+
+    #compteur.container-fluid{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .compteur {
+        display: flex;
+        background-color: #333;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .compteur p {
+        color: #f9f9f9 !important;
     }
 }

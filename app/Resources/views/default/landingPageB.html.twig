@@ -23,6 +23,8 @@
         <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
         <link href="{{ asset('css/table.css') }}" rel="stylesheet">
         <link href="{{ asset('css/inscription.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/connexion.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/landingPageA.css') }}" rel="stylesheet">
         <link href="{{ asset('css/landingPageB.css') }}" rel="stylesheet">
     </head>
 
@@ -30,28 +32,17 @@
         <header class="container-fluid d-flex">
             <canvas class="p-canvas-webgl" id="canvas-webgl" style="z-index:-99 "></canvas>
             <img class="logo-mobile" src="{{ asset('img/logo-pour-mobile.png') }}" alt="logo-nao-mobile">
-            <div id="header" class="d-flex flex-column justify-content-start">
+            <div id="header" style="height: 650px;" class="container d-flex flex-column justify-content-between">
+                <img style="height: 60px; width: 50px" src="{{ asset('img/logo-pour-nav.png') }}">
                 <div class="text">
-                    <h1>Ensemble pour pour protéger
-                        la biodiversité et faire avancer la recherche</h1>
-                    <h5>Inscrivez vous gratuitement.</h5>
+                    <h1>Ornitolhologues, naturalistes, amoureux de la nature...</h1>
+                    <h5>Ensemble pour protéger la biodiversité et faire avancer la recherche</h5>
+                    <a class="btn btn-info buttonGrey btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">connexion</a>
                 </div>
             </div>
 
 
             <div id="inscription" class="d-flex">
-                <div class="cnx-infos-section d-flex flex-column justify-content-between">
-                    <div class="logo">
-                        <img src="{{ asset('img/logo-footer.png') }}" />
-                        <p class="nao">Nao</p>
-                    </div>
-                    <div class="infos">
-                        <h4 style="margin-bottom: 40px">Contact & Infos</h4>
-                        <div><i class="fa fa-phone-square" aria-hidden="true"></i><p>01 75 72 15 18</p></div>
-                        <div><i class="fa fa-home" aria-hidden="true"></i><p>5 rue des pardrix, 75002 Paris</p></div>
-                        <div><i class="fa fa-envelope" aria-hidden="true"></i><p>infos@nao.org</p></div>
-                    </div>
-                </div>
                 <div class="formulaire cnx-form-section">
                     <div class="align-items-center">
                         <h3 style="text-align: center; margin-top: 30px">INSCRIPTION</h3>
@@ -110,6 +101,35 @@
                 </div>
             </div>
         </header>
+            <div id="programme" class="container-fluid" style="background-color: white">
+                <section  class="row d-flex justify-content-between align-items-center">
+                    <div class=" image col-sm-6">
+                        <img class="img-fluid" src="{{ asset('img/landingPage/image-microscope.png') }}">
+                    </div>
+                    <div class="col-sm-6 text">
+                        <h2>Le Programme de la <span>recherche</span></h2>
+                        <p style="color: #666">
+                            Les scientifiques étudient les effets du climat,
+                            de l'urbanisation et de l'agriculture sur la biodiversité.
+                        </p><br />
+                        <p style="color: #666">
+                            Le programme de recherche scientifique est fondé sur
+                            vos observations d'oiseaux et de nids dans leur
+                            environnement naturel, effectuées sur tout le territoire
+                            Français et les DOM-TOM.
+
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <div id="compteur" class="container-fluid" >
+                <section class="compteur">
+                    <div class="index-line"><p style="color: #666" class ="size37">+{{ users|length }}</p><p style="color: #666" class="size20">Membres</p></div>
+                    <div class="index-line"><p style="color: #666" class ="size37">+{{ observations|length }}</p><p style="color: #666" class="size20">Observations</p></div>
+                    <div class="index-line"><p style="color: #666" class ="size37">+{{ differentSpeciesObservations }}</p><p style="color: #666" class="size20">Espèces observées</p></div>
+                </section>
+            </div>
 
         <!-- Bootstrap core JavaScript -->
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

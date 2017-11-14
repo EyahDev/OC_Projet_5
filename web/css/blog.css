@@ -255,6 +255,36 @@ p
     }
 }
 
+/*----------------------------------------------- Commentaires ----------------------------------------------- */
+
+textarea#new_comment_message{
+    border-radius: 0 !important;
+    color: #666;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    height: 100px;
+}
+
+textarea#new_comment_message:focus{
+    border-radius: 0 !important;
+    color: #666;
+    border-color: rgba(0,0,0,.15);
+}
+
+textarea#reply_comment_message{
+    border-radius: 0 !important;
+    color: #666;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    height: 100px;
+}
+
+textarea#reply_comment_message:focus{
+    border-radius: 0 !important;
+    color: #666;
+    border-color: rgba(0,0,0,.15);
+}
+
 
 
 

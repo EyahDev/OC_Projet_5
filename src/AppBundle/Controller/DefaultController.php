@@ -270,14 +270,14 @@ class DefaultController extends Controller
         $observations = $observationManager->getObservationsValidated();
         $species = $speciesManager->getSpecies();
         $differentSpeciesObservations = $observationManager->getSpeciesObserved();
-        
+
         return $this->render("default/landingPageA.html.twig", array(
             'users' => $users,
             'observations' => $observations,
             'species' => $species,
             'differentSpeciesObservations' => $differentSpeciesObservations
         ));
-        
+
     }
 
     /**
@@ -288,8 +288,15 @@ class DefaultController extends Controller
      * @Route("/landing-page-B", name="landingPage2")
      * @Method({"GET", "POST"})
      */
-    public function landingPageBAction(Request $request, AccountManager $accountManager)
+    public function landingPageBAction(Request $request, ObservationManager $observationManager, AccountManager $accountManager, SpeciesManager $speciesManager)
     {
+        /* Statistiques */
+
+        $users = $accountManager->getUsers();
+        $observations = $observationManager->getObservationsValidated();
+        $species = $speciesManager->getSpecies();
+        $differentSpeciesObservations = $observationManager->getSpeciesObserved();
+
         // Récupération du formulaire d'inscription de la landing page B
         $landingPageBSignUpForm = $accountManager->getSignUpForm();
 
@@ -310,6 +317,45 @@ class DefaultController extends Controller
         }
         return $this->render("default/landingPageB.html.twig", array(
             'title' => 'Nouvel utilisateur',
+            'form' => $landingPageBSignUpForm->createView(),
+            'users' => $users,
+            'observations' => $observations,
+            'species' => $species,
+            'differentSpeciesObservations' => $differentSpeciesObservations
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param AccountManager $accountManager
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/landing-page-A-finale", name="landingPageFinale")
+     * @Method({"GET", "POST"})
+     */
+    public function landingPageAFinaleAction(Request $request, AccountManager $accountManager)
+    {
+        // Récupération du formulaire d'inscription de la landing page B
+        $landingPageBSignUpForm = $accountManager->getSignUpForm();
+
+        // Hydration des valeurs
+        $landingPageBSignUpForm->handleRequest($request);
+
+        // Soumission du formulaire
+        if ($landingPageBSignUpForm->isSubmitted() && $landingPageBSignUpForm->isValid()) {
+
+            // Récupération des valeurs du formulaire
+            $user = $landingPageBSignUpForm->getData();
+
+            // Création du nouvel utilisateur
+            $accountManager->setNewUser($user);
+
+            // Rédirection vers la page d'accueil
+            return $this->redirectToRoute('homepage');
+        }
+        return $this->render("default/landingPageAFinale.html.twig", array(
+            'title' => 'Nouvel utilisateur',
             'form' => $landingPageBSignUpForm->createView()));
     }
 }
+

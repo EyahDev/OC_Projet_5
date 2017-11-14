@@ -1,14 +1,39 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link href="{{ asset('css/error.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-error404 vertical-center">
+            <img class="logo-mobile" src="{{ asset('img/logo-pour-mobile.png') }}" alt="logo-nao-mobile">
+            <div class="container">
+                {#<img src="{{ asset('img/error/erreur404.gif') }}" alt="error404">#}
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
 {% block body %}
-    <h1>Page non trouvée</h1>
+    <div class="container">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {# ... #}
+        {% endif %}
+        <p style="text-align: center">
+            Cette page n'existe plus ou bien n'a pas encore été crée.</br>
+            Nous vous prions de nous excuser pour la gène occasionnée.</br>
+            Nous vous invitons à revenir sur <a href="{{ path('homepage') }}">la page d'accueil</a>.
+        </p>
+    </div>
+{% endblock %}
 
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {# ... #}
-    {% endif %}
-
-    <p>
-        La page demandée n'a été trouvée. Verifiez l'URL
-        ou <a href="{{ path('homepage') }}">retournez à la page d'accueil</a>.
-    </p>
+{% block javascripts %}
+    <script src="{{ asset('js/menu.js') }}"></script>
 {% endblock %}
