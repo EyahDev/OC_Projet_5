@@ -1,14 +1,29 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}<link href="{{ asset('css/error.css') }}" rel="stylesheet">{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-lostPassword vertical-center">
+            <img class="logo-mobile" src="{{ asset('img/error/image-header.gif') }}" alt="erreur 404">
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header nao-header-faq">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
 {% block body %}
-    <h1>Page non trouvée</h1>
+    <div class="text-center">
+        <h5>Cette page n'existe plus ou bien n'a pas été créée.</h5>
+        <h5>Nous vous prions de nous excuser pour la gêne occassionnée.</h5>
+        <p>Nous vous invitons à revenir sur  <a href="{{ path('homepage') }}">la page d'accueil</a>.</p>
+    </div>
+{% endblock %}
 
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {# ... #}
-    {% endif %}
-
-    <p>
-        La page demandée n'a été trouvée. Verifiez l'URL
-        ou <a href="{{ path('homepage') }}">retournez à la page d'accueil</a>.
-    </p>
+{% block javascripts %}
+    <script src="{{ asset('js/menu.js') }}"></script>
 {% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link href="{{ asset('css/error.css') }}" rel="stylesheet">{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-lostPassword vertical-center">
+            <img class="logo-mobile" src="{{ asset('img/error/image-header.gif') }}" alt="erreur 404">
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header nao-header-faq">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <div class="text-center">
+        <h5>Vous ne pouvez pas accéder à cette page.</h5>
+        <h5>Nous vous prions de nous excuser pour la gêne occassionnée.</h5>
+        <p>Nous vous invitons à revenir sur  <a href="{{ path('homepage') }}">la page d'accueil</a>.</p>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/menu.js') }}"></script>
+{% endblock %}

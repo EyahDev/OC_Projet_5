@@ -1,14 +1,30 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}<link href="{{ asset('css/error.css') }}" rel="stylesheet">{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-lostPassword vertical-center">
+            <img class="logo-mobile" src="{{ asset('img/error/image-header.gif') }}" alt="erreur 404">
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header nao-header-faq">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
 {% block body %}
-    <div class="text-center alert alert-danger">
-        <h1>Oups ! Une erreur est survenue !</h1>
-        <h2>Le serveur a retourné l'erreur suivante :</h2>
-        <h2>"{{ status_code }} {{ status_text }}".</h2>
-        <h3>Message d'erreur : {{ exception.message }}</h3>
-        <p>
-            Veuillez nous excuser pour la gêne occasionnée. Si le problème persiste, n'hesitez pas à nous contacter pour nous signaler cette erreur.
-        </p>
-    </div>
-    <p class="text-center"><a href="{{ path('homepage') }}">Retour à l'accueil</a></p>
+    <div class="text-center">
+        <h5>Une erreur est survenue.</h5>
+        <h5>Message d'erreur : {{ exception.message }}</h5>
+        <h5>Nous vous prions de nous excuser pour la gêne occassionnée.</h5>
+        <p>Si le problème persiste n'hésitez pas à nous signaler cette erreur.</p>
+        <p>Nous vous invitons à revenir sur  <a href="{{ path('homepage') }}">la page d'accueil</a>.</p>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/menu.js') }}"></script>
 {% endblock %}
