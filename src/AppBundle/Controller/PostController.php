@@ -267,7 +267,7 @@ class PostController extends Controller
             // Supression de l'article
             $blogManager->deletePost($slug);
             // envoie le message de confirmation pour l'afficher en JS
-            return new Response("Catégorie supprimée");
+            return new Response("Article supprimé");
         }
         throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }

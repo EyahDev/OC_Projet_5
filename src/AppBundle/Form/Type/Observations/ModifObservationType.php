@@ -24,6 +24,7 @@ class ModifObservationType extends AbstractType
             ->add('validation_comment', TextareaType::class, array(
                 'label' => 'Commentaire de validation',
                 'invalid_message' => 'Veuillez saisir un commentaire de validation valide.',
+                'required' => false,
                 'constraints' => array(
                     new Length(array(
                         'max' => 255,
