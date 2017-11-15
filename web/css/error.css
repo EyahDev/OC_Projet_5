@@ -1,5 +1,5 @@
 .jumbotron-error {
-    background: url(../img/error/erreur.jpg) 0 0 no-repeat;
+    background: url(../img/error/header-page-erreur.jpg) 0 0 no-repeat;
     background-position: center;
     background-size: cover;
     height: 800px;
@@ -23,7 +23,7 @@
 }
 
 .jumbotron-error405 {
-    background: url(../img/error/erreur-403.jpg) 0 0 no-repeat;
+    background: url(../img/error/header-page-erreur.jpg) 0 0 no-repeat;
     background-position: center;
     background-size: contain;
     height: 800px;
