@@ -330,7 +330,7 @@ textarea#create_observation_eggsDescription.form-control{
     .addObservation-sidebar {
         position: absolute;
         z-index: 2;
-        top: 630px;
+        top: 700px;
         bottom: 0;
         width: 45%;
     }
