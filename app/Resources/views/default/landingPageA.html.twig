@@ -31,23 +31,24 @@
 
     <header>
         <div id="header" class="container d-flex flex-column justify-content-between">
-                <nav role="navigation" class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <img class="logo" src="{{ asset('img/logo-pour-nav.png') }}" style="height:80px">
-                    </div>
-                </nav>
-                <div class="text">
-                    <h1>Ornitolhologues, naturalistes, amoureux de la nature...</h1>
-                    <h5>Ensemble pour protéger la biodiversité et faire avancer la recherche</h5>
-                    <div class="d-flex">
-                    <a class="btn btn-info button" href="{{ path("landingPageFinale") }}">Participer</a>
-                    <a class="btn btn-info buttonGrey btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">connexion</a>
-                    </div>
+            <canvas class="p-canvas-webgl" id="canvas-webgl" style="z-index:-99 "></canvas>
+            <nav role="navigation" class="navbar navbar-default">
+                <div class="container-fluid">
+                    <img class="logo" src="{{ asset('img/logo-pour-nav.png') }}" style="height:80px">
                 </div>
+            </nav>
+            <div class="text">
+                <h1>Ornitolhologues, naturalistes, amoureux de la nature...</h1>
+                <h5>Ensemble pour protéger la biodiversité et faire avancer la recherche</h5>
+                <div class="d-flex">
+                <a class="btn btn-info button" href="{{ path("landingPageFinale") }}">Participer</a>
+                <a class="btn btn-info buttonGrey btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">connexion</a>
+                </div>
+            </div>
         </div>
     </header>
 
-    <div id="programme" class="container-fluid" >
+    <div id="programme" style="background-color: white;" class="container-fluid" >
         <section  class="row d-flex justify-content-between align-items-center">
             <div class=" image col-sm-6">
                 <img class="img-fluid" src="{{ asset('img/landingPage/image-microscope.png') }}">
@@ -94,7 +95,7 @@
         </section>
     </div>
 
-    <div id="comment" class="container-fluid" >
+    <div id="comment" style="background-color: white;" class="container-fluid" >
         <section  class="d-flex flex-column justify-content-center align-items-center">
             <div class="col-sm-6 text">
                 <h2>Comment ça marche?</h2>
@@ -124,7 +125,7 @@
         </section>
     </div>
 
-    <div id="blog" class="container-fluid" >
+    <div id="blog" style="background-color: white;" class="container-fluid" >
         <section  class="row d-flex justify-content-between align-items-center">
             <div class="col-sm-6">
                 <img class="mobile img-fluid" src="{{ asset('img/landingPage/mobile.png') }}">
@@ -148,7 +149,7 @@
         </section>
     </div>
 
-    <div id="apprendre" class="container-fluid" >
+    <div id="apprendre" style="background-color: #EEEEEE" class="container-fluid" >
         <section  class="d-flex justify-content-between align-items-center">
             <div class="text">
                 <h2>Explorer & Apprendre</h2>
@@ -165,7 +166,7 @@
         </section>
     </div>
 
-    <div id="partenaire" class="container-fluid" >
+    <div id="partenaire" style="background-color: white" class="container-fluid" >
         <section  class="d-flex flex-column align-items-center">
             <h2>Nos partenaires</h2>
             <img class="img-fluid" src="{{ asset('img/landingPage/image-nos-partenaires.jpg') }}">
@@ -206,6 +207,9 @@
     <script src="{{ asset('js/faq/faq.js') }}"></script>
     <script src="{{ asset('js/Observations/observationsValidation.js') }}"></script>
     <script src="{{ asset('js/connexion/connexion.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.min.js"></script>
+    <script src="{{ asset('js/landingPageB.js') }}"></script>
 
     </body>
 

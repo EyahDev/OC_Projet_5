@@ -1,3 +1,18 @@
+@import url("https://fonts.googleapis.com/css?family=Homenaje");
+
+.p-canvas-webgl {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+@media (max-width: 420px){
+    canvas{
+        display: none;
+    }
+}
+
 /*----------------------------------------------- Header ----------------------------------------------- */
 #header{
     max-width: 1000px;
@@ -157,7 +172,7 @@ h2 span{
 /*----------------------------------------------- Statistics----------------------------------------------- */
 
 .compteur{
-    height: 200px;
+    height: 300px;
     max-width: 1200px;
     margin: auto;
     display: flex;
@@ -363,7 +378,7 @@ p span{
 }
 
 #blog{
-    box-shadow:  20px 0px 20px 10px #DCDCDB !important
+    /*box-shadow:  20px 0px 20px 10px #DCDCDB !important*/
 }
 
 #blog .mobile{
@@ -450,6 +465,10 @@ p span{
     height: 250px;
     object-fit: contain;
     margin: 20px 0 20px 0;
+}
+
+#apprendre{
+    box-shadow:  -15px 30px 20px -20px #DCDCDB inset!important
 }
 
 
