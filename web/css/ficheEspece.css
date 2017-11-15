@@ -3,6 +3,9 @@
     height: 800px;
     object-fit: cover;
 }
+.jumbotron-species .container-fluid{
+    padding: 0 !important;
+}
 
     /* Responsive */
 

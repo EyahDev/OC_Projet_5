@@ -6,6 +6,7 @@
     Color: #444;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 74px;
     margin-bottom: 0;
     border-radius: 0;
 }
@@ -31,6 +32,7 @@
 @media (max-width: 420px){
     .jumbotron-searchObservation{
         height: 200px;
+        margin-top: 0 !important;
     }
 }
 
@@ -170,55 +172,55 @@
 
 @media (min-width: 1160px) {
     .research-sidebar {
-        top: 700px;
+        top: 774px;
     }
 
     .result-sidebar {
-        top: 1330px;
+        top: 1404px;
     }
 }
 
 @media (min-width: 1100px) and (max-width: 1160px) {
     .research-sidebar {
-        top: 700px;
+        top: 774px;
     }
 
     .result-sidebar {
-        top: 1330px;
+        top: 1404px;
     }
 }
 
 @media (min-width: 1060px) and (max-width: 1100px) {
     .research-sidebar {
-        top: 700px;
+        top: 774px;
         width: 50%;
     }
 
     .result-sidebar {
-        top: 1330px;
+        top: 1404px;
         width: 60%;
     }
 }
 
 @media (min-width: 1010px) and (max-width: 1060px) {
     .research-sidebar {
-        top: 700px;
+        top: 774px;
         width: 50%;
     }
 
     .result-sidebar {
-        top: 1330px;
+        top: 1404px;
         width: 60%;
     }
 }
 
 @media (min-width: 992px) and (max-width: 1010px) {
     .research-sidebar {
-        top: 700px;
+        top: 774px;
     }
 
     .result-sidebar {
-        top: 1330px;
+        top: 1404px;
     }
 }
 

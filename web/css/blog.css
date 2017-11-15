@@ -3,6 +3,7 @@
     width : 100%;
     height : 800px;
     object-fit: cover;
+    margin-top: 74px;
 }
 
 .jumbotron-blog .container-fluid{
@@ -12,6 +13,7 @@
 @media (max-width: 420px) {
     .jumbotron-blog img {
         height: 200px;
+        margin-top: 0 !important;
     }
 }
 
