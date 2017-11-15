@@ -10,6 +10,7 @@
 /*----------------------------------------------- Header ----------------------------------------------- */
 #header{
     margin-left: 80px;
+    height: 650px;
     width: 50%;
 }
 
@@ -191,7 +192,7 @@ form{
     }
 
     .logo{
-        margin: 40px !important;
+        margin-bottom: 80px  !important;
     }
 
     canvas{
@@ -222,37 +223,29 @@ form{
     }
 
     #header{
-        margin-top: 200px;
+        height: 450px !important;
         margin-left: 0 !important;
         width: 100% !important;
         padding: 0 !important;
         margin-bottom: 0;
     }
 
-    .logo-mobile {
-    display: block;
-    position: absolute;
-    top: 100px;
-    left: 50%;
-    width: 100px;
-    height: 100px;
-    margin-top: -50px; /* Half the height */
-    margin-left: -50px; /* Half the width */
-    }
+    /*.logo-mobile {*/
+    /*display: block;*/
+    /*position: absolute;*/
+    /*top: 100px;*/
+    /*left: 50%;*/
+    /*width: 100px;*/
+    /*height: 100px;*/
+    /*margin-top: -50px; !* Half the height *!*/
+    /*margin-left: -50px; !* Half the width *!*/
+    /*}*/
 
 
     #inscription{
         width: 100% !important;
         margin-bottom: 0 !important;
     }
-
-    #header img{
-        display: none;
-    }
-
-   #header{
-       height: 350px !important;
-   }
 
     .text{
         width: 90% !important;
@@ -270,20 +263,351 @@ form{
     body{
         background-color: #e5e7ea;
     }
+}
 
-    #compteur.container-fluid{
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
+/*----------------------------------------------- Statistics----------------------------------------------- */
 
-    .compteur {
+.compteur{
+    height: 300px;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.index-line{
+    display: flex;
+    line-height: 50px;
+}
+
+.size37{
+    font-size: 37px;
+}
+
+.size20{
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+@media (max-width: 768px){
+    .compteur{
+        height: 250px;
+        margin: auto;
         display: flex;
-        background-color: #333;
-        align-items: center;
         flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
     }
 
-    .compteur p {
-        color: #f9f9f9 !important;
+}
+
+/*----------------------------------------------- Pour qui ----------------------------------------------- */
+#qui section{
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 350px;
+}
+
+#qui .text{
+    width: 60%;
+    max-width: 500px;
+}
+
+#qui .text h2{
+    color: #f9f9f9 !important;
+}
+
+#qui .text p{
+    color: #f9f9f9 !important;
+    font-size: 13px;
+}
+
+#qui .image{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#qui img{
+    width: auto;
+    max-height: 150px;
+    object-fit: contain;
+    margin: 20px 0 20px 0;
+}
+
+.degrade {
+    background-image:linear-gradient(to right, #0c3475, #1f9b67);
+}
+
+@media (max-width: 768px){
+    #qui section{
+        width: 90%;
+        margin: auto;
+        height: 500px;
     }
+
+    #qui .image{
+        display: flex;
+        justify-content: center;
+    }
+
+    #qui img{
+        width: auto;
+        height: 150px;
+        object-fit: contain;
+        text-align: center;
+        margin: 20px 0 20px 0;
+    }
+
+    #qui .text{
+        width: 100%;
+    }
+}
+
+/*----------------------------------------------- comment ----------------------------------------------- */
+
+#comment section{
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 400px;
+    text-align: center;
+}
+
+#comment .text{
+    width: 60%;
+    max-width: 500px;
+}
+
+#comment .text p{
+    font-size: 13px;
+    color: #666;
+}
+
+#comment .text h2{
+    margin-top: 50px;
+}
+
+#comment img{
+    height: 150px !important;
+    object-fit: contain;
+    margin: 20px 0 20px 0;
+}
+
+#comment{
+    box-shadow: 0px 10px 20px #DCDCDB !important
+}
+
+.fonctionnement {
+    position: relative;
+    text-align: left !important;
+    width: 200px;
+    bottom: 70px;
+    left: -100px;
+}
+
+.fonctionnement p {
+    font-size: 10px;
+    color: black;
+}
+
+@media (max-width: 768px){
+
+    #comment section{
+        width: 90%;
+        margin: auto;
+        height: 500px;
+    }
+
+    #comment .text{
+        width: 90%;
+        max-width: 500px;
+    }
+
+    .fonctionnement {
+        position: relative;
+        text-align: left !important;
+        width: 150px;
+        bottom: 35px;
+        left: -50px;
+    }
+}
+
+/*----------------------------------------------- Gratuit----------------------------------------------- */
+#gratuit section{
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 300px;
+}
+
+@media (max-width: 768px){
+    #gratuit section{
+        width: 100%;
+        margin: auto;
+        height: 300px;
+        text-align: center;
+    }
+}
+
+/*----------------------------------------------- Blog ----------------------------------------------- */
+#blog section{
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 450px;
+}
+
+#blog .text{
+    width: 60%;
+    max-width: 500px;
+}
+
+p span{
+    color: #38A5E0;
+}
+
+#blog p{
+    font-size: 13px;
+    color: #666;
+}
+
+#blog img{
+    width: auto;
+    height: 500px;
+    margin: 20px 0 20px 0;
+}
+
+#blog{
+    /*box-shadow:  20px 0px 20px 10px #DCDCDB !important*/
+}
+
+#blog .mobile{
+    position: relative;
+    bottom: 100px
+}
+
+#blog .bold p{
+    font-weight: bold;
+}
+
+@media (min-width: 575px) and (max-width: 992px){
+    #blog img {
+        width: auto;
+        height: 450px;
+        margin: 20px 0 -50px 0;
+    }
+
+    #blog section{
+        width: 90%;
+        margin: auto;
+        height: 500px;
+    }
+}
+
+@media (min-width: 420px) and (max-width: 575px){
+    #blog section{
+        width: 90%;
+        margin: auto;
+        height: 750px;
+    }
+
+    #blog .mobile{
+        height: 300px;
+        width: 100%;
+        position: static !important;
+        object-fit: contain !important;
+        bottom: 0
+    }
+
+    #blog .text{
+        width: 100%;
+    }
+}
+
+@media (max-width: 420px){
+    #blog section{
+        width: 90%;
+        margin: auto;
+        height: 750px;
+    }
+
+    #blog .mobile{
+        height: 300px;
+        width: 100%;
+        position: static !important;
+        object-fit: contain !important;
+        bottom: 0
+    }
+
+    #blog .text{
+        width: 100%;
+        margin: 0 !important;
+    }
+}
+
+/*----------------------------------------------- Apprendre ----------------------------------------------- */
+#apprendre section{
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 350px;
+}
+
+#apprendre .text{
+    width: 60%;
+    max-width: 500px;
+}
+
+#apprendre .text p{
+    font-size: 13px;
+    color: #666;
+}
+
+#apprendre img{
+    width: auto;
+    height: 250px;
+    object-fit: contain;
+    margin: 20px 0 20px 0;
+}
+
+#apprendre{
+    box-shadow:  -15px 30px 20px -20px #DCDCDB inset!important
+}
+
+
+/*----------------------------------------------- Partenaires ----------------------------------------------- */
+
+#partenaire img{
+    margin: 80px 0 80px 0;
+}
+
+
+#partenaire{
+    box-shadow:  20px 0px 20px 10px #DCDCDB !important
+}
+
+@media (max-width: 768px) {
+    #partenaire img{
+        margin: 80px 0px 80px 30px;
+    }
+}
+
+/*----------------------------------------------- Footer ----------------------------------------------- */
+
+#footer{
+    background-color: #222222;
+    padding-bottom: 20px;
+}
+
+#footer section {
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 200px;
+}
+
+#footer p{
+    margin-left: 20px;
+    color: #f9f9f9;
+}
+
+.copyright{
+    text-decoration: underline;
+    font-size: 10px;
 }
