@@ -35,7 +35,7 @@ $(document).ready(function () {
                             },
                             error: function (jqxhr) {
                                 if(jqxhr.status === 500) {
-                                    $('.flash-msg-cnx').replaceWith('<div class="alert alert-danger justify-content-center flash-msg-cnx">Compte désactivé, contactez l\'administrateur pour plus d\'informations.</div>');
+                                    $('.flash-msg-cnx').replaceWith('<div class="alert alert-danger justify-content-center flash-msg-cnx">Compte désactivé, contactez l\'administrateur.</div>');
                                 }else {
                                     $('.flash-msg-cnx').replaceWith(jqxhr.responseText);
                                 }
