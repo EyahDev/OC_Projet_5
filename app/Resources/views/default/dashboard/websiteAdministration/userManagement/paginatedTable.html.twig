@@ -12,7 +12,7 @@
             </tr>
             </thead>
             <tbody>
-
+                {{ include(':default/dashboard/websiteAdministration/userManagement:userLoop.html.twig') }}
             </tbody>
         </table>
     </div>
@@ -23,5 +23,4 @@
             {{ knp_pagination_render(usersList) }}
         </div>
     </div>
-
 </div>
