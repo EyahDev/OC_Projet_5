@@ -211,6 +211,7 @@ class AccountController extends Controller
                 }
                 // Enregistrement
                 $accountManager->updateUser($user);
+                $accountManager->updateSubscriptionToNewsletter($user);
 
                 // Envoie le message de confirmation de mise à jour
                 return new Response('inscription à la newsletter mis à jour');

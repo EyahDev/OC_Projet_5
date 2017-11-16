@@ -64,3 +64,8 @@ services:
             arguments:
                 $observationsDirectory: '%observations_directory%'
                 $paginator: '@knp_paginator'
+
+    AppBundle\Services\MailChimp\MailChimpManager:
+        arguments:
+            $apiKey: '%mailchimp_api_key%'
+            $listId: '%mailchimp_list_id%'
