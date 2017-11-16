@@ -14,8 +14,8 @@ parameters:
     mailer_host: 127.0.0.1
     mailer_user: ~
     mailer_password: ~
-    mailer_port: ~
-    mailer_encryption: ~
+
+    captcha_secret:
 
     # A secret key that's used to generate certain security-related tokens
     secret: 4220e85686c48122576d1888d366db6ad1526961
