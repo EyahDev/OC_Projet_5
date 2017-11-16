@@ -307,6 +307,10 @@ div.input.categorie{
     margin: auto;
 }
 
+.additional-margin-bottom {
+    margin-bottom: 10px;
+}
+
 #editPost .form-control {
     padding: 0 0 5px 5px;
 }

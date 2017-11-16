@@ -110,11 +110,13 @@ $(document).ready(function() {
                                     $a.prev().replaceWith('');
                                     // modifie la ligne du tableau qui vient d'etre modifié
                                     reloadTableFaqAfterAddingOrModifying();
+                                    addFlashMsgFaq('success', "Question modifiée")
                                     // retire l'ecoute de l'évenement clic sur un bouton edit
                                     $('.btn-edit-faq').off('click', edit);
                                     removeFaq();
                                     editFaq();
                                 });
+                                $a.prev().modal('hide');
                             },
                             error: function (jqxhr) {
                                 var appendCode = '<div class="flash-msg alert alert-danger">'+jqxhr.responseText+'</div>';

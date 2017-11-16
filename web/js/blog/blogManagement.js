@@ -124,6 +124,7 @@ $(document).ready(function () {
                 success: function (data) {
                     // recharge le tableau apres suppression
                     reloadCategoriesTableAfterRemoving();
+                    reloadWritePost();
                     // ajoute le message flash
                     addFlashMsgManageCategories('success', data);
                 },
@@ -172,6 +173,7 @@ $(document).ready(function () {
                             contentType: false,
                             success: function (data, text, jqxhr) {
                                 $('.img-category-edit').replaceWith(data);
+                                $('.img-category-edit').css("margin-bottom", '10px');
                                 // ajoute un message flash
                                 var appendCode = '<div class="flash-msg alert alert-success">Catégorie mise à jour</div>';
                                 $form.parent().prepend(appendCode);
@@ -184,11 +186,14 @@ $(document).ready(function () {
                                 $a.prev().on('hidden.bs.modal', function (e) {
                                     // efface la modale d'édition
                                     $a.prev().replaceWith('');
-                                    // modifie la ligne du tableau qui vient d'etre modifié
+                                    addFlashMsgManageCategories('success', 'Catégorie mise à jour');
+                                    // recharge le tableau de catégories et le formulaire de redaction d'un article
                                     reloadCategoriesTableAfterAddingOrModifying();
+                                    reloadWritePost();
                                     // retire l'ecoute de l'évenement clic sur un bouton edit
                                     $('.btn-edit-faq').off('click', edit);
                                 });
+                                $a.prev().modal('hide');
                             },
                             error: function (jqxhr) {
                                 var appendCode = '<div class="flash-msg alert alert-danger">'+jqxhr.responseText+'</div>';
@@ -226,6 +231,7 @@ $(document).ready(function () {
                 contentType: false,
                 success: function (data){
                     reloadCategoriesTableAfterAddingOrModifying();
+                    reloadWritePost();
                     $('#create_category_name').val('');
                     $('#create_category_photoPath').val('');
                     addFlashMsgManageCategories('success', data);
@@ -538,6 +544,7 @@ $(document).ready(function () {
                             contentType: false,
                             success: function (data, text, jqxhr) {
                                 $('.img-post-edit').replaceWith(data);
+                                $('.img-post-edit').parent().css('margin-bottom', '10px');
                                 // ajoute un message flash
                                 var appendCode = '<div class="flash-msg alert alert-success">Article mis à jour</div>';
                                 $form.parent().prepend(appendCode);
@@ -546,6 +553,7 @@ $(document).ready(function () {
                                     $('.flash-msg').replaceWith("");
                                 }
                                 setTimeout(removeFlashMsg, 5000);
+
                                 // a la fermeture de la modale
                                 $a.prev().on('hidden.bs.modal', function (e) {
                                     tinymce.remove();
@@ -553,9 +561,13 @@ $(document).ready(function () {
                                     $a.prev().replaceWith('');
                                     // modifie la ligne du tableau qui vient d'etre modifié
                                     reloadPostsTableAfterAddingOrModifying();
+                                    //affiche un message flash de confirmation
+                                    addFlashMsgManagePosts('success', "Article mis à jour.");
                                     // retire l'ecoute de l'évenement clic sur un bouton edit
                                     $('.btn-edit-post').off('click', edit);
                                 });
+                                // ferme la modale
+                                $a.prev().modal('hide');
                             },
                             error: function (jqxhr) {
                                 var appendCode = '<div class="flash-msg alert alert-danger">'+jqxhr.responseText+'</div>';

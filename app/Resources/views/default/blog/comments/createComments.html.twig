@@ -5,7 +5,7 @@
     {{ form_errors(commentForm.message) }}
     {{ form_widget(commentForm.message, {'attr': {'placeholder': 'Votre message...'}}) }}
 </div>
-<div class="d-flex justify-content-end btn-new-comment-section">
+<div class="d-flex justify-content-end btn-new-comment-section answerButton">
     {{ form_widget(commentForm.save, {'label': 'Commenter'}) }}
 </div>
 {{ form_end(commentForm) }}

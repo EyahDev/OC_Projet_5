@@ -4,11 +4,11 @@
             <td data-title="Modification">
                 <a href="{{path('modify-observation', {'id': observation.id }) }}" class="btn-edit-current-user-observation" data-toggle="modal" data-target="#modifyObservationModal{{ observation.id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
-                <div class="modal fade" id="statusDetail{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="statusDetail{{ loop.index }}Label" aria-hidden="true">
+                <div class="modal fade" id="statusDetail{{ observation.id }}" tabindex="-1" role="dialog" aria-labelledby="statusDetail{{ observation.id }}Label" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="statusDetail{{ loop.index }}Label">Statut de l'observation validée</h5>
+                                <h5 class="modal-title" id="statusDetail{{ observation.id }}Label">Statut de l'observation validée</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
                                 </button>

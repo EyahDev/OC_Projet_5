@@ -133,12 +133,16 @@ $(document).ready(function() {
                                 $a.prev().on('hidden.bs.modal', function (e) {
                                     // efface la modale
                                     $a.prev().replaceWith('');
+                                    addFlashMsgUserManagement('success', 'Role modifié');
                                     //recharge le tableau
                                     reloadTableUserManagement()
                                 });
+                                $a.prev().modal('hide');
                             },
                             error: function (jqxhr) {
-                                addFlashMsgUserManagement('danger', jqxhr.responseText);
+                                // ajoute un message flash
+                                var appendCode = '<div class="flash-msg alert alert-danger">'+jqxhr.responseText+'</div>';
+                                $form.parent().prepend(appendCode);
                             }
                         })
                     })
