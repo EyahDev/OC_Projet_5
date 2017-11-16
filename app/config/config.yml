@@ -12,7 +12,7 @@ parameters:
     avatars_directory: '%kernel.project_dir%/web/uploads/avatars_files'
     posts_directory: '%kernel.project_dir%/web/uploads/posts_files'
     users_directory: '%kernel.project_dir%/web/uploads/users_files'
-    mailchimp_api_key: '5eeea28d3d786401ed736bb5ad10308b-us17'
+
     mailchimp_list_id: 'f39bab3922'
 
 framework:
