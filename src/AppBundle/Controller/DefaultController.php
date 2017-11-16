@@ -10,6 +10,7 @@ use AppBundle\Services\SpeciesManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
@@ -101,6 +102,30 @@ class DefaultController extends Controller
             'form' => $landingPageSignUpForm->createView()));
     }
 
+    /**
+     * @param $id
+     * @param MapsManager $maps
+     * @param SessionInterface $session
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     *
+     * @Route("/ajout-confirmation-observation/{id}", name="ajoutPlusUn")
+     * @Method("GET")
+     */
+    public function setSeeTooAction($id, MapsManager $maps, SessionInterface $session, Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            // Ajout d'une confirmation d'observation à l'observation
+            $maps->setSeeToo($id);
+
+            $arraySeeToo = $session->get('seeToo');
+
+            return new Response(json_encode($arraySeeToo));
+        }
+
+        throw new \Exception("Vous ne pouvez pas accéder à cette page.", 403);
+    }
+
 
     /**
      * @param Request $request
@@ -113,6 +138,14 @@ class DefaultController extends Controller
      */
     public function searchObservationsAction(Request $request, MapsManager $maps, SessionInterface $session)
     {
+        if (is_array($session->get('seeToo'))) {
+            $sessionIds = $session->get('seeToo');
+        } else {
+            $sessionIds = $session->set('seeToo', array());
+        }
+
+        $sessionIds = json_encode($sessionIds);
+
         // Reset des markers
         if ($session->get('search') === false){
             $session->set('nbResults', 0);
@@ -155,7 +188,8 @@ class DefaultController extends Controller
 
         return $this->render("default/searchObservations.html.twig",
             array(
-                'searchObservationForm' => $searchObservationForm->createView()
+                'searchObservationForm' => $searchObservationForm->createView(),
+                'seeToo' => $sessionIds
             ));
     }
 

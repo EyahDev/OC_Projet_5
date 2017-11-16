@@ -7,6 +7,10 @@
     padding: 0 !important;
 }
 
+.container-fluid {
+  padding: 0;
+}
+
     /* Responsive */
 
 @media (min-width: 992px) {
