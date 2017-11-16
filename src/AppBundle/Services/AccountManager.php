@@ -112,7 +112,7 @@ class AccountManager
         $this->em->persist($user);
         $this->em->flush();
         if ($user->getNewsletter() === true) {
-            $this->mailChimpManager->addToMailchimp($user);
+            $this->mailChimpManager->subscribeNewsletter($user);
         }
     }
 

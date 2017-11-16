@@ -16,7 +16,6 @@
 /vendor/
 /web/bundles/
 /.idea/
-/web/markers/markers.xml
 /web/uploads/categories_files/*
 /web/uploads/posts_files/*
 /web/uploads/observations_files/*
