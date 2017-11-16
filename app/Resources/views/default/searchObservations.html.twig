@@ -27,6 +27,7 @@
             {{ message }}
         </div>
     {% endfor %}
+
     <div class="container-fluid">
         <div class="research-sidebar">
             <div class="contentResearch">
@@ -124,6 +125,7 @@
 {% block javascripts %}
 
     <script>
+
         $(document).ready(function(){
 
             if ($(window).width() < 992) {
@@ -205,6 +207,7 @@
                 var indexLoop = 0;
                 Array.prototype.forEach.call(markers, function(markerElem) {
                     indexLoop++;
+                    var id = markerElem.getAttribute('id');
                     var user = markerElem.getAttribute('user');
                     var date = markerElem.getAttribute('date');
                     var referenceName = markerElem.getAttribute('reference');
@@ -230,8 +233,39 @@
                         nest = 'Oui';
                     }
 
+                    var image;
+
+                    if (photo === '') {
+                        image = '<img src="{{ asset('img/default/bird_default.png') }}" alt="'+ referenceName +'" ' +
+                            'style="margin-left: 70px; height: 150px; padding: 25px; border-radius: 10px;' +
+                            '-webkit-box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);\n' +
+                            '-moz-box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);\n' +
+                            'box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);">';
+                    } else {
+                        image = '<img src="../'+ photo +'" alt="'+ referenceName +'" ' +
+                        'style="margin-left: 70px; height: 150px; padding: 25px; border-radius: 10px;' +
+                        '-webkit-box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);\n' +
+                        '-moz-box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);\n' +
+                        'box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);">';
+                    }
+
                     var urlSlug = "{{ path('ficheEspece', {'slug': 'slug_species' }) }}";
                     urlSlug = urlSlug.replace('slug_species', slug);
+
+                    var urlId = "{{ path('ajoutPlusUn', {'id': 'observation_id' }) }}";
+                    urlId = urlId.replace('observation_id', id);
+
+                    var baliseSeeToo;
+
+                    var arraySeeToo = '{{ seeToo|e('js') }}';
+                    arraySeeToo = JSON.parse(arraySeeToo);
+
+
+                    if (arraySeeToo.indexOf(id) !== -1) {
+                        baliseSeeToo = ''
+                    } else {
+                        baliseSeeToo = '<p style="color: black; text-align: right; margin-bottom: 0"><a class="addSeeToo" href="'+ urlId +'">Confirmer l\'observation <i class="fa fa-thumbs-up" aria-hidden="true"></i></a></p>'
+                    }
 
                     if(user !== null) {
                         // Transmission des resultats en dehors de la map
@@ -263,7 +297,7 @@
                     }
 
                     var infowincontent =
-                        '<img src="../'+ photo +'" alt="'+ referenceName +'" style="margin-left: auto; margin-right: auto; height: 150px; border: 1px solid black;">' +
+                        image +
                         '<div style="padding: 10px;">\n' +
                         '<a href="'+ urlSlug +'"><h5 style="margin-top: 0; text-align: center;">'+ referenceName +'</h5></a>' +
                         '<p style="color: black">Nom Commun : '+ vernacularName +'</p>' +
@@ -271,6 +305,7 @@
                         '<p style="color: black">Nid(s) : '+ nest +'</p>' +
                         '<p style="color: black">Oeuf(s) : '+ eggsNumber +'</p>' +
                         '<p style="color: black">Observé par : '+ user +' le '+ date +'</p>' +
+                        baliseSeeToo +
                         '</div>';
 
                     var icon = icons[type].icon || {};
@@ -299,11 +334,45 @@
                         markerArray.push(marker);
 
                         marker.addListener('click', function() {
+                            map.setCenter(marker.getPosition());
                             infoWindow.setContent(infowincontent);
                             infoWindow.open(map, marker);
+
+                            // Ajout d'une confirmation d'une observation
+                            if(arraySeeToo.indexOf(id) === -1) {
+                                addSeeToo();
+                            } else {
+                                $('.addSeeToo').replaceWith('');
+                            }
                         });
 
                     {% endif %}
+
+
+
+                    // fonction permettant de traiter la suppression d'une question/réponse
+                    function addSeeToo() {
+                        $('.addSeeToo').on('click', function(e) {
+                            e.preventDefault();
+                            var $a = $(this);
+                            var url = $a.attr('href');
+                            $.ajax({
+                                type:'GET',
+                                url: url,
+                                success: function (data) {
+                                    if (arraySeeToo !== null) {
+                                        $a.replaceWith('Votre confirmation a été ajoutée.');
+                                        arraySeeToo = JSON.parse(data);
+                                        if (arraySeeToo.indexOf(id) !== -1) {
+                                            $a.replaceWith('')
+                                        }
+                                    }
+                                },
+                                error: function (jqxhr) {
+                                }
+                            })
+                        });
+                    }
 
                 });
 
@@ -331,7 +400,9 @@
 
         function myClick(id) {
             google.maps.event.trigger(markerArray[id -1], 'click');
+            map.setCenter(marker.markerArray[id -1]);
         }
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNQR3Hw_y1urMSouzdoaVgUESayHjM90g&&callback=initMap" async defer></script>
     <script src="{{ asset('js/menu.js') }}"></script>

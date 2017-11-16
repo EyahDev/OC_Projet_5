@@ -3,21 +3,27 @@
 namespace AppBundle\Services;
 
 use AppBundle\Form\Type\Observations\SearchObservationType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class MapsManager
 {
     private $formBuilder;
     private $observationManager;
+    private $em;
+    private $session;
 
     /**
      * MapsManager constructor.
      * @param FormFactoryInterface $formFactory
      * @param ObservationManager $observationManager
      */
-    public function __construct( FormFactoryInterface $formFactory, ObservationManager $observationManager) {
+    public function __construct( FormFactoryInterface $formFactory, ObservationManager $observationManager, EntityManagerInterface $em, SessionInterface $session) {
         $this->formBuilder = $formFactory;
         $this->observationManager = $observationManager;
+        $this->em = $em;
+        $this->session = $session;
     }
 
     public function searchObservationsForm() {
@@ -79,6 +85,51 @@ class MapsManager
         return $results;
     }
 
+    public function setSeeToo($id) {
+        // Récupération de l'observation concernée
+        $observation  = $this->em->getRepository('AppBundle:Observation')->find($id);
+
+        // Récupération de la valeur de confirmation
+        $seeToo = $observation->getSeeToo();
+
+        // Vérification avant l'ajout
+        if ($seeToo === null) {
+            $seeToo = 0;
+        }
+
+        // Ajout d'une confirmaiton d'observation
+        $observation->setSeeToo($seeToo + 1);
+
+        $this->em->persist($observation);
+        $this->em->flush();
+
+        //Vérification si le tableau de session existe
+        if (is_array($this->session->get('seeToo'))) {
+            // Récupération du tableau de session existant
+            $arraySeeToo = $this->session->get('seeToo');
+
+            // Ajout du nouvel id
+            array_push($arraySeeToo, $id);
+
+            // Ecriture en session
+            $this->session->set('seeToo', $arraySeeToo);
+        } else {
+            // Création d'un tableau
+            $this->session->set('seeToo', array());
+
+            // Récupération du tableau de session existant
+            $arraySeeToo = $this->session->get('seeToo');
+
+            // Ajout du nouvel id
+            array_push($arraySeeToo, $id);
+
+            // Ecriture en session
+            $this->session->set('seeToo', $arraySeeToo);
+        }
+
+
+    }
+
     public function resetMarkersXML() {
         // Création du document XML
         $mapsXMLDoc = new \DOMDocument('1.0', 'utf-8');
@@ -113,6 +164,7 @@ class MapsManager
             foreach ($results as $marker) {
                 // Création du noeud <url>
                 $markerNode = $mapsXMLDoc->createElement('marker');
+                $markerNode->setAttribute('id', $marker->getId());
                 $markerNode->setAttribute('user', $marker->getObserver()->getUserName());
                 $markerNode->setAttribute('date', $marker->getObservationDate()->format('d/m/Y à H:i'));
                 $markerNode->setAttribute('reference', $marker->getSpecies()->getReferenceName());
