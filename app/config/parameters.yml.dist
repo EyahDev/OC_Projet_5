@@ -17,5 +17,8 @@ parameters:
 
     captcha_secret:
 
+    mailchimp_api_key: ~
+    mailchimp_list_id: ~
+
     # A secret key that's used to generate certain security-related tokens
     secret: 4220e85686c48122576d1888d366db6ad1526961
