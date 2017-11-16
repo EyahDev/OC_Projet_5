@@ -12,8 +12,10 @@ use AppBundle\Form\Type\Account\UpdatePasswordType;
 use AppBundle\Form\Type\Signup\SignupType;
 use AppBundle\Services\MailChimp\MailChimpManager;
 use Doctrine\ORM\EntityManagerInterface;
+use ReCaptcha\ReCaptcha;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -21,11 +23,13 @@ class AccountManager
 {
     private $formBuilder;
     private $em;
+    private $request;
     private $validator;
     private $encoder;
     private $filesystem;
     private $avatarsDirectory;
     private $mailChimpManager;
+    private $captchaSecretKey;
 
     /**
      * AccountManager constructor.
@@ -39,17 +43,30 @@ class AccountManager
      */
     public function __construct($avatarsDirectory, FormFactoryInterface $formBuilder, EntityManagerInterface $em,
                                 ValidatorInterface $validator, UserPasswordEncoderInterface $encoder,
-                                Filesystem $filesystem, MailChimpManager $mailChimpManager) {
+                                Filesystem $filesystem, RequestStack $request, MailChimpManager $mailChimpManager, $captchaSecretKey) {
 
         $this->avatarsDirectory = $avatarsDirectory;
         $this->formBuilder = $formBuilder;
         $this->em = $em;
         $this->validator = $validator;
         $this->encoder = $encoder;
+        $this->request = $request;
         $this->filesystem = $filesystem;
         $this->mailChimpManager = $mailChimpManager;
+        $this->captchaSecretKey = $captchaSecretKey;
     }
 
+    public function verfiyCaptcha() {
+        $recaptcha = new ReCaptcha($this->captchaSecretKey);
+
+        $resp = $recaptcha->verify($this->request->getCurrentRequest()->get('g-recaptcha-response'), $this->request->getCurrentRequest()->getClientIp());
+
+        if (!$resp->isSuccess()) {
+            return $resp->getErrorCodes();
+        } else {
+            return true;
+        }
+    }
 
     public function getSignUpForm() {
         // Création d'un nouvel utilisateur

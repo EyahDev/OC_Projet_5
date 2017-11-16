@@ -339,15 +339,21 @@ class DefaultController extends Controller
 
         // Soumission du formulaire
         if ($landingPageBSignUpForm->isSubmitted() && $landingPageBSignUpForm->isValid()) {
+            if ($accountManager->verfiyCaptcha() === true) {
+                // Récupération des valeurs du formulaire
+                $user = $landingPageBSignUpForm->getData();
 
-            // Récupération des valeurs du formulaire
-            $user = $landingPageBSignUpForm->getData();
+                // Création du nouvel utilisateur
+                $accountManager->setNewUser($user);
 
-            // Création du nouvel utilisateur
-            $accountManager->setNewUser($user);
+                // Rédirection vers la page d'accueil
+                return $this->redirectToRoute('homepage');
+            } else {
+                $this->addFlash('notice', 'Si vous n\'êtes pas un robot, veuillez cocher la case.');
 
-            // Rédirection vers la page d'accueil
-            return $this->redirectToRoute('homepage');
+                // Rédirection vers la page d'accueil
+                return $this->redirectToRoute('landingPageFinale');
+            }
         }
         return $this->render("default/landingPageB.html.twig", array(
             'title' => 'Nouvel utilisateur',
@@ -372,21 +378,29 @@ class DefaultController extends Controller
         // Récupération du formulaire d'inscription de la landing page B
         $landingPageBSignUpForm = $accountManager->getSignUpForm();
 
-        // Hydration des valeurs
-        $landingPageBSignUpForm->handleRequest($request);
+            // Hydration des valeurs
+            $landingPageBSignUpForm->handleRequest($request);
 
-        // Soumission du formulaire
-        if ($landingPageBSignUpForm->isSubmitted() && $landingPageBSignUpForm->isValid()) {
+            // Soumission du formulaire
+            if ($landingPageBSignUpForm->isSubmitted() && $landingPageBSignUpForm->isValid()) {
+                if ($accountManager->verfiyCaptcha() === true) {
+                    // Récupération des valeurs du formulaire
+                    $user = $landingPageBSignUpForm->getData();
 
-            // Récupération des valeurs du formulaire
-            $user = $landingPageBSignUpForm->getData();
+                    // Création du nouvel utilisateur
+                    $accountManager->setNewUser($user);
 
-            // Création du nouvel utilisateur
-            $accountManager->setNewUser($user);
+                    dump($request->get('g-recaptcha-response'));
+                    // Rédirection vers la page d'accueil
+                    return $this->redirectToRoute('homepage');
+                } else {
+                    $this->addFlash('notice', 'Si vous n\'êtes pas un robot, veuillez cocher la case.');
 
-            // Rédirection vers la page d'accueil
-            return $this->redirectToRoute('homepage');
-        }
+                    // Rédirection vers la page d'accueil
+                    return $this->redirectToRoute('landingPageFinale');
+                }
+            }
+
         return $this->render("default/landingPageAFinale.html.twig", array(
             'title' => 'Nouvel utilisateur',
             'form' => $landingPageBSignUpForm->createView()));

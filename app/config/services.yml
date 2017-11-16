@@ -45,6 +45,7 @@ services:
     AppBundle\Services\AccountManager:
         arguments:
             $avatarsDirectory: '%avatars_directory%'
+            $captchaSecretKey: '%captcha_secret%'
 
     AppBundle\Services\BlogManager:
             arguments:

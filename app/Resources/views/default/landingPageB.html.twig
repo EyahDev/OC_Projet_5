@@ -93,6 +93,9 @@
 
                                 {{ form_label(form.proPermission) }}
                                 {{ form_widget(form.newsletter) }}
+                                <div class="captcha d-flex justify-content-center">
+                                    <div class="g-recaptcha" style="text-align: center" data-sitekey="6LczuTgUAAAAACLNHiOxSRUSU4jnV1Dm7UXXRJXo"></div>
+                                </div>
                                 <div style="text-align: center; margin-bottom: 50px">
                                 {{ form_widget(form.save, {'label': 'S\'inscrire', 'attr': {'class': 'btn btn-default'}}) }}
                                 </div>
@@ -264,5 +267,6 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.min.js"></script>
         <script src="{{ asset('js/landingPageB.js') }}"></script>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
     </body>
 </html>
