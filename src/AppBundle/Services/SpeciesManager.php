@@ -77,7 +77,7 @@ class SpeciesManager
         $noPhotoCount = 0;
 
         foreach ($observations as $observation) {
-            if ($observation->getPhotoPath() === null) {
+            if (strpos($observation->getPhotoPath(), 'uploads/observations_files/') === false) {
                 $noPhotoCount++;
             } else {
                 array_push($photos, $observation->getPhotoPath());
