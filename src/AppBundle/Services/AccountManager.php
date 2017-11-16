@@ -10,6 +10,7 @@ use AppBundle\Form\Type\Account\AddLocationType;
 use AppBundle\Form\Type\Account\UpdateNewsletterType;
 use AppBundle\Form\Type\Account\UpdatePasswordType;
 use AppBundle\Form\Type\Signup\SignupType;
+use AppBundle\Services\MailChimp\MailChimpManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -24,6 +25,7 @@ class AccountManager
     private $encoder;
     private $filesystem;
     private $avatarsDirectory;
+    private $mailChimpManager;
 
     /**
      * AccountManager constructor.
@@ -33,10 +35,11 @@ class AccountManager
      * @param ValidatorInterface $validator
      * @param UserPasswordEncoderInterface $encoder
      * @param Filesystem $filesystem
+     * @param MailChimpManager $mailChimpManager
      */
     public function __construct($avatarsDirectory, FormFactoryInterface $formBuilder, EntityManagerInterface $em,
                                 ValidatorInterface $validator, UserPasswordEncoderInterface $encoder,
-                                Filesystem $filesystem) {
+                                Filesystem $filesystem, MailChimpManager $mailChimpManager) {
 
         $this->avatarsDirectory = $avatarsDirectory;
         $this->formBuilder = $formBuilder;
@@ -44,6 +47,7 @@ class AccountManager
         $this->validator = $validator;
         $this->encoder = $encoder;
         $this->filesystem = $filesystem;
+        $this->mailChimpManager = $mailChimpManager;
     }
 
 
@@ -90,6 +94,9 @@ class AccountManager
         // Enregistrement et sauvegarde en base de données
         $this->em->persist($user);
         $this->em->flush();
+        if ($user->getNewsletter() === true) {
+            $this->mailChimpManager->addToMailchimp($user);
+        }
     }
 
     /**
@@ -268,5 +275,14 @@ class AccountManager
             return 'Le nouveau mot de passe doit contenir au moins une lettre et un chiffre';
         }
         return true;
+    }
+
+    public function updateSubscriptionToNewsletter(User $user)
+    {
+        if($user->getNewsletter() === true) {
+            $this->mailChimpManager->subscribeNewsletter($user);
+        } else {
+            $this->mailChimpManager->unsubscribeNewsletter($user);
+        }
     }
 }
