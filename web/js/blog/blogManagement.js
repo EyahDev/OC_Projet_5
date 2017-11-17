@@ -561,6 +561,7 @@ $(document).ready(function () {
                                     $a.prev().replaceWith('');
                                     // modifie la ligne du tableau qui vient d'etre modifié
                                     reloadPostsTableAfterAddingOrModifying();
+                                    reloadWritePost();
                                     //affiche un message flash de confirmation
                                     addFlashMsgManagePosts('success', "Article mis à jour.");
                                     // retire l'ecoute de l'évenement clic sur un bouton edit
