@@ -15,7 +15,7 @@ parameters:
     mailer_user: ~
     mailer_password: ~
 
-    captcha_secret:
+    captcha_secret: ~
 
     mailchimp_api_key: ~
     mailchimp_list_id: ~

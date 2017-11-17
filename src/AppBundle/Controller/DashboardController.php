@@ -93,7 +93,7 @@ class DashboardController extends Controller
 
         /* Observations */
 
-        // Récupération des observations de l'utilisateur
+        // Récupération des observations non validées
         $observations = $observationManager->getObservationsUnvalidated();
 
         /* Catégories */
@@ -143,7 +143,7 @@ class DashboardController extends Controller
         $avatarForm = $accountManager->getFormUpdateAvatar($user);
 
         /* Mes observations*/
-        $currentUserObservations = $observationManager->getCurrentUserPaginatedObservationsList($user);
+        $currentUserObservations = $observationManager->getObservationsByUser($user);
 
         /* Gestion des utilisateurs*/
         $usersList = $userManager->getPaginatedUsersList($user->getId());
