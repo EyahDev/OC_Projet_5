@@ -278,10 +278,16 @@
                             counter.innerHTML =
                                 '<p>Détails de la recherche : '+ i +' résultats</p>'+
                                 '<p id="closeResult" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></i></p>';
+                            $('#closeResult').click(function() {
+                                $(".result-sidebar").trigger("sidebar:close");
+                            });
                         } else {
                             counter.innerHTML =
                                 '<p>Détails de la recherche : '+ i +' résultat</p>'+
                                 '<p id="closeResult" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></i></p>';
+                            $('#closeResult').click(function() {
+                                $(".result-sidebar").trigger("sidebar:close");
+                            });
                         }
 
                         // Création de la liste des resultat

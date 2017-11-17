@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class ContainsBothName extends Constraint
 {
-    public $message = "Vous devez sélectionner une espèce par son nom scientifique ou son nom commun, mais pas les deux";
+    public $message = "Vous devez sélectionner une espèce par son nom scientifique ou son nom commun, mais pas les deux.";
 
     public function validatedBy()
     {
