@@ -1,6 +1,3 @@
-/*.navbar-light .navbar-toggler-icon {*/
-        /*width: 150px;*/
-    /*}*/
 
 
 /*----------------------------------------------- Header ----------------------------------------------- */
@@ -1137,8 +1134,7 @@
     .photo-gagnant{
         margin-left: 15px;
         margin-top: 0;
-        max-height: 350px;
-        height: auto;
+        height: 350px;
         z-index: 0;
     }
 
@@ -1183,6 +1179,8 @@
 
     .photo-gagnant{
         margin-top: 30px;
+        margin-right: auto;
+        margin-left: auto;
         bottom: 0;
     }
 }
@@ -1223,4 +1221,149 @@
     #prout.container{
         max-width: 300px;
     }
+}
+
+/* Gestion du podium */
+
+@media (max-width: 768px){
+    .firstPlace h4, .secondPlace h4, .thirdPlace h4 {
+        margin-top: 40px;
+    }
+
+    .podium {
+        background: none;
+        margin-top: 70px;
+        height: 100%;
+    }
+
+    .firstPlace, .secondPlace, .thirdPlace {
+        position: static;
+        text-align: center;
+    }
+
+    .firstPlace {
+        left: 190px;
+        top: -50px;
+    }
+
+    .secondPlace {
+        left: 0;
+    }
+
+    .thirdPlace {
+        left: 370px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px){
+    .podium {
+        background: url("../img/research/podium.png");
+        margin-top: 250px;
+        height: 500px;
+    }
+
+    .firstPlace h4, .secondPlace h4, .thirdPlace h4 {
+        display: none;
+    }
+
+    .firstPlace, .secondPlace, .thirdPlace {
+        position: absolute;
+    }
+
+    .firstPlace {
+        left: 290px;
+        top: -100px;
+    }
+
+    .secondPlace {
+        left: 60px;
+    }
+
+    .thirdPlace {
+        left: 500px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px){
+    .podium {
+        background: url("../img/research/podium.png");
+        margin-top: 250px;
+        height: 500px;
+    }
+
+    .firstPlace h4, .secondPlace h4, .thirdPlace h4 {
+        display: none;
+    }
+
+    .firstPlace, .secondPlace, .thirdPlace {
+        position: absolute;
+    }
+
+    .firstPlace {
+        left: 410px;
+        top: -120px;
+    }
+
+    .secondPlace {
+        left: 160px;
+    }
+
+    .thirdPlace {
+        left: 630px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .podium {
+        background: url("../img/research/podium.png");
+        margin-top: 250px;
+        height: 500px;
+    }
+
+    .firstPlace h4, .secondPlace h4, .thirdPlace h4 {
+        display: none;
+    }
+
+    .firstPlace, .secondPlace, .thirdPlace {
+        position: absolute;
+    }
+
+    .firstPlace {
+        left: 500px;
+        top: -120px;
+    }
+
+    .secondPlace {
+        left: 250px;
+    }
+
+    .thirdPlace {
+        left: 720px;
+    }
+}
+
+.podium {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    position: relative;
+}
+
+.avatarPodium {
+    width: 150px;
+    height:150px;
+    display: block;
+}
+
+.firstPlace, .secondPlace, .thirdPlace {
+    overflow-x: visible;
+}
+
+
+.secondPlace {
+    top: 40px;
+}
+
+.thirdPlace {
+    top: 90px;
 }

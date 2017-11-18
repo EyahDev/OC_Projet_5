@@ -21,16 +21,16 @@
 .formulaire{
     width: 90%;
     margin: auto;
-    height: 590px !important;
 }
 
-#inscription{
-    height: 700px !important;
+#inscription {
     margin: 80px 0 80px 0;
     border: 1.5px solid black;
-    border-right: 1.5px solid white;"
+    border-right: 1.5px solid white;
     background-color: white !important;
     width: 50%;
+    min-height: 650px;
+    max-height: 950px;
 }
 
 #header img{
