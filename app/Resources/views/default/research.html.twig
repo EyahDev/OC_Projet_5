@@ -175,13 +175,31 @@
     <section class="container-remerciements">
         <img class="gagnant img-fluid" src="{{ asset('img/research/la-gagnante.png') }}" alt="gagnant">
         <img class="like" src="{{ asset('img/research/icone-like.png') }}" alt="like">
-        <p>Catherine M. du Gers.</p>
+        <p>Sophia</p>
         <img class="photo-gagnant img-fluid" src="{{ asset('img/research/la-photo-gagnante.png') }}" alt="photo-gagnant">
     </section>
 
     <section class="container"><div class="research-title row d-flex justify-content-center align-items-center"><h2>Toutes nos félicitations<br />pour leur nombre<br />d'observations validées</h2><img src="{{ asset('img/research/icone-coupe.png') }}" alt="photo"></div></section>
 
-    <section class="container"><div class="row d-flex justify-content-center align-items-center"><img class="img-fluid" src="{{ asset('img/research/podium.png') }}" alt="podium"></div></section>
+    <section class="container">
+        <div class="podium">
+            <div class="firstPlace">
+                <h4>Première Place !</h4>
+                <img class="avatarPodium mx-auto" src="{{asset('img/blog/avatar/perso-1.png')}}" alt="Première place">
+                <p class="topObserver">Sophia : 43 observations</p>
+            </div>
+            <div class="secondPlace">
+                <h4>Seconde Place !</h4>
+                <img class="avatarPodium mx-auto" src="{{asset('img/blog/avatar/perso-2.png')}}" alt="Première place">
+                <p class="topObserver">Amélie : 23 observations</p>
+            </div>
+            <div class="thirdPlace">
+                <h4>Troisième Place !</h4>
+                <img class="avatarPodium mx-auto" src="{{asset('img/blog/avatar/perso-3.png')}}" alt="Première place">
+                <p class="topObserver">Alex : 15 observations</p>
+            </div>
+        </div>
+    </section>
 {% endblock %}
 
 {% block javascripts %}

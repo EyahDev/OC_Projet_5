@@ -324,7 +324,7 @@ class ObservationManager
     public function getObservationsUnvalidated()
     {
         // Récupération de toutes observations existantes
-        $observations = $this->em->getRepository('AppBundle:Observation')->findBy(array('validate' => null));
+        $observations = $this->em->getRepository('AppBundle:Observation')->findBy(array('validate' => null), array('observationDate' => 'DESC'));
         // récupère le service knp paginator
         $paginator = $this->paginator;
         // retourne les observations paginées selon la page passée en get
@@ -383,10 +383,19 @@ class ObservationManager
     public function getObservationsByUser($user)
     {
         // Récupération des observation par utilisateur
-        $observations = $this->em->getRepository('AppBundle:Observation')->findBy(array('observer' => $user));
+        $observationList = $this->em->getRepository('AppBundle:Observation')->findBy(
+            array('observer' => $user),
+            array('observationDate' => 'DESC')
+        );
 
-        // Retourne les bbservations de l'utilisateur
-        return $observations;
+        // récupère le service knp paginator
+        $paginator = $this->paginator;
+        // retourne les observations paginées selon la page passée en get
+        return $paginator->paginate(
+            $observationList, /* query NOT result */
+            $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
     }
 
     /**
@@ -603,20 +612,6 @@ class ObservationManager
         // Enregistrement
         $this->em->persist($newObservation);
         $this->em->flush();
-    }
-
-    public function getCurrentUserPaginatedObservationsList(User $user)
-    {
-        // récupère la liste des observations
-        $observationList = $user->getObservations();
-        // récupère le service knp paginator
-        $paginator = $this->paginator;
-        // retourne les observations paginées selon la page passée en get
-        return $paginator->paginate(
-            $observationList, /* query NOT result */
-            $this->request->getCurrentRequest()->query->getInt('page', 1)/*page number*/,
-            5/*limit per page*/
-        );
     }
 
     public function validateObservation(Observation $observation)

@@ -162,7 +162,7 @@ class ObservationController extends Controller
     public function paginationMyObservationsAction(Request $request, ObservationManager $observationManager)
     {
         if($request->isXmlHttpRequest()) {
-            $currentUserObservations = $observationManager->getCurrentUserPaginatedObservationsList($this->getUser());
+            $currentUserObservations = $observationManager->getObservationsByUser($this->getUser());
             return $this->render('default/dashboard/commonFeatures/myObservations/paginatedTable.html.twig', array(
                 'currentUserObservations' => $currentUserObservations
             ));

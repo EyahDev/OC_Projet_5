@@ -22,10 +22,10 @@
     margin: auto;
 }
 
-#inscription{
+.inscription{
     background-color: white;
     width: 50%;
-    }
+}
 
 .infos{
     width: 90%;
@@ -34,6 +34,7 @@
 
 header.container-fluid{
     padding: 0 !important;
+    height: 100%;
 }
 
 .logo{
@@ -142,7 +143,7 @@ form{
         margin-left: 20px !important;
     }
 
-    #inscription{
+    .inscription{
        width: 100% !important;
     }
 
@@ -174,7 +175,7 @@ form{
         display: none;
     }
 
-    #inscription{
+    .inscription{
         display: flex;
         flex-direction: column;
         width: 100% !important;
@@ -211,7 +212,7 @@ form{
     }
 
 
-    #inscription{
+    .inscription{
         width: 100% !important;
     }
 

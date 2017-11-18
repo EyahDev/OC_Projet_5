@@ -75,14 +75,14 @@
                         {{ form_widget(searchObservationForm.family) }}
                         </span>
 
-                        <span >
+                        <span>
                         {{ form_label(searchObservationForm.begin) }}
-                        {{ form_widget(searchObservationForm.begin) }}
+                        {{ form_widget(searchObservationForm.begin, {'attr': {'placeholder': 'ex : 18/01/2014 '}}) }}
                         </span>
 
                         <span>
                         {{ form_label(searchObservationForm.end) }}
-                        {{ form_widget(searchObservationForm.end) }}
+                        {{ form_widget(searchObservationForm.end, {'attr': {'placeholder': 'ex : 02/07/2016 '}}) }}
                         </span>
                     </div>
 
@@ -276,12 +276,18 @@
 
                         if(i > 1) {
                             counter.innerHTML =
-                                '<p>Détails de la recherche : '+ i +' résultats</p>'+
+                                '<p class="presSideBars">Détails de la recherche : '+ i +' résultats</p>'+
                                 '<p id="closeResult" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></i></p>';
+                            $('#closeResult').click(function() {
+                                $(".result-sidebar").trigger("sidebar:close");
+                            });
                         } else {
                             counter.innerHTML =
-                                '<p>Détails de la recherche : '+ i +' résultat</p>'+
+                                '<p class="presSideBars">Détails de la recherche : '+ i +' résultat</p>'+
                                 '<p id="closeResult" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></i></p>';
+                            $('#closeResult').click(function() {
+                                $(".result-sidebar").trigger("sidebar:close");
+                            });
                         }
 
                         // Création de la liste des resultat
