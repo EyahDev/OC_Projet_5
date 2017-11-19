@@ -1,0 +1,31 @@
+{% extends 'default/blog.html.twig' %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-blog vertical-center">
+            <div class="container-fluid">
+                <img src="{{ asset('img/blog/image-du-blog.jpg') }}" alt="blog">
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block contentBlog %}
+    <div class="container">
+        <div id="flashMsgIndexBlog"></div>
+        <section class="posts">
+            {% include('default/blog/Pagination/paginatedIndex.html.twig') %}
+        </section>
+
+        <section class="rightMenu">
+            {% include "default/blog/rightMenuBlog.html.twig" %}
+        </section>
+
+    </div>
+{% endblock %}

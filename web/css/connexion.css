@@ -1,0 +1,143 @@
+.cnx-infos-section {
+    background-color: #222222;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+}
+
+p.nao {
+    color: #f9f9f9;
+    font-size: 30px !important;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#connexionModal .close img{
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 30px;
+}
+
+#connexionModal a.btn.btn-default{
+    margin-bottom: 30px !important;
+}
+
+#connexionModal .btn {
+    background-color: #333;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    margin: 0 2px 0 0 !important;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+#connexionModal form{
+    width: 75%;
+    margin: 25px auto 80px auto;
+}
+
+
+#connexionModal form a{
+    font-family: 'Montserrat', sans-serif;
+    color : #444 !important;
+    font-size: 13px !important;
+    line-height: 1;
+}
+
+#connexionModal form a:hover{
+    color: #38A5E0 !important;
+    text-decoration: none;
+}
+
+#connexionModal label{
+    font-family: 'Montserrat', sans-serif;
+    color : #444 !important;
+    font-size: 13px !important;
+    line-height: 1;
+}
+
+#connexionModal input {
+    height: 35px !important;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    width: 100%;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #495057;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid black;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+#connexionModal .modal-body {
+    position: relative;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 15px;
+    padding-top: 0;
+    padding-right: 15px;
+    padding-bottom: 0;
+    padding-left: 15px;
+}
+
+#connexionModal p{
+    font-size: 13px;
+}
+
+#connexionModal h4{
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+}
+
+.fa{
+    font-size: 24px;
+}
+
+.fa-phone-square{
+    font-size: 18px;
+    color: #ffd11a;
+}
+.fa-home{
+    font-size: 18px;
+    color: #00cc44;
+}
+
+.fa-envelope {
+    font-size: 18px;
+    color: #ff3377;
+}
+
+
+.contactInfos p{
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+}
+
+@media (max-width: 420px){
+    #connexionModal .modal-dialog{
+        margin: 0;
+    }
+}

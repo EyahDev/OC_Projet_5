@@ -1,0 +1,19 @@
+{% if species.observations is empty %}
+    <p>Aucune observation n'a encore été faite pour cette espèce</p>
+{% else %}
+    {% for speciesObservation in species.observations %}
+        <p>{{ speciesObservation.birdNumber }} {{ speciesObservation.species.referenceName|lower }}
+
+            {% if speciesObservation.birdNumber > 1 %}
+                ont été observés
+            {% else %}
+                a observé le
+            {% endif %}
+
+            {{ speciesObservation.observationDate|date('d/m/Y à H:i')}} par {{ speciesObservation.observer.name }}.
+            {% if speciesObservation.seeToo != null %}
+                Observation confirmée par {{speciesObservation.seeToo}} utilisateur(s)
+            {% endif %}
+        </p>
+    {% endfor %}
+{% endif %}

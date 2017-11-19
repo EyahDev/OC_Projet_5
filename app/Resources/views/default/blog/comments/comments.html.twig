@@ -1,0 +1,17 @@
+<hr>
+<h4>Commentaires</h4>
+<hr>
+
+{# Si l'utlisateur est connecté on affiche le bouton de commentaire #}
+{% if is_granted('ROLE_USER') %}
+    Vous êtes connecté en tant que : {{ app.user.username }}
+    <div id="flashMsgNewComment"></div>
+    <div id="formComm">
+        <a id="createComm" href="{{ path('create-comm', { 'slugPost' : post.slug }) }}" class="btn btn-primary">commenter</a>
+    </div>
+{% else %}
+    {# Sinon on l'invite à se connecter #}
+    <p>Pour rédiger un message, veuillez vous <a class="btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">connecter</a></p>
+{% endif %}
+<hr>
+    {% include('default/blog/comments/commentsList.html.twig') %}

@@ -1,0 +1,604 @@
+h3{
+    margin-top: 40px;
+    font-size: 30px;
+}
+
+td.action{
+    display: flex;
+    justify-content: center;
+}
+td.action a:first-child{
+    margin-right: 30px;
+}
+
+@media (max-width: 420px){
+
+    td.action a:first-child{
+        margin-right: 10px;
+    }
+}
+
+.card-body p{
+    font-size: 13px;
+}
+
+.input .form-control {
+    height: 35px !important;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    width: 100%;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #495057;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid black;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.card-header::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.card-header::after { /*  Custom dropdown arrow */
+    content: "";
+    background: url(../img/dashboard/icone-ouvrir.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+    font-size: .625em;
+    line-height: 1;
+    right: 1.5em;
+    top: 30px;
+}
+
+@media (max-width: 560px){
+    .card-header::after {
+        display: none;
+    }
+}
+
+.close img{
+    width: 30px;
+}
+
+.btn {
+    background-color: #333;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+    margin: auto;
+}
+
+/*----------------------------------------------- Header ----------------------------------------------- */
+.jumbotron-dashboard img{
+    width : 100%;
+    height : 800px;
+    object-fit: cover;
+    margin-top: 74px;
+}
+
+.jumbotron-dashboard .container-fluid{
+    padding: 0;
+}
+
+@media (max-width: 420px) {
+    .jumbotron-dashboard img {
+        height: 200px;
+        margin-top: 0 !important;
+    }
+}
+
+/*----------------------------------------------- quickAccess ----------------------------------------------- */
+
+#buttonSaisieRapide img{
+    max-width: 100px;
+}
+
+a#buttonSaisieRapide p{
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+a#buttonSaisieRapide p:hover{
+    color: #38A5E0;
+}
+
+
+/*----------------------------------------------- Container dashboard ----------------------------------------------- */
+
+#dashboard.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+#dashboard.container {
+    padding: 0;
+}
+
+@media (min-width: 992px){
+    .container {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 768px){
+    .container {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 576px){
+    .container {
+        max-width: 100%;
+    }
+}
+
+.card-header a{
+    font-family: 'Raleway', sans-serif;
+    font-size: 25px;
+    margin-top: 0;
+    Color : #444;
+}
+
+#dashboard.container a{
+    Color : #444;
+    text-decoration: none;
+}
+
+
+
+/*----------------------------------------------- Card ----------------------------------------------- */
+
+.card {
+    width: 100%;
+    align-items: center;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    max-width: 768px;
+    margin: 10px auto 10px auto;
+    word-wrap: break-word;
+    background-color: white;
+    background-clip: border-box;
+    border-top: 0 solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    border-radius: 0 0 30px 30px;
+}
+
+.card-header {
+    width: 110%;
+    padding: 20px 20px;
+    margin-bottom: 0;
+    background-color: white;
+    border: 2px solid black;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.4) !important;
+}
+
+/*----------------------------------------------- commonFeatures ----------------------------------------------- */
+#commonFeatures hr{
+    width: 50%;
+}
+
+#commonFeatures h3{
+    margin-top: 50px !important;
+}
+
+/*----------------------------------------------- Modal ----------------------------------------------- */
+
+.modal-content{
+    margin: auto;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0 solid;
+    border-radius: 0;
+    outline: 0;
+}
+
+@media (max-width: 768px){
+    .modal-content{
+        width: 100%;
+    }
+
+    .modal-dialog{
+        margin: 0;
+    }
+
+}
+
+.modal-header {
+    border-bottom: 0;
+}
+
+.modal-footer {
+    border-top: 0;
+}
+
+.photo .control-label {
+    margin: auto;
+    background-color: #333;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+.pagination{
+    display: flex;
+    align-items: center;
+}
+
+/*------------------------------------------------ Rédiger Article ------------------------------------------------- */
+input#create_category_quickly_photoPath{
+    display: none;
+}
+
+input#write_post_imagePath{
+    display: none;
+}
+
+/*----------------------------------------------- Gestion Articles ----------------------------------------------- */
+#editPost form{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+div.input.title{
+    width: 50%;
+    margin: auto;
+}
+
+div.input.categorie{
+    width: 50%;
+    margin: auto;
+}
+
+.additional-margin-bottom {
+    margin-bottom: 10px;
+}
+
+#editPost .form-control {
+    padding: 0 0 5px 5px;
+}
+
+input#update_post_imagePath{
+    display: none;
+}
+
+#editPost p{
+    font-size: 13px;
+    margin: 0 auto 5px auto;
+}
+
+#editPost .photo{
+    margin-bottom: 0;
+}
+
+#editPost button{
+    margin-bottom: 20px;
+}
+
+#update_post_content_ifr {
+    height: 300px !important;
+}
+
+select.form-control {
+    -moz-appearance:none;
+    -webkit-appearance: none;
+    appearance:none;
+}
+
+.categorie {
+    position: relative;
+}
+
+.categorie::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.categorie::after {
+    content: "";
+    background: url(../img/observation/icone-open-list.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 14px;
+    width: 14px;
+    font-size: .625em;
+    line-height: 1;
+    right: 1em;
+    top: 53%; margin-top: -.5em;
+}
+
+textarea#update_post_content{
+    height: 200px !important;
+}
+
+#collapseManagePosts .modal-body{
+    text-align: center !important;
+}
+
+@media (max-width: 992px){
+    #editPost form{
+        width: 90%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    div.input.title{
+        width: 100%;
+        margin: auto;
+    }
+
+    div.input.categorie{
+        width: 100%;
+        margin: auto;
+    }
+}
+
+/*----------------------------------------------- Gestion Categories ----------------------------------------------- */
+input#create_category_photoPath{
+    display: none;
+}
+
+/*#choiceCategory label, p{*/
+    /*text-align: left;*/
+/*}*/
+
+#choiceCategory form {
+    width: 60%;
+    margin: auto
+}
+#choiceCategory p{
+    font-size: 13px;
+}
+
+#choiceCategory button{
+    margin-top: 10px;
+}
+
+td{
+    text-align: center !important;
+}
+
+.table > thead > tr > th {
+    text-align: center !important;
+}
+
+#collapseManageCategories .modal-body{
+    text-align: center !important;
+}
+
+@media (max-width: 768px){
+    #choiceCategory form {
+        width: 100%;
+    }
+
+    td {
+        text-align: right !important;
+    }
+
+}
+
+/*----------------------------------------------- Gestion Utilisateurs ----------------------------------------------- */
+
+a.btn.btn-default.btn-disable-account{
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+button#change_role_save{
+    margin-top: 20px;
+}
+
+#collapseUsersManagement .modal-body{
+    text-align: center !important;
+}
+
+/*----------------------------------------------- FAQ ----------------------------------------------- */
+
+#collapseFaqManagement{
+    width: 100%;
+}
+
+#collapseFaqManagement .modal-body{
+    text-align: center !important;
+}
+
+a.btn.btn-default.btn-add-faq{
+    margin-bottom: 20px;
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+button#new_faq_save.btn.btn-primary{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+button#edit_faq_save.btn.btn-primary{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+#collapseFaqManagement form label{
+   text-align: left !important;
+}
+
+#collapseFaqManagement .modal-body label{
+    text-align: left !important;
+    margin-top: 10px;
+}
+
+textarea#edit_faq_answer.form-control {
+    height: 100px !important;
+}
+
+textarea#new_faq_answer.form-control {
+    height: 100px !important;
+}
+
+a.btn.btn-default.btn-rm-faq{
+    background-color: #333;
+    color: #f9f9f9 !important;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}

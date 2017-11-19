@@ -1,0 +1,183 @@
+.fa {
+    font-size: 25px;
+}
+
+/*----------------------------------------------- Tableau ----------------------------------------------- */
+
+@media (min-width: 992px){
+    th {
+        text-align: center;
+        font-family: "Montserrat", sans-serif;
+        color: #444 !important;
+        font-size: 14px;
+        text-decoration: underline;
+    }
+
+    td{
+        font-family: "Montserrat", sans-serif;
+        color: #666 !important;
+        font-size: 13px;
+    }
+
+    #collapseValidation{
+        width: 100%;
+    }
+
+    td a{
+        font-size: 16px !important;
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+    }
+
+    td a p{
+        margin-right:20px;
+        font-family: "Montserrat", sans-serif;
+        color: #666 !important;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 992px){
+    td:before {
+        text-align: center;
+        font-family: "Montserrat", sans-serif;
+        color: #444 !important;
+        font-size: 14px;
+        text-decoration: underline;
+    }
+
+    td{
+        font-family: "Montserrat", sans-serif;
+        color: #666 !important;
+        font-size: 13px;
+    }
+
+    #collapseValidation{
+        width: 100%;
+    }
+
+    th {
+        text-align: center;
+        font-family: "Montserrat", sans-serif;
+        color: #444 !important;
+        font-size: 14px;
+        text-decoration: underline;
+    }
+
+    th a{
+        font-size: 16px !important;
+        display: flex;
+        justify-content: center;
+    }
+
+    th a p{
+        margin-right: 5px;
+        font-family: "Montserrat", sans-serif;
+        color: #666 !important;
+        font-size: 13px;
+    }
+}
+
+
+/*----------------------------------------------- Modifications ----------------------------------------------- */
+
+input#modif_observation_by_observer_photoPath {
+    display: none;
+}
+
+#modif_observation_by_observer_observationDescription{
+    height: 200px;
+    border: 1px solid black;
+}
+
+#commentaire.form-group{
+    text-align: left !important;
+}
+
+textarea#modif_observation_by_observer_observationDescription.form-control {
+    box-shadow: 0 0 0 #DCDCDC !important;
+}
+
+#modifyObservationModal7 .photo{
+    text-align: center;
+    margin-top: 10px;
+}
+
+#modifyObservationModal7 p{
+    text-align: left;
+}
+#modifyObservationModal7 .modal-footer{
+    padding-right: 0;
+}
+
+#modifyObservationModal7 .modal-footer button{
+    text-align: right !important;
+}
+
+#modifyObservationModal7 .modal-footer .btn{
+    margin: 0;
+}
+/*----------------------------------------------- Détails ----------------------------------------------- */
+
+#details h6 {
+    text-decoration: none;
+    margin-left: 0;
+}
+
+#details p{
+    font-size: 13px;
+    margin-left: 20px
+}
+
+.border{
+    border: 1.5px solid  !important;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+#details .description p{
+    margin-left: 0 !important;
+    min-height: 100px;
+}
+
+#details .commentaire p{
+    margin-left: 0 !important;
+    min-height: 100px;
+}
+
+#details img[alt]{
+    font-family: 'Montserrat', sans-serif;
+    color : #666;
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+/*----------------------------------------------- Validation ----------------------------------------------- */
+
+.status h6 {
+    text-decoration: none;
+    margin-left: 0;
+}
+
+.status p{
+    font-size: 13px;
+    margin-left: 20px
+}
+
+.border{
+    border: 1.5px solid  !important;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.status .border p{
+    margin-top: 20px;
+    line-height: 2;
+    margin-left: 0 !important;
+    min-height: 100px;
+}
+
+@media (max-width: 420px){
+
+}

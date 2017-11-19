@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/quickAccess.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard/commonFeatures/myAccount.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard/commonFeatures/myObservations.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard/commonFeatures/myStatistics.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboard/commonFeatures/contactUs.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/writePost.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/pagination/pagination.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-dashboard vertical-center">
+            <div class="container-fluid">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <img src="{{ asset('img/dashboard/image-header-a.png') }}" alt="hibou">
+                {% elseif is_granted('ROLE_PROFESSIONAL') %}
+                    <img src="{{ asset('img/dashboard/image-header-p.jpg') }}" alt="rouge-gorge">
+                {% elseif  is_granted('ROLE_USER') %}
+                    <img src="{{ asset('img/dashboard/image-header-u.png') }}" alt="ipad">
+                {% endif %}
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+<div id="dashboard" class="container">
+    {% if app.user.enabled == true %}
+        <h1>Tableau de bord</h1>
+        {% for message in app.session.flashbag.get('notice') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div id="quickAccess" class="container">
+            <h3>Accès rapide</h3>
+
+            <div class="d-flex flex-column"><a id="buttonSaisieRapide" href="{{ path('saisieObservation') }}" role="button" data-toggle="modal" data-target="#saisieObservationModal" ><img src="{{ asset('img/dashboard/btn-saissir-obs.png') }}"/><p>Saisie d'une observation</p></a></div>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="saisieObservationModal" tabindex="-1" role="dialog" aria-labelledby="saisieObservationModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="saisieObservationModalLabel">Saisie rapide d'une observation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="modalSaisieRapide">
+                            {{ include(':default/dashboard/quickAcces:addObservationForm.html.twig')}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# partie accessible aux autres utilsateurs #}
+        {{ include(':default:userDashboard.html.twig') }}
+
+        {# partie accessible uniquement avec un role admin #}
+        {{ include(':default:adminDashboard.html.twig') }}
+
+    {% else %}
+        <div class="alert alert-danger">
+            Compte desactivé : contactez nous ou créez un nouveau compte
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        // Chargement GoogleMaps
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 46.6, lng: 1.9},
+                zoom: 4
+            });
+            
+            $('#saisieObservationModal').on('shown.bs.modal', function () {
+                google.maps.event.trigger(map, 'resize');
+                map.setCenter({lat: 46.6, lng: 1.9});
+            });
+
+            var infoWindow = new google.maps.InfoWindow;
+            document.getElementById('geoloc').addEventListener('click', function(e) {
+                infoWindow.open(map);
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        document.getElementById('create_observation_latitude').value = position.coords.latitude;
+                        document.getElementById('create_observation_longitude').value = position.coords.longitude;
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent('Vous êtes ici');
+                        map.setCenter(pos);
+                    }, function() {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    });
+                } else {
+                    // Browser doesn't support Geolocation
+                    handleLocationError(false, infoWindow, map.getCenter());
+                }
+            })
+        }
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                    'Erreur : Impossible de vous localiser, vous pouvez entrer manuellement les coordonnées de votre observation.' :
+                    'Erreur : Votre navigateur ne supporte pas la géolocalisation, veuillez entrer manuellement les coordonnées GPS de votre observation');
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNQR3Hw_y1urMSouzdoaVgUESayHjM90g&&callback=initMap" async defer></script>
+    <script src="{{ asset('js/menu.js') }}"></script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+    <script src="{{ asset('js/myAccount/myAccount.js') }}"></script>
+    <script src="{{ asset('js/Observations/myObservations.js') }}"></script>
+    <script src="{{ asset('js/Observations/observationsValidation.js') }}"></script>
+    <script src="{{ asset('js/contact/contactUs.js') }}"></script>
+    <script src="{{ asset('js/blog/blogManagement.js') }}"></script>
+    <script src="{{ asset('js/userManagement/userManagement.js') }}"></script>
+    <script src="{{ asset('js/faq/faq.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,92 @@
+<div id="flashMsgAccount"></div>
+
+<div class="container d-flex flex-column text-left">
+    <h6>Vos informations personnelles :</h6>
+    {# Avatar de l'utilisateur #}
+    {% include('default/dashboard/commonFeatures/myAccount/avatarSection.html.twig') %}
+    <hr>
+
+    <div class="perso">
+        <div class="input">
+            {{ form_start(updateUserNameForm) }}
+
+            {# Les erreurs générales du formulaire. #}
+            {{ form_errors(updateUserNameForm) }}
+            <div>
+                {{ form_row(updateUserNameForm.name) }}
+            </div>
+            <div>
+                {{ form_widget(updateUserNameForm.save, {'label': 'Modifier', 'attr': {'class': 'btn btn-default btn-user-update-name', 'url': path('edit_user_name')}}) }}
+            </div>
+            {{ form_end(updateUserNameForm) }}
+        </div>
+
+        {# prénom de l'utilisateur #}
+        <div class="input">
+            {{ form_start(updateUserFirstNameForm) }}
+
+            {# Les erreurs générales du formulaire. #}
+            {{ form_errors(updateUserFirstNameForm) }}
+            <div>
+                {{ form_row(updateUserFirstNameForm.firstname) }}
+            </div>
+            <div>
+                {{ form_widget(updateUserFirstNameForm.save, {'label': 'Modifier', 'attr': {'class': 'btn btn-default btn-user-update-firstname', 'url': path('edit_user_firstname')}}) }}
+            </div>
+            {{ form_end(updateUserFirstNameForm) }}
+        </div>
+
+        {# Adresse de l'utilisateur #}
+        <div class="input">
+            {{ form_start(updateUserLocationForm, {'attr': {'class': 'form-horizontal'}}) }}
+
+            {# Les erreurs générales du formulaire. #}
+            {{ form_errors(updateUserLocationForm) }}
+            <div>
+                {{ form_row(updateUserLocationForm.location) }}
+            </div>
+            <div>
+                {{ form_widget(updateUserLocationForm.save, {'label': 'Modifier',
+                    'attr': {'class': 'btn btn-default btn-user-update-location',
+                        'url': path('edit_user_location'),
+                        }}) }}
+            </div>
+            {{ form_end(updateUserLocationForm) }}
+        </div>
+
+        {# Inscription à la newsletter #}
+        <div class="input newsletter">
+            {{ form_start(updateUserNewsletterForm) }}
+
+            {# Les erreurs générales du formulaire. #}
+            {{ form_errors(updateUserNewsletterForm) }}
+            <div >
+                {{ form_widget(updateUserNewsletterForm.newsletter) }}
+            </div>
+            <div>
+                {{ form_widget(updateUserNewsletterForm.save, {'label': 'Modifier', 'attr': {'class': 'btn btn-default btn-user-update-newsletter', 'url': path('edit_user_newsletter')}}) }}
+            </div>
+            {{ form_end(updateUserNewsletterForm) }}
+        </div>
+    </div>
+
+    <h6>Votre mot de passe :</h6>
+    <div class="mdp">
+        {{ form_start(updateUserPasswordForm) }}
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(updateUserPasswordForm) }}
+            <div class="input">
+                {{ form_row(updateUserPasswordForm.password) }}
+            </div>
+            <div class="input">
+                {{ form_row(updateUserPasswordForm.newPassword.first) }}
+            </div>
+            <div class="input">
+                {{ form_row(updateUserPasswordForm.newPassword.second) }}
+            </div>
+            <div>
+                {{ form_widget(updateUserPasswordForm.save, {'attr': {'class': 'btn btn-default mx-auto  btn-user-update-password', 'url': path('edit_user_password')}}) }}
+            </div>
+        {{ form_end(updateUserPasswordForm) }}
+    </div>
+</div>

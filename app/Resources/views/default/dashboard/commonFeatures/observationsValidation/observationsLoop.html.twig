@@ -1,0 +1,28 @@
+{% for observation in observations %}
+    <tr>
+        <td data-title="Détails"><a href="{{ path('observation-detail', {'id' : observation.id }) }}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+        <td data-title="Espèces observées">
+            {% if observation.species != null %}
+            {{ observation.species.referenceName }}</td>
+        {% else %}
+            Espece inconnu
+        {% endif %}
+        <td data-title="Date d'observation">{{ observation.observationDate|date('d/m/Y') }}</td>
+        <td data-title="Photo">
+            {% if observation.photoPath == null %}
+                <a><p>non</p><i class="fa fa-times" aria-hidden="true"></i></a>
+            {% else %}
+                <a href="" data-toggle="modal" data-target="#photoModal{{ loop.index }}"><p>Oui</p><i class="fa fa-camera" aria-hidden="true"></i></a>
+                <div class="modal fade" id="photoModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class=modal-content">
+                            <img class="img-fluid"
+                                 src="{{ asset(observation.photoPath) }}"
+                                 alt="{% if observation.species != null %}{{ observation.species.vernacularName }} {% else %}Espece inconnu{% endif %}">
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}

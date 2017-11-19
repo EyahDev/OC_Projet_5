@@ -3,3 +3,4 @@
 
 User-agent: *
 Disallow:
+Sitemap: https://projet-5.adriendesmet.com/sitemap.xml

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('css/error.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-error vertical-center">
+            <img class="logo-mobile" src="{{ asset('img/logo-pour-mobile.png') }}" alt="logo-nao-mobile">
+            <div class="container">
+                {#<img src="{{ asset('img/error/erreur404.gif') }}" alt="error404">#}
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <div class="container text-center">
+        <h5>Une erreur est survenue.</h5>
+        <h5>Message d'erreur : {{ exception.message }}</h5>
+        <h5>Nous vous prions de nous excuser pour la gêne occassionnée.</h5>
+        <p>Si le problème persiste n'hésitez pas à nous signaler cette erreur.</p>
+        <p>Nous vous invitons à revenir sur  <a href="{{ path('homepage') }}">la page d'accueil</a>.</p>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/menu.js') }}"></script>
+{% endblock %}

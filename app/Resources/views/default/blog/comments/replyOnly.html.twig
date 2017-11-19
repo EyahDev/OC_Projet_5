@@ -1,0 +1,9 @@
+{# structure pour une réponse isolée à un commentaire (ajouté en js) #}
+<p class="userAndDateComment anwserMargin">{{ comment.author.username }} - {{ comment.date|date("d/m/Y à H:i", "Europe/Paris") }}
+    <a class="btn-flag float-right" href="{{ path("flag-comm", {'commentId': comment.id}) }}"><i class="fa fa-flag" aria-hidden="true"></i></a>
+</p>
+<div class="d-flex flex-row anwserMargin">
+    <img class="avatarComments" src="{{ asset(comment.author.avatarPath) }}" alt="avatar">
+    <i class="fa fa-caret-left pointerAvatar" aria-hidden="true"></i>
+    <p class="commentMessage">{{ comment.message }}</p>
+</div>

@@ -1,0 +1,26 @@
+<div id="contactUs">
+    <p>Envoyez un message directement à l'administrateur</p>
+    <div id="flashMsgContactUs"></div>
+    <div class="input">
+        {{ form_start(contactForm) }}
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(contactForm) }}
+
+        <div class="sujet">
+            {{ form_widget(contactForm.sujet, {'attr': {'placeholder': 'Sujet'}}) }}<br/>
+        </div>
+
+        <div class="message">
+            {{ form_widget(contactForm.message, {'attr': {'placeholder': 'Votre message'}}) }}<br/>
+        </div>
+
+        <div class="submit">
+            {{ form_widget(contactForm.save, {'label': 'Envoyer', 'attr': {'class': 'btn btn-contact-us', 'url': path('contact_us')}}) }}
+        </div>
+
+        {{ form_rest(contactForm) }}
+
+        {{ form_end(contactForm) }}
+    </div>
+</div>
+

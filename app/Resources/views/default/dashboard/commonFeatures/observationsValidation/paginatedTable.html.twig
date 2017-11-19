@@ -1,0 +1,28 @@
+<div class="pagination-table-observations-validation"  url="{{ path('pagination_observations_validation') }}">
+    {% if observations|length != 0  %}
+        <div class="table-responsive-vertical shadow-z-1">
+            <table id="table" class="table table-hover table-mc-default">
+                <thead>
+                <tr>
+                    <th>Détails</th>
+                    <th>Espèce observée</th>
+                    <th>Date d'observation</th>
+                    <th>Photo</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {{ include(':default/dashboard/commonFeatures/observationsValidation:observationsLoop.html.twig') }}
+                </tbody>
+            </table>
+        </div>
+        {# div englobant le paginator et contenant la route à prendre pour la requete Ajax de pagination#}
+        <div id="paginationObservationsValidation" class="row">
+            {# display navigation #}
+            <div class="navigation mx-auto">
+                {{ knp_pagination_render(observations) }}
+            </div>
+        </div>
+    {% else %}
+        <p>Aucune observation n'est en attente de validation pour l'instant, revenez plus tard.</p>
+    {% endif %}
+</div>

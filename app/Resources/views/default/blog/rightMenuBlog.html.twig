@@ -1,0 +1,28 @@
+<div class="category">
+    {% if categories|length != 0 %}
+        <h5>Catégories</h5>
+        <hr>
+        <div class="category-scroll">
+        {% for category in categories %}
+            {% if category|length != 0 %}
+                <div>
+                    <a href="{{ path('view-posts-by-category', {'categorySlug' : category.slug }) }}">{{ category.name }} ({{ category.posts|length }})</a>
+                </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+<div class="lastPost">
+{% if threeLastPost|length != 0 %}
+    <h5>Derniers articles publiés</h5>
+    <hr>
+    {% for lastPost in threeLastPost %}
+        <div class="space">
+            <p><i class="fa fa-calendar-o" aria-hidden="true"></i> {{ lastPost.publishedDate|date("d/m/Y à H:i", "Europe/Paris") }}</p>
+            <p>{{ lastPost.title }} -- <a href="{{ path('view-post', {'slugCat' : lastPost.category.slug ,'slugPost' : lastPost.slug }) }}">Lire</a></p>
+        </div>
+    {% endfor %}
+{% endif %}
+</div>

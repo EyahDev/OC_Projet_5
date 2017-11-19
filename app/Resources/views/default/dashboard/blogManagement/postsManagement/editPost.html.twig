@@ -1,0 +1,44 @@
+<div class="modal fade" id="btnEditPost{{post.id }}" tabindex="-1" role="dialog" aria-labelledby="btnEditPost{{post.id }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="btnEditPost{{post.id }}Label">Edition de l'article : {{ post.title }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="editPost">
+                    {{ form_start(updatePostForm) }}
+                    {{ form_errors(updatePostForm) }}
+
+                    <div class="input title">
+                        {{ form_label(updatePostForm.title) }}<br/>
+                        {{ form_widget(updatePostForm.title) }}<br/>
+                    </div>
+                    <div class="input categorie">
+                        {{ form_label(updatePostForm.category) }}<br/>
+                        {{ form_widget(updatePostForm.category) }}<br/>
+                    </div>
+                    <p>Image actuel : </p>
+                    <div class="mx-auto additional-margin-bottom">
+                        <img style="width: 400px;" src="{{ asset(post.imagePath) }}" alt="{{ post.title }}">
+                    </div>
+
+                    <div class="photo">
+                        {{ form_label(updatePostForm.imagePath) }}<br/>
+                        {{ form_widget(updatePostForm.imagePath) }}<br/>
+                    </div>
+
+                    <div class="input">
+                        {{ form_label(updatePostForm.content) }}<br/>
+                        {{ form_widget(updatePostForm.content, {'attr': {'class': 'tinyMCE'}}) }}<br/>
+                    </div>
+
+                    {{ form_widget(updatePostForm.save, {'label': 'Publier', 'attr': { 'class': 'btn-user-write-post', 'url': path('write_post')}}) }}<br/>
+                    {{ form_end(updatePostForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

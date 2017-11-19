@@ -33,3 +33,40 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    import.csvtoarray:
+        class: AppBundle\Services\ConvertCsvToArray
+        public: true
+
+    appbundle.services.security.ban_listener:
+        class: AppBundle\Services\Security\BanListener
+        tags:
+            - { name: kernel.event_listener, event: security.authentication.success, method: generateExceptionBan}
+
+    AppBundle\Services\AccountManager:
+        arguments:
+            $avatarsDirectory: '%avatars_directory%'
+            $captchaSecretKey: '%captcha_secret%'
+
+    AppBundle\Services\BlogManager:
+            arguments:
+                $postsDirectory: '%posts_directory%'
+                $categoriesDirectory: '%categories_directory%'
+                $paginator: '@knp_paginator'
+
+    AppBundle\Services\CommentManager:
+            arguments:
+                $paginator: '@knp_paginator'
+
+    AppBundle\Services\FAQManager:
+            arguments:
+                $paginator: '@knp_paginator'
+#
+    AppBundle\Services\ObservationManager:
+            arguments:
+                $observationsDirectory: '%observations_directory%'
+                $paginator: '@knp_paginator'
+
+    AppBundle\Services\MailChimp\MailChimpManager:
+        arguments:
+            $apiKey: '%mailchimp_api_key%'
+            $listId: '%mailchimp_list_id%'

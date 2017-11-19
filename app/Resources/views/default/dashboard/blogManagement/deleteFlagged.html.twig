@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    Article : {{ commentFlagged.post.title }}<br/><br/>
+    Nombre de signalement recu : {{ commentFlagged.flagged }}<br/><br/>
+    Commentaire signalé : {{ commentFlagged.message }}<br/><br/>
+    {% if commentFlagged.parent != null %}
+        En réponse à  : {{ commentFlagged.parent.message }}<br/><br/>
+    {% endif %}
+{% endblock %}

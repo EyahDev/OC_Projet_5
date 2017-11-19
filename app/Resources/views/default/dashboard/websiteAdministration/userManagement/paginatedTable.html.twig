@@ -1,0 +1,26 @@
+<div class="pagination-table-users-management" url="{{ path('pagination_user_management') }}">
+    <div class="table-responsive-vertical shadow-z-1">
+        <table class="table table-hover table-mc-default">
+            <thead>
+            <tr>
+                <th>Nom & prénom</th>
+                <th>Date d'inscription</th>
+                <th>Nombre d'observations</th>
+                <th>Profil</th>
+                <th>Pro</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                {{ include(':default/dashboard/websiteAdministration/userManagement:userLoop.html.twig') }}
+            </tbody>
+        </table>
+    </div>
+    {#div englobant le paginator et contenant la route à prendre pour la requete Ajax de pagination#}
+    <div id="paginationUsersManagement" class="row">
+         {#display navigation#}
+        <div class="navigation mx-auto">
+            {{ knp_pagination_render(usersList) }}
+        </div>
+    </div>
+</div>

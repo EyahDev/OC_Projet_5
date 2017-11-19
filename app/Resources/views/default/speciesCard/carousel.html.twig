@@ -1,0 +1,35 @@
+<div class="d-flex flex-row">
+    {% if photos != false  %}
+        <div id="carouselExampleIndicators" class="carousel slide contentCarousel" data-ride="carousel">
+            <ol class="carousel-indicators">
+                {% for photo in photos  %}
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{loop.index - 1}}" class="speciesCarouselIndicator"></li>
+                {% endfor %}
+            </ol>
+            <div class="speciesCarousel carousel-inner" role="listbox">
+                {% for photo in photos  %}
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid carouselHeightControl" src="{{ asset(photo) }}" alt="{{ species.referenceName }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="defaultBirdContent">
+            <img class="defaultBird" src="{{ asset('img/default/bird_default.png') }}" alt="Oiseau vectorisé">
+        </div>
+    {% endif %}
+    <div class="speciesInfo align-self-center">
+        <p>
+            <span class="underlineSpecies">Nom commun</span> :
+            {% if species.vernacularName == null %}
+                Non connu
+            {% else %}
+                {{ species.vernacularName }}
+            {% endif %}
+        </p>
+        <p><span class="underlineSpecies">Famille</span> : {{ species.family.name }}</p>
+        <p><span class="underlineSpecies">Ordre</span>: {{ species.type.name }}</p>
+    </div>
+</div>
+

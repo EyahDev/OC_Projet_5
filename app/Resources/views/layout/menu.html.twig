@@ -1,0 +1,58 @@
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div id="menu" class="container-fluid">
+        <!-- Brand -->
+        <a class="navbar-brand js-scroll-trigger" href="{{ path("homepage") }}">
+            <img src="{{ asset('img/logo-pour-nav.png') }}" alt="logo-nao">
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="{{ path("homepage") }}">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="{{ path("blog") }}">Blog</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Observations
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ path("rechercheObservations") }}">Recherche d'observations</a>
+                        {% if not is_granted('ROLE_USER') %}
+                            <a class="dropdown-item btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">Saisir une observation</a>
+                        {% else %}
+                            <a class="dropdown-item" href="{{ path("saisieObservation") }}">Saisir une observation</a>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="{{ path("avanceeRecherche") }}">La recherche</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="{{ path("homepage") }}#contact">Contact</a>
+                </li>
+                {% if not is_granted('ROLE_USER') %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger btn-connexion-modal" href="{{ path("login") }}" data-toggle="modal" data-target="#connexionModal">Connexion</a>
+
+                    </li>
+                {% else %}
+                    <li class="nav-item dropdown">
+                        <div class="btn-group">
+                            <a class="nav-link js-scroll-trigger" href="{{ path("dashboard") }}">{{ app.user.username }}</a>
+                            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ path('logout') }}">Déconnexion</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

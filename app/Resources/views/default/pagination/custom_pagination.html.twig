@@ -1,0 +1,49 @@
+{% if pageCount > 1 %}
+    <nav>
+        <ul class="pagination">
+
+            {% if first is defined and current != first %}
+                <li class="page-item first">
+                    <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): first})) }}"><img class="pagination-img" src="{{ asset('img/pagination/icone-debut-de-page.png') }}" alt="Première page"></a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link"><img class="pagination-img" src="{{ asset('img/pagination/icone-debut-de-page.png') }}" alt="Première page"></span>
+                </li>
+            {% endif %}
+
+            {% if previous is defined %}
+                <li class="page-item">
+                    <a class="page-link" rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><img class="pagination-img" src="{{ asset('img/pagination/icone-page-précédente.png') }}" alt="Précédent"></a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link"><img class="pagination-img" src="{{ asset('img/pagination/icone-page-précédente.png') }}" alt="Précédent"></span>
+                </li>
+            {% endif %}
+
+            {{ include(':default/pagination:currentPage.html.twig') }}
+
+            {% if next is defined %}
+                <li class="page-item">
+                    <a class="page-link" rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}"><img class="pagination-img" src="{{ asset('img/pagination/icone-page-suivante.png') }}" alt="Suivant"></a>
+                </li>
+            {% else %}
+                <li  class="page-item disabled">
+                    <span class="page-link"><img class="pagination-img" src="{{ asset('img/pagination/icone-page-suivante.png') }}" alt="Suivant"></span>
+                </li>
+            {% endif %}
+
+            {% if last is defined and current != last %}
+                <li class="page-item last">
+                    <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): last})) }}"><img class="pagination-img" src="{{ asset('img/pagination/icone-fin-de-page.png') }}" alt="Dernière page"></a>
+                </li>
+            {% else %}
+                <li  class="page-item disabled">
+                    <span class="page-link"><img class="pagination-img" src="{{ asset('img/pagination/icone-fin-de-page.png') }}" alt="Dernière page"></span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}
+

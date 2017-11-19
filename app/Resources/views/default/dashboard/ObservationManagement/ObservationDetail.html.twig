@@ -1,0 +1,43 @@
+<div id="details">
+    <div>
+        <img style="max-width: 100%"
+             src="{{ asset(observation.photoPath) }}"
+             alt="{% if observation.species != null %}{{ observation.species.vernacularName }} {% else %}Espece inconnu{% endif %}">
+    </div>
+
+    <div class="d-flex flex-column">
+            <div class="d-flex flex-row"><h6> Espèces :</h6><p>{% if observation.species != null %}{{ observation.species.vernacularName }} {% else %}Espece inconnu{% endif %} </p></div>
+            <div class="d-flex flex-row"><h6> Nombre d'oiseaux :</h6> <p>{{ observation.birdNumber}}</p></div>
+            <div class="d-flex flex-row"><h6> Nombre d'oeufs :</h6> <p>{% if observation.eggsNumber != null %}{{ observation.eggsNumber }} {% else %}Aucun observé{% endif %}</p></div>
+        </div>
+
+    <div class="description text-left">
+        <div>
+            <h6>Description des oeufs:</h6>
+            <div class="border">
+                <p>
+                    {% if observation.eggsDescription != null %}
+                        {{ observation.eggsDescription }}
+                    {% else %}
+                        Aucune description
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column">
+        <div class="d-flex flex-row"><h6>Latitude :</h6> <p>{{ observation.latitude}}</p></div>
+        <div class="d-flex flex-row"><h6>Longitude :</h6> <p>{{ observation.longitude}}</p></div>
+        <div class="d-flex flex-row"><h6>Altitude :</h6> <p>{{ observation.altitude}}</p></div>
+    </div>
+
+    <div class="commentaire text-left">
+        <div>
+            <h6>Commentaire d'observation :</h6>
+            <div class="border">
+                <p> {{ observation.observationDescription}}</p>
+            </div>
+        </div>
+    </div>
+</div>

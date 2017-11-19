@@ -1,0 +1,28 @@
+<div id="flashMsgManageCategories"></div>
+<div id="choiceCategory">
+    {{ form_start(createCategoryForm) }}
+    {{ form_errors(createCategoryForm) }}
+
+    {{ form_errors(createCategoryForm.name) }}
+        <div class="input">
+            {{ form_row(createCategoryForm.name) }}<br/>
+        </div>
+        <div class="photo">
+            <div>
+                <p>Sélectionnez une image répresantant la catégorie (si aucune image n'est sélectionnée, une image par défaut sera ajoutée)</p>
+                <div class="create">
+                    <div>
+                        {{ form_label(createCategoryForm.photoPath) }}
+                        {{ form_widget(createCategoryForm.photoPath) }}
+                    </div>
+                    <div>
+                        {{ form_widget(createCategoryForm.save, {'label': 'Créer', 'attr': { 'class': 'btn-user-create-category', 'url': path('create_category')}}) }}<br/>
+                        {{ form_end(createCategoryForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<br/>
+
+{% include("default/dashboard/blogManagement/categoriesManagement/paginatedTable.html.twig") %}

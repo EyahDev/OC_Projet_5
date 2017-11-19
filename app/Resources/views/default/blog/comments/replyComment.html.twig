@@ -1,0 +1,15 @@
+<div class="form-reply-comment-section">
+    <div id="flashMsgReplyComment"></div>
+    {# formulaire pour les réponses à un commentaire #}
+    {{ form_start(replyForm) }}
+    {{ form_errors(replyForm) }}
+    <div>
+        {{ form_errors(replyForm.message) }}
+        {{ form_widget(replyForm.message, {'attr': {'placeholder': 'Votre réponse...'}}) }}
+    </div>
+
+    <div class="d-flex justify-content-end btn-reply-comment-section">
+        {{ form_widget(replyForm.save, {'label': 'Répondre'}) }}
+    </div>
+    {{ form_end(replyForm) }}
+</div>

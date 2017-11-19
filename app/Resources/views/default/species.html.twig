@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/ficheEspece.css') }}">
+{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-species vertical-center">
+            <div class="container-fluid">
+                <img src="{{ asset('img/fiche-espece/image-header.jpg') }}" alt="espece">
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="contentSpeciesCard">
+            <section>
+                <h2 class="speciesTitle">{{ species.referenceName }}</h2>
+                {{ include(':default/speciesCard:carousel.html.twig') }}
+            </section>
+            <section id="addDescription">
+                <div id="forUser">
+                    <div class="d-flex justify-content-start">
+                        <h5>Description poussée de l'espèce</h5>
+                        {% if is_granted('ROLE_PROFESSIONAL') %}
+                            <i id="modifyDescription" class="modifyDescription ml-auto fa fa-pencil-square-o" aria-hidden="true"></i>
+                        {% endif %}
+                    </div>
+                    <div class="speciesDescription insetShadow">
+                        {% if species.description == null %}
+                            <p>Aucune description n'est disponible</p>
+                        {% else %}
+                            {{ species.description|purify }}
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h5>Dernières observations</h5>
+                <div class="speciesLastObservations insetShadow">
+                    {{ include(':default/speciesCard:lastObservations.html.twig') }}
+                </div>
+            </section>
+            <section>
+                <h5>Période d'observation</h5>
+                <div>
+                    <div class="observationsPeriod insetShadow row">
+                        {{ include(':default/speciesCard:periodTable.html.twig') }}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+
+            {% if photos != false  %}
+                $('.speciesCarousel div:first-child').addClass('active');
+                $('.carousel-indicators li:first-child').addClass('active');
+            {% endif %}
+
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            });
+
+            modifyDescription();
+            function modifyDescription() {
+                $('#modifyDescription').click(function () {
+                    $('#forUser').hide();
+                    $('#addDescription').append("{{ include('default/modifySpeciesDescription.html.twig')|e('js') }}");
+
+                    tinymce.init({
+                        selector: 'textarea.tinyMCE',
+                        setup: function (editor) {
+                            editor.on('change', function (e) {
+                                editor.save();
+                            });
+                        }
+                    });
+                    $('#modifyDescription').off('click');
+                    cancelDescription();
+                });
+
+            }
+
+            function cancelDescription() {
+                $('#cancelDescription').click(function () {
+                    tinymce.remove();
+                    $('#forPro').replaceWith('');
+                    $('#forUser').show();
+                    $('#cancelDescription').off('click');
+                    modifyDescription();
+                });
+            }
+        });
+    </script>
+    <script src="{{ asset('js/menu.js') }}"></script>
+{% endblock %}

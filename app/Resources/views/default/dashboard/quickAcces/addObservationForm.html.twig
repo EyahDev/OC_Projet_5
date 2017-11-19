@@ -1,0 +1,79 @@
+<div class="container-fluid">
+    <div class="formulaire">
+            {{ form_start(createObservationForm) }}
+
+        {% if not createObservationForm.vars.valid %}
+            <div class="alert alert-danger formError">
+                {{ form_errors(createObservationForm) }}
+                {{ form_errors(createObservationForm.species )}}
+                {{ form_errors(createObservationForm.vernacularName) }}
+                {{ form_errors(createObservationForm.birdNumber) }}
+                {{ form_errors(createObservationForm.eggsNumber) }}
+                {{ form_errors(createObservationForm.eggsDescription) }}
+                {{ form_errors(createObservationForm.latitude) }}
+                {{ form_errors(createObservationForm.longitude) }}
+                {{ form_errors(createObservationForm.altitude) }}
+                {{ form_errors(createObservationForm.observationDescription) }}
+                {{ form_errors(createObservationForm.photoPath) }}
+            </div>
+        {% endif %}
+
+        <span class="custom-dropdown">
+            {{ form_label(createObservationForm.species )}}
+            {{ form_widget(createObservationForm.species )}}
+        </span>
+
+        <span class="custom-dropdown">
+            {{ form_label(createObservationForm.vernacularName) }}
+            {{ form_widget(createObservationForm.vernacularName) }}
+        </span>
+
+        <div class="birdNumber">
+            <span class="label-space">
+                {{ form_label(createObservationForm.birdNumber) }}
+            </span>
+
+            <span class="custom-spinner">
+                {{ form_widget(createObservationForm.birdNumber) }}<br/>
+            </span>
+        </div>
+
+        <div class="eggsNumber">
+            <span class="label-space">
+                {{ form_label(createObservationForm.eggsNumber) }}
+            </span>
+            <span class="custom-spinner">
+                {{ form_widget(createObservationForm.eggsNumber) }}<br/>
+            </span>
+        </div>
+        {{ form_label(createObservationForm.eggsDescription) }}
+        {{ form_widget(createObservationForm.eggsDescription) }}<br/>
+
+        <div id="map" style="width: 100%; height: 250px"></div>
+
+        <a type="button" class="btn-default btn" id="geoloc">Géolocaliser</a>
+
+        {{ form_label(createObservationForm.latitude) }}
+        {{ form_widget(createObservationForm.latitude) }}<br/>
+
+        {{ form_label(createObservationForm.longitude) }}
+        {{ form_widget(createObservationForm.longitude) }}<br/>
+
+        {{ form_label(createObservationForm.altitude) }}
+        {{ form_widget(createObservationForm.altitude) }}<br/>
+
+        {{ form_label(createObservationForm.observationDescription) }}
+        {{ form_widget(createObservationForm.observationDescription) }}<br/>
+
+        <div class="photo">
+        {{ form_label(createObservationForm.photoPath) }}
+        {{ form_widget(createObservationForm.photoPath) }}<br/>
+        </div>
+
+        {{ form_widget(createObservationForm.Envoyer) }}
+
+        {{ form_rest(createObservationForm) }}
+
+        {{ form_end(createObservationForm) }}
+    </div>
+</div>

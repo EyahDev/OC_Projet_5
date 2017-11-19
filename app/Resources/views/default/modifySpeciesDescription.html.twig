@@ -1,0 +1,17 @@
+<div id="forPro">
+    <div class="d-flex justify-content-start">
+        <h5>Modification de la description de l'espèce</h5>
+        <i id="cancelDescription" class="modifyDescription ml-auto fa fa-times" aria-hidden="true"></i>
+    </div>
+    {{form_start(speciesDescriptionForm)}}
+    {{form_errors(speciesDescriptionForm)}}
+    {{ form_widget(speciesDescriptionForm.description) }}
+
+    <div class="btnDescriptionSub d-flex justify-content-start">
+        <div class="ml-auto">
+            {{ form_widget(speciesDescriptionForm.modifier) }}
+        </div>
+
+    </div>
+    {{form_end(speciesDescriptionForm) }}
+</div>

@@ -1,0 +1,22 @@
+<div class="modal fade" id="deleteCommentModal{{ commentFlagged.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModal{{ commentFlagged.id }}Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCommentModal{{ commentFlagged.id }}Label"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Etes vous sur de vouloir supprimer ce commentaire ?</h5>
+                {% if commentFlagged.children|length == 0 %}
+                    <p>En supprimant ce commentaire vous supprimerez également toutes les réponses associées</p>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">NON</button>
+                <button href="{{ path('comment_delete', {'id': commentFlagged.id}) }}" class="btn btn-default btn-delete-comment" data-dismiss="modal">OUI</button>
+            </div>
+        </div>
+    </div>
+</div>

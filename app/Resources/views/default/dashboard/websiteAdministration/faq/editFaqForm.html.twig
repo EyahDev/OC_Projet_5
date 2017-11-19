@@ -1,0 +1,36 @@
+<div class="modal fade" id="editFaqModal{{ faqId }}" tabindex="-1" role="dialog" aria-labelledby="editFaqModal{{ faqId }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editFaqModal{{ faqId }}Label">Modification de la question</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(editFaqForm, {'attr': {'class': 'form-horizontal'}}) }}
+
+                {{ form_errors(editFaqForm) }}
+
+                <div class="input">
+                    {{ form_label(editFaqForm.question, "Question", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(editFaqForm.question) }}
+                    <div class="col-sm-12">
+                        {{ form_widget(editFaqForm.question, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+
+                <div class="input">
+                    {{ form_label(editFaqForm.answer, "Réponse", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(editFaqForm.answer) }}
+                    <div class="col-sm-12">
+                        {{ form_widget(editFaqForm.answer, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                {{ form_widget(editFaqForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+                {{ form_end(editFaqForm) }}
+            </div>
+        </div>
+    </div>
+</div>

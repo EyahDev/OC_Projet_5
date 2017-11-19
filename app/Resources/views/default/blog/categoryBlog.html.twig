@@ -1,0 +1,31 @@
+{% extends 'default/blog.html.twig' %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-blog vertical-center">
+            <div class="container-fluid">
+                <img src="{{ asset(category.photoPath) }}" alt="{{ category.name }}">
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block contentBlog %}
+    <h3>Categorie : {{ category.name }}</h3>
+    <div class="container">
+        <div id="flashMsgPostsCategory"></div>
+        <section class="posts">
+            {% include("default/blog/Pagination/paginatedCategory.html.twig") %}
+        </section>
+
+        <section class="rightMenu">
+            {% include "default/blog/rightMenuBlog.html.twig" %}
+        </section>
+    </div>
+{% endblock %}

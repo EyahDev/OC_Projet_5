@@ -7,6 +7,13 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    observations_directory: '%kernel.project_dir%/web/uploads/observations_files'
+    categories_directory: '%kernel.project_dir%/web/uploads/categories_files'
+    avatars_directory: '%kernel.project_dir%/web/uploads/avatars_files'
+    posts_directory: '%kernel.project_dir%/web/uploads/posts_files'
+    users_directory: '%kernel.project_dir%/web/uploads/users_files'
+
+    mailchimp_list_id: 'f39bab3922'
 
 framework:
     #esi: ~
@@ -27,6 +34,7 @@ framework:
         # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id: session.handler.native_file
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+        name: 'NAOSESSION'
     fragments: ~
     http_method_override: true
     assets: ~
@@ -37,10 +45,13 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
 
 # Doctrine Configuration
 doctrine:
     dbal:
+        server_version: 5.7.14
         driver: pdo_mysql
         host: '%database_host%'
         port: '%database_port%'
@@ -67,3 +78,23 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
+
+# KNP paginator
+knp_paginator:
+    page_range: 1                      # number of links showed in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links to page 4, 5, 6)
+    default_options:
+        page_name: page                 # page query parameter name
+        sort_field_name: sort           # sort field query parameter name
+        sort_direction_name: direction  # sort direction query parameter name
+        distinct: true                  # ensure distinct results, useful when ORM queries are using GROUP BY statements
+        filter_field_name: filterField  # filter field query parameter name
+        filter_value_name: filterValue  # filter value query paameter name
+    template:
+        pagination: 'default/pagination/custom_pagination.html.twig'     # sliding pagination controls template
+        sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
+        filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template

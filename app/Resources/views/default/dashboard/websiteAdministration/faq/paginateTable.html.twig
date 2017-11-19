@@ -1,0 +1,63 @@
+<div class="pagination-table-faq" url="{{ path('pagination_faq') }}">
+    {% if paginationFaq|length != 0 %}
+        <div class="table-responsive-vertical shadow-z-1">
+            <table class="table table-hover table-mc-default table-faq">
+                <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Réponse</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for faq in paginationFaq %}
+                    <tr class="table-line-faq">
+                        <td data-title="Question">
+                            {{ faq.question |slice(0, 18) }}{% if faq.question|length > 18 %}...{% endif %}
+                        </td>
+                        <td data-title="Réponse">
+                            {{ faq.answer |slice(0, 18)}}{% if faq.answer|length > 18 %}...{% endif %}
+                        </td>
+                        <td data-title="Action" class="action">
+                            <a href="{{ path('edit-faq', {'faqId': faq.id}) }}" id="btnEditFaq{{ faq.id }}" class="btn-edit-faq" data-toggle="modal" data-target="#editFaqModal{{ faq.id }}">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" data-toggle="modal" data-target="#rmFaqModal{{ faq.id }}">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </a>
+                            <div class="modal fade" id="rmFaqModal{{ faq.id }}" tabindex="-1" role="dialog" aria-labelledby="rmFaqModal{{ faq.id }}Label" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="rmFaqModal{{ faq.id }}Label"></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h5>Voulez vous vraiment supprimer la question "{{ faq.question }}" ?</h5>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">NON</button>
+                                            <a href="{{ path('remove-faq',{'faqId': faq.id }) }}" class="btn btn-default btn-rm-faq" data-dismiss="modal">OUI</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {# div englobant le paginator et contenant la route à prendre pour la requete Ajax de pagination#}
+        <div id="paginationFaq" class="row">
+            {# display navigation #}
+            <div class="navigation mx-auto">
+                {{ knp_pagination_render(paginationFaq) }}
+            </div>
+        </div>
+    {% else %}
+        <p>Aucune question n'existe pour l'instant, créez en une !</p>
+    {% endif %}
+</div>

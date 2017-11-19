@@ -1,0 +1,75 @@
+<div class="pagination-table-posts" url="{{ path('pagination_management_posts') }}">
+{% if postsList|length != 0 %}
+    <div class="table-responsive-vertical shadow-z-1">
+        <table id="table" class="table table-hover table-mc-default">
+            <thead>
+            <tr>
+                <th>Titre de l'article</th>
+                <th>Publication</th>
+                <th>Catégorie</th>
+                <th>Commentaires</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for post in postsList %}
+                <tr>
+                    <td data-title="Titre de l'article">
+                        {{ post.title |slice(0,10) }}{% if post.title|length > 10 %}...{% endif %}
+                    </td>
+                    <td data-title="Date de publication">
+                        {{ post.publishedDate|date("d/m/Y à H:i", "Europe/Paris") }}
+                    </td>
+                    <td data-title="Catégorie">
+                        {{ post.category.name |slice(0,9) }}{% if post.category.name|length > 9 %}...{% endif %}
+                    </td>
+                    <td data-title="Commentaires">
+                        {{ post.comments|length }}
+                    </td>
+
+                    <td data-title="Action" class="action">
+                        <a href="{{path('edit_post', {'slug' : post.slug }) }}" id="btnEditPost{{post.id }}"
+                           class="btn-edit-post" data-toggle="modal" data-target="#editCategoryModal{{ post.id }}">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
+
+                        <a href="#" data-toggle="modal" data-target="#rmPostModal{{ post.id }}">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                        <div class="modal fade" id="rmPostModal{{ post.id }}" tabindex="-1" role="dialog" aria-labelledby="rmPostModal{{ post.id }}Label" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="rmPostModal{{ post.id }}Label"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5>Voulez vous vraiment supprimer l'article "{{ post.title }}" ?</h5>
+                                        <p>Attention, les commentaires associés à l'article seront également supprimés.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">NON</button>
+                                        <button href="{{path('post_delete', {'slug' : post.slug }) }}" class="btn btn-default btn-rm-post" data-dismiss="modal">OUI</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {# div englobant le paginator et contenant la route à prendre pour la requete Ajax de pagination#}
+    <div id="paginationPosts" class="row">
+        {# display navigation #}
+        <div class="navigation mx-auto">
+            {{ knp_pagination_render(postsList) }}
+        </div>
+    </div>
+{% else %}
+    <p>Aucun article n'a encore été publié.</p>
+{% endif %}
+</div>

@@ -1,0 +1,43 @@
+<div id="statistics">
+        <div class="card">
+            <h6>VOS OBSERVATIONS</h6>
+            <div class="align">
+            <img src="{{ asset('img/dashboard/icone-vos-obs.png') }}" alt="observations-validées">
+            <span>{{ app.user.observations|length }}</span>
+            </div>
+        </div>
+
+    {% if not is_granted('ROLE_PROFESSIONAL') %}
+        <div class="card">
+            <h6>VOS OBSERVATIONS VALIDEES</h6>
+            <div class="align">
+                <img src="{{ asset('img/dashboard/icone-obs-validées.png') }}" alt="observations-validées">
+                <span>{{ validatedObservationsByUser|length }}</span>
+            </div>
+        </div>
+        <div class="card">
+            <h6>VOS OBSERVATIONS REFUSEES</h6>
+            <div class="align">
+                <img src="{{ asset('img/dashboard/icone-obs-non-validées.png') }}" alt="observations-refusées">
+                <span>{{ refusedObservationsByUser|length }}</span>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if is_granted('ROLE_PROFESSIONAL') %}
+        <div class="card">
+            <h6>OBSERVATIONS QUE VOUS AVEZ VALIDEES</h6>
+            <div class="align">
+                <img src="{{ asset('img/dashboard/icone-obs-validées.png') }}" alt="observations-validées">
+                <span>{{ validatedObservationsByValidator|length }}</span>
+            </div>
+        </div>
+        <div class="card">
+            <h6>OBSERVATIONS QUE VOUS AVEZ REFUSEES</h6>
+            <div class="align">
+                <img src="{{ asset('img/dashboard/icone-obs-non-validées.png') }}" alt="observations-validées">
+                <span>{{ refusedObservationsByValidator|length }}</span>
+            </div>
+        </div>
+    {% endif %}
+</div>

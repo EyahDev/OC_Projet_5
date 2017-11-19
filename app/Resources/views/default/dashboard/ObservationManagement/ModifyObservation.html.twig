@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<h2>Modification l'observation</h2>
+    {{ form_start(modifyObservationForm) }}
+    {{ form_errors(modifyObservationForm) }}
+
+    {{ form_label(modifyObservationForm.observationDescription) }}
+    {{ form_widget(modifyObservationForm.observationDescription) }}
+
+
+    {% if modifyObservationForm.vars.value.photoPath == null %}
+        Vous n'avez chargé aucune photo lors de la création de votre observation <br/>
+    {% else %}
+        Charger une autre photo remplacera la photo actuelle : <br/>
+        <img style="width: 400px" src="{{ asset(modifyObservationForm.vars.value.photoPath) }}"
+             alt="{% if modifyObservationForm.vars.value.species != null %} {{ modifyObservationForm.vars.value.species.referenceName }} {% else %}Espèce inconnue{% endif %}"><br/>
+    {% endif %}
+
+    {{ form_label(modifyObservationForm.photoPath) }}<br/>
+    {{ form_widget(modifyObservationForm.photoPath) }}<br/>
+
+    {{ form_end(modifyObservationForm) }}
+{% endblock %}

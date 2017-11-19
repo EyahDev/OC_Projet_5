@@ -1,0 +1,394 @@
+/*----------------------------------------------- Header ----------------------------------------------- */
+.jumbotron-addObservation {
+    background: url(../img/observation/image-header.png) 0 0 no-repeat;
+    background-position: right;
+    background-size: contain;
+    height: 600px;
+    Color : #444;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+@media (max-width: 420px){
+    .jumbotron-addObservation {
+        height: 200px;
+    }
+}
+
+@media (min-width: 420px) and (max-width: 992px){
+    .jumbotron-addObservation {
+        height: 400px;
+    }
+}
+
+/*----------------------------------------------- Formulaire ----------------------------------------------- */
+.close img {
+    width: 30px;
+}
+
+.formulaire form {
+    margin: 20px auto 20px auto;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.birdNumber{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.eggsNumber{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#create_observation_birdNumber{
+    margin: 5px 0 5px 0;
+}
+
+#create_observation_eggsNumber{
+    margin: 5px 0 5px 0;
+}
+
+.label-space{
+    margin-right: 10px;
+}
+
+#create_observation_photoPath{
+    margin: auto;
+}
+
+#create_observation_Envoyer{
+    margin-top: 20px;
+}
+
+.form-control{
+    height: 50px;
+    border-radius: 0;
+    box-shadow: 1px 1px 20px #DCDCDC;
+}
+
+.commentaires{
+    height: 75px;
+    border-radius: 0;
+    box-shadow: 1px 1px 20px #DCDCDC;
+    display: block;
+    width: 100%;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #495057;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+form .btn {
+    margin: auto;
+    background-color: #333;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+a#geoloc {
+    color: #f9f9f9 !important;
+    font-size: 13px !important;
+    margin-top: 15px !important;
+}
+
+[placeholder]{
+    font-family: 'Montserrat', sans-serif;
+    color : #444 !important;
+    font-size: 13px;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.15);
+    outline: 0;
+}
+
+label.control-label{
+    font-family: 'Montserrat', sans-serif;
+    color : #444;
+    font-size: 13px;
+    line-height: 1;
+}
+
+.formulaire{
+    justify-content: center;
+    line-height: 0.5 !important;
+    text-align: left !important;
+}
+
+#create_observation_photoPath{
+    line-height: 1.5 !important;
+}
+
+input#create_observation_photoPath{
+    display: none;
+}
+
+.formulaire .photo{
+    text-align: center;
+}
+
+/*----------------------------------------------- Liste déroulante ----------------------------------------------- */
+
+select.form-control {
+    -moz-appearance:none;
+    -webkit-appearance: none;
+    appearance:none;
+}
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.custom-dropdown::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.custom-dropdown::after { /*  Custom dropdown arrow */
+    content: "";
+    background: url(../img/observation/icone-open-list.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 14px;
+    width: 14px;
+    font-size: .625em;
+    line-height: 1;
+    right: 1.5em;
+    top: 70%; margin-top: -.5em;
+}
+
+/*----------------------------------------------- Spinner ----------------------------------------------- */
+
+.custom-spinner {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 30%;
+}
+
+.custom-spinner::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.custom-spinner::after { /*  Custom spinner arrow */
+    content: "";
+    background: url(../img/observation/spinner-t.png);
+    background-color: #fff;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 25px;
+    width: 25px;
+    font-size: .625em;
+    line-height: 1;
+    right: 0.5em;
+    top: 28%;
+}
+
+.custom-spinner.custom-spinner--disabled::after {
+    color: rgba(0,0,0,.1);
+}
+
+/*@media (max-width: 420px) {*/
+    /*#quickAccess {*/
+        /*max-width: 100%;*/
+    /*}*/
+
+    /*#quickAccess p {*/
+        /*font-size: 18px;*/
+        /*margin-bottom: 10px;*/
+    /*}*/
+
+    /*#quickAccess h3 {*/
+        /*margin-top: 10px;*/
+    /*}*/
+/*}*/
+
+
+textarea#create_observation_observationDescription.form-control,
+textarea#create_observation_eggsDescription.form-control{
+    height: 100px;
+}
+
+/*----------------------------------------------- Photo ---------------------------------------------- */
+.photo .control-label {
+    margin: 10px auto 0 auto;
+    background-color: #333;
+    color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    word-spacing: 1.5px;
+    z-index: 0;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.42857143;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+
+/*----------------------------------------------- SideBar ----------------------------------------------- */
+
+/* Responsive */
+
+@media (max-width: 992px) {
+    /* Maps */
+    #map {
+        height: 500px;
+        width: 100%;
+    }
+
+    /* SideBar */
+    .addObservation-sidebar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin-right: 0;
+        height: 100%;
+        z-index: 1031;
+        width: 100%;
+        overflow: auto;
+    }
+
+    .contentAddObservation {
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        margin-right: 0;
+        margin-top: 0;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    form {
+        margin-bottom: 0;
+        width: 85%;
+    }
+
+    #create_observation_Envoyer {
+        margin-bottom: 10px;
+    }
+
+}
+
+@media (min-width: 992px) {
+    /* Maps */
+    #map {
+        height: 1210px;
+        width: 100%;
+    }
+
+    .addObservation-sidebar {
+        position: absolute;
+        z-index: 2;
+        top: 700px;
+        bottom: 0;
+        width: 45%;
+    }
+
+    .contentAddObservation {
+        -webkit-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
+        -moz-box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
+        box-shadow: 6px 8px 14px 0 rgba(48,48,48,1);
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        margin-right: 15px;
+        margin-top: 25px;
+        margin-left: 3px;
+        width: 97%;
+    }
+
+}
+
+#controls {
+    color: white;
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+    -webkit-box-shadow: 0 3px 5px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 3px 5px 0 rgba(0,0,0,0.75);
+    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.75);
+    padding: 10px;
+}
+
+#triggerAdd {
+    color: white;
+}
+
+.contentAddObservation {
+    background-color: white;
+}
+
+.closeSideBar {
+    margin-top: 18px;
+    margin-right: 18px;
+    cursor: pointer;
+}
+
+.presSideBars {
+    font-family: 'Small Font Regular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #fff;
+    margin-left: 25px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 1);
+    text-transform: uppercase;
+    line-height: 20px;
+}
+
+
+form[name="create_observation"] label{
+    margin-top: 10px;
+}
+
+
+

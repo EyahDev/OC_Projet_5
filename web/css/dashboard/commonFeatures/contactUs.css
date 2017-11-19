@@ -1,0 +1,23 @@
+#collapseContactUs{
+    width: 80%;
+    margin: auto;
+}
+
+textarea#contact_us_message.form-control {
+    height: 100px !important;
+}
+
+#contactUs .sujet{
+    margin-bottom: -10px;
+    width: 60%;
+}
+
+#contactUs .submit{
+    text-align: center;
+}
+
+@media (max-width: 420px){
+    #collapseContactUs {
+        width: 100%;
+    }
+}

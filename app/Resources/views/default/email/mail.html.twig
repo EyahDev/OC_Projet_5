@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="FR">
+<head>
+    <style>
+
+    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Mail de confirmation</title>
+</head>
+
+<body>
+<section id="page-sample">
+    <div class="container content-section text-left">
+
+        <p>Ce mail a été envoyé depuis le formulaire de contact NAO - Nos amis les oiseaux</p>
+        <hr/>
+        <p>Email de l'utilsateur : {{ data['email'] }} </p>
+        <p>Nom de l'utilsateur : {{ data['nom'] }} </p>
+        <p>Prénom de l'utilsateur : {{ data['prenom'] }} </p>
+        <p>Sujet du message : {{ data['sujet'] }}</p>
+        <p>Message :</p>
+        <p>{{ data['message'] }}</p>
+    </div>
+</section>
+</body>
+</html>

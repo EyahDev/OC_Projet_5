@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}<link href="{{ asset('css/legalNotices.css') }}" rel="stylesheet">{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-legalNotices vertical-center">
+            <img class="logo-mobile" src="{{ asset('img/legalNotices/image-header.jpg') }}" alt="logo-nao-mobile">
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header nao-header-faq">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <div class="container-mentions-legales">
+
+        <p>Vous êtes actuellement connecté au site Internet de l'association à but non lucratif Nos Amis les Oiseaux.
+
+        Les mentions légales sur les conditions d’utilisation du site présentées ci-dessous, s’appliquent à toute personne y accédant, désignée sous le terme  « utilisateur » dans le texte.</p>
+
+        <h2>Responsable du site</h2>
+
+        <P>Le site est géré et administré par l'association Nos amis les oiseaux et par son préstataire Gravity Web en cas de problème grave.</p>
+
+        <h2>Exercice du droit d’accès</h2>
+        <p>En application de la loi nº78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés, l’utilisateur dispose des droits d’opposition (art.26 de la loi), d’accès (art.34 à 38 de la loi), et de rectification (art.36 de la loi) des données le concernant.
+
+        Ainsi, l’utilisateur peut exiger que soient rectifiées, complétées, clarifiées, mises à jour ou effacées les informations le concernant qui sont inexactes, incomplètes, équivoques, périmées ou dont la collecte ou l’utilisation, la communication ou la conservation est interdite.
+
+        Pour exercer ce droit d’accès, l’utilisateur s’adressera à :</p>
+        <div class="mentions-legales-adresse">
+            <p>Nos amis les oiseaux<p>
+            <p>5 rue des pardrix<p>
+            <p>75002 Paris<p>
+            <p>FRANCE<p>
+        </div>
+
+        <h2>Droits d’auteurs / Copyright</h2>
+
+        <p>Les marques et logos figurant sur ce site sont des marques déposées. Leur mention n’accorde en aucune manière une licence ou un droit d’utilisation quelconque desdites marques, qui ne peuvent donc être utilisées sans le consentement préalable et écrit du propriétaire de la marque sous peine de contrefaçon. L’ensemble des informations présentes sur ce site peut être téléchargé, reproduit, imprimé sous réserve de :</p>
+
+        <div class="mentions-legales-adresse">
+            <p>- N’utiliser de telles informations qu’à des fins d’information et en aucune manière à des fins commerciales</p>
+            <p>- Ne pas modifier de telles informations</p>
+            <p>- Toute autre utilisation non expressément autorisée est strictement interdite sans autorisation préalable et écrite de l'association Nos Amis les Oiseaux</p>
+        </div>
+
+        <h2>Responsabilité</h2>
+
+        <p>L’ensemble des informations accessibles via ce site sont fournies en l’état. L'association ne donne aucune garantie, explicite ou implicite et n’assume aucune responsabilité relative à l’utilisation de ces informations.</p>
+
+        <p>Nos Amis les Oiseux n’est pas responsable ni de l’exactitude, ni des erreurs, ni des omissions contenues sur ce site. L’utilisateur est seul responsable de l’utilisation de telles informations.</p>
+
+        <p>Nos Amis les Oiseaux se réserve le droit de modifier à tout moment les présentes notamment en actualisant ce site. L'association ne pourra être responsable pour quel que dommage que ce soit tant direct qu’indirect, résultant d’une information contenue sur ce site.</p>
+
+        <p>L’utilisateur s’engage à ne transmettre sur ce site aucune information pouvant entraîner une responsabilité civile ou pénale et s’engage à ce titre à ne pas divulguer via ce site des informations illégales, contraires à l’ordre public ou diffamatoires.</p>
+
+        <h2>Lien hypertexte</h2>
+        <p>Les liens mis en place depuis le site vers des sites extérieurs ne sauraient engager la responsabilité de Nos Amis les Oiseaux notamment au regard du contenu de ces sites, mais également des risques techniques.</p>
+
+        <p> En acceptant d’utiliser un lien hypertexte pour accéder à un site extérieur, vous acceptez de prendre les risques et de subir un éventuel préjudice direct ou indirect. La création de liens hypertexte vers le site de Nos Amis les Oiseaux est totalement autorisée.</p>
+
+        <h2>Mise à jour des mentions légales du site</h2>
+        <p>L'association se réserve le droit de mettre à jour les présentes mentions légales à tout moment, en fonction de l’évolution du contenu du site et des contraintes supplémentaires de protection nécessaires.</p>
+
+        <h2>Conditions optimales d’accès au site</h2>
+        <p>Ce site a été optimisé pour les spécifications suivantes :</p>
+
+        <div class="mentions-legales-adresse">
+            <p>- Accès par la plupart des navigateurs</p>
+            <p>- Site responsive</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/menu.js') }}"></script>
+{% endblock %}

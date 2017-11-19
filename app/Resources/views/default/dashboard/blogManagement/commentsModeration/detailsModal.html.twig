@@ -1,0 +1,22 @@
+<div class="modal fade" id="viewDetailsCommentModal{{ commentFlagged.id }}" tabindex="-1" role="dialog" aria-labelledby="viewDetailsCommentModal{{ commentFlagged.id }}Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewDetailsCommentModal{{ commentFlagged.id }}Label">Détails du commentaire</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Article : {{ commentFlagged.post.title }}</p>
+                <p>Nombre de signalement recu : {{ commentFlagged.flagged }}</p>
+                <p>Commentaire signalé : {{ commentFlagged.message }}</p>
+                {% if commentFlagged.parent != null %}
+                    <p>En réponse à  : {{ commentFlagged.parent.message }}</p>
+                {% endif %}
+                <button class="btn btn-default btn-approuve-comment" href="{{ path('comment_approuved', {'id': commentFlagged.id }) }}" data-dismiss="modal">Approuver</button>
+                <button class="btn btn-default btn-delete-comment" href="{{ path('comment_delete', {'id': commentFlagged.id}) }}" data-dismiss="modal"> Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>

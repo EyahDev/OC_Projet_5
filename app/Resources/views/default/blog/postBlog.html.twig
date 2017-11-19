@@ -1,0 +1,51 @@
+{% extends 'default/blog.html.twig' %}
+
+{% block header %}
+    <header>
+        <div class="jumbotron-blog vertical-center">
+            <div class="container-fluid">
+                <img src="{{ asset(post.imagePath) }}" alt="{{ post.title }}">
+            </div>
+        </div>
+        <div class="nao-header-align-left">
+            <div class="nao-header">
+                <p class="nao-header-size1">Nao</p>
+                <p class="nao-header-size2">Nos Amis les Oiseaux</p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block contentBlog %}
+    <div class="container">
+        <section class="posts">
+            <h4>{{ post.title }}</h4>
+            <div class="posts-infos">
+                <p><i class="fa fa-calendar-o" aria-hidden="true"></i> {{ post.publishedDate|date("d/m/Y à H:i", "Europe/Paris") }}</p>
+                <p><i class="fa fa-user" aria-hidden="true"></i> {{ post.author.username }}</p>
+                <p><i class="fa fa-tag" aria-hidden="true"></i> {{ post.category.name}}</p>
+                <p><i class="fa fa-comments" aria-hidden="true"></i> {{ post.comments|length }}</p>
+            </div>
+
+            {{ post.content|purify }}
+        </section>
+        <section class="rightMenu">
+            {% include "default/blog/rightMenuBlog.html.twig" %}
+        </section>
+    </div>
+
+    <div id="social" class="container">
+        <section class="social-icone">
+            <a href="#"><i class="fa fa-facebook-square fa-5x"></i></a>
+            <a href="#"><i class="fa fa-twitter-square fa-5x"></i></a>
+            <a href="#"><i class="fa fa-pinterest-square fa-5x"></i></a>
+            <a href="#"><i class="fa fa-instagram fa-5x"></i></a>
+        </section>
+    </div>
+
+    <div id="comments" class="container">
+        <section class="comments">
+            {% include "default/blog/comments/comments.html.twig" %}
+        </section>
+    </div>
+{% endblock %}

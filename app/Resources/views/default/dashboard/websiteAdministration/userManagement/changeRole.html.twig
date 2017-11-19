@@ -1,0 +1,25 @@
+<div class="modal fade" id="changeRoleModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="changeRoleModal{{ user.id }}Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeRoleModal{{ user.id }}Label">Changer le role de {{ user.username }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(changeRoleForm, {'attr': {'class': 'form-horizontal'}}) }}
+
+                {{ form_errors(changeRoleForm) }}
+
+                <div class="input">
+                    {{ form_errors(changeRoleForm.role) }}
+                    {{ form_widget(changeRoleForm.role, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                {{ form_widget(changeRoleForm.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+                {{ form_end(changeRoleForm) }}
+            </div>
+        </div>
+    </div>
+</div>
