@@ -4,19 +4,14 @@
     <style>
         body {
             margin: 0;
-            color: #444;
-            background-color: #F9F9F9;
             font-family: Arial, sans-serif;
         }
 
         header {
-            background: url("{{ absolute_url(asset('img/mail/background-mail.jpg')) }}") no-repeat center;
-            background-size: cover;
-            background-color: #222222;
             padding: 10px 0px;
             width: 100%;
             height: 200px;
-            color: #F9F9F9;
+
         }
         .logo-header img{
             max-height: 100px;
@@ -41,41 +36,7 @@
             padding: 10px 0px;
             margin: 30px 0px;
             min-height: 250px;
-            box-shadow: 15px 0px 15px 10px #DCDCDB !important;
-        }
-        #block1 {
-            background-color: inherit;
-        }
-        #imgBlock1 {
-            float: left;
-            height: 150px;
-            margin-right: 20px;
-        }
-        #block2 {
-            background-image: linear-gradient(to right, #0c3475, #1f9b67);
-            color: #f9f9f9;
-        }
-        #imgBlock2 {
-            float: right;
-            height: 150px;
-            margin-left: 20px;
-        }
-        #block3 {
-            background-color: inherit;
-        }
-        #imgBlock3 {
-            float: left;
-            height: 150px;
-            margin-right: 15px;
-        }
-        #blockInfosPerso {
-            background-image: linear-gradient(to left, #0c3475, #1f9b67);
-            color: #f9f9f9;
-        }
-        #imgBlock3 {
-            float: left;
-            height: 150px;
-            margin-right: 20px;
+
         }
         #pre-footer {
             text-align: center;
@@ -85,8 +46,6 @@
             padding: 10px 0px;
             width: 100%;
             height: 150px;
-            background-color: #222222;
-            color: #F9F9F9;
             margin: auto;
         }
         .logo-footer img{
@@ -109,15 +68,6 @@
             }
             .block {
                 min-height: 366px;
-            }
-            #imgBlock1, #imgBlock2, #imgBlock3{
-                float: none;
-                margin-left: auto;
-                margin-right: auto;
-                display: block;
-            }
-            #imgBlock3 {
-                height: 100px;
             }
         }
     </style>
@@ -169,7 +119,6 @@
         <div id="block1" class="block">
             <div class="container">
                 <h3>Le Programme de la recherche</h3>
-                <img id="imgBlock1" src="{{ absolute_url(asset('img/landingPage/image-microscope.png')) }}" alt="recherche">
                 <p>Les scientifiques étudient les effets du climat, de l'urbanisation et de l'agriculture sur la biodiversité.</p>
                 <p>
                     Le programme de recherche scientifique est fondé sur vos observations d'oiseaux et de nids dans leur environnement naturel,
@@ -180,10 +129,9 @@
         <div id="block2" class="block">
             <div class="container">
                 <h3>Pour qui?</h3>
-                <img id="imgBlock2" src="{{ absolute_url(asset('img/landingPage/image--pour-vous.png')) }}" alt="show-you">
                 <p>
                     Le projet est ouvert aux ornithologues profesionnels et amateurs, aux photogaphes, promeneurs et particuliers amoureux
-                    de la nature ou sensibles à la problèmatique de la préservation de l'envireonnement.
+                    de la nature ou sensibles à la problématique de la préservation de l'envireonnement.
                 </p>
                 <p>N'hesitez pas à parler de notre action autour de vous !</p>
             </div>
@@ -191,10 +139,9 @@
         <div id="block3" class="block">
             <div class="container">
                 <h3>Comment ça marche?</h3>
-                <img id="imgBlock3" src="{{ absolute_url(asset('img/landingPage/image-comment-ça-marche.2.png')) }}" alt="observation">
                 <p>
                     Vous apercevez un oiseau, un groupe d'oiseaux ou nid dans leur environnement naturel? Saisissez votre observation sur la carte
-                    proposez par l'application en indiquant votre position, le nom de l'espèce et même une photo quand c'est possible.
+                    proposée par l'application en indiquant votre position, le nom de l'espèce et même une photo quand c'est possible.
                 </p>
             </div>
         </div>
