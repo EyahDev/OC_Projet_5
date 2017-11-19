@@ -289,6 +289,10 @@ h4, h5 {
 
 /*----------------------------------------------- Commentaires ----------------------------------------------- */
 
+.commentMessage{
+    margin-bottom: 0 !important;
+}
+
 textarea#new_comment_message {
     border-radius: 0 !important;
     color: #666;
@@ -316,6 +320,26 @@ textarea#reply_comment_message:focus {
     color: #666;
     border-color: rgba(0, 0, 0, .15);
 }
+
+.answerButton p{
+    margin-bottom: 0;
+}
+
+.answerButton a:hover{
+    text-decoration: none;
+}
+
+.btn-flag-reply p{
+    margin-bottom: 0;
+}
+
+.childComment a:hover{
+    text-decoration: none;
+}
+
+
+
+
 
 
 
