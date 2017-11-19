@@ -40,7 +40,7 @@ $(document).ready(function () {
                     $('.pagination-table-categories').replaceWith(data);
                     // réactive les écouteurs
                     removeCategory();
-                    //editCategory();
+                    editCategory();
                     paginateCategories();
                 }, error: function() {
                     addFlashMsgManageCategories('danger', 'Une erreur est survenue')
