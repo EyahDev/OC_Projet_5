@@ -30,6 +30,7 @@ class AccountManager
     private $avatarsDirectory;
     private $mailChimpManager;
     private $captchaSecretKey;
+    private $contactManager;
 
     /**
      * AccountManager constructor.
@@ -43,7 +44,8 @@ class AccountManager
      */
     public function __construct($avatarsDirectory, FormFactoryInterface $formBuilder, EntityManagerInterface $em,
                                 ValidatorInterface $validator, UserPasswordEncoderInterface $encoder,
-                                Filesystem $filesystem, RequestStack $request, MailChimpManager $mailChimpManager, $captchaSecretKey) {
+                                Filesystem $filesystem, RequestStack $request, MailChimpManager $mailChimpManager,
+                                $captchaSecretKey, ContactManager $contactManager) {
 
         $this->avatarsDirectory = $avatarsDirectory;
         $this->formBuilder = $formBuilder;
@@ -54,6 +56,7 @@ class AccountManager
         $this->filesystem = $filesystem;
         $this->mailChimpManager = $mailChimpManager;
         $this->captchaSecretKey = $captchaSecretKey;
+        $this->contactManager = $contactManager;
     }
 
     public function verfiyCaptcha() {
@@ -111,9 +114,12 @@ class AccountManager
         // Enregistrement et sauvegarde en base de données
         $this->em->persist($user);
         $this->em->flush();
+        // Ajout de l'utilisateur à la liste des abonné à la newsletter dans mailchimp si il a coché la case
         if ($user->getNewsletter() === true) {
             $this->mailChimpManager->subscribeNewsletter($user);
         }
+        // Envoie du mail d'inscription
+        $this->contactManager->sendSignUpMail($user);
     }
 
     /**

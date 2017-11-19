@@ -53,4 +53,14 @@ class ContactController extends Controller
         }
         throw new \Exception("Vous ne pouvez pas accéder à cette page", 403);
     }
+
+    /**
+     * @return Response
+     *
+     * @Route("test-email", name="test_email")
+     */
+    public function testEmailAction()
+    {
+        return $this->render('default/email/signUpMail.html.twig', array('user' => $this->getUser()));
+    }
 }
