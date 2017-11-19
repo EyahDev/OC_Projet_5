@@ -2,6 +2,7 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Entity\User;
 use AppBundle\Form\Type\Contact\ContactType;
 use AppBundle\Form\Type\Contact\ContactUsType;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -118,5 +119,19 @@ class ContactManager
             return true;
         }
         return $errorMessages;
+    }
+
+    public function sendSignUpMail(User $user)
+    {
+        // Préparation de l'email de contact
+        $sendMailUser = (new \Swift_Message('Inscription au site NAO'))
+            ->setFrom(array('noreply@adriendesmet.com' => 'NAO - Nos amis les oiseaux'))
+            ->setTo($user->getEmail())
+            ->setBody($this->env->render('default/email/signUpMail.html.twig', array(
+                'user' => $user
+            )), 'text/html');
+
+        // Envoi de l'email
+        $this->mailer->send($sendMailUser);
     }
 }

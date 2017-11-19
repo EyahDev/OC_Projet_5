@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="FR">
+<head>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            padding: 10px 0px;
+            width: 100%;
+            height: 200px;
+
+        }
+        .logo-header img{
+            max-height: 100px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+        .title {
+            text-align: center;
+        }
+        .container {
+            width: 60%;
+            margin: auto;
+        }
+        .container h2,h3 {
+            text-align: center;
+        }
+        #bienvenue {
+            text-align: center;
+        }
+        .block {
+            padding: 10px 0px;
+            margin: 30px 0px;
+            min-height: 250px;
+
+        }
+        #pre-footer {
+            text-align: center;
+            font-size: 0.75em;
+        }
+        footer {
+            padding: 10px 0px;
+            width: 100%;
+            height: 150px;
+            margin: auto;
+        }
+        .logo-footer img{
+            max-height: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+        .contact {
+            text-align: center;
+        }
+        .contact a {
+            color: inherit;
+            text-decoration: none;
+        }
+        @media (max-width: 991px) {
+            .container {
+                width: 90%;
+                margin: auto;
+            }
+            .block {
+                min-height: 366px;
+            }
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Mail d'inscription</title>
+</head>
+
+<body>
+<header>
+    <div>
+        <div class="logo-header">
+            <div>
+                <a href="{{ absolute_url(path('homepage')) }}"><img src="{{ absolute_url(asset('img/logo-pour-mobile.png')) }}" alt="logo-nao"></a>
+            </div>
+        </div>
+        <div class="title">
+            <h1>Nos amis les oiseaux</h1>
+        </div>
+    </div>
+</header>
+
+<section id="infosGenerique">
+    <div>
+        <div class="container" id="bienvenue">
+            <h2>Bienvenue {{ user.firstname }} sur le site participatif de NAO !</h2>
+            <p>Ravis de vous compter parmi nos membres !</p>
+        </div>
+        <div id="blockInfosPerso" class="block">
+            <div class="container">
+                <h2>Récapitulatif de vos informations</h2>
+                <p>Email : {{ user.email }} </p>
+                <p>Nom d'utilisateur : {{ user.username }} </p>
+                {% if user.proPermission == true %}
+                    <p>Vous avez indiqué être un professionnel. <br />
+                        De manière à éviter toutes dérives,
+                        nous vous demandons de nous faire parvenir un justificatif prouvant votre statut
+                        de professionnel, une fois ces informations vérifiées, notre administrateur vous
+                        octroiera les droits relatifs à votre statut sur le site.
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+        <div id="block1" class="block">
+            <div class="container">
+                <h3>Le Programme de la recherche</h3>
+                <p>Les scientifiques étudient les effets du climat, de l'urbanisation et de l'agriculture sur la biodiversité.</p>
+                <p>
+                    Le programme de recherche scientifique est fondé sur vos observations d'oiseaux et de nids dans leur environnement naturel,
+                    effectuées sur tout le territoire Français et les DOM-TOM.
+                </p>
+            </div>
+        </div>
+        <div id="block2" class="block">
+            <div class="container">
+                <h3>Pour qui?</h3>
+                <p>
+                    Le projet est ouvert aux ornithologues profesionnels et amateurs, aux photogaphes, promeneurs et particuliers amoureux
+                    de la nature ou sensibles à la problématique de la préservation de l'envireonnement.
+                </p>
+                <p>N'hesitez pas à parler de notre action autour de vous !</p>
+            </div>
+        </div>
+        <div id="block3" class="block">
+            <div class="container">
+                <h3>Comment ça marche?</h3>
+                <p>
+                    Vous apercevez un oiseau, un groupe d'oiseaux ou nid dans leur environnement naturel? Saisissez votre observation sur la carte
+                    proposée par l'application en indiquant votre position, le nom de l'espèce et même une photo quand c'est possible.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="pre-footer">
+    <hr/>
+    <p>Ce mail a été envoyé suite à votre inscription sur le site de NAO - Nos amis les oiseaux</p>
+</section>
+<footer>
+    <div>
+        <div class="logo-footer">
+            <a href="{{ absolute_url(path('homepage')) }}"><img src="{{ absolute_url(asset('img/logo-footer.png')) }}" alt="logo-nao"></a>
+        </div>
+        <div class="contact">
+            <p>5 rue des pardrix, 75002 Paris</p>
+            <p><a href="mailto:projet5.nao@gmail.com">projet5.nao@gmail.com</a></p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
