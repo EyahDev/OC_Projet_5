@@ -356,6 +356,7 @@ $(document).ready(function () {
                 // relance les écouteurs d'evenement
                 createCategoryQuickly();
                 writePost();
+                reloadPostsTableAfterAddingOrModifying();
             }
         })
     }
@@ -485,6 +486,7 @@ $(document).ready(function () {
                 success: function (data) {
                     // recharge le tableau apres suppression
                     reloadPostsTableAfterRemoving();
+                    reloadWritePost();
                     // ajoute le message flash
                     addFlashMsgManagePosts('success', data);
                 },
@@ -530,6 +532,7 @@ $(document).ready(function () {
                         tinymce.remove();
                         // supprime la modale d'édition
                         $a.prev().replaceWith('');
+                        reloadWritePost();
                     });
                     // A la soumission du formulaire d'édition
                     $('form[name="update_post"]').on('submit', function(e){

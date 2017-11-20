@@ -10,7 +10,7 @@
                 a observé le
             {% endif %}
 
-            {{ speciesObservation.observationDate|date('d/m/Y à H:i')}} par {{ speciesObservation.observer.name }}.
+            {{ speciesObservation.observationDate|date('d/m/Y à H:i')}} par {{ speciesObservation.observer.username }}.
             {% if speciesObservation.seeToo != null %}
                 Observation confirmée par {{speciesObservation.seeToo}} utilisateur(s)
             {% endif %}
