@@ -81,7 +81,6 @@ class MapsManager
                 array_push($results, $queryFamily);
             };
         }
-
         return $results;
     }
 
@@ -126,64 +125,5 @@ class MapsManager
             // Ecriture en session
             $this->session->set('seeToo', $arraySeeToo);
         }
-
-
-    }
-
-    public function resetMarkersXML() {
-        // Création du document XML
-        $mapsXMLDoc = new \DOMDocument('1.0', 'utf-8');
-
-        // Création du noeud <urlset>
-        $markersNode = $mapsXMLDoc->createElement( 'markers');
-
-        // Ecriture dans le fichier
-        $mapsXMLDoc->appendChild($markersNode);
-
-        $markerNode = $mapsXMLDoc->createElement('marker');
-
-        $markersNode->appendChild($markerNode);
-
-        // Ecriture du fichier XML du sitemap
-        $mapsXMLPath = 'markers/markers.xml';
-
-        file_put_contents($mapsXMLPath, $mapsXMLDoc->saveXml());
-    }
-
-    public function createMarkersXML($searchCriteria = array()) {
-        // Création du document XML
-        $mapsXMLDoc = new \DOMDocument('1.0', 'utf-8');
-
-        // Création du noeud <urlset>
-        $markersNode = $mapsXMLDoc->createElement( 'markers');
-
-        $mapsXMLDoc->appendChild($markersNode);
-
-        // Ajout des URLs dans le document XML
-        foreach($searchCriteria as $results){
-            foreach ($results as $marker) {
-                // Création du noeud <url>
-                $markerNode = $mapsXMLDoc->createElement('marker');
-                $markerNode->setAttribute('id', $marker->getId());
-                $markerNode->setAttribute('user', $marker->getObserver()->getUserName());
-                $markerNode->setAttribute('date', $marker->getObservationDate()->format('d/m/Y à H:i'));
-                $markerNode->setAttribute('reference', $marker->getSpecies()->getReferenceName());
-                $markerNode->setAttribute('slug', $marker->getSpecies()->getSlug());
-                $markerNode->setAttribute('vernacular', $marker->getSpecies()->getVernacularName());
-                $markerNode->setAttribute('birdNumber', $marker->getBirdNumber());
-                $markerNode->setAttribute('eggsNumber', $marker->getEggsNumber());
-                $markerNode->setAttribute('photo', $marker->getPhotoPath());
-                $markerNode->setAttribute('lat', $marker->getLatitude());
-                $markerNode->setAttribute('lng', $marker->getLongitude());
-                $markerNode->setAttribute('seeToo', $marker->getSeeToo());
-                $markerNode->setAttribute('type', 'bird');
-                $markersNode->appendChild($markerNode);
-            }
-        }
-
-        // Ecriture du fichier XML du sitemap
-        $mapsXMLPath = 'markers/markers.xml';
-
-        file_put_contents($mapsXMLPath, $mapsXMLDoc->saveXml());
     }
 }
