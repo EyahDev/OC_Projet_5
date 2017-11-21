@@ -180,7 +180,11 @@ class DefaultController extends Controller
             $session->set('search', true);
             $session->set('nbResults', count($results));
 
-            return $this->redirectToRoute('rechercheObservations');
+            return $this->render(':default:searchObservations.html.twig', array(
+                'results' => $results[0],
+                'searchObservationForm' => $searchObservationForm->createView(),
+                'seeToo' => $sessionIds
+            ));
         }
 
         // Passage de la variable de session à false suite aucune recherche
@@ -390,7 +394,6 @@ class DefaultController extends Controller
                     // Création du nouvel utilisateur
                     $accountManager->setNewUser($user);
 
-                    dump($request->get('g-recaptcha-response'));
                     // Rédirection vers la page d'accueil
                     return $this->redirectToRoute('homepage');
                 } else {
