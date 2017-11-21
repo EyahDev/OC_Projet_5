@@ -22,12 +22,7 @@
 {% endblock %}
 
 {% block body %}
-    {% for message in app.session.flashbag.get('notice') %}
-        <div class="alert alert-danger">
-            {{ message }}
-        </div>
-    {% endfor %}
-
+    {% include ':default/searchObservations:fashbag.html.twig' %}
     <div class="container-fluid">
         <div class="research-sidebar">
             <div class="contentResearch">
@@ -59,7 +54,6 @@
     </div>
 
     <div id="map"></div>
-
     <div id="controls">
         <a class="btn btn-dark" id="triggerResearch">Recherche</a>
         <a class="btn btn-dark" id="triggerResult">Détails des résultats</a>
@@ -99,9 +93,9 @@
                 $('.research-sidebar').sidebar();
 
                 {% if app.session.get('nbResults') > 0 %}
-                $(".result-sidebar").sidebar().trigger('sidebar:open');
+                    $(".result-sidebar").sidebar().trigger('sidebar:open');
                 {% else %}
-                $(".result-sidebar").sidebar();
+                    $(".result-sidebar").sidebar();
                 {% endif %}
 
                 $('#closeResult').click(function() {
@@ -147,7 +141,8 @@
             var indexLoop = 0;
             var markers = [];
             {% if results is defined %}
-                {% for  observation in results %}
+                {% for observations in results %}
+                    {% for observation in observations %}
                     var dataToPush = {
                         id: "{{ observation.id }}",
                         user: "{{ observation.observer.username }}",
@@ -166,6 +161,7 @@
 
                     };
                     markers.push(dataToPush);
+                    {% endfor %}
                 {% endfor %}
             {% endif %}
             markers.forEach(function (mark) {
@@ -249,17 +245,6 @@
                             $(".result-sidebar").trigger("sidebar:close");
                         });
                     }
-
-                    // Création de la liste des resultat
-                    var table = document.getElementById('resultsNoMaps');
-                    table.innerHTML +=
-                        '<tr onclick="myClick('+indexLoop+')" >\n' +
-                        '<td data-title="Espèce observée">' +
-                        '<img class="iconResults" src="{{ asset('img/research_observations/icon-maps-results.png')}}" alt="Icone de resultat"><a href="'+ urlSlug +'"> '+ referenceName +'</a>' +
-                        '</td>\n' +
-                        '<td data-title="Date d\'observation">'+ date +'</td>\n' +
-                        '<td data-title="Aussi observée">'+seeToo+'</td>\n' +
-                        '</tr>';
                 }
 
                 var infowincontent =
@@ -277,7 +262,19 @@
                 var icon = icons[type].icon || {};
                 var marker;
 
+                var table = document.getElementById('resultsNoMaps');
                 {% if not is_granted('ROLE_PROFESSIONAL') %}
+                // Création de la liste des resultat
+
+                table.innerHTML +=
+                    '<tr>\n' +
+                    '<td data-title="Espèce observée">' +
+                    '<img class="iconResults" src="{{ asset('img/research_observations/icon-maps-results.png')}}" alt="Icone de resultat"><a href="'+ urlSlug +'"> '+ referenceName +'</a>' +
+                    '</td>\n' +
+                    '<td data-title="Date d\'observation">'+ date +'</td>\n' +
+                    '<td data-title="Aussi observée">'+seeToo+'</td>\n' +
+                    '</tr>';
+
                 marker = new google.maps.Circle({
                     strokeColor: '#FF0000',
                     strokeOpacity: 0.35,
@@ -290,6 +287,16 @@
                 });
 
                 {% else %}
+                // Création de la liste des resultat
+                table.innerHTML +=
+                    '<tr onclick="myClick('+indexLoop+')" >\n' +
+                    '<td data-title="Espèce observée">' +
+                    '<img class="iconResults" src="{{ asset('img/research_observations/icon-maps-results.png')}}" alt="Icone de resultat"><a href="'+ urlSlug +'"> '+ referenceName +'</a>' +
+                    '</td>\n' +
+                    '<td data-title="Date d\'observation">'+ date +'</td>\n' +
+                    '<td data-title="Aussi observée">'+seeToo+'</td>\n' +
+                    '</tr>';
+
                 marker = new google.maps.Marker({
                     map: map,
                     position: point,
@@ -343,11 +350,7 @@
 
         }
 
-
-               function doNothing() {}
-
         function myClick(id) {
-            console.log(id);
             google.maps.event.trigger(markerArray[id -1], 'click');
             map.setCenter(marker.markerArray[id -1]);
         }

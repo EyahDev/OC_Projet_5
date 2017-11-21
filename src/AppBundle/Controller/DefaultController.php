@@ -146,12 +146,6 @@ class DefaultController extends Controller
 
         $sessionIds = json_encode($sessionIds);
 
-        // Reset des markers
-        if ($session->get('search') === false){
-            $session->set('nbResults', 0);
-            $maps->resetMarkersXML();
-        }
-
         // Récupération des formulaires de recherche
         $searchObservationForm = $maps->searchObservationsForm();
 
@@ -173,22 +167,18 @@ class DefaultController extends Controller
                 return $this->redirectToRoute('rechercheObservations');
             }
 
-            // Création des markers maps
-            $maps->createMarkersXML($results);
-
-            // Passage de la variable de session à true suite à la recherche
-            $session->set('search', true);
+            // Passage de la variable de session avec le nombre de resultat de la recherche
             $session->set('nbResults', count($results));
 
             return $this->render(':default:searchObservations.html.twig', array(
-                'results' => $results[0],
+                'results' => $results,
                 'searchObservationForm' => $searchObservationForm->createView(),
                 'seeToo' => $sessionIds
             ));
         }
 
         // Passage de la variable de session à false suite aucune recherche
-        $session->set('search', false);
+        $session->set('nbResults', 0);
 
         return $this->render("default/searchObservations.html.twig",
             array(
