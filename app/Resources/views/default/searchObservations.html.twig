@@ -35,62 +35,7 @@
                     <p class="presSideBars">Recherche d'une observation</p>
                     <p id="closeResearch" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></p>
                 </div>
-                <div class="formulaire">
-                    {{ form_start(searchObservationForm) }}
-
-                    {% if not searchObservationForm.vars.valid %}
-                        <div class="alert alert-danger formError">
-                            {{ form_errors(searchObservationForm) }}
-                            {{ form_errors(searchObservationForm.vernacular) }}
-                            {{ form_errors(searchObservationForm.reference) }}
-                            {{ form_errors(searchObservationForm.type) }}
-                            {{ form_errors(searchObservationForm.family) }}
-                            {{ form_errors(searchObservationForm.begin) }}
-                            {{ form_errors(searchObservationForm.end) }}
-                        </div>
-                    {% endif %}
-
-                    <span class="custom-dropdown">
-                        {{ form_label(searchObservationForm.vernacular) }}
-                        {{ form_widget(searchObservationForm.vernacular) }}
-                    </span>
-
-                    <a href="" class="btn btn-default" data-toggle="collapse" data-target='#advancedResearch'>recherche avancée</a>
-
-                    <br>
-                    <div id="advancedResearch" class="collapse">
-
-                        <span class="custom-dropdown">
-                        {{ form_label(searchObservationForm.reference) }}
-                        {{ form_widget(searchObservationForm.reference) }}
-                        </span>
-
-                        <span class="custom-dropdown">
-                        {{ form_label(searchObservationForm.type) }}
-                        {{ form_widget(searchObservationForm.type) }}
-                        </span>
-
-                        <span class="custom-dropdown">
-                        {{ form_label(searchObservationForm.family) }}
-                        {{ form_widget(searchObservationForm.family) }}
-                        </span>
-
-                        <span>
-                        {{ form_label(searchObservationForm.begin) }}
-                        {{ form_widget(searchObservationForm.begin, {'attr': {'placeholder': 'ex : 18/01/2014 '}}) }}
-                        </span>
-
-                        <span>
-                        {{ form_label(searchObservationForm.end) }}
-                        {{ form_widget(searchObservationForm.end, {'attr': {'placeholder': 'ex : 02/07/2016 '}}) }}
-                        </span>
-                    </div>
-
-                    <div class="d-flex justify-content-center" style="margin-top: 10px">
-                        {{ form_widget(searchObservationForm.Rechercher) }}
-                        {{ form_end(searchObservationForm) }}
-                    </div>
-                </div>
+                {% include ':default/searchObservations:searchObservationsForm.html.twig' %}
             </div>
         </div>
     </div>
@@ -125,7 +70,6 @@
 {% block javascripts %}
 
     <script>
-
         $(document).ready(function(){
 
             if ($(window).width() < 992) {
@@ -155,9 +99,9 @@
                 $('.research-sidebar').sidebar();
 
                 {% if app.session.get('nbResults') > 0 %}
-                    $(".result-sidebar").sidebar().trigger('sidebar:open');
+                $(".result-sidebar").sidebar().trigger('sidebar:open');
                 {% else %}
-                    $(".result-sidebar").sidebar();
+                $(".result-sidebar").sidebar();
                 {% endif %}
 
                 $('#closeResult').click(function() {
@@ -198,146 +142,162 @@
                     icon: '{{ asset('img/marqueur.png') }}'
                 }
             };
+            var i = 0;
+            var nest;
+            var indexLoop = 0;
+            var markers = [];
+            {% if results is defined %}
+                {% for  observation in results %}
+                    var dataToPush = {
+                        id: "{{ observation.id }}",
+                        user: "{{ observation.observer.username }}",
+                        date: "{{ observation.observationDate|date('d/m/Y à H:i') }}",
+                        referenceName: "{{ observation.species.referenceName }}",
+                        vernacularName: "{{ observation.species.vernacularName }}",
+                        slug: "{{ observation.species.slug }}",
+                        birdNumber: "{{ observation.birdNumber }}",
+                        eggsNumber: "{{ observation.eggsNumber }}",
+                        seeToo: "{{ observation.seeToo }}",
+                        photo: "{{ observation.photoPath }}",
+                        type: "bird",
+                        position: new google.maps.LatLng(
+                            parseFloat({{ observation.latitude }}),
+                            parseFloat({{ observation.longitude }}))
 
-            downloadUrl("{{ asset('markers/markers.xml') }}", function(data) {
-                var xml = data.responseXML;
-                var markers = xml.documentElement.getElementsByTagName('marker');
-                var i = 0;
-                var nest;
-                var indexLoop = 0;
-                Array.prototype.forEach.call(markers, function(markerElem) {
-                    indexLoop++;
-                    var id = markerElem.getAttribute('id');
-                    var user = markerElem.getAttribute('user');
-                    var date = markerElem.getAttribute('date');
-                    var referenceName = markerElem.getAttribute('reference');
-                    var vernacularName = markerElem.getAttribute('vernacular');
-                    var slug = markerElem.getAttribute('slug');
-                    var birdNumber = markerElem.getAttribute('birdNumber');
-                    var eggsNumber = markerElem.getAttribute('eggsNumber');
-                    var seeToo = markerElem.getAttribute('seeToo');
-                    var photo = markerElem.getAttribute('photo');
-                    var type = markerElem.getAttribute('type');
-                    var point = new google.maps.LatLng(
-                        parseFloat(markerElem.getAttribute('lat')),
-                        parseFloat(markerElem.getAttribute('lng')));
+                    };
+                    markers.push(dataToPush);
+                {% endfor %}
+            {% endif %}
+            markers.forEach(function (mark) {
+                indexLoop++;
+                var id = mark['id'];
+                var user = mark['user'];
+                var date = mark['date'];
+                var referenceName = mark['referenceName'];
+                var vernacularName = mark['vernacularName'];
+                var slug = mark['slug'];
+                var birdNumber = mark['birdNumber'];
+                var eggsNumber = mark['eggsNumber'];
+                var seeToo = mark['seeToo'];
+                var photo = mark['photo'];
+                var type = mark['type'];
+                var point = mark['position'];
 
-                    if (seeToo !== '') {
-                        seeToo = '+'+seeToo;
-                    }
+                if (seeToo !== '') {
+                    seeToo = '+'+seeToo;
+                }
 
-                    if (eggsNumber === '' || eggsNumber === 0) {
-                        nest = 'Non';
-                        eggsNumber = 'Aucun';
-                    } else {
-                        nest = 'Oui';
-                    }
+                if (eggsNumber === '' || eggsNumber === 0) {
+                    nest = 'Non';
+                    eggsNumber = 'Aucun';
+                } else {
+                    nest = 'Oui';
+                }
 
-                    var image;
+                var image;
 
-                    if (photo === '') {
-                        image = '<img src="{{ asset('img/default/bird_default.png') }}" alt="'+ referenceName +'" ' +
-                            'style="margin-left: 70px; height: 150px; padding: 25px; border-radius: 10px;' +
-                            '-webkit-box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);\n' +
-                            '-moz-box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);\n' +
-                            'box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);">';
-                    } else {
-                        image = '<img src="../'+ photo +'" alt="'+ referenceName +'" ' +
+                if (photo === '') {
+                    image = '<img src="{{ asset('img/default/bird_default.png') }}" alt="'+ referenceName +'" ' +
                         'style="margin-left: 70px; height: 150px; padding: 25px; border-radius: 10px;' +
                         '-webkit-box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);\n' +
                         '-moz-box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);\n' +
                         'box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);">';
-                    }
+                } else {
+                    image = '<img src="../'+ photo +'" alt="'+ referenceName +'" ' +
+                        'style="margin-left: 70px; height: 150px; padding: 25px; border-radius: 10px;' +
+                        '-webkit-box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);\n' +
+                        '-moz-box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);\n' +
+                        'box-shadow: inset 8px 9px 29px -1px rgba(0,0,0,0.75);">';
+                }
 
-                    var urlSlug = "{{ path('ficheEspece', {'slug': 'slug_species' }) }}";
-                    urlSlug = urlSlug.replace('slug_species', slug);
+                var urlSlug = "{{ path('ficheEspece', {'slug': 'slug_species' }) }}";
+                urlSlug = urlSlug.replace('slug_species', slug);
 
-                    var urlId = "{{ path('ajoutPlusUn', {'id': 'observation_id' }) }}";
-                    urlId = urlId.replace('observation_id', id);
+                var urlId = "{{ path('ajoutPlusUn', {'id': 'observation_id' }) }}";
+                urlId = urlId.replace('observation_id', id);
 
-                    var baliseSeeToo;
+                var baliseSeeToo;
 
-                    var arraySeeToo = '{{ seeToo|e('js') }}';
-                    arraySeeToo = JSON.parse(arraySeeToo);
+                var arraySeeToo = '{{ seeToo|e('js') }}';
+                arraySeeToo = JSON.parse(arraySeeToo);
 
+                if (arraySeeToo.indexOf(id) !== -1) {
+                    baliseSeeToo = ''
+                } else {
+                    baliseSeeToo = '<p style="color: black; text-align: right; margin-bottom: 0"><a class="addSeeToo" href="'+ urlId +'">Confirmer l\'observation <i class="fa fa-thumbs-up" aria-hidden="true"></i></a></p>'
+                }
 
-                    if (arraySeeToo.indexOf(id) !== -1) {
-                        baliseSeeToo = ''
+                if(user !== null) {
+                    // Transmission des resultats en dehors de la map
+                    i++;
+
+                    // Compteur de resultat
+                    var counter = document.getElementById('resultsCounter');
+
+                    if(i > 1) {
+                        counter.innerHTML =
+                            '<p class="presSideBars">Détails de la recherche : '+ i +' résultats</p>'+
+                            '<p id="closeResult" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></i></p>';
+                        $('#closeResult').click(function() {
+                            $(".result-sidebar").trigger("sidebar:close");
+                        });
                     } else {
-                        baliseSeeToo = '<p style="color: black; text-align: right; margin-bottom: 0"><a class="addSeeToo" href="'+ urlId +'">Confirmer l\'observation <i class="fa fa-thumbs-up" aria-hidden="true"></i></a></p>'
+                        counter.innerHTML =
+                            '<p class="presSideBars">Détails de la recherche : '+ i +' résultat</p>'+
+                            '<p id="closeResult" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></i></p>';
+                        $('#closeResult').click(function() {
+                            $(".result-sidebar").trigger("sidebar:close");
+                        });
                     }
 
-                    if(user !== null) {
-                        // Transmission des resultats en dehors de la map
-                        i++;
+                    // Création de la liste des resultat
+                    var table = document.getElementById('resultsNoMaps');
+                    table.innerHTML +=
+                        '<tr onclick="myClick('+indexLoop+')" >\n' +
+                        '<td data-title="Espèce observée">' +
+                        '<img class="iconResults" src="{{ asset('img/research_observations/icon-maps-results.png')}}" alt="Icone de resultat"><a href="'+ urlSlug +'"> '+ referenceName +'</a>' +
+                        '</td>\n' +
+                        '<td data-title="Date d\'observation">'+ date +'</td>\n' +
+                        '<td data-title="Aussi observée">'+seeToo+'</td>\n' +
+                        '</tr>';
+                }
 
-                        // Compteur de resultat
-                        var counter = document.getElementById('resultsCounter');
+                var infowincontent =
+                    image +
+                    '<div style="padding: 10px;">\n' +
+                    '<a href="'+ urlSlug +'"><h5 style="margin-top: 0; text-align: center;">'+ referenceName +'</h5></a>' +
+                    '<p style="color: black">Nom Commun : '+ vernacularName +'</p>' +
+                    '<p style="color: black">Nombre : '+ birdNumber +'</p>' +
+                    '<p style="color: black">Nid(s) : '+ nest +'</p>' +
+                    '<p style="color: black">Oeuf(s) : '+ eggsNumber +'</p>' +
+                    '<p style="color: black">Observé par : '+ user +' le '+ date +'</p>' +
+                    baliseSeeToo +
+                    '</div>';
 
-                        if(i > 1) {
-                            counter.innerHTML =
-                                '<p class="presSideBars">Détails de la recherche : '+ i +' résultats</p>'+
-                                '<p id="closeResult" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></i></p>';
-                            $('#closeResult').click(function() {
-                                $(".result-sidebar").trigger("sidebar:close");
-                            });
-                        } else {
-                            counter.innerHTML =
-                                '<p class="presSideBars">Détails de la recherche : '+ i +' résultat</p>'+
-                                '<p id="closeResult" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></i></p>';
-                            $('#closeResult').click(function() {
-                                $(".result-sidebar").trigger("sidebar:close");
-                            });
-                        }
+                var icon = icons[type].icon || {};
+                var marker;
 
-                        // Création de la liste des resultat
-                        var table = document.getElementById('resultsNoMaps');
-                        table.innerHTML +=
-                            '<tr onclick="myClick('+indexLoop+')" >\n' +
-                            '<td data-title="Espèce observée">' +
-                            '<img class="iconResults" src="{{ asset('img/research_observations/icon-maps-results.png')}}" alt="Icone de resultat"><a href="'+ urlSlug +'"> '+ referenceName +'</a>' +
-                            '</td>\n' +
-                            '<td data-title="Date d\'observation">'+ date +'</td>\n' +
-                            '<td data-title="Aussi observée">'+seeToo+'</td>\n' +
-                            '</tr>';
-                    }
+                {% if not is_granted('ROLE_PROFESSIONAL') %}
+                marker = new google.maps.Circle({
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.35,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.35,
+                    map: map,
+                    center: point,
+                    radius: 10000
+                });
 
-                    var infowincontent =
-                        image +
-                        '<div style="padding: 10px;">\n' +
-                        '<a href="'+ urlSlug +'"><h5 style="margin-top: 0; text-align: center;">'+ referenceName +'</h5></a>' +
-                        '<p style="color: black">Nom Commun : '+ vernacularName +'</p>' +
-                        '<p style="color: black">Nombre : '+ birdNumber +'</p>' +
-                        '<p style="color: black">Nid(s) : '+ nest +'</p>' +
-                        '<p style="color: black">Oeuf(s) : '+ eggsNumber +'</p>' +
-                        '<p style="color: black">Observé par : '+ user +' le '+ date +'</p>' +
-                        baliseSeeToo +
-                        '</div>';
+                {% else %}
+                marker = new google.maps.Marker({
+                    map: map,
+                    position: point,
+                    icon: icon,
+                    label: icon.label
+                });
 
-                    var icon = icons[type].icon || {};
-                    var marker;
-
-                    {% if not is_granted('ROLE_PROFESSIONAL') %}
-                        marker = new google.maps.Circle({
-                            strokeColor: '#FF0000',
-                            strokeOpacity: 0.35,
-                            strokeWeight: 2,
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.35,
-                            map: map,
-                            center: point,
-                            radius: 10000
-                        });
-
-                    {% else %}
-                        marker = new google.maps.Marker({
-                            map: map,
-                            position: point,
-                            icon: icon,
-                            label: icon.label
-                        });
-
-                        markerArray.push(marker);
+                markerArray.push(marker);
 
                         marker.addListener('click', function() {
                             map.setCenter(marker.getPosition());
@@ -352,59 +312,42 @@
                             }
                         });
 
-                    {% endif %}
+                {% endif %}
 
 
 
-                    // fonction permettant de traiter la suppression d'une question/réponse
-                    function addSeeToo() {
-                        $('.addSeeToo').on('click', function(e) {
-                            e.preventDefault();
-                            var $a = $(this);
-                            var url = $a.attr('href');
-                            $.ajax({
-                                type:'GET',
-                                url: url,
-                                success: function (data) {
-                                    if (arraySeeToo !== null) {
-                                        $a.replaceWith('Votre confirmation a été ajoutée.');
-                                        arraySeeToo = JSON.parse(data);
-                                        if (arraySeeToo.indexOf(id) !== -1) {
-                                            $a.replaceWith('')
-                                        }
+                // fonction permettant de traiter la suppression d'une question/réponse
+                function addSeeToo() {
+                    $('.addSeeToo').on('click', function(e) {
+                        e.preventDefault();
+                        var $a = $(this);
+                        var url = $a.attr('href');
+                        $.ajax({
+                            type:'GET',
+                            url: url,
+                            success: function (data) {
+                                if (arraySeeToo !== null) {
+                                    $a.replaceWith('Votre confirmation a été ajoutée.');
+                                    arraySeeToo = JSON.parse(data);
+                                    if (arraySeeToo.indexOf(id) !== -1) {
+                                        $a.replaceWith('')
                                     }
-                                },
-                                error: function (jqxhr) {
                                 }
-                            })
-                        });
-                    }
-
-                });
-
-            });
-        }
-
-
-        function downloadUrl(url, callback) {
-            var request = window.ActiveXObject ?
-                new ActiveXObject('Microsoft.XMLHTTP') :
-                new XMLHttpRequest;
-
-            request.onreadystatechange = function() {
-                if (request.readyState === 4) {
-                    request.onreadystatechange = doNothing;
-                    callback(request, request.status);
+                            },
+                            error: function (jqxhr) {
+                            }
+                        })
+                    });
                 }
-            };
+            })
 
-            request.open('GET', url, true);
-            request.send(null);
         }
 
-        function doNothing() {}
+
+               function doNothing() {}
 
         function myClick(id) {
+            console.log(id);
             google.maps.event.trigger(markerArray[id -1], 'click');
             map.setCenter(marker.markerArray[id -1]);
         }
