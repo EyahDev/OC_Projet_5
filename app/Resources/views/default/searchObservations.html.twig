@@ -35,62 +35,7 @@
                     <p class="presSideBars">Recherche d'une observation</p>
                     <p id="closeResearch" class="closeSideBar ml-auto close"><img src="{{ asset('img/dashboard/btn-close.png') }}" alt="close"></p>
                 </div>
-                <div class="formulaire">
-                    {{ form_start(searchObservationForm) }}
-
-                    {% if not searchObservationForm.vars.valid %}
-                        <div class="alert alert-danger formError">
-                            {{ form_errors(searchObservationForm) }}
-                            {{ form_errors(searchObservationForm.vernacular) }}
-                            {{ form_errors(searchObservationForm.reference) }}
-                            {{ form_errors(searchObservationForm.type) }}
-                            {{ form_errors(searchObservationForm.family) }}
-                            {{ form_errors(searchObservationForm.begin) }}
-                            {{ form_errors(searchObservationForm.end) }}
-                        </div>
-                    {% endif %}
-
-                    <span class="custom-dropdown">
-                        {{ form_label(searchObservationForm.vernacular) }}
-                        {{ form_widget(searchObservationForm.vernacular) }}
-                    </span>
-
-                    <a href="" class="btn btn-default" data-toggle="collapse" data-target='#advancedResearch'>recherche avancée</a>
-
-                    <br>
-                    <div id="advancedResearch" class="collapse">
-
-                        <span class="custom-dropdown">
-                        {{ form_label(searchObservationForm.reference) }}
-                        {{ form_widget(searchObservationForm.reference) }}
-                        </span>
-
-                        <span class="custom-dropdown">
-                        {{ form_label(searchObservationForm.type) }}
-                        {{ form_widget(searchObservationForm.type) }}
-                        </span>
-
-                        <span class="custom-dropdown">
-                        {{ form_label(searchObservationForm.family) }}
-                        {{ form_widget(searchObservationForm.family) }}
-                        </span>
-
-                        <span>
-                        {{ form_label(searchObservationForm.begin) }}
-                        {{ form_widget(searchObservationForm.begin, {'attr': {'placeholder': 'ex : 18/01/2014 '}}) }}
-                        </span>
-
-                        <span>
-                        {{ form_label(searchObservationForm.end) }}
-                        {{ form_widget(searchObservationForm.end, {'attr': {'placeholder': 'ex : 02/07/2016 '}}) }}
-                        </span>
-                    </div>
-
-                    <div class="d-flex justify-content-center" style="margin-top: 10px">
-                        {{ form_widget(searchObservationForm.Rechercher) }}
-                        {{ form_end(searchObservationForm) }}
-                    </div>
-                </div>
+                {% include ':default/searchObservations:searchObservationsForm.html.twig' %}
             </div>
         </div>
     </div>
